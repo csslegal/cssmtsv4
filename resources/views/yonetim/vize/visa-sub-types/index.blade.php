@@ -5,20 +5,21 @@
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Vize Tipleri</li>
+            <li class="breadcrumb-item active" aria-current="page">Alt Vize Tipleri</li>
         </ol>
     </nav>
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">
             Vize Tipleri
-            <a class="float-end text-white" href="/yonetim/vize/vize-tipi/create">Ekle</a>
+            <a class="float-end text-white" href="/yonetim/vize/alt-vize-tipi/create">Ekle</a>
         </div>
         <div class="card-body scroll">
             <table id="dataTable" class="table table-striped table-bordered display table-light " style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Adı</th>
+                        <th>Vize Tipi</th>
+                        <th>Alt Vize Tipi</th>
                         <th>E. Tarih</th>
                         <th>G. Tarih</th>
                         <th>İşlem</th>
@@ -28,7 +29,8 @@
                     @foreach ($kayitlar as $kayit)
                         <tr>
                             <td>{{ $kayit->id }}</td>
-                            <td>{{ $kayit->name }}</td>
+                            <td>{{ $kayit->vt_name }}</td>
+                            <td>{{ $kayit->vst_name }}</td>
                             <td>{{ $kayit->created_at }}</td>
                             <td>{{ $kayit->updated_at }}</td>
                             <td>
@@ -37,12 +39,12 @@
                                                     data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
                                                     <i class="bi bi-image"></i>
                                                 </button>-->
-                                    <a href="/yonetim/vize/vize-tipi/{{ $kayit->id }}/edit">
+                                    <a href="/yonetim/vize/alt-vize-tipi/{{ $kayit->id }}/edit">
                                         <button data-bs-toggle="tooltip" data-bs-placement="top" title="Düzenle">
                                             <i class="bi bi-pencil-square "></i>
                                         </button>
                                     </a>
-                                    <form action="/yonetim/vize/vize-tipi/{{ $kayit->id }}" method="post">
+                                    <form action="/yonetim/vize/alt-vize-tipi/{{ $kayit->id }}" method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right"
@@ -81,7 +83,7 @@
             $("#icerikYükle").html('Veri alınıyor...');
             $.ajax({
                 type: 'POST',
-                url: "/yonetim/ajax/vize-tipi",
+                url: "/yonetim/ajax/alt-vize-tipi",
                 data: {
                     'id': id,
                     "_token": "{{ csrf_token() }}",
