@@ -19,6 +19,7 @@ use App\Http\Controllers\Visa\VizeController;
 use App\Http\Controllers\Yonetim\YonetimLanguageController;
 use App\Http\Controllers\Yonetim\YonetimVisaSubTypesController;
 use App\Http\Controllers\Yonetim\YonetimVisaTypesController;
+use App\Http\Controllers\Yonetim\YonetimVisaEmailsInformationController;
 use Illuminate\Support\Facades\Route;
 
 /**Genel yönlendirmeler*/
@@ -105,6 +106,8 @@ Route::middleware(['SessionCheck'])->group(function () {
             /*** Yonetim ajax işlemleri*/
             Route::group(['prefix' => 'ajax'], function () {
                 Route::post('duyuru', [YonetimAjaxController::class, 'post_duyuru_cek']);
+                Route::post('bilgi-emaili', [YonetimAjaxController::class, 'post_bilgi_emaili_cek']);
+                Route::post('evrak-emaili', [YonetimAjaxController::class, 'post_evrak_emaili_cek']);
             });
 
             /**Yonetim vize işlemleri*/
@@ -120,9 +123,8 @@ Route::middleware(['SessionCheck'])->group(function () {
 
                 Route::resource('vize-tipi', YonetimVisaTypesController::class);
                 Route::resource('alt-vize-tipi', YonetimVisaSubTypesController::class);
-                Route::resource('bilgilendirme-emaili', YonetimVisaSubTypesController::class);
-                Route::resource('evrak-lisesi-emaili', YonetimVisaSubTypesController::class);
-
+                Route::resource('bilgi-emaili', YonetimVisaEmailsInformationController::class);
+                Route::resource('evrak-listesi-emaili', YonetimVisaSubTypesController::class);
             });
         }
     );

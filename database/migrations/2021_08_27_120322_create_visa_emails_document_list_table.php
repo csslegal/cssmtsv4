@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVisaEmailDocumentListTable extends Migration
+class CreateVisaEmailsDocumentListTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVisaEmailDocumentListTable extends Migration
      */
     public function up()
     {
-        Schema::create('visa_email_document_list', function (Blueprint $table) {
+        Schema::create('visa_emails_document_list', function (Blueprint $table) {
 
             $table->bigIncrements('id');
 

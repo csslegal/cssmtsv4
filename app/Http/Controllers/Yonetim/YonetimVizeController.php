@@ -12,8 +12,8 @@ class YonetimVizeController extends Controller
     {
         $countVisaTypes=DB::table('visa_types')->get()->count();
         $countVisaSubTypes=DB::table('visa_sub_types')->get()->count();
-        $countVisaEmailInformationList=DB::table('visa_email_information_list')->get()->count();
-        $countVisaEmailDocumentList=DB::table('visa_email_document_list')->get()->count();
+        $countVisaEmailInformationList=DB::table('visa_emails_information')->get()->count();
+        $countVisaEmailDocumentList=DB::table('visa_emails_document_list')->get()->count();
 
         return view('yonetim.vize.index')->with(
             [

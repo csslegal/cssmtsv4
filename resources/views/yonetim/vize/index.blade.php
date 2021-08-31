@@ -38,10 +38,10 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card border-primary mb-2">
                                 <div class="card-body">
-                                    <h5 class="card-title">Bilgilendirme Emailleri</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countVisaEmailInformationList }} bilgilendirme sistemde
+                                    <h5 class="card-title">Bilgi E-mailleri</h5>
+                                    <p class="card-text fw-bold"> Toplam {{ $countVisaEmailInformationList }} bilgi e-maili sistemde
                                         kayıtlı. </p>
-                                    <a href="/yonetim/vize/bilgilendirme-emaili" class="btn btn-primary float-end">Git</a>
+                                    <a href="/yonetim/vize/bilgi-emaili" class="btn btn-primary float-end">Git</a>
                                 </div>
                             </div>
                         </div>

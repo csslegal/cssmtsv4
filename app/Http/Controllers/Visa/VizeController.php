@@ -60,17 +60,17 @@ class VizeController extends Controller
                 'dil' => 'required|numeric',
             ]);
 
-            $visaSubInformationEmailContent = DB::table('visa_email_information_list')
+            $visaSubInformationEmailContent = DB::table('visa_emails_information')
                 ->select(
                     "visa_types.name AS vt_name",
                     "visa_sub_types.name AS vta_name",
-                    "visa_email_information_list.content AS content"
+                    "visa_emails_information.content AS content"
                 )
                 ->leftJoin(
                     "visa_sub_types",
                     "visa_sub_types.id",
                     "=",
-                    "visa_email_information_list.visa_sub_type_id"
+                    "visa_emails_information.visa_sub_type_id"
                 )
                 ->leftJoin(
                     "visa_types",
@@ -80,7 +80,7 @@ class VizeController extends Controller
                 )
                 ->where([
                     "visa_sub_types.id" => $request->input("alt_vize"),
-                    "visa_email_information_list.language_id" => $request->input("dil")
+                    "visa_emails_information.language_id" => $request->input("dil")
                 ])->first();
 
             if ($visaSubInformationEmailContent != null) {

@@ -32,4 +32,26 @@ class YonetimAjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
+    public function post_bilgi_emaili_cek(Request $request)
+    {
+        if (is_numeric($request->input('id'))) {
+            return DB::table('visa_emails_information')
+                ->select(['content'])
+                ->where('id', '=', $request->input('id'))
+                ->first();
+        } else {
+            echo 'Hatalı istek yapıldı';
+        }
+    }
+    public function post_evrak_emaili_cek(Request $request)
+    {
+        if (is_numeric($request->input('id'))) {
+            return DB::table('visa_emails_document_list')
+                ->select(['content'])
+                ->where('id', '=', $request->input('id'))
+                ->first();
+        } else {
+            echo 'Hatalı istek yapıldı';
+        }
+    }
 }
