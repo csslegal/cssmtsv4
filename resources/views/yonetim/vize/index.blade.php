@@ -51,7 +51,7 @@
                                     <h5 class="card-title">Evrak Listesi Emailleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaEmailDocumentList }} evrak listesi sistemde
                                         kayıtlı. </p>
-                                    <a href="/yonetim/vize/evrak-lisesi-emaili" class="btn btn-primary float-end">Git</a>
+                                    <a href="/yonetim/vize/evrak-emaili" class="btn btn-primary float-end">Git</a>
                                 </div>
                             </div>
                         </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\Musteri\CustomersAjaxController;
 use App\Http\Controllers\Musteri\CustomersController;
 use App\Http\Controllers\Visa\VizeController;
 use App\Http\Controllers\Yonetim\YonetimLanguageController;
+use App\Http\Controllers\Yonetim\YonetimVisaEmailsDocumentListController;
 use App\Http\Controllers\Yonetim\YonetimVisaSubTypesController;
 use App\Http\Controllers\Yonetim\YonetimVisaTypesController;
 use App\Http\Controllers\Yonetim\YonetimVisaEmailsInformationController;
@@ -124,7 +125,7 @@ Route::middleware(['SessionCheck'])->group(function () {
                 Route::resource('vize-tipi', YonetimVisaTypesController::class);
                 Route::resource('alt-vize-tipi', YonetimVisaSubTypesController::class);
                 Route::resource('bilgi-emaili', YonetimVisaEmailsInformationController::class);
-                Route::resource('evrak-listesi-emaili', YonetimVisaSubTypesController::class);
+                Route::resource('evrak-emaili', YonetimVisaEmailsDocumentListController::class);
             });
         }
     );
