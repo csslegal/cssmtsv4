@@ -9,13 +9,15 @@ window.history.pushState(null, "", window.location.href);
 window.onpopstate = function () { window.history.pushState(null, "", window.location.href); };
 
 //datatable olusturma
-$('#dataTableVize,#dataTableDilOkulu,#dataTableHarici,#dataTable')
-    .DataTable({
-        "order": [[0, "desc"]],
-        "columnDefs": [{ "type": "num", "targets": 0 }],
-        language: { url: '/dataTables.tr.json' },
+$('#dataTableVize,#dataTableDilOkulu,#dataTableHarici').DataTable({
+    "order": [[0, "desc"]],
+    "columnDefs": [{ "type": "num", "targets": 0 }],
+    language: { url: '/dataTables.tr.json' },
 
-    });
+});
+$('#dataTable').DataTable({
+    language: { url: '/dataTables.tr.json' },
+});
 
 
 $('a.confirm').confirm({
