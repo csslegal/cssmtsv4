@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Musteri;
+namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CustomersAjaxController extends Controller
+class AjaxController extends Controller
 {
     public function post_name_kontrol(Request $request)
     {

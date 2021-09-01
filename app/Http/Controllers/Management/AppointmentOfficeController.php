@@ -1,33 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Yonetim;
+namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
-use App\MyClass\InputKontrol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class DuyuruController extends Controller
+class AppointmentOfficeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $kayitlar = DB::table('notice AS d')
-            ->select(
-                'd.id AS d_id',
-                'u.name AS u_name',
-                'd.aktif AS d_aktif',
-                'd.created_at AS d_tarih',
-                'd.updated_at AS d_u_tarih'
-            )
-            ->leftJoin('users AS u', 'u.id', '=', 'd.user_id')
+        $kayitlar = DB::table('appointment_offices')
             ->get();
 
-        return view('yonetim.duyuru.index')
+        return view('yonetim.appointment-office.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -40,7 +31,7 @@ class DuyuruController extends Controller
      */
     public function create()
     {
-        return view('yonetim.duyuru.create');
+        return view('yonetim.appointment-office.create');
     }
 
     /**
@@ -51,26 +42,31 @@ class DuyuruController extends Controller
      */
     public function store(Request $request)
     {
+        $name = $request->input('name');
+
         $request->validate([
-            'icerik' => 'required|max:1000|min:3'
+            'name' => 'required|max:100min:3',
         ]);
 
-        if (DB::table('notice')->insert(
+        if ($kayitId = DB::table('appointment_offices')->insertGetId(
             [
-                'user_id' => $request->session()->get('userId'),
-                'icerik' => $request->input('icerik'),
-                'aktif' => 1,
+                'name' => $name,
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]
         )) {
+            DB::table('appointment_offices')
+                ->where('id', '=', $kayitId)
+                ->update([
+                    'orderby' => $kayitId
+                ]);
             $request->session()
                 ->flash('mesajSuccess', 'Başarıyla kaydedildi');
-            return redirect('yonetim/duyuru');
+            return redirect('yonetim/appointment-office');
         } else {
             $request->session()
                 ->flash('mesajDanger', 'Kayıt sıralasında sorun oluştu');
-            return redirect('yonetim/duyuru');
+            return redirect('yonetim/appointment-office');
         }
     }
 
@@ -93,11 +89,10 @@ class DuyuruController extends Controller
      */
     public function edit($id)
     {
-        $kayit = DB::table('notice')
-            ->select('icerik', 'id', 'aktif')
+        $kayit = DB::table('appointment_offices')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.duyuru.edit')
+        return view('yonetim.appointment-office.edit')
             ->with(
                 [
                     'kayit' => $kayit
@@ -114,41 +109,33 @@ class DuyuruController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        if ($request->has('aktif')) {
-            $aktif = 1;
-        } else {
-            $aktif = 0;
-        }
-
         $request->validate([
-            'icerik' => 'required|max:1000|min:3'
+            'name' => 'required|max:100|min:3',
         ]);
 
         if (is_numeric($id)) {
             if (
-                DB::table('notice')
+                DB::table('appointment_offices')
                 ->where('id', '=', $id)
                 ->update(
                     [
-                        'aktif' => $aktif,
-                        'icerik' => $request->input('icerik'),
+                        'name' => $request->input('name'),
                         "updated_at" => date('Y-m-d H:i:s')
                     ]
                 )
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla güncellendi');
-                return redirect('yonetim/duyuru');
+                return redirect('yonetim/appointment-office');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
-                return redirect('yonetim/duyuru');
+                return redirect('yonetim/appointment-office');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('yonetim/duyuru');
+            return redirect('yonetim/appointment-office');
         }
     }
 
@@ -160,25 +147,24 @@ class DuyuruController extends Controller
      */
     public function destroy($id, Request $request)
     {
-
         if (is_numeric($id)) {
             if (
-                DB::table('notice')
+                DB::table('appointment_offices')
                 ->where('id', '=', $id)
                 ->delete()
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla silindi');
-                return redirect('yonetim/duyuru');
+                return redirect('yonetim/appointment-office');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
-                return redirect('yonetim/duyuru');
+                return redirect('yonetim/appointment-office');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('yonetim/duyuru');
+            return redirect('yonetim/appointment-office');
         }
     }
 }

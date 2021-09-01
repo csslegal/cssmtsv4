@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Genel;
+namespace App\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
 use App\MyClass\InputKontrol as MyClassInputKontrol;
@@ -8,7 +8,7 @@ use App\MyClass\MesaiKontrol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class GirisController extends Controller
+class LoginController extends Controller
 {
     public function store(Request $request)
     {

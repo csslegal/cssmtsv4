@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Yonetim;
+namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class YonetimAjaxController extends Controller
+class AjaxController extends Controller
 {
     public function post_duyuru_cek(Request $request)
     {

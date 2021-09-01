@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Yonetim;
+namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class YonetimVisaSubTypesController extends Controller
+class ApplicationOfficeController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -16,23 +15,10 @@ class YonetimVisaSubTypesController extends Controller
      */
     public function index()
     {
-        $kayitlar = DB::table('visa_sub_types')
-            ->select(
-                'visa_sub_types.id',
-                'visa_sub_types.created_at',
-                'visa_sub_types.updated_at',
-                'visa_sub_types.name AS vst_name',
-                'visa_types.name AS vt_name',
-            )
-            ->leftJoin(
-                'visa_types',
-                'visa_types.id',
-                '=',
-                'visa_sub_types.visa_type_id'
-            )
+        $kayitlar = DB::table('application_offices')
             ->get();
 
-        return view('yonetim.vize.visa-sub-types.index')
+        return view('yonetim.application-office.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -45,11 +31,7 @@ class YonetimVisaSubTypesController extends Controller
      */
     public function create()
     {
-        $visaTypes = DB::table('visa_types')->get();
-
-        return view('yonetim.vize.visa-sub-types.create')->with([
-            'visaTypes' => $visaTypes,
-        ]);
+        return view('yonetim.application-office.create');
     }
 
     /**
@@ -60,33 +42,46 @@ class YonetimVisaSubTypesController extends Controller
      */
     public function store(Request $request)
     {
+        $name = $request->input('name');
+        $ip = $request->input('ip');
+
         $request->validate([
-            'vize-tipi' => 'required|numeric',
-            'name' => 'required|max:100min:3'
+            'name' => 'required|max:100|min:3',
+            'ip' => 'required|max:50|min:9'
         ]);
 
-        if ($kayitId = DB::table('visa_sub_types')->insertGetId(
+        if ($kayitId = DB::table('application_offices')->insertGetId(
             [
-                'name' => $request->input('name'),
-                'visa_type_id' => $request->input('vize-tipi'),
-
+                'ip' => $ip,
+                'name' => $name,
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]
         )) {
-            DB::table('visa_sub_types')
+            DB::table('application_offices')
                 ->where('id', '=', $kayitId)
                 ->update([
                     'orderby' => $kayitId
                 ]);
             $request->session()
                 ->flash('mesajSuccess', 'Başarıyla kaydedildi');
-            return redirect('yonetim/vize/alt-vize-tipi');
+            return redirect('yonetim/application-office');
         } else {
             $request->session()
                 ->flash('mesajDanger', 'Kayıt sıralasında sorun oluştu');
-            return redirect('yonetim/vize/alt-vize-tipi');
+            return redirect('yonetim/application-office');
         }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
     }
 
     /**
@@ -97,15 +92,13 @@ class YonetimVisaSubTypesController extends Controller
      */
     public function edit($id)
     {
-        $visaTypes = DB::table('visa_types')->get();
-        $kayit = DB::table('visa_sub_types')
+        $kayit = DB::table('application_offices')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.vize.visa-sub-types.edit')
+        return view('yonetim.application-office.edit')
             ->with(
                 [
-                    'kayit' => $kayit,
-                    'visaTypes' => $visaTypes,
+                    'kayit' => $kayit
                 ]
             );
     }
@@ -120,34 +113,34 @@ class YonetimVisaSubTypesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'vize-tipi' => 'required|numeric',
-            'name' => 'required|max:100min:3'
+            'name' => 'required|max:100|min:3',
+            'ip' => 'required|max:50|min:9'
         ]);
 
         if (is_numeric($id)) {
             if (
-                DB::table('visa_sub_types')
+                DB::table('application_offices')
                 ->where('id', '=', $id)
                 ->update(
                     [
+                        'ip' => $request->input('ip'),
                         'name' => $request->input('name'),
-                        'visa_type_id' => $request->input('vize-tipi'),
                         "updated_at" => date('Y-m-d H:i:s')
                     ]
                 )
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla güncellendi');
-                return redirect('yonetim/vize/alt-vize-tipi');
+                return redirect('yonetim/application-office');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
-                return redirect('yonetim/vize/alt-vize-tipi');
+                return redirect('yonetim/application-office');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('yonetim/vize/alt-vize-tipi');
+            return redirect('yonetim/application-office');
         }
     }
 
@@ -161,22 +154,22 @@ class YonetimVisaSubTypesController extends Controller
     {
         if (is_numeric($id)) {
             if (
-                DB::table('visa_sub_types')
+                DB::table('application_offices')
                 ->where('id', '=', $id)
                 ->delete()
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla silindi');
-                return redirect('yonetim/vize/alt-vize-tipi');
+                return redirect('yonetim/application-office');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
-                return redirect('yonetim/vize/alt-vize-tipi');
+                return redirect('yonetim/application-office');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('yonetim/vize/alt-vize-tipi');
+            return redirect('yonetim/application-office');
         }
     }
 }

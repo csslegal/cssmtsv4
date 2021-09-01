@@ -1,24 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Yonetim;
+namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
+use App\MyClass\InputKontrol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class YonetimApplicationOfficeController extends Controller
+class NoticeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $kayitlar = DB::table('application_offices')
+        $kayitlar = DB::table('notice AS d')
+            ->select(
+                'd.id AS d_id',
+                'u.name AS u_name',
+                'd.aktif AS d_aktif',
+                'd.created_at AS d_tarih',
+                'd.updated_at AS d_u_tarih'
+            )
+            ->leftJoin('users AS u', 'u.id', '=', 'd.user_id')
             ->get();
 
-        return view('yonetim.application-office.index')
+        return view('yonetim.duyuru.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -31,7 +40,7 @@ class YonetimApplicationOfficeController extends Controller
      */
     public function create()
     {
-        return view('yonetim.application-office.create');
+        return view('yonetim.duyuru.create');
     }
 
     /**
@@ -42,34 +51,26 @@ class YonetimApplicationOfficeController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->input('name');
-        $ip = $request->input('ip');
-
         $request->validate([
-            'name' => 'required|max:100|min:3',
-            'ip' => 'required|max:50|min:9'
+            'icerik' => 'required|max:1000|min:3'
         ]);
 
-        if ($kayitId = DB::table('application_offices')->insertGetId(
+        if (DB::table('notice')->insert(
             [
-                'ip' => $ip,
-                'name' => $name,
+                'user_id' => $request->session()->get('userId'),
+                'icerik' => $request->input('icerik'),
+                'aktif' => 1,
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]
         )) {
-            DB::table('application_offices')
-                ->where('id', '=', $kayitId)
-                ->update([
-                    'orderby' => $kayitId
-                ]);
             $request->session()
                 ->flash('mesajSuccess', 'Başarıyla kaydedildi');
-            return redirect('yonetim/application-office');
+            return redirect('yonetim/duyuru');
         } else {
             $request->session()
                 ->flash('mesajDanger', 'Kayıt sıralasında sorun oluştu');
-            return redirect('yonetim/application-office');
+            return redirect('yonetim/duyuru');
         }
     }
 
@@ -92,10 +93,11 @@ class YonetimApplicationOfficeController extends Controller
      */
     public function edit($id)
     {
-        $kayit = DB::table('application_offices')
+        $kayit = DB::table('notice')
+            ->select('icerik', 'id', 'aktif')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.application-office.edit')
+        return view('yonetim.duyuru.edit')
             ->with(
                 [
                     'kayit' => $kayit
@@ -112,35 +114,41 @@ class YonetimApplicationOfficeController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if ($request->has('aktif')) {
+            $aktif = 1;
+        } else {
+            $aktif = 0;
+        }
+
         $request->validate([
-            'name' => 'required|max:100|min:3',
-            'ip' => 'required|max:50|min:9'
+            'icerik' => 'required|max:1000|min:3'
         ]);
 
         if (is_numeric($id)) {
             if (
-                DB::table('application_offices')
+                DB::table('notice')
                 ->where('id', '=', $id)
                 ->update(
                     [
-                        'ip' => $request->input('ip'),
-                        'name' => $request->input('name'),
+                        'aktif' => $aktif,
+                        'icerik' => $request->input('icerik'),
                         "updated_at" => date('Y-m-d H:i:s')
                     ]
                 )
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla güncellendi');
-                return redirect('yonetim/application-office');
+                return redirect('yonetim/duyuru');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
-                return redirect('yonetim/application-office');
+                return redirect('yonetim/duyuru');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('yonetim/application-office');
+            return redirect('yonetim/duyuru');
         }
     }
 
@@ -152,24 +160,25 @@ class YonetimApplicationOfficeController extends Controller
      */
     public function destroy($id, Request $request)
     {
+
         if (is_numeric($id)) {
             if (
-                DB::table('application_offices')
+                DB::table('notice')
                 ->where('id', '=', $id)
                 ->delete()
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla silindi');
-                return redirect('yonetim/application-office');
+                return redirect('yonetim/duyuru');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
-                return redirect('yonetim/application-office');
+                return redirect('yonetim/duyuru');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('yonetim/application-office');
+            return redirect('yonetim/duyuru');
         }
     }
 }

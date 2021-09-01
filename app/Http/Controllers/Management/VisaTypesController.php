@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Yonetim;
+namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class YonetimUsersAccessController extends Controller
+class VisaTypesController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,10 +16,10 @@ class YonetimUsersAccessController extends Controller
      */
     public function index()
     {
-        $kayitlar = DB::table('access')
+        $kayitlar = DB::table('visa_types')
             ->get();
 
-        return view('yonetim.users-access.index')
+        return view('yonetim.vize.visa-types.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -31,7 +32,7 @@ class YonetimUsersAccessController extends Controller
      */
     public function create()
     {
-        return view('yonetim.users-access.create');
+        return view('yonetim.vize.visa-types.create');
     }
 
     /**
@@ -48,25 +49,25 @@ class YonetimUsersAccessController extends Controller
             'name' => 'required|max:100min:3'
         ]);
 
-        if ($kayitId = DB::table('access')->insertGetId(
+        if ($kayitId = DB::table('visa_types')->insertGetId(
             [
                 'name' => $name,
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]
         )) {
-            DB::table('access')
+            DB::table('visa_types')
                 ->where('id', '=', $kayitId)
                 ->update([
                     'orderby' => $kayitId
                 ]);
             $request->session()
                 ->flash('mesajSuccess', 'Başarıyla kaydedildi');
-            return redirect('yonetim/users-access');
+            return redirect('yonetim/vize/vize-tipi');
         } else {
             $request->session()
                 ->flash('mesajDanger', 'Kayıt sıralasında sorun oluştu');
-            return redirect('yonetim/users-access');
+            return redirect('yonetim/vize/vize-tipi');
         }
     }
 
@@ -89,10 +90,10 @@ class YonetimUsersAccessController extends Controller
      */
     public function edit($id)
     {
-        $kayit = DB::table('access')
+        $kayit = DB::table('visa_types')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.users-access.edit')
+        return view('yonetim.vize.visa-types.edit')
             ->with(
                 [
                     'kayit' => $kayit
@@ -115,7 +116,7 @@ class YonetimUsersAccessController extends Controller
 
         if (is_numeric($id)) {
             if (
-                DB::table('access')
+                DB::table('visa_types')
                 ->where('id', '=', $id)
                 ->update(
                     [
@@ -126,16 +127,16 @@ class YonetimUsersAccessController extends Controller
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla güncellendi');
-                return redirect('yonetim/users-access');
+                return redirect('yonetim/vize/vize-tipi');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
-                return redirect('yonetim/users-access');
+                return redirect('yonetim/vize/vize-tipi');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('yonetim/users-access');
+            return redirect('yonetim/vize/vize-tipi');
         }
     }
 
@@ -149,22 +150,22 @@ class YonetimUsersAccessController extends Controller
     {
         if (is_numeric($id)) {
             if (
-                DB::table('access')
+                DB::table('visa_types')
                 ->where('id', '=', $id)
                 ->delete()
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla silindi');
-                return redirect('yonetim/users-access');
+                return redirect('yonetim/vize/vize-tipi');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
-                return redirect('yonetim/users-access');
+                return redirect('yonetim/vize/vize-tipi');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('yonetim/users-access');
+            return redirect('yonetim/vize/vize-tipi');
         }
     }
 }

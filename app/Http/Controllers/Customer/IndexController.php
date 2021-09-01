@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Musteri;
+namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\MyClass\InputKontrol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CustomersController extends Controller
+class IndexController extends Controller
 {
     public function get_sorgula(Request $request)
     {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Yonetim;
+namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class YonetimVisaEmailsInformationController extends Controller
+class VisaEmailsInformationController extends Controller
 {
 
     /**

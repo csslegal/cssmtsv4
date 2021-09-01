@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Kullanici;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class KullaniciAjaxController extends Controller
+class AjaxController extends Controller
 {
     public function post_duyuru_icerik_cek(Request $request)
     {

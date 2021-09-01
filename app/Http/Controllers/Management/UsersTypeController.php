@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Yonetim;
+namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class YonetimLanguageController extends Controller
+class UsersTypeController extends Controller
 {
 
     /**
@@ -16,10 +16,10 @@ class YonetimLanguageController extends Controller
      */
     public function index()
     {
-        $kayitlar = DB::table('language')
+        $kayitlar = DB::table('users_type')
             ->get();
 
-        return view('yonetim.language.index')
+        return view('yonetim.users-type.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -32,7 +32,7 @@ class YonetimLanguageController extends Controller
      */
     public function create()
     {
-        return view('yonetim.language.create');
+        return view('yonetim.users-type.create');
     }
 
     /**
@@ -49,25 +49,25 @@ class YonetimLanguageController extends Controller
             'name' => 'required|max:100min:3'
         ]);
 
-        if ($kayitId = DB::table('language')->insertGetId(
+        if ($kayitId = DB::table('users_type')->insertGetId(
             [
                 'name' => $name,
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]
         )) {
-            DB::table('language')
+            DB::table('users_type')
                 ->where('id', '=', $kayitId)
                 ->update([
                     'orderby' => $kayitId
                 ]);
             $request->session()
                 ->flash('mesajSuccess', 'Başarıyla kaydedildi');
-            return redirect('yonetim/language');
+            return redirect('yonetim/users-type');
         } else {
             $request->session()
                 ->flash('mesajDanger', 'Kayıt sıralasında sorun oluştu');
-            return redirect('yonetim/language');
+            return redirect('yonetim/users-type');
         }
     }
 
@@ -90,10 +90,10 @@ class YonetimLanguageController extends Controller
      */
     public function edit($id)
     {
-        $kayit = DB::table('language')
+        $kayit = DB::table('users_type')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.language.edit')
+        return view('yonetim.users-type.edit')
             ->with(
                 [
                     'kayit' => $kayit
@@ -116,7 +116,7 @@ class YonetimLanguageController extends Controller
 
         if (is_numeric($id)) {
             if (
-                DB::table('language')
+                DB::table('users_type')
                 ->where('id', '=', $id)
                 ->update(
                     [
@@ -127,16 +127,16 @@ class YonetimLanguageController extends Controller
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla güncellendi');
-                return redirect('yonetim/language');
+                return redirect('yonetim/users-type');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
-                return redirect('yonetim/language');
+                return redirect('yonetim/users-type');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('yonetim/language');
+            return redirect('yonetim/users-type');
         }
     }
 
@@ -150,22 +150,22 @@ class YonetimLanguageController extends Controller
     {
         if (is_numeric($id)) {
             if (
-                DB::table('language')
+                DB::table('users_type')
                 ->where('id', '=', $id)
                 ->delete()
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla silindi');
-                return redirect('yonetim/language');
+                return redirect('yonetim/users-type');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
-                return redirect('yonetim/language');
+                return redirect('yonetim/users-type');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('yonetim/language');
+            return redirect('yonetim/users-type');
         }
     }
 }

@@ -5,55 +5,37 @@ namespace App\Http\Controllers\Visa;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
-class VizeController extends Controller
+class InformationEmailController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $baseCustomerDetails = DB::table('customers')
-            ->where('id', '=', $id)->first();
-
-        $visaTypes = DB::table('visa_types')->get();
-        $language = DB::table('language')->get();
-
-        return view('musteri.vize.index')
-            ->with(
-                [
-                    'baseCustomerDetails' => $baseCustomerDetails,
-                    'visaTypes' => $visaTypes,
-                    'language' => $language
-                ]
-            );
+        //
     }
 
-    public function get_dosya_ac($id)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        $baseCustomerDetails = DB::table('customers')
-            ->where('id', '=', $id)->first();
-
-        $visaTypes = DB::table('visa_types')->get();
-
-        $language = DB::table('language')->get();
-
-        return view('musteri.vize.file-open')
-            ->with(
-                [
-                    'baseCustomerDetails' => $baseCustomerDetails,
-                    'visaTypes' => $visaTypes,
-                    'language' => $language
-
-                ]
-            );
     }
 
-    public function post_bilgi_emaili_gonder($id, Request $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store($id, Request $request)
     {
+
         if (is_numeric($id)) {
             $request->validate([
                 'alt_vize' => 'required|numeric',
@@ -99,10 +81,10 @@ class VizeController extends Controller
                     }
                 );*/
 
-                DB::table('visa_email_logs')->insert(
+                DB::table('email_logs')->insert(
                     [
                         'customer_id' => $id,
-                        'access_id' => 1,//vize işlem emaili
+                        'access_id' => 1, //vize işlem emaili
                         'content' => $visaSubInformationEmailContent->content,
                         'subject' => 'CSSLEGAL | Vize İşlemleri Bilgi E-maili | ' . date("His"),
                         'user_id' => $request->session()->get('userId'),
@@ -122,5 +104,50 @@ class VizeController extends Controller
                 ->flash('mesajDanger', 'Hatalı müşteri bilgisi');
             return redirect('/musteri/' . $id . '/vize#email');
         }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Kullanici;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\MyClass\InputKontrol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class KullaniciController extends Controller
+class IndexController extends Controller
 {
     public function get_index(Request $request)
     {
