@@ -32,7 +32,7 @@ Route::redirect('yonlendirme', config('app.url'));
 Route::resource('giris', GeneralLoginController::class);
 
 /**Oturum yönlendirmeler*/
-Route::middleware(['SessionCheck'])->group(function () {
+Route::middleware(['sessionCheck'])->group(function () {
 
     Route::get('/index', [GeneralLoginController::class, "get_index"]);
     Route::get('/cikis', [GeneralLoginController::class, "get_cikis"]);
@@ -89,7 +89,7 @@ Route::middleware(['SessionCheck'])->group(function () {
     Route::group(
         [
             'prefix' => 'yonetim',
-            'middleware' => 'ManagementCheck'
+            'middleware' => 'managementCheck'
         ],
         function () {
 
