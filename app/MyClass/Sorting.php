@@ -6,7 +6,7 @@ namespace App\MyClass;
 
 use Illuminate\Support\Facades\DB;
 
-class YukariAsagiSiralama
+class Sorting
 {
     public $id, $table, $guncelOrderbyDegeri = 0, $bulunanOrderbyId, $bulunanOrderbyDegeri;
 

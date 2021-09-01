@@ -3,21 +3,21 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\General\LoginController as GeneralLoginController;
-use App\Http\Controllers\Management\IndexController AS ManagementIndexController;
-use App\Http\Controllers\Management\NoticeController AS ManagementNoticeController;
-use App\Http\Controllers\Management\ProfilController AS ManagementProfilController;
-use App\Http\Controllers\Management\LanguageController AS ManagementLanguageController;
-use App\Http\Controllers\Management\AjaxController AS ManagementAjaxController;
-use App\Http\Controllers\Management\ApplicationOfficeController AS ManagementApplicationOfficeController;
-use App\Http\Controllers\Management\AppointmentOfficeController AS ManagementAppointmentOfficeController;
-use App\Http\Controllers\Management\UsersAccessController AS ManagementUsersAccessController;
-use App\Http\Controllers\Management\UsersController AS ManagementUsersController;
-use App\Http\Controllers\Management\UsersTypeController AS ManagementUsersTypeController;
-use App\Http\Controllers\Management\VisaController AS ManagementVisaController;
-use App\Http\Controllers\Management\VisaEmailsDocumentListController AS ManagementVisaEmailsDocumentListController;
-use App\Http\Controllers\Management\VisaSubTypesController AS ManagementVisaSubTypesController;
-use App\Http\Controllers\Management\VisaTypesController AS ManagementVisaTypesController;
-use App\Http\Controllers\Management\VisaEmailsInformationController AS ManagementVisaEmailsInformationController;
+use App\Http\Controllers\Management\IndexController as ManagementIndexController;
+use App\Http\Controllers\Management\NoticeController as ManagementNoticeController;
+use App\Http\Controllers\Management\ProfilController as ManagementProfilController;
+use App\Http\Controllers\Management\LanguageController as ManagementLanguageController;
+use App\Http\Controllers\Management\AjaxController as ManagementAjaxController;
+use App\Http\Controllers\Management\ApplicationOfficeController as ManagementApplicationOfficeController;
+use App\Http\Controllers\Management\AppointmentOfficeController as ManagementAppointmentOfficeController;
+use App\Http\Controllers\Management\UsersAccessController as ManagementUsersAccessController;
+use App\Http\Controllers\Management\UsersController as ManagementUsersController;
+use App\Http\Controllers\Management\UsersTypeController as ManagementUsersTypeController;
+use App\Http\Controllers\Management\VisaController as ManagementVisaController;
+use App\Http\Controllers\Management\VisaEmailsDocumentListController as ManagementVisaEmailsDocumentListController;
+use App\Http\Controllers\Management\VisaSubTypesController as ManagementVisaSubTypesController;
+use App\Http\Controllers\Management\VisaTypesController as ManagementVisaTypesController;
+use App\Http\Controllers\Management\VisaEmailsInformationController as ManagementVisaEmailsInformationController;
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\AjaxController as UserAjaxController;
 use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
@@ -25,6 +25,7 @@ use App\Http\Controllers\Customer\IndexController as CustomerIndexController;
 use App\Http\Controllers\Visa\FileOpenController as VisaFileOpenController;
 use App\Http\Controllers\Visa\IndexController as VisaIndexController;
 use App\Http\Controllers\Visa\InformationEmailController as VisaInformationEmailController;
+use App\Http\Controllers\Management\VisaFileGradesController as ManagementVisaFileGradesController;
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
@@ -111,6 +112,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::post('duyuru', [ManagementAjaxController::class, 'post_duyuru_cek']);
                 Route::post('bilgi-emaili', [ManagementAjaxController::class, 'post_bilgi_emaili_cek']);
                 Route::post('evrak-emaili', [ManagementAjaxController::class, 'post_evrak_emaili_cek']);
+                Route::post('dosya-asama-sirala', [ManagementAjaxController::class,'post_file_grade_sorting']);
             });
 
             /**Yonetim vize işlemleri*/
@@ -128,6 +130,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('alt-vize-tipi', ManagementVisaSubTypesController::class);
                 Route::resource('bilgi-emaili', ManagementVisaEmailsInformationController::class);
                 Route::resource('evrak-emaili', ManagementVisaEmailsDocumentListController::class);
+                Route::resource('dosya-asama', ManagementVisaFileGradesController::class);
             });
         }
     );

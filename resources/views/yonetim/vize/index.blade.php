@@ -19,6 +19,15 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card border-primary mb-2">
                                 <div class="card-body">
+                                    <h5 class="card-title">Dosya Aşamaları</h5>
+                                    <p class="card-text fw-bold"> Toplam {{ $countFileGrades }} dosya aşaması sistemde kayıtlı. </p>
+                                    <a href="/yonetim/vize/dosya-asama" class="btn btn-primary float-end">Git</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 ">
+                            <div class="card border-primary mb-2">
+                                <div class="card-body">
                                     <h5 class="card-title">Vize Tipleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaTypes }} vize tipi sistemde kayıtlı. </p>
                                     <a href="/yonetim/vize/vize-tipi" class="btn btn-primary float-end">Git</a>
