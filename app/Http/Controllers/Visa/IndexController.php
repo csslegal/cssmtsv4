@@ -21,7 +21,7 @@ class IndexController extends Controller
         $visaTypes = DB::table('visa_types')->get();
         $language = DB::table('language')->get();
 
-        return view('musteri.vize.index')
+        return view('customer.visa.index')
             ->with(
                 [
                     'baseCustomerDetails' => $baseCustomerDetails,

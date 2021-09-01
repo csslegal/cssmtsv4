@@ -18,7 +18,7 @@ class AppointmentOfficeController extends Controller
         $kayitlar = DB::table('appointment_offices')
             ->get();
 
-        return view('yonetim.appointment-office.index')
+        return view('management.appointment-office.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -31,7 +31,7 @@ class AppointmentOfficeController extends Controller
      */
     public function create()
     {
-        return view('yonetim.appointment-office.create');
+        return view('management.appointment-office.create');
     }
 
     /**
@@ -92,7 +92,7 @@ class AppointmentOfficeController extends Controller
         $kayit = DB::table('appointment_offices')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.appointment-office.edit')
+        return view('management.appointment-office.edit')
             ->with(
                 [
                     'kayit' => $kayit

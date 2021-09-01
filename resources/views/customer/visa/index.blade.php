@@ -11,17 +11,17 @@
         </ol>
     </nav>
 
-    @include('musteri.vize.cards.visa-proccess')
+    @include('customer.visa.cards.visa-proccess')
 
     @if (isset($appointmentDetail))
-        @include('musteri.vize.cards.appointment-detail')
+        @include('customer.visa.cards.appointment-detail')
     @endif
 
     @if (isset($fileDetail))
-        @include('musteri.vize.cards.file-detail')
+        @include('customer.visa.cards.file-detail')
     @endif
 
-    @include('musteri.vize.cards.information-email')
+    @include('customer.visa.cards.information-email')
 
 @endsection
 

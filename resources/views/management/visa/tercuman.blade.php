@@ -3,23 +3,21 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb ">
                     <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
                     <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Muhasebe</li>
+                    <li class="breadcrumb-item active" aria-current="page">Tercüman</li>
                 </ol>
             </nav>
 
-            @include('include.yonetim.vize.nav')
+            @include('include.management.visa.nav')
 
             <div class="card card-primary mb-3">
                 <div class="card-header bg-primary text-white">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
                 <div class="card-body scroll">
 
-                    <table id="dataTableVize" class=" table table-striped table-bordered display table-light"
-                        style="width:100%">
+                    <table id="dataTableVize" class=" table table-striped table-bordered display table-light" style="width:100%">
                         <thead>
                             <tr>
                                 <th class="col-md-1">ID</th>
@@ -46,4 +44,10 @@
 
         </div>
     </div>
+@endsection
+
+@section('css')
+@endsection
+
+@section('js')
 @endsection

@@ -19,7 +19,7 @@ class LanguageController extends Controller
         $kayitlar = DB::table('language')
             ->get();
 
-        return view('yonetim.language.index')
+        return view('management.language.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -32,7 +32,7 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        return view('yonetim.language.create');
+        return view('management.language.create');
     }
 
     /**
@@ -93,7 +93,7 @@ class LanguageController extends Controller
         $kayit = DB::table('language')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.language.edit')
+        return view('management.language.edit')
             ->with(
                 [
                     'kayit' => $kayit

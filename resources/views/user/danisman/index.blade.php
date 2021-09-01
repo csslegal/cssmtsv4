@@ -7,7 +7,7 @@
         </ol>
     </nav>
 
-    @include('kullanici.hosgeldin')
+    @include('user.hosgeldin')
 
     @if (in_array(1, $userAccesses))
         <div class="card card-primary mb-3">

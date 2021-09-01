@@ -32,7 +32,7 @@ class UsersController extends Controller
             ->leftJoin('application_offices AS bo', 'bo.id', '=', 'u.application_office_id')
             ->get();
 
-        return view('yonetim.users.index')
+        return view('management.users.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -48,7 +48,7 @@ class UsersController extends Controller
         $usersTypes = DB::table('users_type')->get();
         $applicationOffices = DB::table('application_offices')->get();
         $userAccesses = DB::table('access')->get();
-        return view('yonetim.users.create')
+        return view('management.users.create')
             ->with(
                 [
                     'usersTypes' => $usersTypes,
@@ -169,7 +169,7 @@ class UsersController extends Controller
             ->where('id', '=', $id)
             ->first();
 
-        return view('yonetim.users.edit')
+        return view('management.users.edit')
             ->with(
                 [
                     'kayit' => $kayit,

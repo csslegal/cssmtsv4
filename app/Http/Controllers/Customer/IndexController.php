@@ -11,7 +11,7 @@ class IndexController extends Controller
 {
     public function get_sorgula(Request $request)
     {
-        return view('musteri.search');
+        return view('customer.search');
     }
 
     public function post_sorgula(Request $request)
@@ -40,7 +40,7 @@ class IndexController extends Controller
                 //->orWhere('d.id', 'LIKE', '%' . $arama . '%')
                 ->get();
             if ($customerDetaylari->count() > 0) {
-                return view('musteri.search')
+                return view('customer.search')
                     ->with(
                         [
                             'customerDetaylari' => $customerDetaylari,
@@ -50,12 +50,12 @@ class IndexController extends Controller
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Farklı bilgiyle tekrar deneyiniz veya <a class="text-white" href="/musteri/ekle">bu linkten</a> yeni müşteri kaydı yapınız!');
-                return view('musteri.search')->with(['arama' => $arama]);
+                return view('customer.search')->with(['arama' => $arama]);
             }
         } else {
             $request->session()
                 ->flash('mesajInfo', 'Sorgulama için yeterli veri giriniz. Girilen: <span class="fw-bold">' . $arama . '</span>');
-            return view('musteri.search')->with(['arama' => $arama]);
+            return view('customer.search')->with(['arama' => $arama]);
         }
     }
 
@@ -64,7 +64,7 @@ class IndexController extends Controller
         $randevuOfisleri = DB::table('appointment_offices')->get();
         $basvuruOfisleri = DB::table('application_offices')->get();
 
-        return view("musteri.add")->with([
+        return view("customer.add")->with([
             'basvuruOfisleri' => $basvuruOfisleri,
             'randevuOfisleri' => $randevuOfisleri
         ]);
@@ -217,7 +217,7 @@ class IndexController extends Controller
                 ->where('email_logs.customer_id', '=', $id)
                 ->get();
 
-            return view('musteri.index')->with(
+            return view('customer.index')->with(
                 [
                     'temelBilgiler' => $temelBilgiler,
                     'customerNotlari' => $customerNotlari,
@@ -287,7 +287,7 @@ class IndexController extends Controller
             }
         }
 
-        return view('musteri.edit')->with(
+        return view('customer.edit')->with(
             [
                 'temelBilgiler' => $temelBilgiler,
                 'basvuruOfisleri' => $basvuruOfisleri,

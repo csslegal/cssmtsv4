@@ -12,7 +12,7 @@ class IndexController extends Controller
     {
 
 
-        return view('yonetim.index')->with([
+        return view('management.index')->with([
             'countUsers' => DB::table('users')->where('aktif', '=', '1')->get()->count(),
             'countUserType' => DB::table('users_type')->get()->count(),
             'countUserAccess' => DB::table('access')->get()->count(),

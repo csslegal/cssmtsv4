@@ -10,7 +10,7 @@
                 </ol>
             </nav>
 
-            @include('include.yonetim.vize.nav')
+            @include('include.management.visa.nav')
 
             <div class="card">
                 <div class="card-header text-white bg-primary mb-3">Genel Vize İşlemleri</div>

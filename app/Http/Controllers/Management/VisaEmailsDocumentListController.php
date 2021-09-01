@@ -45,7 +45,7 @@ class VisaEmailsDocumentListController extends Controller
             )
             ->get();
 
-        return view('yonetim.vize.emails-document.index')
+        return view('management.visa.emails-document.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -74,7 +74,7 @@ class VisaEmailsDocumentListController extends Controller
             )
             ->get();
 
-        return view('yonetim.vize.emails-document.create')
+        return view('management.visa.emails-document.create')
             ->with(
                 [
                     'visaSubTypes' => $visaSubTypes,
@@ -166,7 +166,7 @@ class VisaEmailsDocumentListController extends Controller
             ->where('id', '=', $id)
             ->first();
 
-        return view('yonetim.vize.emails-document.edit')
+        return view('management.visa.emails-document.edit')
             ->with(
                 [
                     'kayit' => $kayit,

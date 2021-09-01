@@ -27,7 +27,7 @@ class NoticeController extends Controller
             ->leftJoin('users AS u', 'u.id', '=', 'd.user_id')
             ->get();
 
-        return view('yonetim.duyuru.index')
+        return view('management.notice.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -40,7 +40,7 @@ class NoticeController extends Controller
      */
     public function create()
     {
-        return view('yonetim.duyuru.create');
+        return view('management.notice.create');
     }
 
     /**
@@ -97,7 +97,7 @@ class NoticeController extends Controller
             ->select('icerik', 'id', 'aktif')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.duyuru.edit')
+        return view('management.notice.edit')
             ->with(
                 [
                     'kayit' => $kayit

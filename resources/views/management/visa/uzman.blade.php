@@ -7,11 +7,11 @@
                 <ol class="breadcrumb ">
                     <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
                     <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Danışman</li>
+                    <li class="breadcrumb-item active" aria-current="page">Uzman</li>
                 </ol>
             </nav>
 
-            @include('include.yonetim.vize.nav')
+            @include('include.management.visa.nav')
 
             <div class="card card-primary mb-3">
                 <div class="card-header bg-primary text-white">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
@@ -42,6 +42,13 @@
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
+@endsection
+
+@section('css')
+@endsection
+
+@section('js')
 @endsection

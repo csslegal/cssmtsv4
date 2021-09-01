@@ -19,7 +19,7 @@ class VisaTypesController extends Controller
         $kayitlar = DB::table('visa_types')
             ->get();
 
-        return view('yonetim.vize.visa-types.index')
+        return view('management.visa.visa-types.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -32,7 +32,7 @@ class VisaTypesController extends Controller
      */
     public function create()
     {
-        return view('yonetim.vize.visa-types.create');
+        return view('management.visa.visa-types.create');
     }
 
     /**
@@ -93,7 +93,7 @@ class VisaTypesController extends Controller
         $kayit = DB::table('visa_types')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.vize.visa-types.edit')
+        return view('management.visa.visa-types.edit')
             ->with(
                 [
                     'kayit' => $kayit

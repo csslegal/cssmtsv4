@@ -16,7 +16,7 @@ class VisaController extends Controller
         $countVisaEmailInformationList=DB::table('visa_emails_information')->get()->count();
         $countVisaEmailDocumentList=DB::table('visa_emails_document_list')->get()->count();
 
-        return view('yonetim.vize.index')->with(
+        return view('management.visa.index')->with(
             [
                 'countVisaTypes' => $countVisaTypes,
                 'countVisaSubTypes' => $countVisaSubTypes,
@@ -28,23 +28,23 @@ class VisaController extends Controller
     }
     public function get_danisman(Request $request)
     {
-        return view('yonetim.vize.danisman');
+        return view('management.visa.danisman');
     }
     public function get_uzman(Request $request)
     {
-        return view('yonetim.vize.uzman');
+        return view('management.visa.uzman');
     }
     public function get_tercuman(Request $request)
     {
-        return view('yonetim.vize.tercuman');
+        return view('management.visa.tercuman');
     }
     public function get_muhasebe(Request $request)
     {
-        return view('yonetim.vize.muhasebe');
+        return view('management.visa.muhasebe');
     }
     public function get_ofis_sorumlusu(Request $request)
     {
-        return view('yonetim.vize.ofis-sorumlusu');
+        return view('management.visa.ofis-sorumlusu');
     }
     public function get_koordinator(Request $request)
     {
@@ -62,7 +62,7 @@ class VisaController extends Controller
             ->join('users AS u', 'u.id', '=', 'mg.user_id')
             ->get();
 
-        return view('yonetim.vize.koordinator')->with(
+        return view('management.visa.koordinator')->with(
             [
                 'musteriTemelBilgileriGuncellemeIstekleri' => $musteriTemelBilgileriGuncellemeIstekleri
             ]

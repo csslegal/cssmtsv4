@@ -40,7 +40,7 @@ class ProfilController extends Controller
             ->where('u.id', '=', $request->session()->get('userId'))
             ->get();
 
-        return view('yonetim.profil.profil')->with(
+        return view('management.profil.profil')->with(
             [
                 'yonetimBilgileri' => $yonetimBilgileri,
                 'erisimIzinleri' => $erisimIzinleri

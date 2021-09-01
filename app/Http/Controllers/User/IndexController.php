@@ -19,42 +19,42 @@ class IndexController extends Controller
 
         switch ($request->session()->get('userTypeId')) {
             case 2: //danisman
-                return view('kullanici.danisman.index')->with([
+                return view('user.danisman.index')->with([
                     'userAccesses' => $userAccesses
                 ]);
                 break;
             case 3: //uzman
-                return view('kullanici.uzman.index')->with([
+                return view('user.uzman.index')->with([
                     'userAccesses' => $userAccesses
                 ]);
                 break;
             case 4: //b. koordinatoor
-                return view('kullanici.koordinator.basvuru')->with([
+                return view('user.koordinator.basvuru')->with([
                     'userAccesses' => $userAccesses
                 ]);
                 break;
             case 5: //tercuman
-                return view('kullanici.tercuman.index')->with([
+                return view('user.tercuman.index')->with([
                     'userAccesses' => $userAccesses
                 ]);
                 break;
             case 6: //muhasebe
-                return view('kullanici.muhasebe.index')->with([
+                return view('user.muhasebe.index')->with([
                     'userAccesses' => $userAccesses
                 ]);
                 break;
             case 7: //m. koordinatoor
-                return view('kullanici.koordinator.musteri')->with([
+                return view('user.koordinator.musteri')->with([
                     'userAccesses' => $userAccesses
                 ]);
                 break;
             case 8: //ofis sorumlusu
-                return view('kullanici.ofissorumlusu.index')->with([
+                return view('user.ofissorumlusu.index')->with([
                     'userAccesses' => $userAccesses
                 ]);
                 break;
             default:
-                return view('genel.401');
+                return view('general.401');
         }
     }
 
@@ -82,7 +82,7 @@ class IndexController extends Controller
             ->rightJoin('access AS e', 'e.id', '=', 'ue.access_id')
             ->where('u.id', '=', $request->session()->get('userId'))
             ->get();
-        return view('kullanici.profil')->with(
+        return view('user.profil')->with(
             [
                 'kullaniciBilgileri' => $kullaniciBilgileri,
                 'erisimIzinleri' => $erisimIzinleri
@@ -132,7 +132,7 @@ class IndexController extends Controller
             ->Join('users AS u', 'u.id', '=', 'd.user_id')
             ->where('d.aktif', '=', 1)
             ->get();
-        return view('kullanici.duyuru.index')->with(
+        return view('user.notice.index')->with(
             ['notices' => $duyuruBilgileri]
         );
     }

@@ -18,7 +18,7 @@ class VisaFileGradesController extends Controller
         $kayitlar = DB::table('visa_file_grades')
             ->get();
 
-        return view('yonetim.vize.file-grades.index')
+        return view('management.visa.file-grades.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -31,7 +31,7 @@ class VisaFileGradesController extends Controller
      */
     public function create()
     {
-        return view('yonetim.vize.file-grades.create');
+        return view('management.visa.file-grades.create');
     }
 
     /**
@@ -92,7 +92,7 @@ class VisaFileGradesController extends Controller
         $kayit = DB::table('visa_file_grades')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.vize.file-grades.edit')
+        return view('management.visa.file-grades.edit')
             ->with(
                 [
                     'kayit' => $kayit

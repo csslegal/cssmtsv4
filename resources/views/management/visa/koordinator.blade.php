@@ -11,7 +11,7 @@
                     <li class="breadcrumb-item active" aria-current="page">Koordinatör</li>
                 </ol>
             </nav>
-            @include('include.yonetim.vize.nav')
+            @include('include.management.visa.nav')
 
             <div class="card card-primary mb-3">
                 <div class="card-header bg-primary text-white">Müşteri Temel Bilgileri Güncelleme İstekleri</div>

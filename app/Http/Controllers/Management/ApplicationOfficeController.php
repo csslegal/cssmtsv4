@@ -18,7 +18,7 @@ class ApplicationOfficeController extends Controller
         $kayitlar = DB::table('application_offices')
             ->get();
 
-        return view('yonetim.application-office.index')
+        return view('management.application-office.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -31,7 +31,7 @@ class ApplicationOfficeController extends Controller
      */
     public function create()
     {
-        return view('yonetim.application-office.create');
+        return view('management.application-office.create');
     }
 
     /**
@@ -95,7 +95,7 @@ class ApplicationOfficeController extends Controller
         $kayit = DB::table('application_offices')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.application-office.edit')
+        return view('management.application-office.edit')
             ->with(
                 [
                     'kayit' => $kayit

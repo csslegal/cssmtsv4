@@ -45,7 +45,7 @@ class VisaEmailsInformationController extends Controller
             )
             ->get();
 
-        return view('yonetim.vize.emails-information.index')
+        return view('management.visa.emails-information.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -74,7 +74,7 @@ class VisaEmailsInformationController extends Controller
             )
             ->get();
 
-        return view('yonetim.vize.emails-information.create')
+        return view('management.visa.emails-information.create')
             ->with(
                 [
                     'visaSubTypes' => $visaSubTypes,
@@ -166,7 +166,7 @@ class VisaEmailsInformationController extends Controller
             ->where('id', '=', $id)
             ->first();
 
-        return view('yonetim.vize.emails-information.edit')
+        return view('management.visa.emails-information.edit')
             ->with(
                 [
                     'kayit' => $kayit,

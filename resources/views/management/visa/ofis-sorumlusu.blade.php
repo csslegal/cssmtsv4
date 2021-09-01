@@ -11,7 +11,7 @@
                 </ol>
             </nav>
 
-            @include('include.yonetim.vize.nav')
+            @include('include.management.visa.nav')
 
             <div class="card card-primary mb-3">
                 <div class="card-header bg-primary text-white">Vize Dosyası İşlemi Bekleyen Müşteriler</div>

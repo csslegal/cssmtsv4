@@ -21,7 +21,7 @@ class FileOpenController extends Controller
         $visaTypes = DB::table('visa_types')->get();
         $language = DB::table('language')->get();
 
-        return view('musteri.vize.file-open')
+        return view('customer.visa.file-open')
             ->with(
                 [
                     'baseCustomerDetails' => $baseCustomerDetails,

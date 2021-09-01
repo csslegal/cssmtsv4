@@ -8,20 +8,20 @@
         </ol>
     </nav>
 
-    @include('musteri.cards.customer-process')
+    @include('customer.cards.customer-process')
 
-    @include('musteri.cards.base-information')
+    @include('customer.cards.base-information')
 
-    @include('musteri.cards.access')
+    @include('customer.cards.access')
 
-    @include('musteri.cards.notes')
+    @include('customer.cards.notes')
 
-    @include('musteri.cards.send-email-logs')
+    @include('customer.cards.send-email-logs')
 
     <!-- Modal -->
-    @include('musteri.modals.content-load')
+    @include('customer.modals.content-load')
 
-    @include('musteri.modals.note-add-modal')
+    @include('customer.modals.note-add-modal')
 
 @endsection
 

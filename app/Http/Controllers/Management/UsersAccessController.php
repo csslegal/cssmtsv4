@@ -18,7 +18,7 @@ class UsersAccessController extends Controller
         $kayitlar = DB::table('access')
             ->get();
 
-        return view('yonetim.users-access.index')
+        return view('management.users-access.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -31,7 +31,7 @@ class UsersAccessController extends Controller
      */
     public function create()
     {
-        return view('yonetim.users-access.create');
+        return view('management.users-access.create');
     }
 
     /**
@@ -92,7 +92,7 @@ class UsersAccessController extends Controller
         $kayit = DB::table('access')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.users-access.edit')
+        return view('management.users-access.edit')
             ->with(
                 [
                     'kayit' => $kayit

@@ -19,7 +19,7 @@ class UsersTypeController extends Controller
         $kayitlar = DB::table('users_type')
             ->get();
 
-        return view('yonetim.users-type.index')
+        return view('management.users-type.index')
             ->with(
                 ['kayitlar' => $kayitlar]
             );
@@ -32,7 +32,7 @@ class UsersTypeController extends Controller
      */
     public function create()
     {
-        return view('yonetim.users-type.create');
+        return view('management.users-type.create');
     }
 
     /**
@@ -93,7 +93,7 @@ class UsersTypeController extends Controller
         $kayit = DB::table('users_type')
             ->where('id', '=', $id)
             ->first();
-        return view('yonetim.users-type.edit')
+        return view('management.users-type.edit')
             ->with(
                 [
                     'kayit' => $kayit

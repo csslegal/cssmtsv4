@@ -65,26 +65,26 @@ class LoginController extends Controller
                     } elseif (($mesaiKontrolu->kontrol()) == 2) {
                         $request->session()
                             ->flash('mesaj', 'Mesai saatleriniz sistemde kaydı bulunamadı');
-                        return view('genel.giris');
+                        return view('general.login');
                     } else {
                         $request->session()
                             ->flash('mesaj', 'Mesai saatleri dışında giriş yapılamaz');
-                        return view('genel.giris');
+                        return view('general.login');
                     }
                 } else {
                     $request->session()
                         ->flash('mesaj', 'Şifre hatalı girildi');
-                    return view('genel.giris');
+                    return view('general.login');
                 }
             } else {
                 $request->session()
                     ->flash('mesaj', 'Böyle bir kullanıcı bulunamadı');
-                return view('genel.giris');
+                return view('general.login');
             }
         } else {
             $request->session()
                 ->flash('mesaj', 'Sadece ofis içerisinden veya özel yetkiye sahip kullanıcılar giriş yapabilir');
-            return view('genel.giris');
+            return view('general.login');
         }
     }
 
@@ -105,7 +105,7 @@ class LoginController extends Controller
                 return redirect('/kullanici');
             } else {
                 //farklı type ise hatalı istek
-                return view('genel.401');
+                return view('general.401');
             }
         } else {
             //Oturum yok ise giriş sayfasına yönlendirilecek
@@ -127,7 +127,7 @@ class LoginController extends Controller
         if ($request->session()->has('session')) {
             return redirect(config('app.url'));
         } else {
-            return view('genel.giris');
+            return view('general.login');
         }
     }
 }
