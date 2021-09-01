@@ -11,6 +11,7 @@ class VisaController extends Controller
     public function get_index()
     {
         $countVisaFileGrades=DB::table('visa_file_grades')->get()->count();
+        $countVisaValidity=DB::table('visa_validity')->get()->count();
         $countVisaTypes=DB::table('visa_types')->get()->count();
         $countVisaSubTypes=DB::table('visa_sub_types')->get()->count();
         $countVisaEmailInformationList=DB::table('visa_emails_information')->get()->count();
@@ -21,6 +22,7 @@ class VisaController extends Controller
                 'countVisaTypes' => $countVisaTypes,
                 'countVisaSubTypes' => $countVisaSubTypes,
                 'countFileGrades' => $countVisaFileGrades,
+                'countVisaValidity' => $countVisaValidity,
                 'countVisaEmailInformationList' => $countVisaEmailInformationList,
                 'countVisaEmailDocumentList' => $countVisaEmailDocumentList,
             ]

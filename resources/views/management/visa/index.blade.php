@@ -47,6 +47,16 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card border-primary mb-2">
                                 <div class="card-body">
+                                    <h5 class="card-title">Vize Süreleri</h5>
+                                    <p class="card-text fw-bold"> Toplam {{ $countVisaValidity }} vize süresi sistemde kayıtlı.
+                                    </p>
+                                    <a href="/yonetim/vize/vize-suresi" class="btn btn-primary float-end">Git</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 ">
+                            <div class="card border-primary mb-2">
+                                <div class="card-body">
                                     <h5 class="card-title">Bilgi E-mailleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaEmailInformationList }} bilgi e-maili sistemde
                                         kayıtlı. </p>

@@ -5,13 +5,13 @@
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dosya Aşamaları</li>
+            <li class="breadcrumb-item active" aria-current="page">Vize Süreleri</li>
         </ol>
     </nav>
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">
-            Dosya Aşamaları
-            <a class="float-end text-white" href="/yonetim/vize/dosya-asama/create">Ekle</a>
+            Vize Süreleri
+            <a class="float-end text-white" href="/yonetim/vize/vize-suresi/create">Ekle</a>
         </div>
         <div class="card-body scroll">
             <table id="dataTable" class="table table-striped table-bordered display table-light " style="width:100%">
@@ -35,23 +35,23 @@
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button data-bs-toggle="tooltip" data-bs-placement="top"
-                                        onclick="sorting({{ $kayit->id }},'up','visa_file_grades')" title="Üst">
+                                        onclick="sorting({{ $kayit->id }},'up','visa_validity')" title="Üst">
                                         <i class="bi bi-arrow-up"></i>
                                     </button>
                                     <button data-bs-toggle="tooltip" data-bs-placement="top"
-                                        onclick="sorting({{ $kayit->id }},'down','visa_file_grades')" title="Alt">
+                                        onclick="sorting({{ $kayit->id }},'down','visa_validity')" title="Alt">
                                         <i class="bi bi-arrow-down"></i>
                                     </button>
                                 </div>
                             </td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a href="/yonetim/vize/dosya-asama/{{ $kayit->id }}/edit">
+                                    <a href="/yonetim/vize/vize-suresi/{{ $kayit->id }}/edit">
                                         <button data-bs-toggle="tooltip" data-bs-placement="top" title="Düzenle">
                                             <i class="bi bi-pencil-square "></i>
                                         </button>
                                     </a>
-                                    <form action="/yonetim/vize/dosya-asama/{{ $kayit->id }}" method="post">
+                                    <form action="/yonetim/vize/vize-suresi/{{ $kayit->id }}" method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil">

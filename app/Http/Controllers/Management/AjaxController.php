@@ -57,15 +57,16 @@ class AjaxController extends Controller
         }
     }
 
-    public function post_file_grade_sorting(Request $request)
+    public function post_sorting(Request $request)
     {
         /****id ve status gore orderby degeri güncellencek */
         $id = $request->input('id');
         $status = $request->input('status');
+        $table = $request->input('table');
 
         if ($status == 'up') {
 
-            $sirala = new Sorting('visa_file_grades', $id);
+            $sirala = new Sorting($table, $id);
 
             if ($sirala->yukariKontrol()) {
                 $sirala->yukari();
@@ -78,7 +79,7 @@ class AjaxController extends Controller
             }
         } elseif ($status == 'down') {
 
-            $sirala = new Sorting('visa_file_grades', $id);
+            $sirala = new Sorting($table, $id);
             if ($sirala->asagiKontrol()) {
                 $sirala->asagi();
 

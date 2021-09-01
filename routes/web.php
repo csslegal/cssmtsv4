@@ -18,6 +18,8 @@ use App\Http\Controllers\Management\VisaEmailsDocumentListController as Manageme
 use App\Http\Controllers\Management\VisaSubTypesController as ManagementVisaSubTypesController;
 use App\Http\Controllers\Management\VisaTypesController as ManagementVisaTypesController;
 use App\Http\Controllers\Management\VisaEmailsInformationController as ManagementVisaEmailsInformationController;
+use App\Http\Controllers\Management\VisaFileGradesController as ManagementVisaFileGradesController;
+use App\Http\Controllers\Management\VisaValidityController as ManagementVisaValidityController;
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\AjaxController as UserAjaxController;
 use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
@@ -25,7 +27,6 @@ use App\Http\Controllers\Customer\IndexController as CustomerIndexController;
 use App\Http\Controllers\Visa\FileOpenController as VisaFileOpenController;
 use App\Http\Controllers\Visa\IndexController as VisaIndexController;
 use App\Http\Controllers\Visa\InformationEmailController as VisaInformationEmailController;
-use App\Http\Controllers\Management\VisaFileGradesController as ManagementVisaFileGradesController;
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
@@ -112,7 +113,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::post('duyuru', [ManagementAjaxController::class, 'post_duyuru_cek']);
                 Route::post('bilgi-emaili', [ManagementAjaxController::class, 'post_bilgi_emaili_cek']);
                 Route::post('evrak-emaili', [ManagementAjaxController::class, 'post_evrak_emaili_cek']);
-                Route::post('dosya-asama-sirala', [ManagementAjaxController::class,'post_file_grade_sorting']);
+                Route::post('sirala', [ManagementAjaxController::class,'post_sorting']);
             });
 
             /**Yonetim vize işlemleri*/
@@ -127,6 +128,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::get('ofis-sorumlusu', [ManagementVisaController::class, 'get_ofis_sorumlusu']);
 
                 Route::resource('vize-tipi', ManagementVisaTypesController::class);
+                Route::resource('vize-suresi', ManagementVisaValidityController::class);
                 Route::resource('alt-vize-tipi', ManagementVisaSubTypesController::class);
                 Route::resource('bilgi-emaili', ManagementVisaEmailsInformationController::class);
                 Route::resource('evrak-emaili', ManagementVisaEmailsDocumentListController::class);
