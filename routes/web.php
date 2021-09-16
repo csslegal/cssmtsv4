@@ -19,7 +19,9 @@ use App\Http\Controllers\Management\VisaSubTypesController as ManagementVisaSubT
 use App\Http\Controllers\Management\VisaTypesController as ManagementVisaTypesController;
 use App\Http\Controllers\Management\VisaEmailsInformationController as ManagementVisaEmailsInformationController;
 use App\Http\Controllers\Management\VisaFileGradesController as ManagementVisaFileGradesController;
+use App\Http\Controllers\Management\VisaFileGradesUsersTypeController as ManagementVisaFileGradesUsersTypeController;
 use App\Http\Controllers\Management\VisaValidityController as ManagementVisaValidityController;
+use App\Http\Controllers\Management\UrlController;
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\AjaxController as UserAjaxController;
 use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
@@ -28,8 +30,11 @@ use App\Http\Controllers\Visa\FileOpenController as VisaFileOpenController;
 use App\Http\Controllers\Visa\IndexController as VisaIndexController;
 use App\Http\Controllers\Visa\InformationEmailController as VisaInformationEmailController;
 
+
+
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
+
 Route::redirect('yonlendirme', config('app.url'));
 Route::resource('giris', GeneralLoginController::class);
 
@@ -113,7 +118,8 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::post('duyuru', [ManagementAjaxController::class, 'post_duyuru_cek']);
                 Route::post('bilgi-emaili', [ManagementAjaxController::class, 'post_bilgi_emaili_cek']);
                 Route::post('evrak-emaili', [ManagementAjaxController::class, 'post_evrak_emaili_cek']);
-                Route::post('sirala', [ManagementAjaxController::class,'post_sorting']);
+                Route::post('sirala', [ManagementAjaxController::class, 'post_sorting']);
+                Route::post('dosya-asama-erisim', [ManagementAjaxController::class, 'post_visa_file_grades_users_type']);
             });
 
             /**Yonetim vize işlemleri*/
@@ -133,7 +139,15 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('bilgi-emaili', ManagementVisaEmailsInformationController::class);
                 Route::resource('evrak-emaili', ManagementVisaEmailsDocumentListController::class);
                 Route::resource('dosya-asama', ManagementVisaFileGradesController::class);
+                Route::resource('dosya-asama-erisim', ManagementVisaFileGradesUsersTypeController::class);
             });
+
+            /*****Url tespit İşlemleri */
+            Route::resource('url', UrlController::class);
+            Route::post('/url/ajax', [UrlController::class, 'get_ajax']);
+            Route::get('/url/{id}/home', [UrlController::class, 'get_home_links']);
+            Route::get('/url/{id}/subpage/{subId}', [UrlController::class, 'get_subpage']);
+            Route::get('/url/{id}/subpage/{subId}/home', [UrlController::class, 'get_subpage_links']);
         }
     );
 });
