@@ -18,13 +18,13 @@ return [
     /**
      * saniyede bir sayfa yenilemesi yapılacak
      */
-    'yenilenmeSuresi' => env('YENILENME_SURESI', '180'),
+    'yenilenmeSuresi' => env('YENILENME_SURESI'),
 
 
     /**
      * admin harici 50 dk bir oturum sonlandırılacak
      */
-    'oturumSuresi' => env('OTURUM_SURESI', '50'),
+    'oturumSuresi' => env('OTURUM_SURESI'),
 
 
     /*
