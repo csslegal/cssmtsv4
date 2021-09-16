@@ -1,7 +1,7 @@
 <div class="row">
     @if (in_array(1, $userAccesses))
         <div class="col-xl-4 col-lg-6">
-            <div class="card border-danger mb-2">
+            <div class="card border-primary mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Vize İşlemleri</h5>
                     <ul>
@@ -20,7 +20,7 @@
     @endif
     @if (in_array(2, $userAccesses))
         <div class="col-xl-4 col-lg-6">
-            <div class="card border-danger mb-2">
+            <div class="card border-primary mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Harici Tercüme İşlemleri</h5>
                     <ul>
@@ -39,7 +39,7 @@
     @endif
     @if (in_array(3, $userAccesses))
         <div class="col-xl-4 col-lg-6">
-            <div class="card border-danger mb-2">
+            <div class="card border-primary mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Dil Okulu İşlemleri</h5>
                     <ul>

@@ -52,3 +52,14 @@ $('form>button.confirm').confirm({
         }
     }
 });
+
+$('body').append('<div id="loadingDiv"><div class="loader text-center fw-bold"><img class="w-100  mt-5 p-3" src="/storage/logo.png" alt="logo">Sayfa Yükleniyor..</div></div>');
+$(window).on('load', function(){
+ setTimeout(removeLoader, 1000); //wait for page load PLUS two seconds.
+});
+function removeLoader(){
+    $( "#loadingDiv" ).fadeOut(200, function() {
+      // fadeOut complete. Remove the loading div
+      $( "#loadingDiv" ).remove(); //makes page more lightweight
+  });
+}

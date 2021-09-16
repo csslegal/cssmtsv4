@@ -11,18 +11,20 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('storage/logo.png') }}" />
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     @yield('css')
+
 </head>
 
 <body>
-    <div class="page-content">
+    <div class="container">
         <div class="row">
-            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4">
-                @include('include.nav')
-            </div>
-            <div class="col-xl-10 col-lg-9 col-md-8 col-sm-8" id="content">
+            <div class="col">
+
+                @include('include.nav-top')
                 @include('include.toast')
                 @yield('content')
+
             </div>
         </div>
     </div>
