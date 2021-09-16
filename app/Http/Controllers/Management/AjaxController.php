@@ -45,6 +45,37 @@ class AjaxController extends Controller
         }
     }
 
+    public function post_visa_file_grades_users_type(Request $request)
+    {
+        if (is_numeric($request->input('id'))) {
+
+            $kayitlar = DB::table('visa_file_grades')
+                ->select(
+                    'visa_file_grades.name AS name',
+                )
+                ->join(
+                    'visa_file_grades_users_type',
+                    'visa_file_grades.id',
+                    '=',
+                    'visa_file_grades_users_type.visa_file_grade_id'
+                )
+                ->where('user_type_id', '=', $request->input('id'))
+                ->get();
+            if ($kayitlar->count() == 0) {
+                $sonuc = '<div class="text text-danger">Dosya aşamaları erişimi verilmedi</div>' ;
+            } else {
+                $sonuc = "<ul>";
+                foreach ($kayitlar as  $kayit) {
+                    $sonuc .= "<li>" . $kayit->name . "</li>";
+                }
+                $sonuc .= "</ul>";
+            }
+
+            return  $sonuc;
+        } else {
+            echo 'Hatalı istek yapıldı';
+        }
+    }
     public function post_evrak_emaili_cek(Request $request)
     {
         if (is_numeric($request->input('id'))) {
