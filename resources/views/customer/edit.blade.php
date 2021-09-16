@@ -1,8 +1,18 @@
 @extends('sablon.genel')
 
 @section('content')
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item">
+                <a href="/musteri/{{ $temelBilgiler->id }}">Müşteri Sayfası</a>
+            </li>
+            <li class="breadcrumb-item active">Müşteri Düzenleme</li>
+        </ol>
+    </nav>
+
     <div class="card card-primary">
-        <div class="card-header bg-primary text-white">Müşteri Bilgileri Düzenleme</div>
+        <div class="card-header bg-primary text-white">Müşteri Düzenleme</div>
         <div class="card-body">
             <form method="post" action="/musteri/{{ $temelBilgiler->id }}/duzenle">
                 <div class="border border-1 p-2 mb-3">
@@ -10,9 +20,10 @@
                         <label for="name" class="form-label">Müşteri Adı</label>
 
                         <input class="form-control" name="name" autocomplete="off" type="text"
-                            value="{{ $temelBilgiler != '' ? $temelBilgiler->name : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)  @if ($guncellemeIstegi !='')
-                        @if ($guncellemeIstegi->onay == 0)
-                            readonly @endif
+                            value="{{ $temelBilgiler != '' ? $temelBilgiler->name : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
+                        @if ($guncellemeIstegi != '')
+                            @if ($guncellemeIstegi->onay == 0)
+                                readonly @endif
                         @else
                             readonly
                         @endif
@@ -24,8 +35,9 @@
                     <div class="mb-3">
                         <label for="telefon" class="form-label">Müşteri Telefon</label>
                         <input class="form-control" name="telefon" autocomplete="off" type="text"
-                            value="{{ $temelBilgiler->telefon != '' ? $temelBilgiler->telefon : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)  @if ($guncellemeIstegi !='')
-                        @if ($guncellemeIstegi->onay == 0) readonly @endif
+                            value="{{ $temelBilgiler->telefon != '' ? $temelBilgiler->telefon : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
+                        @if ($guncellemeIstegi != '')
+                            @if ($guncellemeIstegi->onay == 0) readonly @endif
                         @else readonly @endif
                         @endif>
                         @error('telefon')
@@ -35,8 +47,9 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Müşteri E-mail</label>
                         <input class="form-control" name="email" autocomplete="off" type="text"
-                            value="{{ $temelBilgiler->email != '' ? $temelBilgiler->email : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)  @if ($guncellemeIstegi !='')
-                        @if ($guncellemeIstegi->onay == 0) readonly @endif
+                            value="{{ $temelBilgiler->email != '' ? $temelBilgiler->email : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
+                        @if ($guncellemeIstegi != '')
+                            @if ($guncellemeIstegi->onay == 0) readonly @endif
                         @else readonly @endif
                         @endif>
                         @error('email')
@@ -55,7 +68,7 @@
                     <label for="adres" class="form-label">Müşteri Adresi</label>
                     <input autocomplete="off" type="text" class="form-control" name="adres"
                         value="{{ $temelBilgiler->adres != '' ? $temelBilgiler->adres : old('adres') }}">
-                        @error('adres')
+                    @error('adres')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -92,7 +105,8 @@
                 <div class="mb-3">
                     <label for="adres" class="form-label">Pasaport Numarası</label>
                     <input type="text" name="pasaport" placeholder="Müşteri güncel pasaport numarası" class="form-control"
-                        autocomplete="off" value="{{ $temelBilgiler->pasaport != '' ? $temelBilgiler->pasaport : old('pasaport') }}">
+                        autocomplete="off"
+                        value="{{ $temelBilgiler->pasaport != '' ? $temelBilgiler->pasaport : old('pasaport') }}">
                 </div>
                 <div class="mb-3">
                     <label for="adres" class="form-label ">Pasaport Tarihi</label>
@@ -109,15 +123,7 @@
                 <!-- {{ csrf_field() }} -->
 
                 @csrf
-                <div class="row">
-                    <div class="col-6">
-                        <button class="w-100 mt-3 btn btn-danger text-white " type="submit">Kaydet</button>
-                    </div>
-                    <div class="col-6">
-                        <a href="/musteri/{{ $temelBilgiler->id }}"
-                            class="w-100 mt-3 btn btn-primary text-white ">Müşteri Sayfası</a>
-                    </div>
-                </div>
+                <button class="w-100 mt-3 btn btn-danger text-white " type="submit">Kaydet</button>
             </form>
         </div>
     </div>
