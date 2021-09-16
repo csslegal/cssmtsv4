@@ -4,6 +4,11 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb ">
+            <li class="breadcrumb-item">
+                <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
+                    {{ session('userTypeId') != 1 ? 'Kullanıcı İşlemleri' : 'Yönetim İşlemleri' }}
+                </a>
+            </li>
             <li class="breadcrumb-item active">Müşteri Sayfası</li>
         </ol>
     </nav>

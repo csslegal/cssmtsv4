@@ -1,4 +1,5 @@
 @extends('sablon.genel')
+
 @section('content')
 
     <nav aria-label="breadcrumb">
@@ -12,7 +13,7 @@
         </ol>
     </nav>
     <div class="card card-primary">
-        <div class="card-header bg-primary text-white">Müşteri Kaydı</div>
+        <div class="card-header bg-primary text-white">Müşteri Kayıt</div>
         <div class="card-body">
             <form method="post" action="/musteri/ekle">
                 <div class="mb-3">

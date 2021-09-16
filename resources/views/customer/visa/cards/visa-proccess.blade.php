@@ -9,19 +9,18 @@
                 <li>Cari dosyayı kapatmak için
                     <a class="fw-bold text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
                 </li>
+                <li>Cari dosya ödemeleri için
+                    <a class="fw-bold text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
+                </li>
                 <li>Cari dosyayı arşive taşımak için
                     <a class="fw-bold text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
                 </li>
-                <li>Müşteri sayfasına gitmek için
-                    <a class="fw-bold" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
-                </li>
+
             </ul>
         </div>
         <div class="col-md-6">
             <ul>
-                <li>Cari dosya ödemeleri için
-                    <a class="fw-bold text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
-                </li>
+
                 <li>Cari dosya makbuzları için
                     <a class="fw-bold text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
                 </li>
