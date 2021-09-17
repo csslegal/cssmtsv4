@@ -8,60 +8,78 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    @if (session('userTypeId') == 1)
-                        <a class="nav-link {{ request()->is('yonetim') || request()->is('yonetim/vize') || request()->is('yonetim/harici') || request()->is('yonetim/web') || request()->is('yonetim/dilokulu') ? 'active text-white' : '' }}"
-                            aria-current="page" href="/yonetim">
-                            <i class="bi bi-house-fill"></i>&nbspYönetim İşlemleri</a>
-                    @else
-                        <a class="nav-link {{ request()->is('kullanici') ? 'active text-white' : '' }}"
-                            aria-current="page" href="/kullanici">
-                            <i class="bi bi-house-fill"></i>&nbspKullanıcı İşlemleri</a>
-                    @endif
+                    <a href="/"
+                        class="nav-link {{ request()->is('kullanici') || request()->is('yonetim') ? 'active text-white' : '' }}">
+                        <i class="bi bi-house-fill"></i></i>&nbspHome
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->is('yonetim/profil') || request()->is('kullanici/profil') || request()->is('kullanici/duyuru') ? 'active text-white' : '' }}"
+                        href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        @if (session('userTypeId') == 1)
+                            <i class="bi bi-person-fill"></i>&nbspYönetim İşlemleri
+                        @else
+                            <i class="bi bi-person-fill"></i>&nbspKullanıcı İşlemleri
+                        @endif
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        @if (session('userTypeId') == 1)
+                            <li>
+                                <a class="dropdown-item  {{ request()->is('yonetim/profil') ? 'active text-white' : '' }}"
+                                    href="/yonetim/profil">
+                                    <i class="bi bi-person-fill"></i>&nbspProfilim
+                                </a>
+                            </li>
+                        @else
+                            <li>
+                                <a class="dropdown-item  {{ request()->is('kullanici/profil') ? 'active text-white' : '' }}"
+                                    href="/kullanici/profil">
+                                    <i class="bi bi-person-fill"></i>&nbspProfilim
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item  {{ request()->is('kullanici/duyuru') ? 'active text-white' : '' }}"
+                                    href="/kullanici/duyuru">
+                                    <i class="bi bi-stack"></i>&nbspDuyurular
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->is('musteri/sorgula') || request()->is('musteri/ekle') ? 'active text-white' : '' }}"
+                        href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="bi bi-people-fill"></i>&nbspMüşteri
+                        İşlemleri</a>
+                    <ul class="dropdown-menu " aria-labelledby="navbarScrollingDropdown">
+                        <li>
+                            <a class="dropdown-item {{ request()->is('musteri/sorgula') ? 'active text-white' : '' }}"
+                                href="/musteri/sorgula"><i class="bi bi-search"></i>&nbspMüşteri Sorgula</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->is('musteri/ekle') ? 'active text-white' : '' }}"
+                                href="/musteri/ekle"><i class="bi bi-person-plus-fill"></i>&nbspMüşteri Kayıt</a>
+                        </li>
+                    </ul>
+                </li>
 
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('musteri/sorgula') ? 'active text-white' : '' }}"
-                        href="/musteri/sorgula">
-                        <i class="bi bi-search"></i>&nbspMüşteri Sorgula</a>
+                    <a href="/cikis" class="nav-link">
+                        <i class="bi bi-door-closed-fill"></i>&nbspGüvenli Çıkış
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->is('musteri/ekle') ? 'active text-white' : '' }}"
-                        href="/musteri/ekle">
-                        <i class="bi bi-person-plus-fill"></i>&nbspMüşteri Kayıt</a>
-                </li>
-                @if (session('userTypeId') == 1)
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('yonetim/profil') ? 'active text-white' : '' }}"
-                            href="/yonetim/profil">
-                            <i class="bi bi-person-fill"></i>&nbspProfilim</a>
-                    </li>
-                @else
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('kullanici/profil') ? 'active text-white' : '' }}"
-                            href="/kullanici/profil">
-                            <i class="bi bi-person-fill"></i>&nbspProfilim</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="duyuruSayisi"
-                            class="nav-link {{ request()->is('kullanici/duyuru') ? 'active text-white' : '' }}"
-                            href="/kullanici/duyuru">
-                            <i class="bi bi-stack"></i>&nbspDuyurular</a>
-                    </li>
-                @endif
-                <li class="nav-item  text-danger border-end">
-                    <a class="nav-link {{ request()->is('cikis') ? 'active text-white' : '' }}"
-                        href="/cikis">
-                        <i class="bi bi-door-closed-fill"></i>&nbspGüvenli Çıkış</a>
-                </li>
+            </ul>
+            <ul class="navbar-nav">
                 <li class="nav-item fw-bold">
-                    <a class="nav-link  active " href="#">
+                    <a href="#" class="nav-link active">
                         @if (session('userTypeId') == 1)
                             Süresiz Oturum
                         @else
-                            Oturum Bitmesine:
-                            <span class="text-danger">
+                            <span>
+                                Çıkışa
                                 {{ floor((session('session') - time()) / 60) }} dk.
-                                {{ floor((session('session') - time()) % 60) }} sn.
+                                {{ floor((session('session') - time()) % 60) }} sn kaldı
                             </span>
                         @endif
                     </a>

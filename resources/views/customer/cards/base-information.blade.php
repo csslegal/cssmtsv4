@@ -1,6 +1,6 @@
 @if (isset($temelBilgiler))
     <div class="card card-primary mb-3" id="temel">
-        <div class="card-header bg-primary text-white">Müşteri Temel Bilgileri</div>
+        <div class="card-header bg-primary text-white">Müşteri Bilgileri</div>
 
         <div class="card-body scroll">
             <div class="row">

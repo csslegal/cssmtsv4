@@ -2,17 +2,11 @@
 //required
 require('./bootstrap');
 
-
-require('bootstrap')
+require('bootstrap/dist/js/bootstrap.bundle.js')
 require('jquery-confirm')
-
-window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js')
-
 require('datatables.net-bs5')
 
-
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic/build/ckeditor';
-
 
 var ready = (callback) => {
     if (document.readyState != "loading") callback();
@@ -23,6 +17,4 @@ ready(() => {
         .catch(error => { console.log(`error`, error) });
 });
 
-
 require('./main');
-

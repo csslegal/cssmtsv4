@@ -6,7 +6,7 @@
         <ol class="breadcrumb ">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
-                    {{ session('userTypeId') != 1 ? 'Kullanıcı İşlemleri' : 'Yönetim İşlemleri' }}
+                    {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
                 </a>
             </li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}">Müşteri Sayfası</a></li>
