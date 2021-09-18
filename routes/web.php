@@ -50,8 +50,8 @@ Route::middleware(['sessionCheck'])->group(function () {
         /**Vize işlemleri*/
         Route::group(['prefix' => '{id}/vize'], function () {
             Route::get('/', [VisaIndexController::class, 'index']);
-
             Route::resource('bilgi-emaili', VisaInformationEmailController::class);
+            /**Dosya aşama işlemleri */
             Route::resource('dosya-ac', VisaFileOpenController::class);
         });
 

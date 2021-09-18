@@ -66,8 +66,7 @@ class FileOpenController extends Controller
         $customerActiveFile = DB::table('visa_files')
             ->where('active', '=', 1)
             ->where('customer_id', '=', $id)
-            ->get()
-            ->count();
+            ->get()->count();
 
         if ($customerActiveFile == 0) {
 
@@ -81,26 +80,26 @@ class FileOpenController extends Controller
                 ]
             );
 
+            do {
+                $dosyaRefNumber = rand(10000, 99999);
+            } while (DB::table('visa_files')->where('id', '=', $dosyaRefNumber)->count() != 0);
+
+            DB::table('visa_files')
+                ->where('id', '=', $visaFileInsertId)
+                ->update(['id' => $dosyaRefNumber,]);
+
             if ($request->session()->get('userTypeId') == 2) {
                 DB::table('visa_files')
                     ->where('id', '=', $visaFileInsertId)
-                    ->update(
-                        [
-                            'danisman_id' => $request->session()->get('userId'),
-                        ]
-                    );
+                    ->update(['danisman_id' => $request->session()->get('userId'),]);
             } elseif (
                 $request->session()->get('userTypeId') == 1 ||
                 $request->session()->get('userTypeId') == 4 ||
                 $request->session()->get('userTypeId') == 7
             ) {
                 DB::table('visa_files')
-                ->where('id', '=', $visaFileInsertId)
-                ->update(
-                    [
-                        'danisman_id' => $request->input('danisman'),
-                    ]
-                );
+                    ->where('id', '=', $visaFileInsertId)
+                    ->update(['danisman_id' => $request->input('danisman'),]);
             }
 
             $request->session()

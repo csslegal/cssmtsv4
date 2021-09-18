@@ -73,9 +73,8 @@
                             <option selected value="">Lütfen seçim yapın</option>
                             @foreach ($users as $user)
                                 @if ($user->user_type_id == 2 && $user->aktif == 1)
-                                    <option {{ old('danisman') == ($user->id = 'selected') }}
-                                        value="{{ $user->id }}">
-                                        {{ $user->name }}</option>
+                                    <option {{ old('danisman') == $user->id ? 'selected' : '' }}
+                                        value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endif
                             @endforeach
                         </select>
