@@ -18,15 +18,19 @@ class FileOpenController extends Controller
         $baseCustomerDetails = DB::table('customers')
             ->where('id', '=', $id)->first();
 
-        $visaTypes = DB::table('visa_types')->get();
-        $language = DB::table('language')->get();
+        $visaValidities = DB::table('visa_validity')->orderBy('orderby')->get();
+        $visaTypes = DB::table('visa_types')->orderBy('orderby')->get();
+        $language = DB::table('language')->orderBy('orderby')->get();
+        $users = DB::table('users')->orderBy('orderby')->get();
 
         return view('customer.visa.file-open')
             ->with(
                 [
                     'baseCustomerDetails' => $baseCustomerDetails,
                     'visaTypes' => $visaTypes,
-                    'language' => $language
+                    'language' => $language,
+                    'users' => $users,
+                    'visaValidities' => $visaValidities,
 
                 ]
             );
@@ -48,9 +52,65 @@ class FileOpenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $request->validate(
+            [
+                'vize-tipi' => 'required|numeric',
+                'vize-sure' => 'required|numeric',
+                'tc-no' => 'required|min:7',
+                'adres' => 'required|min:3',
+            ]
+        );
+
+        $customerActiveFile = DB::table('visa_files')
+            ->where('active', '=', 1)
+            ->where('customer_id', '=', $id)
+            ->get()
+            ->count();
+
+        if ($customerActiveFile == 0) {
+
+            $visaFileInsertId = DB::table('visa_files')->insertGetId(
+                [
+                    'customer_id' => $id,
+                    'visa_sub_type_id' => $request->input('vize-tipi'),
+                    'visa_validity_id' => $request->input('vize-sure'),
+                    'visa_file_grades_id' => 0,
+                    'created_at' => date('Y-m-d H:i:s')
+                ]
+            );
+
+            if ($request->session()->get('userTypeId') == 2) {
+                DB::table('visa_files')
+                    ->where('id', '=', $visaFileInsertId)
+                    ->update(
+                        [
+                            'danisman_id' => $request->session()->get('userId'),
+                        ]
+                    );
+            } elseif (
+                $request->session()->get('userTypeId') == 1 ||
+                $request->session()->get('userTypeId') == 4 ||
+                $request->session()->get('userTypeId') == 7
+            ) {
+                DB::table('visa_files')
+                ->where('id', '=', $visaFileInsertId)
+                ->update(
+                    [
+                        'danisman_id' => $request->input('danisman'),
+                    ]
+                );
+            }
+
+            $request->session()
+                ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
+            return redirect('/musteri/' . $id . '/vize');
+        } else {
+            $request->session()
+                ->flash('mesajInfo', 'Müşteri aktif dosyası mevcut.');
+            return redirect('/musteri/' . $id . '/vize');
+        }
     }
 
     /**

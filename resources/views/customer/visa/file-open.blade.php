@@ -14,12 +14,9 @@
             <li class="breadcrumb-item active">Cari Dosya Aç</li>
         </ol>
     </nav>
-
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">Cari Dosya Aç</div>
-
         <div class="card-body scroll">
-
             <form action="/musteri/{{ $baseCustomerDetails->id }}/vize/dosya-ac" method="POST">
                 @csrf
                 <div class="mb-3">
@@ -30,7 +27,6 @@
                             <option value="{{ $visaType->id }}">{{ $visaType->name }}</option>
                         @endforeach
                     </select>
-
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Alt Vize Tipi</label>
@@ -46,26 +42,27 @@
                     <select name="vize-sure" class="form-control">
                         <option selected value="">Lütfen seçim yapın</option>
                         @foreach ($visaValidities as $visaValidity)
-                            <option value="{{ $visaValidity->id }}">{{ $visaValidity->name }}</option>
+                            <option {{ old('vize-sure') == $visaValidity->id ? 'selected' : '' }}
+                                value="{{ $visaValidity->id }}">{{ $visaValidity->name }}</option>
                         @endforeach
                     </select>
                     @error('vize-sure')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="mb-3">
                     <label>Müşteri T.C. Numarası</label>
-                    <input type="text" name="tcno" class="form-control" placeholder="T.C. numarasını giriniz"
-                        value="{{ $baseCustomerDetails->tcno }}" />
-                    @error('tcno')
+                    <input type="text" name="tc-no" class="form-control" placeholder="T.C. numarasını giriniz"
+                        value="{{ $baseCustomerDetails->tcno != '' ? $baseCustomerDetails->tcno : old('tc-no') }}" />
+                    @error('tc-no')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label>Müşteri Adresi</label>
                     <input type="text" name="adres" class="form-control" placeholder="Adres giriniz"
-                        value="{{ $baseCustomerDetails->adres }}" />
-                    @error('tcno')
+                        value="{{ $baseCustomerDetails->adres != '' ? $baseCustomerDetails->adres : old('adres') }}" />
+                    @error('adres')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -76,7 +73,9 @@
                             <option selected value="">Lütfen seçim yapın</option>
                             @foreach ($users as $user)
                                 @if ($user->user_type_id == 2 && $user->aktif == 1)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    <option {{ old('danisman') == ($user->id = 'selected') }}
+                                        value="{{ $user->id }}">
+                                        {{ $user->name }}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -85,7 +84,6 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-
                 <button type="submit" class="btn btn-danger text-white confirm"
                     data-title="Müşteri dosyası açılsın mı?">Tamamla</button>
             </form>
