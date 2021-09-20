@@ -70,6 +70,7 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
+
     public function post_not_sil(Request $request)
     {
         if (is_numeric($request->input('id'))) {
@@ -95,6 +96,16 @@ class AjaxController extends Controller
         $getVisaTypes = DB::table('visa_sub_types')
             ->where('visa_type_id', '=', $request->input('id'))
             ->get();
+
+        return ($getVisaTypes);
+    }
+
+    public function post_visa_file_log_content(Request $request)
+    {
+        $getVisaTypes = DB::table('visa_file_logs')
+            ->select('content')
+            ->where('id', '=', $request->input('id'))
+            ->first();
 
         return ($getVisaTypes);
     }

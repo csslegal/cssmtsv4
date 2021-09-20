@@ -25,10 +25,35 @@
 
     @include('customer.visa.cards.information-email')
 
+    @include('customer.modals.content-load')
+
 @endsection
 
 @section('js')
     <script>
+        function goster(id) {
+            $("#contentLoad").html('Veri alınıyor...');
+            $("#contentHead").html('Dosya İşlemi Detayları');
+            $.ajax({
+                type: 'POST',
+                url: "/musteri/ajax/vize-dosya-log",
+                data: {
+                    'id': id,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(data, status, xhr) {
+                    if (data['content'] == '') {
+                        $("#contentLoad").html('Veri girişi yapılmadı');
+                    } else {
+                        $("#contentLoad").html(data['content']);
+                    }
+                },
+                error: function(data, status, xhr) {
+                    $("#contentLoad").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
+                }
+            });
+        }
+
         function subVisaTypes(id) {
             $.ajax({
                 type: 'POST',

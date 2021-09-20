@@ -64,6 +64,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::post('email-goster', [CustomerAjaxController::class, 'post_email_goster']);
             Route::post('not-sil', [CustomerAjaxController::class, 'post_not_sil']);
             Route::post('alt-vize-tipi', [CustomerAjaxController::class, 'post_visa_sub_type']);
+            Route::post('vize-dosya-log', [CustomerAjaxController::class, 'post_visa_file_log_content']);
         });
 
         Route::get('sorgula', [CustomerIndexController::class, 'get_sorgula']);
