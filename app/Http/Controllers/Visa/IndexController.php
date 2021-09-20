@@ -13,7 +13,7 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')
             ->where('id', '=', $id)->first();
@@ -25,23 +25,17 @@ class IndexController extends Controller
             ->select([
                 'visa_files.id AS id',
                 'visa_files.status AS status',
-                'visa_files.status AS visa_file_grades_id',
+                'visa_files.visa_file_grades_id AS visa_file_grades_id',
                 'visa_files.created_at AS created_at',
-
                 'visa_types.name AS visa_type_name',
-
                 'visa_sub_types.name AS visa_sub_type_name',
-
                 'visa_validity.name AS visa_validity_name',
-
                 'visa_appointments.gwf AS visa_appointments_gwf',
                 'visa_appointments.name AS visa_appointments_name',
                 'visa_appointments.password AS visa_appointments_password',
                 'visa_appointments.date AS visa_appointments_date',
                 'visa_appointments.time AS visa_appointments_time',
                 'visa_appointments.created_at AS visa_appointments_created_at',
-
-
                 'user_advisor.name AS advisor_name',
                 'user_translator.name AS translator_name',
                 'user_expert.name AS expert_name',
@@ -60,8 +54,18 @@ class IndexController extends Controller
 
             ->first();
 
-        $visaFileGradesLogs = DB::table('visa_file_logs')
+        // dd($visaFileDetail);
 
+        $visaFileGradesUserType = DB::table('visa_file_grades_users_type')
+            ->select(
+                [
+                    'user_type_id'
+                ]
+            )
+            ->where('visa_file_grade_id', '=', $visaFileDetail->visa_file_grades_id)
+            ->pluck('user_type_id')->toArray();
+
+        $visaFileGradesLogs = DB::table('visa_file_logs')
             ->select(
                 [
                     'visa_file_logs.id AS id',
@@ -84,6 +88,10 @@ class IndexController extends Controller
                     'language' => $language,
                     'visaFileDetail' => $visaFileDetail,
                     'visaFileGradesLogs' => $visaFileGradesLogs,
+                    'visaFileGradesPermitted' => in_array(
+                        $request->session()->get('userTypeId'),
+                        $visaFileGradesUserType
+                    )
                 ]
             );
     }

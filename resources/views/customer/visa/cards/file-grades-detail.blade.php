@@ -18,7 +18,7 @@
                             Göster
                         </button>
                     </span>
-                    @if ($loop->last)
+                    @if ($loop->last && $visaFileGradesPermitted)
                         <span class="float-right">
                             <a href="/musteri/{{ $baseCustomerDetails->id }}/vize/"
                                 class="confirm btn btn-sm btn-primary text-white" data-bs-toggle="tooltip"
