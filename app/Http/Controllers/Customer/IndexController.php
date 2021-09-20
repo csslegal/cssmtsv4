@@ -181,11 +181,29 @@ class IndexController extends Controller
 
     public function get_index(Request $request, $id)
     {
-        $temelBilgiler = DB::table('customers');
+        $temelBilgiler = DB::table('customers')
+            ->select(
+                [
+                    'customers.id AS id',
+                    'customers.name AS name',
+                    'customers.telefon AS telefon',
+                    'customers.email AS email',
+                    'customers.tcno AS tcno',
+                    'customers.adres AS adres',
+                    'customers.pasaport AS pasaport',
+                    'customers.pasaport_tarihi AS pasaport_tarihi',
+                    'application_offices.name AS application_name',
+                    'appointment_offices.name AS appointment_name',
+                ]
+            )
+            ->leftJoin('application_offices', 'application_offices.id', '=', 'customers.application_office_id')
+            ->leftJoin('appointment_offices', 'appointment_offices.id', '=', 'customers.appointment_office_id');
 
-        if (is_numeric($id) && $temelBilgiler->where('id', '=', $id)->get()->count() > 0) {
+        if (is_numeric($id) && $temelBilgiler->where('customers.id', '=', $id)->get()->count() > 0) {
 
-            $temelBilgiler = $temelBilgiler->where('id', '=', $id)->first();
+            $temelBilgiler = $temelBilgiler->where('customers.id', '=', $id)->first();
+
+
 
             $userAccesses = DB::table('users_access')
                 ->select('access.id',)

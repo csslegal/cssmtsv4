@@ -18,29 +18,15 @@
                 <div class="col-md-6">
                     <ul>
                         <li><span class="fw-bold">Başvuru Ofisi:: </span>
-                            {{ $temelBilgiler->tcno != null ? $temelBilgiler->tcno : 'Kayıt bilgisi yok' }}</li>
+                            {{ $temelBilgiler->application_name != null ? $temelBilgiler->application_name : 'Kayıt bilgisi yok' }}</li>
                         <li><span class="fw-bold">Randevu Ofisi: </span>
-                            {{ $temelBilgiler->tcno != null ? $temelBilgiler->tcno : 'Kayıt bilgisi yok' }}</li>
+                            {{ $temelBilgiler->appointment_name != null ? $temelBilgiler->appointment_name : 'Kayıt bilgisi yok' }}</li>
                         <li><span class="fw-bold">Pasaport No: </span>
                             {{ $temelBilgiler->pasaport != null ? $temelBilgiler->pasaport : 'Kayıt bilgisi yok' }}
                         </li>
                         <li><span class="fw-bold">Pasaport Tarihi: </span>
                             {{ $temelBilgiler->pasaport_tarihi != null ? $temelBilgiler->pasaport_tarihi : 'Kayıt bilgisi yok' }}
                         </li>
-                        @if (isset($dosyaDetaylari))
-                            <span class="fw-bold">Dosya Danışmani:</span>
-                            {{ $dosyaDetaylari->u_name != null ? $dosyaDetaylari->u_name : 'Danışman atanmadı' }}
-                            <span class="fw-bold">Durum: </span>
-                            {!! $dosyaDetaylari->d_aciliyet_durum_id == 0 ? '' : '<span class="glyphicon glyphicon-warning-sign " style="color:red"></span>' !!}
-                            {{ $dosyaDetaylari->d_aciliyet_durum_id == 0 ? 'Normal dosya' : 'Acil dosya' }}
-                            {!! $dosyaDetaylari->d_aciliyet_durum_id == 0 ? '' : '<span class="glyphicon glyphicon-warning-sign " style="color:red"></span>' !!}
-                            <span class="fw-bold">Başvuru Ofisi:</span>
-                            {{ $dosyaDetaylari->bo_name != null ? $dosyaDetaylari->bo_name : 'Başvuru ofisi seçilmedi' }}
-
-                            <span class="fw-bold">Randevu Şehri:</span>
-                            {{ $dosyaDetaylari->ro_name != null ? $dosyaDetaylari->ro_name : 'Randevu şehri seçilmedi' }}
-                        @endif
-
                     </ul>
                 </div>
             </div>
