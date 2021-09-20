@@ -18,12 +18,9 @@
 
     @include('customer.visa.cards.visa-proccess')
 
-    @if (isset($appointmentDetail))
-        @include('customer.visa.cards.appointment-detail')
-    @endif
-
-    @if (isset($fileDetail))
+    @if (isset($visaFileDetail))
         @include('customer.visa.cards.file-detail')
+        @include('customer.visa.cards.file-grades-detail')
     @endif
 
     @include('customer.visa.cards.information-email')
