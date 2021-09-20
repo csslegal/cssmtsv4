@@ -60,13 +60,30 @@ class IndexController extends Controller
 
             ->first();
 
+        $visaFileGradesLogs = DB::table('visa_file_logs')
+
+            ->select(
+                [
+                    'visa_file_logs.id AS id',
+                    'visa_file_logs.subject AS subject',
+                    'visa_file_logs.created_at AS created_at',
+                    'users.name AS user_name',
+                ]
+            )
+            ->join('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
+            ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
+            ->where('visa_files.customer_id', '=', $id)
+            ->where('visa_files.active', '=', 1)
+            ->get();
+
         return view('customer.visa.index')
             ->with(
                 [
                     'baseCustomerDetails' => $baseCustomerDetails,
                     'visaTypes' => $visaTypes,
                     'language' => $language,
-                    'visaFileDetail' => $visaFileDetail
+                    'visaFileDetail' => $visaFileDetail,
+                    'visaFileGradesLogs' => $visaFileGradesLogs,
                 ]
             );
     }
