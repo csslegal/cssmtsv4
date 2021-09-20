@@ -2,7 +2,8 @@
 //required
 require('./bootstrap');
 
-require('bootstrap/dist/js/bootstrap.bundle.js')
+window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js')
+
 require('jquery-confirm')
 require('datatables.net-bs5')
 
