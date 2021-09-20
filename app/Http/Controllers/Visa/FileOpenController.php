@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Visa;
 
 use App\Http\Controllers\Controller;
+use App\MyClass\VisaFileGradesName;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class FileOpenController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -54,6 +56,9 @@ class FileOpenController extends Controller
      */
     public function store(Request $request, $id)
     {
+        //Dosya aşama Id
+        define('VISA_FILE_GRADE_ID', 1);
+
         $request->validate(
             [
                 'vize-tipi' => 'required|numeric',
@@ -89,18 +94,38 @@ class FileOpenController extends Controller
                 ->update(['id' => $dosyaRefNumber,]);
 
             if ($request->session()->get('userTypeId') == 2) {
+
                 DB::table('visa_files')
-                    ->where('id', '=', $visaFileInsertId)
-                    ->update(['danisman_id' => $request->session()->get('userId'),]);
+                    ->where('id', '=', $dosyaRefNumber)
+                    ->update(['advisor_id' => $request->session()->get('userId'),]);
             } elseif (
                 $request->session()->get('userTypeId') == 1 ||
                 $request->session()->get('userTypeId') == 4 ||
                 $request->session()->get('userTypeId') == 7
             ) {
                 DB::table('visa_files')
-                    ->where('id', '=', $visaFileInsertId)
-                    ->update(['danisman_id' => $request->input('danisman'),]);
+                    ->where('id', '=', $dosyaRefNumber)
+                    ->update(['advisor_id' => $request->input('danisman'),]);
             }
+            DB::table('customers')
+                ->where('id', '=', $id)
+                ->update(
+                    [
+                        'tcno' => $request->input('tc-no'),
+                        'adres' => $request->input('adres'),
+                    ]
+                );
+
+            $visaFileGradesName = new VisaFileGradesName(VISA_FILE_GRADE_ID);
+
+            DB::table('visa_file_logs')->insert([
+                'visa_file_id' => $dosyaRefNumber,
+                'user_id' => $request->session()->get('userId'),
+                'subject' => $visaFileGradesName->getName(),
+                'content' => '',
+                'created_at' => date('Y-m-d H:i:s'),
+
+            ]);
 
             $request->session()
                 ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
