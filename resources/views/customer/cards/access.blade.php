@@ -5,12 +5,26 @@
                 <div class="card-body">
                     <h5 class="card-title">Vize İşlemleri</h5>
                     <ul>
-                        <li>Müşteri cari veya arşiv dosyası bulunamadı</li>
                         <li>
-                            <span class="fw-bold">
-                                Son İşlem ve Tarihi:
+                            @if (isset($visaFileGradesDescLog))
+                                Müşteri
+                                <span class="fw-bold text-danger">
+                                    {{ $visaFileGradesDescLog->visa_file_id }}
+                                </span>
+                                numaralı cari dosyası bulundu.
+                            @else
+                                Müşteri cari dosyası bulunamadı.
+                            @endif
+                        </li>
+                        <li>
+                            <span class="fw-bold">Son İşlem ve Tarihi:</span>
+                            <span>
+                                {{ $visaFileGradesDescLog->subject }},
+                                {{ $visaFileGradesDescLog->user_name }}
+                                tarafından
+                                {{ $visaFileGradesDescLog->created_at }}
+                                tarihinde yapıldı.
                             </span>
-                            Dosya işlemleriyle ilgili veri bulunamadı
                         </li>
                     </ul>
                     <a href="/musteri/{{ $temelBilgiler->id }}/vize" class="btn btn-primary float-end">Git</a>

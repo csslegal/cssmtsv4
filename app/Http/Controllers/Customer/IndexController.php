@@ -203,8 +203,6 @@ class IndexController extends Controller
 
             $temelBilgiler = $temelBilgiler->where('customers.id', '=', $id)->first();
 
-
-
             $userAccesses = DB::table('users_access')
                 ->select('access.id',)
                 ->leftJoin('access', 'access.id', '=', 'users_access.access_id')
@@ -235,12 +233,31 @@ class IndexController extends Controller
                 ->where('email_logs.customer_id', '=', $id)
                 ->get();
 
+
+            $visaFileGradesDescLog = DB::table('visa_file_logs')
+                ->select(
+                    [
+                        'visa_file_logs.id AS id',
+                        'visa_file_logs.subject AS subject',
+                        'visa_file_logs.created_at AS created_at',
+                        'users.name AS user_name',
+                        'visa_files.id AS visa_file_id',
+                    ]
+                )
+                ->join('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
+                ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
+                ->where('visa_files.customer_id', '=', $id)
+                ->where('visa_files.active', '=', 1)
+                ->orderByDesc('id')
+                ->first();
+
             return view('customer.index')->with(
                 [
                     'temelBilgiler' => $temelBilgiler,
                     'customerNotlari' => $customerNotlari,
                     'userAccesses' => $userAccesses,
-                    'customerEmailLogs' => $customerEmailLogs
+                    'customerEmailLogs' => $customerEmailLogs,
+                    'visaFileGradesDescLog' => $visaFileGradesDescLog,
                 ]
             );
         } else {
@@ -315,6 +332,7 @@ class IndexController extends Controller
             ]
         );
     }
+
     public function post_kayit_duzenle(Request $request, $id)
     {
 
