@@ -2,9 +2,7 @@ var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 })
-/**
- * Geri sayfaya gecişini kullanıcının engelleme
- */
+/*** Geri sayfaya gecişini kullanıcının engelleme*/
 window.history.pushState(null, "", window.location.href);
 window.onpopstate = function () { window.history.pushState(null, "", window.location.href); };
 
@@ -18,7 +16,6 @@ $('#dataTableVize,#dataTableDilOkulu,#dataTableHarici').DataTable({
 $('#dataTable').DataTable({
     language: { url: '/dataTables.tr.json' },
 });
-
 
 $('a.confirm').confirm({
     content: '',
@@ -52,14 +49,3 @@ $('form>button.confirm').confirm({
         }
     }
 });
-
-$('body').append('<div id="loadingDiv"><div class="loader text-center fw-bold"><img class="w-100  mt-5 p-3" src="/storage/logo.png" alt="logo">Sayfa Yükleniyor..</div></div>');
-$(window).on('load', function(){
- setTimeout(removeLoader, 1000); //wait for page load PLUS two seconds.
-});
-function removeLoader(){
-    $( "#loadingDiv" ).fadeOut(200, function() {
-      // fadeOut complete. Remove the loading div
-      $( "#loadingDiv" ).remove(); //makes page more lightweight
-  });
-}
