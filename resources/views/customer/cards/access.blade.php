@@ -6,7 +6,7 @@
                     <h5 class="card-title">Vize İşlemleri</h5>
                     <ul>
                         <li>
-                            @if (isset($visaFileGradesDescLog))
+                            @if (!is_null($visaFileGradesDescLog))
                                 Müşteri
                                 <span class="fw-bold text-danger">
                                     {{ $visaFileGradesDescLog->visa_file_id }}
@@ -19,11 +19,15 @@
                         <li>
                             <span class="fw-bold">Son İşlem ve Tarihi:</span>
                             <span>
-                                {{ $visaFileGradesDescLog->subject }},
-                                {{ $visaFileGradesDescLog->user_name }}
-                                tarafından
-                                {{ $visaFileGradesDescLog->created_at }}
-                                tarihinde yapıldı.
+                                @if (!is_null($visaFileGradesDescLog))
+                                    {{ $visaFileGradesDescLog->subject }},
+                                    {{ $visaFileGradesDescLog->user_name }}
+                                    tarafından
+                                    {{ $visaFileGradesDescLog->created_at }}
+                                    tarihinde yapıldı.
+                                @else
+                                    Kayıt bulunamadı.
+                                @endif
                             </span>
                         </li>
                     </ul>
