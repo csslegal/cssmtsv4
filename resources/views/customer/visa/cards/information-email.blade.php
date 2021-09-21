@@ -1,5 +1,5 @@
 <div class="card card-primary mb-3">
-    <div class="card-header bg-primary text-white">Bilgi Emaili Gönderme</div>
+    <div class="card-header bg-primary text-white">Bilgi E-mail Gönder</div>
     <div class="card-body scroll">
         <form action="/musteri/{{ $baseCustomerDetails->id }}/vize/bilgi-emaili" method="POST">
             @csrf
@@ -32,7 +32,7 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-danger text-white confirm"
+            <button type="submit" class="btn btn-sm btn-danger text-white confirm"
                 data-title="E-mail gönderilsin mi?">Tamamla</button>
         </form>
     </div>
