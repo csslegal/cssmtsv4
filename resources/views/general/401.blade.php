@@ -21,7 +21,7 @@
                 <br>
                 <span class=" text-danger ">401 | Yetkisiz İstek</span>
                 <br>
-                <a class="mt-4 btn btn-primary" href="{{ config('app.url') }}">Ana Sayfa</a>
+                <a class="mt-4 btn btn-primary" href="/">Ana Sayfa</a>
             </div>
         </div>
     </div>

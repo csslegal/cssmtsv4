@@ -35,7 +35,7 @@ use App\Http\Controllers\Visa\InformationEmailController as VisaInformationEmail
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
 
-Route::redirect('yonlendirme', config('app.url'));
+Route::redirect('yonlendirme', '/');
 Route::resource('giris', GeneralLoginController::class);
 
 /**Oturum yönlendirmeler*/

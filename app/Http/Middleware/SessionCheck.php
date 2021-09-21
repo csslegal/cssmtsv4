@@ -21,7 +21,7 @@ class SessionCheck
          */
 
         if (!$request->session()->has('session')) {
-            return redirect(config('app.url'));
+            return redirect('/');
         }
         /**
          * oturum varsa ve admin değilse oturum suresine tabi olacak
@@ -38,7 +38,7 @@ class SessionCheck
                     $request->session()->forget('userTypeId');
                     $request->session()->forget('userName');
 
-                    return redirect(config('app.url'));
+                    return redirect('/');
                 }
             }
         }

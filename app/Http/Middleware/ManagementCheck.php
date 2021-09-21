@@ -18,7 +18,7 @@ class ManagementCheck
     {
         if(!($request->session()->get('userTypeId')==1)){
 
-            return redirect(config('app.url'));
+            return redirect('/');
         }
         return $next($request);
     }

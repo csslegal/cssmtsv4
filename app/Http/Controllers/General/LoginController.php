@@ -119,13 +119,13 @@ class LoginController extends Controller
         $request->session()->forget('userId');
         $request->session()->forget('userTypeId');
         $request->session()->forget('userName');
-        return redirect(config('app.url'));
+        return redirect('/');
     }
 
     public function index(Request $request)
     {
         if ($request->session()->has('session')) {
-            return redirect(config('app.url'));
+            return redirect('/');
         } else {
             return view('general.login');
         }
