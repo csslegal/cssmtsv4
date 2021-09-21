@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Visa;
 
 use App\Http\Controllers\Controller;
 use App\MyClass\VisaFileGradesName;
+use App\MyClass\VisaFileWhichGrades;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -56,9 +57,6 @@ class FileOpenController extends Controller
      */
     public function store(Request $request, $id)
     {
-        //Dosya aşama Id
-        define('VISA_FILE_GRADE_ID', 1);
-
         $request->validate(
             [
                 'vize-tipi' => 'required|numeric',
@@ -80,7 +78,7 @@ class FileOpenController extends Controller
                     'customer_id' => $id,
                     'visa_sub_type_id' => $request->input('vize-tipi'),
                     'visa_validity_id' => $request->input('vize-sure'),
-                    'visa_file_grades_id' => 0,
+                    'visa_file_grades_id' => env('VISA_FILE_OPEN_GRADES_ID'),
                     'created_at' => date('Y-m-d H:i:s')
                 ]
             );
@@ -99,6 +97,7 @@ class FileOpenController extends Controller
                     ->where('id', '=', $dosyaRefNumber)
                     ->update(['advisor_id' => $request->session()->get('userId'),]);
             } elseif (
+
                 $request->session()->get('userTypeId') == 1 ||
                 $request->session()->get('userTypeId') == 4 ||
                 $request->session()->get('userTypeId') == 7
@@ -107,16 +106,14 @@ class FileOpenController extends Controller
                     ->where('id', '=', $dosyaRefNumber)
                     ->update(['advisor_id' => $request->input('danisman'),]);
             }
-            DB::table('customers')
-                ->where('id', '=', $id)
-                ->update(
-                    [
-                        'tcno' => $request->input('tc-no'),
-                        'adres' => $request->input('adres'),
-                    ]
-                );
+            DB::table('customers')->where('id', '=', $id)->update(
+                [
+                    'tcno' => $request->input('tc-no'),
+                    'adres' => $request->input('adres'),
+                ]
+            );
 
-            $visaFileGradesName = new VisaFileGradesName(VISA_FILE_GRADE_ID);
+            $visaFileGradesName = new VisaFileGradesName(env('VISA_FILE_OPEN_GRADES_ID'));
 
             DB::table('visa_file_logs')->insert([
                 'visa_file_id' => $dosyaRefNumber,
@@ -124,8 +121,14 @@ class FileOpenController extends Controller
                 'subject' => $visaFileGradesName->getName(),
                 'content' => '',
                 'created_at' => date('Y-m-d H:i:s'),
-
             ]);
+
+            $whichGrades = new VisaFileWhichGrades();
+            $nextGrades = $whichGrades->nextGrades($dosyaRefNumber);
+
+            DB::table('visa_files')
+            ->where("id", "=", $dosyaRefNumber)
+            ->update(['visa_file_grades_id' => $nextGrades]);
 
             $request->session()
                 ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');

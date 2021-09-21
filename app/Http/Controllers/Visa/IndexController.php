@@ -54,15 +54,13 @@ class IndexController extends Controller
 
             ->first();
 
-        // dd($visaFileDetail);
-
         $visaFileGradesUserType = DB::table('visa_file_grades_users_type')
-            ->select(
-                [
-                    'user_type_id'
-                ]
+            ->select(['user_type_id'])
+            ->where(
+                'visa_file_grade_id',
+                '=',
+                isset($visaFileDetail->visa_file_grades_id) ? $visaFileDetail->visa_file_grades_id : env('VISA_FILE_OPEN_GRADES_ID')
             )
-            ->where('visa_file_grade_id', '=', $visaFileDetail->visa_file_grades_id)
             ->pluck('user_type_id')->toArray();
 
         $visaFileGradesLogs = DB::table('visa_file_logs')
@@ -81,18 +79,18 @@ class IndexController extends Controller
             ->get();
 
         return view('customer.visa.index')
-            ->with(
-                [
-                    'baseCustomerDetails' => $baseCustomerDetails,
-                    'visaTypes' => $visaTypes,
-                    'language' => $language,
-                    'visaFileDetail' => $visaFileDetail,
-                    'visaFileGradesLogs' => $visaFileGradesLogs,
-                    'visaFileGradesPermitted' => in_array(
-                        $request->session()->get('userTypeId'),
-                        $visaFileGradesUserType
-                    )
-                ]
-            );
+        ->with(
+            [
+                'baseCustomerDetails' => $baseCustomerDetails,
+                'visaTypes' => $visaTypes,
+                'language' => $language,
+                'visaFileDetail' => $visaFileDetail,
+                'visaFileGradesLogs' => $visaFileGradesLogs,
+                'visaFileGradesPermitted' => in_array(
+                    $request->session()->get('userTypeId'),
+                    $visaFileGradesUserType
+                )
+            ]
+        );
     }
 }

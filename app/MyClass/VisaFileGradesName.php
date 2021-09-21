@@ -9,17 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class VisaFileGradesName
 {
-    /**
-     * @where Id visa file grades
-     */
     public function __construct($id)
     {
         $this->id = $id;
     }
 
-    /**
-     * @return name
-     */
     public function getName()
     {
         $nameQuery = DB::table('visa_file_grades')

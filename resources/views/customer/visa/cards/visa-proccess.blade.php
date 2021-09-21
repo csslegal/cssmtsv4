@@ -3,7 +3,8 @@
     <div class="row">
         <div class="col-md-6">
             <ul>
-                @if (!isset($visaFileDetail))
+
+                @if (!isset($visaFileDetail) && $visaFileGradesPermitted)
                     <li class="fw-bold">Cari dosya açmak için
                         <a class="text-danger"
                             href="/musteri/{{ $baseCustomerDetails->id }}/vize/dosya-ac">tıkla</a>
@@ -13,14 +14,14 @@
                     <li>Cari dosyayı kapatmak için
                         <a class="fw-bold text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
                     </li>
-
                     <li>Cari dosya ödemeleri için
                         <a class="fw-bold text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
                     </li>
-                    <li>Cari dosyayı arşive taşımak için
-                        <a class="fw-bold text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
-                    </li>
+
                 @endif
+                <li class="fw-bold">Arşiv dosyaları için
+                    <a class="text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
+                </li>
             </ul>
         </div>
         <div class="col-md-6">
@@ -32,10 +33,11 @@
                     <li>Cari dosya faturaları için
                         <a class="fw-bold text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
                     </li>
+                    <li>Cari dosyayı arşive taşımak için
+                        <a class="fw-bold text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
+                    </li>
                 @endif
-                <li class="fw-bold">Arşiv dosyaları için
-                    <a class="text-danger" href="/musteri/{{ $baseCustomerDetails->id }}">tıkla</a>
-                </li>
+
             </ul>
         </div>
     </div>
