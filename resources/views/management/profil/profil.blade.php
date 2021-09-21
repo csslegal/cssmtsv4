@@ -14,7 +14,7 @@
 
             <h2>Bilgilerim</h2>
             <div class="row p-4 mb-5 bg-light ">
-                <div class="col-6">
+                <div class="col-md-6 col-sm-12">
                     <ul>
                         <li>
                             Adınız:
@@ -49,7 +49,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6 col-sm-12">
                     <span class="fw-bold text-primary">Erişim İzinleri</span>
                     <ol>
                         @if (count($erisimIzinleri) > 0)
