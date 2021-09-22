@@ -43,14 +43,17 @@ class VisaFileGradesController extends Controller
     public function store(Request $request)
     {
         $name = $request->input('name');
+        $url = $request->input('url');
 
         $request->validate([
-            'name' => 'required|max:100min:3'
+            'name' => 'required|max:100min:3',
+            'url' => 'required|unique:visa_file_grades,url|max:100min:3',
         ]);
 
         if ($kayitId = DB::table('visa_file_grades')->insertGetId(
             [
                 'name' => $name,
+                'url' => $url,
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]

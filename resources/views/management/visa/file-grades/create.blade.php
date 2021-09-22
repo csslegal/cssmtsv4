@@ -21,6 +21,13 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="col-12">
+                    <label class="form-label">Url</label>
+                    <input type="text" value="{{ old('url') }}" name="url" class="form-control">
+                    @error('url')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
                 <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Tamamla</button>
             </form>
         </div>

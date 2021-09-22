@@ -14,11 +14,12 @@
             <a class="float-end text-white" href="/yonetim/vize/dosya-asama/create">Ekle</a>
         </div>
         <div class="card-body scroll">
-            <table id="dataTable" class="table table-striped table-bordered display table-light " style="width:100%">
+            <table id="dataTableVize" class="table table-striped table-bordered display table-light " style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Adı</th>
+                        <th>Url</th>
                         <th>E. Tarih</th>
                         <th>G. Tarih</th>
                         <th class="text-center">Sırala</th>
@@ -30,6 +31,7 @@
                         <tr>
                             <td>{{ $kayit->orderby }}</td>
                             <td>{{ $kayit->name }}</td>
+                            <td>{{ $kayit->url }}</td>
                             <td>{{ $kayit->created_at }}</td>
                             <td>{{ $kayit->updated_at }}</td>
                             <td class="text-center">
