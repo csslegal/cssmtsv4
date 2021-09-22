@@ -2,7 +2,7 @@
     <div class="card card-primary  mb-3" id="email">
         <div class="card-header bg-primary text-white">Müşteri Gönderilen E-mailler</div>
         <div class="card-body">
-            <table id="dataTable" class="table table-striped table-bordered display table-light" style="width:100%">
+            <table id="dataTableVize" class="table table-striped table-bordered display table-light" style="width:100%">
                 <thead>
                     <tr>
                         <th class="text-center">Tarihi</th>
