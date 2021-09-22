@@ -28,7 +28,7 @@
                         @foreach ($visaCustomers as $visaCustomer)
                             <tr class="{{ $visaCustomer->status ? 'text-success' : '' }}">
                                 <td>
-                                    <a href="/musteri/{{ $visaCustomer->id }}">{{ $visaCustomer->visa_file_id }}</a>
+                                    <a href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->visa_file_id }}</a>
                                 </td>
                                 <td>{{ $visaCustomer->name }}</td>
                                 <td>
