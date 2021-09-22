@@ -10,7 +10,7 @@
                 <li class="nav-item">
                     <a href="/"
                         class="nav-link {{ request()->is('kullanici') || request()->is('yonetim') ? 'active text-white' : '' }}">
-                        <i class="bi bi-house-fill"></i></i>&nbspHome
+                        <i class="bi bi-house-fill"></i>&nbspAna Sayfa
                     </a>
                 </li>
                 <li class="nav-item dropdown">
@@ -66,7 +66,7 @@
 
                 <li class="nav-item">
                     <a href="/cikis" class="nav-link">
-                        <i class="bi bi-door-closed-fill"></i>&nbspGüvenli Çıkış
+                        <i class="bi bi-door-closed-fill"></i>&nbspÇıkış
                     </a>
                 </li>
             </ul>
