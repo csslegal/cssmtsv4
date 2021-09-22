@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\DB;
 class FileOpenController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($id)
     {
         $baseCustomerDetails = DB::table('customers')
@@ -26,7 +21,7 @@ class FileOpenController extends Controller
         $language = DB::table('language')->orderBy('orderby')->get();
         $users = DB::table('users')->orderBy('orderby')->get();
 
-        return view('customer.visa.file-open')
+        return view('customer.visa.grades.file-open')
             ->with(
                 [
                     'baseCustomerDetails' => $baseCustomerDetails,
@@ -39,22 +34,11 @@ class FileOpenController extends Controller
             );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, $id)
     {
         $request->validate(
@@ -140,46 +124,21 @@ class FileOpenController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
