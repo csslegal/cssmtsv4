@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Visa;
+namespace App\Http\Controllers\Visa\Grades;
 
 use App\Http\Controllers\Controller;
 use App\MyClass\VisaFileGradesName;
