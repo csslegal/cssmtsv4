@@ -26,9 +26,10 @@ use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\AjaxController as UserAjaxController;
 use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
 use App\Http\Controllers\Customer\IndexController as CustomerIndexController;
-use App\Http\Controllers\Visa\FileOpenController as VisaFileOpenController;
 use App\Http\Controllers\Visa\IndexController as VisaIndexController;
 use App\Http\Controllers\Visa\InformationEmailController as VisaInformationEmailController;
+use App\Http\Controllers\Visa\Grades\FileOpenController as VisaFileOpenController;
+use App\Http\Controllers\Visa\Grades\ReceivedPaymentsController as VisaReceivedPaymentsController;
 
 
 
@@ -53,6 +54,8 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::resource('bilgi-emaili', VisaInformationEmailController::class);
             /**Dosya aşama işlemleri */
             Route::resource('dosya-ac', VisaFileOpenController::class);
+            Route::resource('{visa_file_id}/alinan-odeme', VisaReceivedPaymentsController::class);
+            Route::get('{visa_file_id}/alinan-odeme-tamamla', [VisaReceivedPaymentsController::class, 'tamamla']);
         });
 
         /**Musteri ajax işlemleri*/
