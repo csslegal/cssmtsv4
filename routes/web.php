@@ -30,6 +30,7 @@ use App\Http\Controllers\Visa\IndexController as VisaIndexController;
 use App\Http\Controllers\Visa\InformationEmailController as VisaInformationEmailController;
 use App\Http\Controllers\Visa\Grades\FileOpenController as VisaFileOpenController;
 use App\Http\Controllers\Visa\Grades\ReceivedPaymentsController as VisaReceivedPaymentsController;
+use App\Http\Controllers\Visa\Grades\ReceivedPaymentsConfirmController as VisaReceivedPaymentsConfirmController;
 
 
 
@@ -56,6 +57,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::resource('dosya-ac', VisaFileOpenController::class);
             Route::resource('{visa_file_id}/alinan-odeme', VisaReceivedPaymentsController::class);
             Route::get('{visa_file_id}/alinan-odeme-tamamla', [VisaReceivedPaymentsController::class, 'tamamla']);
+            Route::resource('{visa_file_id}/alinan-odeme-onay', VisaReceivedPaymentsConfirmController::class);
         });
 
         /**Musteri ajax işlemleri*/
