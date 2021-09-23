@@ -17,30 +17,32 @@ class IndexController extends Controller
             ->where('user_id', '=', $request->session()->get('userId'))
             ->pluck('access.id')->toArray();
 
-        $visaCustomers = DB::table('customers')
-            ->select([
-                'customers.id AS id',
-                'customers.name AS name',
-                'visa_files.id AS visa_file_id',
-                'visa_files.status AS status',
-                'visa_file_grades.name AS visa_file_grades_name',
-                'visa_validity.name AS visa_validity_name',
-                'visa_types.name AS visa_type_name',
-                'visa_sub_types.name AS visa_sub_type_name',
-            ])
-
-            ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
-            ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
-            ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-            ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-            ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
-
-            ->where('visa_files.active', '=', 1)
-            ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
-            ->get();
 
         switch ($request->session()->get('userTypeId')) {
             case 2: //danisman
+
+                $visaCustomers = DB::table('customers')
+                    ->select([
+                        'customers.id AS id',
+                        'customers.name AS name',
+                        'visa_files.id AS visa_file_id',
+                        'visa_files.status AS status',
+                        'visa_file_grades.name AS visa_file_grades_name',
+                        'visa_validity.name AS visa_validity_name',
+                        'visa_types.name AS visa_type_name',
+                        'visa_sub_types.name AS visa_sub_type_name',
+                    ])
+
+                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
+                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
+                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+
+                    ->where('visa_files.active', '=', 1)
+                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    ->get();
+
                 return view('user.danisman.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
@@ -62,8 +64,31 @@ class IndexController extends Controller
                 ]);
                 break;
             case 6: //muhasebe
+                $visaCustomers = DB::table('customers')
+                    ->select([
+                        'customers.id AS id',
+                        'customers.name AS name',
+                        'visa_files.id AS visa_file_id',
+                        'visa_files.status AS status',
+                        'visa_file_grades.name AS visa_file_grades_name',
+                        'visa_validity.name AS visa_validity_name',
+                        'visa_types.name AS visa_type_name',
+                        'visa_sub_types.name AS visa_sub_type_name',
+                    ])
+
+                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
+                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
+                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+
+                    ->where('visa_files.active', '=', 1)
+                    ->where('visa_files.visa_file_grades_id', '=',env('VISA_PAYMENT_CONFIRM_GRADES_ID'))
+                    ->get();
+
                 return view('user.muhasebe.index')->with([
-                    'userAccesses' => $userAccesses
+                    'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
                 ]);
                 break;
             case 7: //m. koordinatoor
