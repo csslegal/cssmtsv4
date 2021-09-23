@@ -45,7 +45,7 @@ class ReceivedPaymentsController extends Controller
 
         $receivedPaymentTypes = DB::table('visa_received_payment_types')->get();
 
-        return view('customer.visa.grades.received-payment')
+        return view('customer.visa.grades.received-payments')
             ->with(
                 [
                     'baseCustomerDetails' => $baseCustomerDetails,

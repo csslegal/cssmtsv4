@@ -188,7 +188,7 @@
                             <td>{{ $receivedPayment->payment_date }}</td>
                             <td>{{ $receivedPayment->created_at }}</td>
                             <td>
-                                <form method="POST" action="alinan-odeme/{{ $receivedPayment->id }}">
+                                <form method="POST" action="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/alinan-odeme/{{ $receivedPayment->id }}">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Sil">

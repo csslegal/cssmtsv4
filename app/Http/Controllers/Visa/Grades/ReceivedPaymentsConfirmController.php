@@ -43,7 +43,7 @@ class ReceivedPaymentsConfirmController extends Controller
             ->where('visa_file_id', '=', $visa_file_id)
             ->get();
 
-        return view('customer.visa.grades.received-payment-confirm')
+        return view('customer.visa.grades.received-payments-confirm')
             ->with(
                 [
                     'baseCustomerDetails' => $baseCustomerDetails,
