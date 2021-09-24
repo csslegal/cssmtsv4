@@ -49,6 +49,9 @@
                             </div>
                         @endforeach
                     </div>
+                    @error('odeme_tipleri')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-3 col-md-6 col-sm-12">
@@ -63,6 +66,9 @@
                                     autocomplete="off" value="00" placeholder="Kuruş">
                             </div>
                         </div>
+                        @error('alinan_tl')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <label class="form-label"> Alınan Miktar (Pound)</label>
@@ -76,6 +82,9 @@
                                     value="{{ old('pound_kurus') }}" autocomplete="off" placeholder="Penny">
                             </div>
                         </div>
+                        @error('alinan_pound')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <label class="form-label"> Alınan Miktar (Euro)</label>
@@ -89,6 +98,9 @@
                                     value="{{ old('euro_kurus') }}" autocomplete="off" placeholder="Sent">
                             </div>
                         </div>
+                        @error('alinan_euro')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <label class="form-label"> Alınan Miktar (Dolar)</label>
@@ -102,6 +114,9 @@
                                     value="{{ old('dolar_kurus') }}" autocomplete="off" placeholder="Sent">
                             </div>
                         </div>
+                        @error('alinan_dolar')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -115,30 +130,50 @@
                         <input type="text" class="form-control" name="toplam_kurus" value="{{ old('toplam_kurus') }}"
                             autocomplete="off" placeholder="Kuruş">
                     </div>
+                    @error('alinan_toplam')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Ödeme Şekli</label>
                     <select name="odeme_sekli" class=" form-control">
-                        <option value="NAKİT">NAKİT</option>
-                        <option value="EFT">EFT</option>
-                        <option value="KREDİ KARTI">KREDİ KARTI</option>
-                        <option value="MAİL ORDER">MAİL ORDER</option>
-                        <option value="KARGO NAKİT">KARGO NAKİT</option>
-                        <option value="PTT">PTT</option>
-                        <option value="MONEY GRAM">MONEY GRAM</option>
-                        <option value="WESTERN UNİON">WESTERN UNİON</option>
+                        <option {{ old('odeme_sekli') == '' ? 'selected' : '' }} value="">Seçim yapınız</option>
+                        <option {{ old('odeme_sekli') == 'NAKİT' ? 'selected' : '' }} value="NAKİT">NAKİT</option>
+                        <option {{ old('odeme_sekli') == 'EFT' ? 'selected' : '' }} value="EFT">EFT</option>
+                        <option {{ old('odeme_sekli') == 'KREDİ KARTI' ? 'selected' : '' }} value="KREDİ KARTI">
+                            KREDİ KARTI
+                        </option>
+                        <option {{ old('odeme_sekli') == 'MAİL ORDER' ? 'selected' : '' }} value="MAİL ORDER">
+                            MAİL ORDER
+                        </option>
+                        <option {{ old('odeme_sekli') == 'KARGO NAKİT' ? 'selected' : '' }} value="KARGO NAKİT">
+                            KARGO NAKİT
+                        </option>
+                        <option {{ old('odeme_sekli') == 'PTT' ? 'selected' : '' }} value="PTT">PTT</option>
+                        <option {{ old('odeme_sekli') == 'MONEY GRAM' ? 'selected' : '' }} value="MONEY GRAM">
+                            MONEY GRAM
+                        </option>
+                        <option {{ old('odeme_sekli') == 'WESTERN UNİON' ? 'selected' : '' }} value="WESTERN UNİON">
+                            WESTERN UNİON
+                        </option>
                     </select>
+                    @error('odeme_sekli')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Ödeme Tarihi</label>
                     <input type="date" class="form-control" name="odeme_tarihi"
-                        value="{{ old('odeme_tarihi') == '' ? date('Y-m-d') : old('odeme_tarihi') }}" autocomplete="off"
+                        value="{{ old('odeme_tarihi') == '' ? '' : old('odeme_tarihi') }}" autocomplete="off"
                         placeholder="Ödeme alınma tarihi" />
+                    @error('odeme_tarihi')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-sm">Alınan Ödeme Kaydet</button>
+                <button type="submit" class="btn btn-primary">Alınan Ödeme Kaydet</button>
                 @if (count($receivedPayments) > 0)
                     <a href="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/alinan-odeme-tamamla"
                         class="btn btn-danger btn-sm text-white">Alınan Ödemeleri Tamamla</a>
@@ -188,7 +223,8 @@
                             <td>{{ $receivedPayment->payment_date }}</td>
                             <td>{{ $receivedPayment->created_at }}</td>
                             <td>
-                                <form method="POST" action="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/alinan-odeme/{{ $receivedPayment->id }}">
+                                <form method="POST"
+                                    action="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/alinan-odeme/{{ $receivedPayment->id }}">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Sil">
