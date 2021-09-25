@@ -31,6 +31,7 @@ use App\Http\Controllers\Visa\InformationEmailController as VisaInformationEmail
 use App\Http\Controllers\Visa\Grades\FileOpenController as VisaFileOpenController;
 use App\Http\Controllers\Visa\Grades\ReceivedPaymentsController as VisaReceivedPaymentsController;
 use App\Http\Controllers\Visa\Grades\ReceivedPaymentsConfirmController as VisaReceivedPaymentsConfirmController;
+use App\Http\Controllers\Visa\Grades\DocumentListEmailSendController as VisaDocumentListEmailSendController;
 
 
 
@@ -53,11 +54,18 @@ Route::middleware(['sessionCheck'])->group(function () {
         Route::group(['prefix' => '{id}/vize'], function () {
             Route::get('/', [VisaIndexController::class, 'index']);
             Route::resource('bilgi-emaili', VisaInformationEmailController::class);
+
             /**Dosya aşama işlemleri */
             Route::resource('dosya-ac', VisaFileOpenController::class);
-            Route::resource('{visa_file_id}/alinan-odeme', VisaReceivedPaymentsController::class);
-            Route::get('{visa_file_id}/alinan-odeme-tamamla', [VisaReceivedPaymentsController::class, 'tamamla']);
-            Route::resource('{visa_file_id}/alinan-odeme-onay', VisaReceivedPaymentsConfirmController::class);
+
+            Route::group(['prefix' => '{visa_file_id}'], function () {
+
+                Route::get('alinan-odeme-tamamla', [VisaReceivedPaymentsController::class, 'tamamla']);
+
+                Route::resource('alinan-odeme', VisaReceivedPaymentsController::class);
+                Route::resource('alinan-odeme-onay', VisaReceivedPaymentsConfirmController::class);
+                Route::resource('evrak-listesi', VisaDocumentListEmailSendController::class);
+            });
         });
 
         /**Musteri ajax işlemleri*/
