@@ -37,6 +37,6 @@ class CreateVisaEmailsDocumentListTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('email_document_list');
+        Schema::dropIfExists('visa_emails_document_list');
     }
 }
