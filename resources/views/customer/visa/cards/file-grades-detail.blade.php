@@ -22,7 +22,7 @@
                         <span class="float-right">
                             <a href="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $visaFileDetail->id }}/{{ $visaFileGradesPermitted['grades_url'] }}"
                                 class="confirm btn btn-sm btn-danger text-white" data-bs-toggle="tooltip"
-                                data-title="İşlem sayfasına gitmek istiyor musun?">İşlem
+                                data-title="Devam edilsin mi?">İşlem
                                 yap</a>
                         </span>
                     @endif
