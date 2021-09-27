@@ -10,7 +10,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="not" class="form-label">Müşteri Notu Giriniz</label>
-                        <textarea name="not" rows="20" class="form-control wysiwyg">{!! old('not') !!}</textarea>
+                        <textarea id="editor200" name="not" rows="20" class="form-control">{!! old('not') !!}</textarea>
                         @error('not')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

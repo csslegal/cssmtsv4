@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-12">
                         <label class="form-label">Bilgi E-maill İçeriği</label>
-                        <textarea name="icerik" class="form-control wysiwyg">{!! old('icerik') !!}</textarea>
+                        <textarea id="editor400" name="icerik" class="form-control wysiwyg">{!! old('icerik') !!}</textarea>
                         @error('icerik')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

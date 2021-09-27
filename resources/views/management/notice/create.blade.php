@@ -20,7 +20,7 @@
                 @error('icerik')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                <textarea name="icerik" class="wysiwyg">{!! old('icerik') !!}</textarea>
+                <textarea id="editor400" name="icerik" >{!! old('icerik') !!}</textarea>
 
                 <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Tamamla</button>
             </form>

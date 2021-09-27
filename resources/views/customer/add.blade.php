@@ -42,7 +42,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="not" class="form-label">Müşteri Hakkında Not</label>
-                    <textarea name="not" class="form-control wysiwyg">{!! old('not') !!}</textarea>
+                    <textarea id="editor200" name="not" class="form-control wysiwyg">{!! old('not') !!}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="adres" class="form-label">Müşteri Adresi</label>

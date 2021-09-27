@@ -17,8 +17,7 @@
                 @error('icerik')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                <textarea name="icerik"
-                    class="wysiwyg">@isset($kayit){!! $kayit->icerik !!}@endisset{!! old('icerik') !!}</textarea>
+                <textarea id="editor400" name="icerik">@isset($kayit){!! $kayit->icerik !!}@endisset{!! old('icerik') !!}</textarea>
                     <br>
                     <div class="form-check">
                         <input type="checkbox" name="aktif" class="form-check-input" @if ($kayit->aktif==1) checked @endif>

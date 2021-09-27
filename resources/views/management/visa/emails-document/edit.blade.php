@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-12">
                     <label class="form-label">Bilgi E-maill İçeriği</label>
-                    <textarea name="icerik" class="form-control wysiwyg">{!! $kayit->content !!}</textarea>
+                    <textarea id="editor400" name="icerik" class="form-control">{!! $kayit->content !!}</textarea>
                     @error('icerik')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
