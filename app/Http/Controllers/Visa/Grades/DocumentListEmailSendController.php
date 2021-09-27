@@ -94,7 +94,6 @@ class DocumentListEmailSendController extends Controller
             $fileName = time() . '.pdf';
             $pdf->save('C:/xampp/htdocs/laravel/cssmtsv4/storage/app/public/pdf/' . $fileName);
 
-            dd();
             /** Mail::send('email.document-list', [null], function ($m) use ($customerDetails, $fileName) {
              * $m->to($customerDetails->email, $customerDetails->name)
              * ->subject('Evrak Listesi E-maili | ' . date("His"))
@@ -132,7 +131,7 @@ class DocumentListEmailSendController extends Controller
                     'customer_id' => $id,
                     'access_id' => 1, //vize işlem emaili
                     'content' => $visaSubDocumentListEmailContent->content,
-                    'subject' => 'CSSLEGAL | Vize İşlemleri Evrak Listesi | ' . date("YmDHis"),
+                    'subject' => 'CSSlegal Evrak Listesi ' . date("YmDHis"),
                     'user_id' => $request->session()->get('userId'),
                     'created_at' => date('Y-m-d H:i:s'),
                 ]
@@ -142,7 +141,7 @@ class DocumentListEmailSendController extends Controller
             return redirect('/musteri/' . $id . '/vize');
         } else {
             $request->session()
-                ->flash('mesajInfo', 'Bu vize tipi için evrak listesi emaili bulunamadı');
+                ->flash('mesajInfo', 'Evrak listesi e-maili bulunamadı');
             return redirect('/musteri/' . $id . '/vize');
         }
     }

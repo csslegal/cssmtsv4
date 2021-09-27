@@ -5,6 +5,7 @@
             <table id="dataTableVize" class="table table-striped table-bordered display table-light" style="width:100%">
                 <thead>
                     <tr>
+                        <th class="text-center">ID</th>
                         <th class="text-center">Tarihi</th>
                         <th class="text-center">Gönderen</th>
                         <th class="text-center">Erişim</th>
@@ -15,6 +16,7 @@
                 <tbody>
                     @foreach ($customerEmailLogs as $customerEmailLog)
                         <tr>
+                            <td class="text-center"> {{ $customerEmailLog->id }} </td>
                             <td class="text-center">
                                 {{ date('Y-m-d H:i:s', strtotime($customerEmailLog->created_at)) }}
                             </td>
@@ -28,9 +30,10 @@
                                 {{ $customerEmailLog->subject }}
                             </td>
                             <td class="text-center">
-                                <button class="border btn" onclick="contentLoad('email','{{ $customerEmailLog->id }}')"
+                                <button class="border btn btn-sm"
+                                    onclick="contentLoad('email','{{ $customerEmailLog->id }}')"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                    <i class="bi bi-image"></i>
+                                    <i class="bi bi-image"></i> Göster
                                 </button>
                             </td>
                         </tr>

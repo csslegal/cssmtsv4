@@ -40,22 +40,17 @@ tinymce.init({
     menubar: true,
     height: 400,
     plugins: [
-        'code advlist anchor autolink fullscreen help image imagetools ',
-        'lists link media preview table visualblocks wordcount'
+        'code advlist anchor autolink fullscreen help image imagetools lists link media preview table visualblocks wordcount'
     ],
-    toolbar:
-        'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | link image media code  ',
-
+    toolbar: 'undo redo | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | link image media code',
 });
 tinymce.init({
     selector: '#editor200',
     height: 200,
     menubar: false,
     plugins: [
-        'advlist autolink lists link image charmap print preview anchor visualblocks code fullscreen',
-        'insertdatetime media table paste wordcount'
+        'advlist autolink lists link image charmap print preview anchor visualblocks fullscreen insertdatetime media table paste wordcount'
     ],
-    toolbar: 'code | undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-
+    toolbar: 'undo redo | formatselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
 });
 require('./main');

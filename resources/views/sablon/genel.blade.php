@@ -46,10 +46,10 @@
         $(document).ready(function() {
             $('.toast').toast('show');
         });
-        duyuruSayisiAl();
+        //duyuruSayisiAl();
         setTimeout(function() {
             window.location.reload(1);
-            duyuruSayisiAl();
+            //duyuruSayisiAl();
         }, {{ config('app.yenilenmeSuresi') * 1000 }});
 
         function duyuruSayisiAl() {
