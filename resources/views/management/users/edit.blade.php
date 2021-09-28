@@ -99,8 +99,8 @@
                         <label class="form-label">Hesap Durumu</label>
                         <select name="durum" class="form-control">
                             <option value="">Seçim Yapınız</option>
-                                <option {{ $kayit->aktif == 1 ? 'selected' : '' }} value="1">Aktif Hesap</option>
-                                <option {{ $kayit->aktif == 0 ? 'selected' : '' }} value="0">Pasif Hesap</option>
+                                <option {{ $kayit->active == 1 ? 'selected' : '' }} value="1">Normal Hesap</option>
+                                <option {{ $kayit->active == 0 ? 'selected' : '' }} value="0">Pasif Hesap</option>
                         </select>
                         @error('durum')
                             <div class="alert alert-danger">{{ $message }}</div>

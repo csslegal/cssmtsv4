@@ -20,7 +20,7 @@ class ProfilController extends Controller
             ->select(
                 'u.name',
                 'u.email',
-                'u.aktif',
+                'u.active',
                 'ut.name AS ut_name',
                 'bo.name AS bo_name',
                 'um.giris',

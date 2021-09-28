@@ -112,7 +112,7 @@ class IndexController extends Controller
             ->select(
                 'u.name AS u_name',
                 'u.email AS u_email',
-                'u.aktif AS u_aktif',
+                'u.active AS u_active',
                 'ut.name AS ut_name',
                 'bo.name AS bo_name',
                 'um.giris',
@@ -173,12 +173,12 @@ class IndexController extends Controller
             ->select(
                 'd.id AS d_id',
                 'u.name AS u_name',
-                'd.aktif AS d_aktif',
+                'd.active AS d_active',
                 'd.created_at AS d_tarih',
                 'd.updated_at AS d_u_tarih'
             )
             ->Join('users AS u', 'u.id', '=', 'd.user_id')
-            ->where('d.aktif', '=', 1)
+            ->where('d.active', '=', 1)
             ->get();
         return view('user.notice.index')->with(
             ['notices' => $duyuruBilgileri]

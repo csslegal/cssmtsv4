@@ -20,7 +20,7 @@ class NoticeController extends Controller
             ->select(
                 'd.id AS d_id',
                 'u.name AS u_name',
-                'd.aktif AS d_aktif',
+                'd.active AS d_active',
                 'd.created_at AS d_tarih',
                 'd.updated_at AS d_u_tarih'
             )
@@ -59,7 +59,7 @@ class NoticeController extends Controller
             [
                 'user_id' => $request->session()->get('userId'),
                 'icerik' => $request->input('icerik'),
-                'aktif' => 1,
+                'active' => 1,
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]
@@ -94,7 +94,7 @@ class NoticeController extends Controller
     public function edit($id)
     {
         $kayit = DB::table('notice')
-            ->select('icerik', 'id', 'aktif')
+            ->select('icerik', 'id', 'active')
             ->where('id', '=', $id)
             ->first();
         return view('management.notice.edit')
@@ -115,10 +115,10 @@ class NoticeController extends Controller
     public function update(Request $request, $id)
     {
 
-        if ($request->has('aktif')) {
-            $aktif = 1;
+        if ($request->has('active')) {
+            $active = 1;
         } else {
-            $aktif = 0;
+            $active = 0;
         }
 
         $request->validate([
@@ -131,7 +131,7 @@ class NoticeController extends Controller
                 ->where('id', '=', $id)
                 ->update(
                     [
-                        'aktif' => $aktif,
+                        'active' => $active,
                         'icerik' => $request->input('icerik'),
                         "updated_at" => date('Y-m-d H:i:s')
                     ]

@@ -19,7 +19,7 @@ class CreateNoticeTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('icerik');
-            $table->string('aktif');
+            $table->integer('active')->default(1);
             $table->timestamps();
         });
     }

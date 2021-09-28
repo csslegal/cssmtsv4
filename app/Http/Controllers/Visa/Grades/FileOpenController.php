@@ -119,7 +119,7 @@ class FileOpenController extends Controller
             return redirect('/musteri/' . $id . '/vize');
         } else {
             $request->session()
-                ->flash('mesajInfo', 'Müşteri aktif dosyası mevcut.');
+                ->flash('mesajInfo', 'Müşteri cari dosyası mevcut.');
             return redirect('/musteri/' . $id . '/vize');
         }
     }

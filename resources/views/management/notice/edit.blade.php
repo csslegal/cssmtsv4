@@ -20,9 +20,9 @@
                 <textarea id="editor400" name="icerik">@isset($kayit){!! $kayit->icerik !!}@endisset{!! old('icerik') !!}</textarea>
                     <br>
                     <div class="form-check">
-                        <input type="checkbox" name="aktif" class="form-check-input" @if ($kayit->aktif==1) checked @endif>
+                        <input type="checkbox" name="active" class="form-check-input" @if ($kayit->active==1) checked @endif>
                         <label class="form-check-label" for="flexCheckChecked">
-                            Aktif duyuru mu?
+                            Normal duyuru mu?
                         </label>
                     </div>
                     <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Tamamla</button>

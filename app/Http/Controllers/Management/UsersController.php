@@ -19,7 +19,7 @@ class UsersController extends Controller
             ->select(
                 'u.id AS u_id',
                 'u.name AS u_name',
-                'u.aktif AS u_aktif',
+                'u.active AS u_active',
                 'u.created_at AS u_created_at',
                 'u.updated_at AS u_updated_at',
                 'ut.name AS ut_name',
@@ -218,7 +218,7 @@ class UsersController extends Controller
                 [
                     'name' => $name,
                     'email' => $email,
-                    'aktif' => $durum,
+                    'active' => $durum,
                     'password' => base64_encode($password),
                     'user_type_id' => $tip,
                     'application_office_id' => $ofisId,

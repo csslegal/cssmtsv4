@@ -34,7 +34,7 @@
                             <td>{{ $kayit->u_id }}</td>
                             <td>{{ $kayit->u_name }}</td>
 
-                            <td>@if ($kayit->u_aktif) Aktif @else <span class="text-danger fw-bold">Pasif</span> @endif</td>
+                            <td>@if ($kayit->u_active) Normal @else <span class="text-danger fw-bold">Pasif</span> @endif</td>
 
                             <td>{{ $kayit->ut_name }}</td>
                             <td>{{ $kayit->bo_name }}</td>

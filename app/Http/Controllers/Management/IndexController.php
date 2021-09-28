@@ -13,12 +13,12 @@ class IndexController extends Controller
 
 
         return view('management.index')->with([
-            'countUsers' => DB::table('users')->where('aktif', '=', '1')->get()->count(),
+            'countUsers' => DB::table('users')->where('active', '=', '1')->get()->count(),
             'countUserType' => DB::table('users_type')->get()->count(),
             'countUserAccess' => DB::table('access')->get()->count(),
             'countApplicationOffice' => DB::table('application_offices')->get()->count(),
             'countAppointmentOffice' => DB::table('appointment_offices')->get()->count(),
-            'countNotice' => DB::table('notice')->where('aktif', '=', '1')->get()->count(),
+            'countNotice' => DB::table('notice')->where('active', '=', '1')->get()->count(),
             'countLanguage' => DB::table('language')->get()->count(),
 
         ]);

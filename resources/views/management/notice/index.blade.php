@@ -34,10 +34,10 @@
                             <td>{{ $kayit->d_id }}</td>
                             <td>{{ $kayit->u_name }}</td>
                             <td>
-                                @if ($kayit->d_aktif != 1)
+                                @if ($kayit->d_active != 1)
                                     Pasif
                                 @else
-                                    Aktif
+                                    Normal
                                 @endif
                             </td>
                             <td>{{ $kayit->d_tarih }}</td>

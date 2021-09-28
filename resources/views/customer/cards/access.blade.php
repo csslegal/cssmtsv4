@@ -42,7 +42,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Harici Tercüme İşlemleri</h5>
                     <ul>
-                        <li>Aktif dosyası var</li>
+                        <li>Cari dosyası var</li>
                         <li>
                             <span class="fw-bold">
                                 Son İşlem ve Tarihi:
@@ -61,7 +61,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Dil Okulu İşlemleri</h5>
                     <ul>
-                        <li>Aktif dosyası var</li>
+                        <li>Cari dosyası var</li>
                         <li>
                             <span class="fw-bold">
                                 Son İşlem ve Tarihi:

@@ -34,7 +34,7 @@ class LoginController extends Controller
 
             $emailVarmi = DB::table('users')
                 ->where('email', '=', $email)
-                ->where('aktif', '=', 1)
+                ->where('active', '=', 1)
                 ->get();
 
             if ($emailVarmi->count() > 0) {

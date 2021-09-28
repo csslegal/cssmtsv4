@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('aktif')->default(1);
+            $table->integer('active')->default(1);
             $table->integer('user_type_id')->nullable();
             $table->integer('application_office_id')->nullable();
             $table->integer('orderby')->nullable();

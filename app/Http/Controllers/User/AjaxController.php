@@ -18,8 +18,8 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
-    public function get_aktif_duyuru_sayisi()
+    public function get_active_notice_count()
     {
-        return DB::table('notice')->where('aktif', '=', 1)->get()->count();
+        return DB::table('notice')->where('active', '=', 1)->get()->count();
     }
 }

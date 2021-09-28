@@ -104,7 +104,7 @@ Route::middleware(['sessionCheck'])->group(function () {
         /*** Kullanıcılar ajax işlemleri*/
         Route::group(['prefix' => 'ajax'], function () {
             Route::post('duyuru', [UserAjaxController::class, 'post_duyuru_icerik_cek']);
-            Route::get('duyuru-sayisi', [UserAjaxController::class, 'get_aktif_duyuru_sayisi']);
+            Route::get('duyuru-sayisi', [UserAjaxController::class, 'get_active_notice_count']);
         });
     });
 
