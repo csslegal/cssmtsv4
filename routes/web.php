@@ -33,7 +33,7 @@ use App\Http\Controllers\Visa\Grades\ReceivedPaymentsController as VisaReceivedP
 use App\Http\Controllers\Visa\Grades\ReceivedPaymentsConfirmController as VisaReceivedPaymentsConfirmController;
 use App\Http\Controllers\Visa\Grades\DocumentListEmailSendController as VisaDocumentListEmailSendController;
 use App\Http\Controllers\Visa\Grades\DocumentListCompletedController as VisaDocumentListCompletedController;
-
+use App\Http\Controllers\Visa\Grades\TranslatorAuthController as VisaTranslatorAuthController;
 
 
 /**Genel yönlendirmeler*/
@@ -67,6 +67,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('alinan-odeme-onay', VisaReceivedPaymentsConfirmController::class);
                 Route::resource('evrak-listesi', VisaDocumentListEmailSendController::class);
                 Route::resource('evrak-hazirlama', VisaDocumentListCompletedController::class);
+                Route::resource('tercuman-yetkilendir', VisaTranslatorAuthController::class);
             });
         });
 
