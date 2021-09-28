@@ -108,11 +108,11 @@ class TranslatorAuthController extends Controller
 
                 $request->session()
                     ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
-                return redirect('/musteri/' . $id . '/vize/');
+                return redirect('/musteri/' . $id . '/vize');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Kayıt sıralasında sorun oluştu');
-                return redirect('/musteri/' . $id . '/vize/' . $visa_file_id . '/alinan-odeme');
+                return redirect('/musteri/' . $id . '/vize');
             }
         } else {
             $request->session()
