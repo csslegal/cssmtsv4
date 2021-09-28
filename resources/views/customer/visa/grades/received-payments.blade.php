@@ -17,8 +17,7 @@
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">Alınan Ödemeyi Kaydet</div>
         <div class="card-body scroll">
-            <form method="post"
-                action="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/alinan-odeme">
+            <form method="post" action="">
                 @csrf
                 <label class="form-label fw-bold"> Ödeme Türleri Başlıkları</label>
                 <div class="row mb-3">
@@ -224,7 +223,7 @@
                             <td>{{ $receivedPayment->created_at }}</td>
                             <td>
                                 <form method="POST"
-                                    action="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/alinan-odeme/{{ $receivedPayment->id }}">
+                                    action="alinan-odeme/{{ $receivedPayment->id }}">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Sil">

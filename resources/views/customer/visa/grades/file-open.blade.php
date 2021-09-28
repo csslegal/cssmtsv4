@@ -17,7 +17,7 @@
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">Cari Dosya Aç</div>
         <div class="card-body scroll">
-            <form action="/musteri/{{ $baseCustomerDetails->id }}/vize/dosya-ac" method="POST">
+            <form action="" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Vize Tipi</label>

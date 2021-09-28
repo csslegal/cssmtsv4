@@ -59,7 +59,7 @@
                 </tbody>
             </table>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <form method="POST" action="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/alinan-odeme-onay/0">
+                <form method="POST" action="alinan-odeme-onay/0">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
                     <button class="btn btn-danger text-white m-2" type="submit" data-bs-toggle="tooltip"
@@ -68,7 +68,7 @@
                     </button>
                 </form>
                 <form method="POST"
-                    action="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/alinan-odeme-onay/1">
+                    action="alinan-odeme-onay/1">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
                     <button class="btn btn-success text-white m-2" type="submit" data-bs-toggle="tooltip"
