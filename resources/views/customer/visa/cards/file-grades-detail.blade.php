@@ -11,11 +11,10 @@
                         tarihinde yapıldı.
                     </span>
                     <span>
-                        <button class=" btn btn-primary btn-sm text-white"
-                            onclick="goster('{{ $visaFileGradesLog->id }}')" title="İçeriği göster"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button class="btn btn-sm text-dark" onclick="goster('{{ $visaFileGradesLog->id }}')"
+                            title="İçeriği göster" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class=" bi bi-file-image"></i>
-                            Göster
+                            Detay
                         </button>
                     </span>
                     @if ($loop->last && $visaFileGradesPermitted['permitted'])
