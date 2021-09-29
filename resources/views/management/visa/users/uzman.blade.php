@@ -22,6 +22,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Müşteri Adı</th>
+                                <th>Danışmanı</th>
+                                <th>Uzmani</th>
                                 <th>Durumu</th>
                                 <th>Vize Tipi</th>
                                 <th>Vize Süresi</th>
@@ -37,6 +39,8 @@
                                         </a>
                                     </td>
                                     <td>{{ $visaCustomer->name }}</td>
+                                    <td>{{ $visaCustomer->advisor_name }}</td>
+                                    <td>{{ $visaCustomer->expert_name }}</td>
                                     <td>
                                         @if ($visaCustomer->status)
                                             <span>Acil Dosya</span>

@@ -113,10 +113,7 @@ Route::middleware(['sessionCheck'])->group(function () {
 
     /**Yonetim yönlendirmeler*/
     Route::group(
-        [
-            'prefix' => 'yonetim',
-            'middleware' => 'managementCheck'
-        ],
+        ['prefix' => 'yonetim', 'middleware' => 'managementCheck'],
         function () {
 
             Route::get('/', [ManagementIndexController::class, 'get_index']);

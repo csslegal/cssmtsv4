@@ -60,12 +60,15 @@ class VisaController extends Controller
             ]
         );
     }
+
     public function get_uzman(Request $request)
     {
         $visaCustomers = DB::table('customers')
             ->select([
                 'customers.id AS id',
                 'customers.name AS name',
+                'advisor_users.name AS advisor_name',
+                'expert_users.name AS expert_name',
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
                 'visa_file_grades.name AS visa_file_grades_name',
@@ -78,6 +81,8 @@ class VisaController extends Controller
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
             ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+            ->leftJoin('users AS advisor_users', 'advisor_users.id', '=', 'visa_files.advisor_id')
+            ->leftJoin('users AS expert_users', 'expert_users.id', '=', 'visa_files.expert_id')
 
             ->where('visa_files.active', '=', 1)
             ->where('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
@@ -88,12 +93,15 @@ class VisaController extends Controller
             ]
         );
     }
+
     public function get_tercuman(Request $request)
     {
         $visaCustomers = DB::table('customers')
             ->select([
                 'customers.id AS id',
                 'customers.name AS name',
+                'advisor_users.name AS advisor_name',
+                'translator_users.name AS translator_name',
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
                 'visa_file_grades.name AS visa_file_grades_name',
@@ -106,6 +114,8 @@ class VisaController extends Controller
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
             ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+            ->leftJoin('users AS advisor_users', 'advisor_users.id', '=', 'visa_files.advisor_id')
+            ->leftJoin('users AS translator_users', 'translator_users.id', '=', 'visa_files.translator_id')
 
             ->where('visa_files.active', '=', 1)
             ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATION_GRADES_ID'))
@@ -116,12 +126,14 @@ class VisaController extends Controller
             ]
         );
     }
+
     public function get_muhasebe(Request $request)
     {
         $visaCustomers = DB::table('customers')
             ->select([
                 'customers.id AS id',
                 'customers.name AS name',
+                'users.name AS u_name',
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
                 'visa_file_grades.name AS visa_file_grades_name',
@@ -134,6 +146,7 @@ class VisaController extends Controller
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
             ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+            ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
 
             ->where('visa_files.active', '=', 1)
             ->where('visa_files.visa_file_grades_id', '=', env('VISA_PAYMENT_CONFIRM_GRADES_ID'))
@@ -144,10 +157,12 @@ class VisaController extends Controller
             ]
         );
     }
+
     public function get_ofis_sorumlusu(Request $request)
     {
         return view('management.visa.users.ofis-sorumlusu');
     }
+
     public function get_koordinator(Request $request)
     {
         $mTBGIS = DB::table('customer_update AS mg')
@@ -168,6 +183,7 @@ class VisaController extends Controller
             ->select([
                 'customers.id AS id',
                 'customers.name AS name',
+                'users.name AS u_name',
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
                 'visa_file_grades.name AS visa_file_grades_name',
@@ -181,6 +197,7 @@ class VisaController extends Controller
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
             ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+            ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
 
             ->where('visa_files.active', '=', 1)
             ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
