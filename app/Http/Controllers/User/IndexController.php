@@ -17,10 +17,35 @@ class IndexController extends Controller
             ->where('user_id', '=', $request->session()->get('userId'))
             ->pluck('access.id')->toArray();
 
-
         switch ($request->session()->get('userTypeId')) {
             case 2: //danisman
+                $visaCustomers = DB::table('customers')
+                    ->select([
+                        'customers.id AS id',
+                        'customers.name AS name',
+                        'visa_files.id AS visa_file_id',
+                        'visa_files.status AS status',
+                        'visa_file_grades.name AS visa_file_grades_name',
+                        'visa_validity.name AS visa_validity_name',
+                        'visa_types.name AS visa_type_name',
+                        'visa_sub_types.name AS visa_sub_type_name',
+                    ])
+                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
+                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
+                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
 
+                    ->where('visa_files.active', '=', 1)
+                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    ->get();
+
+                return view('user.danisman.index')->with([
+                    'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
+                ]);
+                break;
+            case 3: //uzman
                 $visaCustomers = DB::table('customers')
                     ->select([
                         'customers.id AS id',
@@ -40,17 +65,12 @@ class IndexController extends Controller
                     ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
 
                     ->where('visa_files.active', '=', 1)
-                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_GRADES_ID'))
                     ->get();
 
-                return view('user.danisman.index')->with([
+                return view('user.uzman.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
-                ]);
-                break;
-            case 3: //uzman
-                return view('user.uzman.index')->with([
-                    'userAccesses' => $userAccesses
                 ]);
                 break;
             case 4: //b. koordinatoor
@@ -107,7 +127,6 @@ class IndexController extends Controller
                         'visa_types.name AS visa_type_name',
                         'visa_sub_types.name AS visa_sub_type_name',
                     ])
-
                     ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
                     ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
                     ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
@@ -152,8 +171,20 @@ class IndexController extends Controller
                     'visaCustomers' => $visaCustomers,
                 ]);
                 break;
-            case 7: //m. koordinatoor
-
+            case 7: //m.koordinator
+                $mTBGIS = DB::table('customer_update AS mg')
+                    ->select(
+                        'u.id AS u_id',
+                        'u.name AS u_name',
+                        'm.name AS m_name',
+                        'mg.created_at AS tarih',
+                        'mg.onay AS onay',
+                        'mg.id AS mg_id',
+                        'm.id AS m_id'
+                    )
+                    ->join('customers AS m', 'm.id', '=', 'mg.customer_id')
+                    ->join('users AS u', 'u.id', '=', 'mg.user_id')
+                    ->get();
                 $visaCustomers = DB::table('customers')
                     ->select([
                         'customers.id AS id',
@@ -178,6 +209,7 @@ class IndexController extends Controller
                 return view('user.koordinator.musteri')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
+                    'mTBGIS' => $mTBGIS,
                 ]);
                 break;
             case 8: //ofis sorumlusu
