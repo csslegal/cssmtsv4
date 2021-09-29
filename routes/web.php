@@ -34,6 +34,8 @@ use App\Http\Controllers\Visa\Grades\ReceivedPaymentsConfirmController as VisaRe
 use App\Http\Controllers\Visa\Grades\DocumentListEmailSendController as VisaDocumentListEmailSendController;
 use App\Http\Controllers\Visa\Grades\DocumentListCompletedController as VisaDocumentListCompletedController;
 use App\Http\Controllers\Visa\Grades\TranslatorAuthController as VisaTranslatorAuthController;
+use App\Http\Controllers\Visa\Grades\TranslationsCompletedController as VisaTranslationsCompletedController;
+use App\Http\Controllers\Visa\Grades\ExpertAuthController as VisaExpertAuthController;
 
 
 /**Genel yönlendirmeler*/
@@ -68,6 +70,8 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('evrak-listesi', VisaDocumentListEmailSendController::class);
                 Route::resource('evrak-hazirlama', VisaDocumentListCompletedController::class);
                 Route::resource('tercuman-yetkilendir', VisaTranslatorAuthController::class);
+                Route::resource('tercume-tamamlama', VisaTranslationsCompletedController::class);
+                Route::resource('uzman-yetkilendir', VisaExpertAuthController::class);
             });
         });
 
