@@ -85,7 +85,7 @@ class VisaController extends Controller
             ->leftJoin('users AS expert_users', 'expert_users.id', '=', 'visa_files.expert_id')
 
             ->where('visa_files.active', '=', 1)
-            ->where('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
+            ->where('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_GRADES_ID'))
             ->get();
         return view('management.visa.users.uzman')->with(
             [
@@ -201,6 +201,7 @@ class VisaController extends Controller
 
             ->where('visa_files.active', '=', 1)
             ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
+            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
             ->get();
 
         return view('management.visa.users.koordinator')->with(
