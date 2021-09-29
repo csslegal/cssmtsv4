@@ -30,12 +30,16 @@
 </head>
 
 <body onload="is_loaded();">
+
     @include('include.preload')
+
     <div class="container">
         <div class="row">
             <div class="col">
                 @include('include.nav-top')
+
                 @include('include.toast')
+
                 @yield('content')
             </div>
         </div>

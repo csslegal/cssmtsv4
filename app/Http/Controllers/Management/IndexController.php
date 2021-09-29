@@ -10,8 +10,6 @@ class IndexController extends Controller
 {
     public function get_index(Request $request)
     {
-
-
         return view('management.index')->with([
             'countUsers' => DB::table('users')->where('active', '=', '1')->get()->count(),
             'countUserType' => DB::table('users_type')->get()->count(),
@@ -26,38 +24,34 @@ class IndexController extends Controller
 
     public function get_TBGI_onay(Request $request, $mg_id)
     {
-
         if (is_numeric($mg_id)) {
 
             if (DB::table('customer_update')
                 ->where('id', '=', $mg_id)
                 ->update(['onay' => 1])
-
             ) {
                 $request->session()->flash('mesajSuccess', 'Onay işlemi tamamlandı');
-                return redirect('/yonetim/koordinator');
+                return redirect('/yonetim/vize/koordinator');
             }
         } else {
             $request->session()->flash('mesajDanger', 'Hatalı bilgi girdiniz');
-            return redirect('/yonetim/koordinator');
+            return redirect('/yonetim/vize/koordinator');
         }
     }
     public function get_TBGI_gerial(Request $request, $mg_id)
     {
-
         if (is_numeric($mg_id)) {
 
             if (DB::table('customer_update')
                 ->where('id', '=', $mg_id)
                 ->update(['onay' => 0])
-
             ) {
                 $request->session()->flash('mesajSuccess', 'Geri alma işlemi tamamlandı');
-                return redirect('/yonetim/koordinator');
+                return redirect('/yonetim/vize/koordinator');
             }
         } else {
             $request->session()->flash('mesajDanger', 'Hatalı bilgi girdiniz');
-            return redirect('/yonetim/koordinator');
+            return redirect('/yonetim/vize/koordinator');
         }
     }
 }

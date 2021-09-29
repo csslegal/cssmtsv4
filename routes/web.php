@@ -101,6 +101,8 @@ Route::middleware(['sessionCheck'])->group(function () {
         Route::get('profil', [UserIndexController::class, 'get_profil']);
         Route::post('profil', [UserIndexController::class, 'post_profil']);
         Route::get('duyuru', [UserIndexController::class, 'get_duyuru']);
+        Route::get('mTBGI/{id}/onay', [UserIndexController::class, 'get_TBGI_onay']);
+        Route::get('mTBGI/{id}/geri-al', [UserIndexController::class, 'get_TBGI_gerial']);
 
         /*** Kullanıcılar ajax işlemleri*/
         Route::group(['prefix' => 'ajax'], function () {

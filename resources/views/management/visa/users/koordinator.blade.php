@@ -17,8 +17,7 @@
                 <div class="card-header bg-primary text-white">Müşteri Temel Bilgileri Güncelleme İstekleri</div>
                 <div class="card-body scroll">
 
-                    <table id="dataTable" class=" table table-striped table-bordered display table-light"
-                        style="width:100%">
+                    <table id="dataTable" class=" table table-striped table-bordered display table-light" style="width:100%">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -30,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($musteriTemelBilgileriGuncellemeIstekleri as $mTBGI)
+                            @foreach ($mTBGIS as $mTBGI)
                                 <tr>
                                     <td>
                                         <a class="fw-bold" href="/musteri/{{ $mTBGI->m_id }}">
@@ -67,16 +66,47 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card card-primary mb-3">
+                <div class="card-header bg-primary text-white">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
+                <div class="card-body scroll">
+                    <table id="dataTableVize" class="table table-striped table-bordered display table-light"
+                        style="width:100%">
+                        <thead>
                             <tr>
-                                <th>No</th>
+                                <th>ID</th>
                                 <th>Müşteri Adı</th>
-                                <th>İstek Yapan</th>
                                 <th>Durumu</th>
-                                <th>İstek Tarihi</th>
-                                <th>İşlemler</th>
+                                <th>Vize Tipi</th>
+                                <th>Vize Süresi</th>
+                                <th>Dosya Aşaması</th>
                             </tr>
-                        </tfoot>
+                        </thead>
+                        <tbody>
+                            @foreach ($visaCustomers as $visaCustomer)
+                                <tr class="{{ $visaCustomer->status ? 'text-success' : '' }}">
+                                    <td>
+                                        <a
+                                            href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->visa_file_id }}</a>
+                                    </td>
+                                    <td>{{ $visaCustomer->name }}</td>
+                                    <td>
+                                        @if ($visaCustomer->status)
+                                            <span>Acil Dosya</span>
+                                        @else
+                                            <span>Normal Dosya</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $visaCustomer->visa_type_name }} / {{ $visaCustomer->visa_sub_type_name }}
+                                    </td>
+                                    <td>{{ $visaCustomer->visa_validity_name }}</td>
+                                    <td>{{ $visaCustomer->visa_file_grades_name }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>

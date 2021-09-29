@@ -54,13 +54,74 @@ class IndexController extends Controller
                 ]);
                 break;
             case 4: //b. koordinatoor
+                $mTBGIS = DB::table('customer_update AS mg')
+                    ->select(
+                        'u.id AS u_id',
+                        'u.name AS u_name',
+                        'm.name AS m_name',
+                        'mg.created_at AS tarih',
+                        'mg.onay AS onay',
+                        'mg.id AS mg_id',
+                        'm.id AS m_id'
+                    )
+                    ->join('customers AS m', 'm.id', '=', 'mg.customer_id')
+                    ->join('users AS u', 'u.id', '=', 'mg.user_id')
+                    ->get();
+                $visaCustomers = DB::table('customers')
+                    ->select([
+                        'customers.id AS id',
+                        'customers.name AS name',
+                        'visa_files.id AS visa_file_id',
+                        'visa_files.status AS status',
+                        'visa_file_grades.name AS visa_file_grades_name',
+                        'visa_validity.name AS visa_validity_name',
+                        'visa_types.name AS visa_type_name',
+                        'visa_sub_types.name AS visa_sub_type_name',
+                    ])
+
+                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
+                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
+                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+
+                    ->where('visa_files.active', '=', 1)
+                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
+                    ->get();
+
                 return view('user.koordinator.basvuru')->with([
-                    'userAccesses' => $userAccesses
+                    'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
+                    'mTBGIS' => $mTBGIS,
                 ]);
                 break;
             case 5: //tercuman
+                $visaCustomers = DB::table('customers')
+                    ->select([
+                        'customers.id AS id',
+                        'customers.name AS name',
+                        'visa_files.id AS visa_file_id',
+                        'visa_files.status AS status',
+                        'visa_file_grades.name AS visa_file_grades_name',
+                        'visa_validity.name AS visa_validity_name',
+                        'visa_types.name AS visa_type_name',
+                        'visa_sub_types.name AS visa_sub_type_name',
+                    ])
+
+                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
+                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
+                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+
+                    ->where('visa_files.active', '=', 1)
+                    ->where('visa_files.translator_id', '=', $request->session()->get('userId'))
+                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATION_GRADES_ID'))
+                    ->get();
+
                 return view('user.tercuman.index')->with([
-                    'userAccesses' => $userAccesses
+                    'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
                 ]);
                 break;
             case 6: //muhasebe
@@ -83,7 +144,7 @@ class IndexController extends Controller
                     ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
 
                     ->where('visa_files.active', '=', 1)
-                    ->where('visa_files.visa_file_grades_id', '=',env('VISA_PAYMENT_CONFIRM_GRADES_ID'))
+                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_PAYMENT_CONFIRM_GRADES_ID'))
                     ->get();
 
                 return view('user.muhasebe.index')->with([
@@ -92,8 +153,31 @@ class IndexController extends Controller
                 ]);
                 break;
             case 7: //m. koordinatoor
+
+                $visaCustomers = DB::table('customers')
+                    ->select([
+                        'customers.id AS id',
+                        'customers.name AS name',
+                        'visa_files.id AS visa_file_id',
+                        'visa_files.status AS status',
+                        'visa_file_grades.name AS visa_file_grades_name',
+                        'visa_validity.name AS visa_validity_name',
+                        'visa_types.name AS visa_type_name',
+                        'visa_sub_types.name AS visa_sub_type_name',
+                    ])
+
+                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
+                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
+                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+
+                    ->where('visa_files.active', '=', 1)
+                    ->get();
+
                 return view('user.koordinator.musteri')->with([
-                    'userAccesses' => $userAccesses
+                    'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
                 ]);
                 break;
             case 8: //ofis sorumlusu
@@ -137,6 +221,7 @@ class IndexController extends Controller
             ]
         );
     }
+
     public function post_profil(Request $request)
     {
         //her ihtimale harşı güvenlik kontrolu
@@ -183,5 +268,43 @@ class IndexController extends Controller
         return view('user.notice.index')->with(
             ['notices' => $duyuruBilgileri]
         );
+    }
+
+    public function get_TBGI_onay(Request $request, $mg_id)
+    {
+        if (is_numeric($mg_id)) {
+
+            if (DB::table('customer_update')
+                ->where('id', '=', $mg_id)
+                ->update(['onay' => 1])
+
+            ) {
+                $request->session()
+                    ->flash('mesajSuccess', 'Onay işlemi tamamlandı');
+                return redirect('/kullanici');
+            }
+        } else {
+            $request->session()
+                ->flash('mesajDanger', 'Hatalı bilgi girdiniz');
+            return redirect('/kullanici');
+        }
+    }
+    public function get_TBGI_gerial(Request $request, $mg_id)
+    {
+        if (is_numeric($mg_id)) {
+
+            if (DB::table('customer_update')
+                ->where('id', '=', $mg_id)
+                ->update(['onay' => 0])
+            ) {
+                $request->session()
+                    ->flash('mesajSuccess', 'Geri alma işlemi tamamlandı');
+                return redirect('/kullanici');
+            }
+        } else {
+            $request->session()
+                ->flash('mesajDanger', 'Hatalı bilgi girdiniz');
+            return redirect('/kullanici');
+        }
     }
 }
