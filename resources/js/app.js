@@ -7,6 +7,8 @@ window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js')
 require('jquery-confirm')
 require('datatables.net-bs5')
 
+require('bootstrap-datepicker/dist/js/bootstrap-datepicker.js')
+
 // Core - these two are required :-)
 require('tinymce');
 

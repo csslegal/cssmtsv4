@@ -49,6 +49,10 @@
     <script>
         $(document).ready(function() {
             $('.toast').toast('show');
+            $('.datepicker').datepicker({
+                format: 'yyyy/mm/dd',
+                startDate: '-3d'
+            });
         });
         //duyuruSayisiAl();
         setTimeout(function() {

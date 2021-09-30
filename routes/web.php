@@ -36,6 +36,7 @@ use App\Http\Controllers\Visa\Grades\DocumentListCompletedController as VisaDocu
 use App\Http\Controllers\Visa\Grades\TranslatorAuthController as VisaTranslatorAuthController;
 use App\Http\Controllers\Visa\Grades\TranslationsCompletedController as VisaTranslationsCompletedController;
 use App\Http\Controllers\Visa\Grades\ExpertAuthController as VisaExpertAuthController;
+use App\Http\Controllers\Visa\Grades\AppointmentCompletedController AS VisaAppointmentCompletedController;
 
 
 /**Genel yönlendirmeler*/
@@ -72,6 +73,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('tercuman-yetkilendir', VisaTranslatorAuthController::class);
                 Route::resource('tercume-tamamlama', VisaTranslationsCompletedController::class);
                 Route::resource('uzman-yetkilendir', VisaExpertAuthController::class);
+                Route::resource('form-bilgileri', VisaAppointmentCompletedController::class);
             });
         });
 
