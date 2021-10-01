@@ -7,14 +7,13 @@
             @foreach ($visaFileGradesLogs as $visaFileGradesLog)
                 <li class="mt-1">
                     <span class="fw-bold">{{ $visaFileGradesLog->subject }}</span>,
-                    <span> "{{ $visaFileGradesLog->user_name }}" tarafından {{ $visaFileGradesLog->created_at }}
-                        tarihinde yapıldı.
+                    <span> "{{ $visaFileGradesLog->user_name }}" tarafından {{ $visaFileGradesLog->created_at }}'de
+                        yapıldı.
                     </span>
                     <span>
-                        <button class="btn btn-sm text-dark" onclick="goster('{{ $visaFileGradesLog->id }}')"
+                        <button class="btn btn-sm text-dark border" onclick="goster('{{ $visaFileGradesLog->id }}')"
                             title="İçeriği göster" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class=" bi bi-file-image"></i>
-                            Detay
+                            <i class=" bi bi-file-image"></i> Detay
                         </button>
                     </span>
                     @if ($loop->last && $visaFileGradesPermitted['permitted'])
