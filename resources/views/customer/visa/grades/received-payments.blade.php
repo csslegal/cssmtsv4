@@ -215,15 +215,14 @@
                             <td>{{ $receivedPayment->payment_method }}</td>
                             <td>
                                 {{ $receivedPayment->received_tl != '' ? $receivedPayment->received_tl . 'TL' : '' }}
-                                {{ $receivedPayment->received_euro != '' ? $receivedPayment->received_euro . '$' : '' }}
-                                {{ $receivedPayment->received_dolar != '' ? $receivedPayment->received_dolar . '£' : '' }}
+                                {{ $receivedPayment->received_euro != '' ? $receivedPayment->received_euro . '£' : '' }}
+                                {{ $receivedPayment->received_dolar != '' ? $receivedPayment->received_dolar . '$' : '' }}
                                 {{ $receivedPayment->received_pound != '' ? $receivedPayment->received_pound . '€' : '' }}
                             </td>
                             <td>{{ $receivedPayment->payment_date }}</td>
                             <td>{{ $receivedPayment->created_at }}</td>
                             <td>
-                                <form method="POST"
-                                    action="alinan-odeme/{{ $receivedPayment->id }}">
+                                <form method="POST" action="alinan-odeme/{{ $receivedPayment->id }}">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
                                     <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Sil">
