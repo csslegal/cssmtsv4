@@ -57,7 +57,7 @@
                     <select name="saat" class="form-control">
                         <option value="">Seçim yapınız</option>
                         @foreach ($times as $time)
-                            <option {{ $time->id == old('saat') ? 'selected' : '' }} value="{{ $time->id }}">
+                            <option {{ $time->name == old('saat') ? 'selected' : '' }} value="{{ $time->name }}">
                                 {{ $time->name }}
                             </option>
                         @endforeach
