@@ -1068,7 +1068,6 @@ body[class*=jconfirm-no-scroll-] {
     transform: scale(1);
 }
 
-@charset "UTF-8";
 /*! Bootstrap 5 integration for DataTables
  *
  * ©2020 SpryMedia Ltd, all rights reserved.
@@ -1979,7 +1978,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
     overflow-x: auto;
 }
 
-@charset "UTF-8";
 /*!
  * Bootstrap v5.1.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors

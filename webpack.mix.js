@@ -17,3 +17,4 @@ mix.js('resources/js/app.js', 'public/js')
     .sourceMaps();
 
 mix.copy('node_modules/tinymce/skins', 'public/js/skins');
+mix.copy('node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css.map', 'public/css');
