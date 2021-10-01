@@ -164,6 +164,7 @@ class IndexController extends Controller
 
                     ->where('visa_files.active', '=', 1)
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_PAYMENT_CONFIRM_GRADES_ID'))
+                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_MADE_PAYMENT_GRADES_ID'))
                     ->get();
 
                 return view('user.muhasebe.index')->with([
