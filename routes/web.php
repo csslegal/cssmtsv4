@@ -36,8 +36,9 @@ use App\Http\Controllers\Visa\Grades\DocumentListCompletedController as VisaDocu
 use App\Http\Controllers\Visa\Grades\TranslatorAuthController as VisaTranslatorAuthController;
 use App\Http\Controllers\Visa\Grades\TranslationsCompletedController as VisaTranslationsCompletedController;
 use App\Http\Controllers\Visa\Grades\ExpertAuthController as VisaExpertAuthController;
-use App\Http\Controllers\Visa\Grades\AppointmentCompletedController AS VisaAppointmentCompletedController;
-
+use App\Http\Controllers\Visa\Grades\AppointmentCompletedController as VisaAppointmentCompletedController;
+use App\Http\Controllers\Visa\Grades\MadePaymentsController as VisaMadePaymentsController;
+//use App\Http\Controllers\Visa\Grades\DactylogramController as VisaDactylogramController;
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
@@ -65,6 +66,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::group(['prefix' => '{visa_file_id}'], function () {
 
                 Route::get('alinan-odeme-tamamla', [VisaReceivedPaymentsController::class, 'tamamla']);
+                Route::get('yapilan-odeme-tamamla', [VisaMadePaymentsController::class, 'tamamla']);
 
                 Route::resource('alinan-odeme', VisaReceivedPaymentsController::class);
                 Route::resource('alinan-odeme-onay', VisaReceivedPaymentsConfirmController::class);
@@ -74,6 +76,8 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('tercume-tamamlama', VisaTranslationsCompletedController::class);
                 Route::resource('uzman-yetkilendir', VisaExpertAuthController::class);
                 Route::resource('form-bilgileri', VisaAppointmentCompletedController::class);
+                Route::resource('yapilan-odeme', VisaMadePaymentsController::class);
+                //Route::resource('parmak-izi', VisaDactylogramController::class);
             });
         });
 
