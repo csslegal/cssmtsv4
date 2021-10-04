@@ -286,7 +286,7 @@ class MadePaymentsController extends Controller
                 return redirect('/musteri/' . $id . '/vize/');
             } else {
                 $request->session()
-                    ->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
+                    ->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
                 return redirect('/musteri/' . $id . '/vize/' . $visa_file_id . '/alinan-odeme');
             }
         } else {
