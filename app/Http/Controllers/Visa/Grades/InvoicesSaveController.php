@@ -90,7 +90,6 @@ class InvoicesSaveController extends Controller
             $odeme = $request->input('odeme') . "." . $odeme_kurus;
         }
 
-
         if (
             DB::table('visa_invoices')->insert([
                 'visa_file_id' => $visa_file_id,
@@ -100,7 +99,7 @@ class InvoicesSaveController extends Controller
                 'matrah' => $matrah,
                 'date' => $request->input('tarih'),
                 'number' => $request->input('numara'),
-                'created_at' =>date('Y-m-d H:i:s'),
+                'created_at' => date('Y-m-d H:i:s'),
             ])
         ) {
             $request->session()
@@ -188,18 +187,18 @@ class InvoicesSaveController extends Controller
             $visaFileGradesId->visa_file_grades_id
         );
 
-        DB::table('visa_file_logs')->insert([
-            'visa_file_id' => $visa_file_id,
-            'user_id' => $request->session()->get('userId'),
-            'subject' => $visaFileGradesName->getName(),
-            'content' => 'Fatura kaydı tamamlandı',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
         $whichGrades = new VisaFileWhichGrades();
         $nextGrades = $whichGrades->nextGrades($visa_file_id);
 
         if ($nextGrades != null) {
+
+            DB::table('visa_file_logs')->insert([
+                'visa_file_id' => $visa_file_id,
+                'user_id' => $request->session()->get('userId'),
+                'subject' => $visaFileGradesName->getName(),
+                'content' => 'Fatura kaydı tamamlandı',
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
 
             if (DB::table('visa_files')
                 ->where("id", "=", $visa_file_id)
