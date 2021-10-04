@@ -21,11 +21,9 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
-        "@ckeditor/ckeditor5-build-decoupled-document": "^29.2.0",
         "@popperjs/core": "^2.9.3",
         "bootstrap": "^5.1.0",
         "bootstrap-datepicker": "^1.9.0",
-        "bootstrap-datetimepicker-npm": "^4.17.37-npm",
         "bootstrap-icons": "^1.5.0",
         "datatables.net-bs5": "^1.10.25",
         "jquery-confirm": "^3.3.4",
