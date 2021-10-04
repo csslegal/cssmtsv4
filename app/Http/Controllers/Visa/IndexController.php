@@ -78,6 +78,7 @@ class IndexController extends Controller
             ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
             ->where('visa_files.customer_id', '=', $id)
             ->where('visa_files.active', '=', 1)
+            ->orderByDesc('visa_file_logs.id')
             ->get();
 
         return view('customer.visa.index')

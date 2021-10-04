@@ -3,7 +3,7 @@
 
     <div class="card-body scroll">
         <span class="text-red fw-bold">İşlemler</span>
-        <ol>
+        <ol reversed>
             @foreach ($visaFileGradesLogs as $visaFileGradesLog)
                 <li class="mt-1">
                     <span class="fw-bold">{{ $visaFileGradesLog->subject }}</span>,
@@ -16,11 +16,11 @@
                             <i class=" bi bi-file-image"></i> Detay
                         </button>
                     </span>
-                    @if ($loop->last && $visaFileGradesPermitted['permitted'])
-                        <span class="float-right">
-                            <a href="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $visaFileDetail->id }}/{{ $visaFileGradesPermitted['grades_url'] }}"
-                                class="confirm btn btn-sm btn-danger text-white" data-bs-toggle="tooltip"
-                                data-title="Devam edilsin mi?">Sonraki işleme git</a>
+                    @if ($loop->first && $visaFileGradesPermitted['permitted'])
+                        <span>
+                            <a href="vize/{{ $visaFileDetail->id }}/{{ $visaFileGradesPermitted['grades_url'] }}"
+                                class="confirm btn btn-sm btn-danger text-white" data-title="Devam edilsin mi?">Sonraki
+                                işleme git</a>
                         </span>
                     @endif
                 </li>
