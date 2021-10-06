@@ -7,7 +7,11 @@ window.bootstrap = require('bootstrap/dist/js/bootstrap.bundle.js')
 require('jquery-confirm')
 require('datatables.net-bs5')
 
-require('bootstrap-datepicker/dist/js/bootstrap-datepicker.js')
+import AirDatepicker from 'air-datepicker';
+
+new AirDatepicker('.datepicker', {
+    buttons: ['today', 'clear'],
+})
 
 // Core - these two are required :-)
 require('tinymce');
