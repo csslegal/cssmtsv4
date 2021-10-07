@@ -39,8 +39,8 @@ use App\Http\Controllers\Visa\Grades\ExpertAuthController as VisaExpertAuthContr
 use App\Http\Controllers\Visa\Grades\AppointmentCompletedController as VisaAppointmentCompletedController;
 use App\Http\Controllers\Visa\Grades\MadePaymentsController as VisaMadePaymentsController;
 use App\Http\Controllers\Visa\Grades\DactylogramController as VisaDactylogramController;
-//use App\Http\Controllers\Visa\Grades\InvoicesSaveController as VisaInvoicesSaveController;
-//use App\Http\Controllers\Visa\Grades\ApplicationResultController as VisaApplicationResultController;
+use App\Http\Controllers\Visa\Grades\InvoicesSaveController as VisaInvoicesSaveController;
+use App\Http\Controllers\Visa\Grades\ApplicationResultController as VisaApplicationResultController;
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
@@ -81,8 +81,8 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('form-bilgileri', VisaAppointmentCompletedController::class);
                 Route::resource('yapilan-odeme', VisaMadePaymentsController::class);
                 Route::resource('parmak-izi', VisaDactylogramController::class);
-                //Route::resource('fatura-kayit', VisaInvoicesSaveController::class);
-                //Route::resource('basvuru-sonuc', VisaApplicationResultController::class);
+                Route::resource('fatura-kayit', VisaInvoicesSaveController::class);
+                Route::resource('basvuru-sonuc', VisaApplicationResultController::class);
             });
         });
 
