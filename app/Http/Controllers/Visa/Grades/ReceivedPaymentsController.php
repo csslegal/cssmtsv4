@@ -20,6 +20,7 @@ class ReceivedPaymentsController extends Controller
                 ]
             )
             ->join('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+            ->where('visa_files.active', '=', 1)
             ->where('customers.id', '=', $id)->first();
 
         $receivedPayments = DB::table('visa_received_payments')
@@ -193,14 +194,10 @@ class ReceivedPaymentsController extends Controller
     public function tamamla($id, $visa_file_id, Request $request)
     {
 
-        $visaFileGradesId = DB::table('visa_files')
-            ->select(['visa_file_grades_id'])
-            ->where('id', '=', $visa_file_id)
-            ->first();
+        $visaFileGradesId = DB::table('visa_files')->select(['visa_file_grades_id'])
+            ->where('id', '=', $visa_file_id)->first();
 
-        $visaFileGradesName = new VisaFileGradesName(
-            $visaFileGradesId->visa_file_grades_id
-        );
+        $visaFileGradesName = new VisaFileGradesName($visaFileGradesId->visa_file_grades_id);
 
         DB::table('visa_file_logs')->insert([
             'visa_file_id' => $visa_file_id,
@@ -212,9 +209,8 @@ class ReceivedPaymentsController extends Controller
 
         $whichGrades = new VisaFileWhichGrades();
         $nextGrades = $whichGrades->nextGrades($visa_file_id);
-
-        if (DB::table('visa_files')
-            ->where("id", "=", $visa_file_id)
+      
+        if (DB::table('visa_files')->where("id", "=", $visa_file_id)
             ->update(['visa_file_grades_id' => $nextGrades])
         ) {
             $request->session()

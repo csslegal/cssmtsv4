@@ -27,6 +27,7 @@ class DocumentListEmailSendController extends Controller
                 ]
             )
             ->join('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+            ->where('visa_files.active', '=', 1)
             ->where('customers.id', '=', $id)->first();
 
         $languages = DB::table('language')->get();
