@@ -24,12 +24,12 @@
                             <td class="text-center">{{ date('H:i:s', strtotime($not->mn_created_at)) }}</td>
                             <td class="text-center">{{ $not->u_name }}</td>
                             <td class="text-center">
-                                <button class="border btn" onclick="contentLoad('not','{{ $not->mn_id }}')"
+                                <button class="border btn btn-sm" onclick="contentLoad('not','{{ $not->mn_id }}')"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
                                     <i class="bi bi-image"></i> Göster
                                 </button>
                                 @if (session('userTypeId') == 1)
-                                    <button class="border btn" onclick="notSil('{{ $not->mn_id }}')" title="Sil">
+                                    <button class="border btn btn-sm" onclick="notSil('{{ $not->mn_id }}')" title="Sil">
                                         <i class="bi bi-x-lg"></i> Sil
                                     </button>
                                 @endif
