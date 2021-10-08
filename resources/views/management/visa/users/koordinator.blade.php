@@ -36,11 +36,7 @@
                                             {{ $mTBGI->m_id }}
                                         </a>
                                     </td>
-                                    <td>
-                                        <a class="fw-bold" href="/musteri/{{ $mTBGI->m_id }}">
-                                            {{ $mTBGI->m_name }}
-                                        </a>
-                                    </td>
+                                    <td>{{ $mTBGI->m_name }}</td>
                                     <td>{{ $mTBGI->u_name }} </td>
                                     <td>
                                         @if ($mTBGI->onay == 0)
