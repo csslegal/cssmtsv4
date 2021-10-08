@@ -48,18 +48,8 @@ class InformationEmailController extends Controller
                     "visa_sub_types.name AS vta_name",
                     "visa_emails_information.content AS content"
                 )
-                ->leftJoin(
-                    "visa_sub_types",
-                    "visa_sub_types.id",
-                    "=",
-                    "visa_emails_information.visa_sub_type_id"
-                )
-                ->leftJoin(
-                    "visa_types",
-                    "visa_types.id",
-                    "=",
-                    "visa_sub_types.visa_type_id"
-                )
+                ->leftJoin("visa_sub_types", "visa_sub_types.id", "=", "visa_emails_information.visa_sub_type_id")
+                ->leftJoin("visa_types", "visa_types.id", "=", "visa_sub_types.visa_type_id")
                 ->where([
                     "visa_sub_types.id" => $request->input("alt_vize"),
                     "visa_emails_information.language_id" => $request->input("dil")

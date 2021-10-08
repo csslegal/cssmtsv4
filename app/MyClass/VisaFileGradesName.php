@@ -17,9 +17,7 @@ class VisaFileGradesName
     public function getName()
     {
         $nameQuery = DB::table('visa_file_grades')
-            ->select('name')
-            ->where('id', '=', $this->id)
-            ->first();
+            ->select('name')->where('id', '=', $this->id)->first();
 
         return $nameQuery->name;
     }
