@@ -164,7 +164,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Ödeme Tarihi</label>
-                    <input type="date" class="form-control" name="odeme_tarihi"
+                    <input type="text" class="form-control datepicker" name="odeme_tarihi"
                         value="{{ old('odeme_tarihi') == '' ? '' : old('odeme_tarihi') }}" autocomplete="off"
                         placeholder="Ödeme alınma tarihi" />
                     @error('odeme_tarihi')
@@ -172,10 +172,10 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Alınan Ödeme Kaydet</button>
+                <button type="submit" class="btn btn-primary">Ödeme Kaydet</button>
                 @if (count($receivedPayments) > 0)
                     <a href="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/alinan-odeme-tamamla"
-                        class="btn btn-danger btn-sm text-white">Alınan Ödemeleri Tamamla</a>
+                        class="btn btn-danger text-white">Ödemeleri Tamamla</a>
                 @endif
             </form>
         </div>
