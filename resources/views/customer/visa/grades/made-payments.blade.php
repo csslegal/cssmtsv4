@@ -164,7 +164,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Ödeme Tarihi</label>
-                    <input type="date" class="form-control" name="odeme_tarihi"
+                    <input type="text" class="form-control datepicker" name="odeme_tarihi"
                         value="{{ old('odeme_tarihi') == '' ? '' : old('odeme_tarihi') }}" autocomplete="off"
                         placeholder="Ödeme yapılma tarihi" />
                     @error('odeme_tarihi')
@@ -172,9 +172,9 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Yapılan Ödeme Kaydet</button>
+                <button type="submit" class="btn btn-primary">Ödeme Kaydet</button>
                 @if (count($madePayments) > 0)
-                    <a href="yapilan-odeme-tamamla" class="btn btn-danger text-white">Yapılan Ödemeleri Tamamla</a>
+                    <a href="yapilan-odeme-tamamla" class="btn btn-danger text-white">Ödemeleri Tamamla</a>
                 @endif
             </form>
         </div>
