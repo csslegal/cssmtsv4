@@ -66,7 +66,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             /**Dosya aşama işlemleri */
             Route::resource('dosya-ac', VisaFileOpenController::class);
 
-            Route::group(['prefix' => '{visa_file_id}'], function () {
+            Route::group(['prefix' => '{visa_file_id}', 'middleware' => 'gradesCheck'], function () {
 
                 Route::get('alinan-odeme-tamamla', [VisaReceivedPaymentsController::class, 'tamamla']);
                 Route::get('yapilan-odeme-tamamla', [VisaMadePaymentsController::class, 'tamamla']);
