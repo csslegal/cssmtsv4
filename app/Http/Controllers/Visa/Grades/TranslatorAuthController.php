@@ -44,6 +44,7 @@ class TranslatorAuthController extends Controller
             )
             ->join('visa_sub_types', 'visa_files.visa_sub_type_id', '=', 'visa_sub_types.id')
             ->join('visa_types', 'visa_sub_types.visa_type_id', '=', 'visa_types.id')
+            ->where('visa_files.visa_file_grades_id', '<=', env('VISA_TRANSLATION_GRADES_ID'))
             ->where('visa_files.active', '=', 1)
             ->get();
 

@@ -11,7 +11,7 @@
             </li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}">Müşteri Sayfası</a></li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}/vize">Vize İşlemleri</a></li>
-            <li class="breadcrumb-item active">Tercüman Yetkilendirme</li>
+            <li class="breadcrumb-item active">Uzman Yetkilendirme</li>
         </ol>
     </nav>
     <div class="card card-primary mb-3">
