@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
+use App\MyClass\EnvSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -44,12 +45,12 @@ class VisaFileGradesController extends Controller
     {
         $name = $request->input('name');
         $url = $request->input('url');
+        $env = $request->input('env');
 
         $request->validate([
             'name' => 'required|max:100min:3',
             'url' => 'required|unique:visa_file_grades,url|max:100min:3',
         ]);
-
         if ($kayitId = DB::table('visa_file_grades')->insertGetId(
             [
                 'name' => $name,
@@ -63,6 +64,10 @@ class VisaFileGradesController extends Controller
                 ->update([
                     'orderby' => $kayitId
                 ]);
+            if ($env != "") {
+                $envSet = new EnvSettings();
+                $envSet->setEnvironmentValue($env, $kayitId);
+            }
             $request->session()
                 ->flash('mesajSuccess', 'Başarıyla kaydedildi');
             return redirect('yonetim/vize/dosya-asama');
@@ -127,6 +132,10 @@ class VisaFileGradesController extends Controller
                     ]
                 )
             ) {
+                if ($request->input('env') != "") {
+                    $envSet = new EnvSettings();
+                    $envSet->setEnvironmentValue($request->input('env'), $id);
+                }
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla güncellendi');
                 return redirect('yonetim/vize/dosya-asama');

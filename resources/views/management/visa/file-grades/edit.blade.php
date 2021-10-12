@@ -19,20 +19,38 @@
                     <label class="form-label">Adı</label>
                     <input type="text" value="@isset($kayit){!! $kayit->name !!}@endisset" name="name"
                             class="form-control">
-                    @error('name')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                        @error('name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Adı</label>
+                        <input type="text" value="@isset($kayit){!! $kayit->url !!}@endisset" name="url"
+                                class="form-control">
+                            @error('url')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Env Bağlantısı</label>
+                            <select name="env" class="form-control">
+                                <option >Seçim yapınız</option>
+                                <option value="VISA_FILE_OPEN_GRADES_ID">Dosya Açma İşlemi</option>
+                                <option value="VISA_PAYMENT_CONFIRM_GRADES_ID">Alınan Ödeme Onayı İşlemi</option>
+                                <option value="VISA_TRANSLATOR_AUTH_GRADES_ID">Tercüme Yetkilendirme</option>
+                                <option value="VISA_TRANSLATION_GRADES_ID">Tercüme Tamamlama İşlemi</option>
+                                <option value="VISA_EXPERT_AUTH_GRADES_ID">Uzman Yetkilendirme İşlemi</option>
+                                <option value="VISA_APPOINTMENT_GRADES_ID">Randevu Bilgileri İşlemi</option>
+                                <option value="VISA_MADE_PAYMENT_GRADES_ID">Yapılan Ödeme İşlemi</option>
+                                <option value="VISA_INVOICE_SAVE_GRADES_ID">Fatura Kayıt İşlemi</option>
+                                <option value="VISA_FILE_REFUSAL_GRADES_ID">Vize Reddi Tercüme İşlemi</option>
+                            </select>
+                            @error('env')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Tamamla</button>
+                    </form>
                 </div>
-                <div class="col-12">
-                    <label class="form-label">Adı</label>
-                    <input type="text" value="@isset($kayit){!! $kayit->url !!}@endisset" name="url"
-                            class="form-control">
-                    @error('url')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Tamamla</button>
-            </form>
-        </div>
-    </div>
-@endsection
+            </div>
+        @endsection
