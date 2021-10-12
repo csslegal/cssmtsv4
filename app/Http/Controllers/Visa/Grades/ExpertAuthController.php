@@ -39,13 +39,14 @@ class ExpertAuthController extends Controller
                     'visa_types.name AS visa_type_name',
                     'visa_files.expert_id AS expert_id',
                     'visa_sub_types.name AS visa_sub_type_name',
-                    DB::raw('count(visa_files.visa_sub_type_id) as count'),
+                    'visa_sub_types.id AS visa_sub_type_id',
+
                 ]
             )
             ->join('visa_sub_types', 'visa_files.visa_sub_type_id', '=', 'visa_sub_types.id')
             ->join('visa_types', 'visa_sub_types.visa_type_id', '=', 'visa_types.id')
-
-            ->groupBy('visa_files.visa_sub_type_id')->get();
+            ->where('visa_files.active', '=', 1)
+            ->get();
 
         return view('customer.visa.grades.expert-auth')->with(
             [
@@ -72,7 +73,7 @@ class ExpertAuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id,$visa_file_id)
+    public function store(Request $request, $id, $visa_file_id)
     {
         $request->validate(['uzman' => 'required|numeric',]);
 

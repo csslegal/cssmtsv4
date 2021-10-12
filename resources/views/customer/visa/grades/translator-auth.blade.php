@@ -27,13 +27,13 @@
                             <div class="card-body">
                                 @if ($visaFilesTranslators->where('translator_id', '=', $translator->id)->count() > 0)
                                     <ul>
-                                        @foreach ($visaFilesTranslators->where('translator_id', '=', $translator->id) as $visaFilesTranslator)
+                                        @foreach ($visaFilesTranslators->where('translator_id', '=', $translator->id)->unique('visa_sub_type_id') as $visaFilesTranslator)
                                             <li class="card-text">
                                                 {{ $visaFilesTranslator->visa_type_name }} /
                                                 {{ $visaFilesTranslator->visa_sub_type_name }}
                                                 :
                                                 <span class="fw-bold text-danger">
-                                                    {{ $visaFilesTranslator->count }}
+                                                    {{ $visaFilesTranslators->where('translator_id', '=', $translator->id)->where('visa_sub_type_id', '=', $visaFilesTranslator->visa_sub_type_id)->count() }}
                                                 </span>
                                             </li>
                                         @endforeach

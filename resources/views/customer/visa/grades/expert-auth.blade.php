@@ -27,13 +27,13 @@
                             <div class="card-body">
                                 @if ($visaFilesExperts->where('expert_id', '=', $expert->id)->count() > 0)
                                     <ul>
-                                        @foreach ($visaFilesExperts->where('expert_id', '=', $expert->id) as $visaFilesExpert)
+                                        @foreach ($visaFilesExperts->where('expert_id', '=', $expert->id)->unique('visa_sub_type_id') as $visaFilesExpert)
                                             <li class="card-text">
                                                 {{ $visaFilesExpert->visa_type_name }} /
                                                 {{ $visaFilesExpert->visa_sub_type_name }}
                                                 :
                                                 <span class="fw-bold text-danger">
-                                                    {{ $visaFilesExpert->count }}
+                                                    {{ $visaFilesExperts->where('expert_id', '=', $expert->id)->where('visa_sub_type_id', '=', $visaFilesExpert->visa_sub_type_id)->count() }}
                                                 </span>
                                             </li>
                                         @endforeach
