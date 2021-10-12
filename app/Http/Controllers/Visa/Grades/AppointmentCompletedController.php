@@ -10,14 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class AppointmentCompletedController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($id, $visa_file_id)
     {
-
         $baseCustomerDetails = DB::table('customers')
             ->where('id', '=', $id)->first();
 
@@ -32,22 +26,6 @@ class AppointmentCompletedController extends Controller
             );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store($id, $visa_file_id, Request $request)
     {
         $validatorStringArray = array(
@@ -108,7 +86,7 @@ class AppointmentCompletedController extends Controller
 
                     $request->session()
                         ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
-                    return redirect('/musteri/' . $id . '/vize/' . $visa_file_id . '/alinan-odeme');
+                    return redirect('/musteri/' . $id . '/vize');
                 } else {
                     $request->session()
                         ->flash('mesajDanger', 'Kayıt sırasında sorun oluştu');
@@ -122,50 +100,5 @@ class AppointmentCompletedController extends Controller
         } else {
             //form kaydını güncelleme burdan devam edecek
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
