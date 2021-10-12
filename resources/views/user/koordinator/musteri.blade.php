@@ -29,7 +29,7 @@
                             <td><a class="fw-bolder "
                                     href="/musteri/{{ $mTBGI->customer_id }}">{{ $mTBGI->customer_id }}</a></td>
                             <td><a class="fw-bold"
-                                    href="/musteri/{{ $mTBGI->customer_id }}">{{ $mTBGI->name }}</a></td>
+                                    href="/musteri/{{ $mTBGI->customer_id }}">{{ $mTBGI->customer_name }}</a></td>
                             <td>{{ $mTBGI->user_name }} </td>
                             <td>
                                 @if ($mTBGI->onay == 0)

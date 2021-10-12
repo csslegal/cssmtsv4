@@ -181,19 +181,20 @@ class IndexController extends Controller
                 ]);
                 break;
             case 7: //m.koordinator
-                $mTBGIS = DB::table('customer_update AS mg')
-                    ->select(
-                        'u.id AS u_id',
-                        'u.name AS u_name',
-                        'm.name AS m_name',
-                        'mg.created_at AS tarih',
-                        'mg.onay AS onay',
-                        'mg.id AS mg_id',
-                        'm.id AS m_id'
-                    )
-                    ->join('customers AS m', 'm.id', '=', 'mg.customer_id')
-                    ->join('users AS u', 'u.id', '=', 'mg.user_id')
+                $mTBGIS = DB::table('customer_update')
+                    ->select([
+                        'customer_update.created_at',
+                        'customer_update.onay',
+                        'customer_update.id',
+                        'customers.id AS customer_id',
+                        'customers.name A customer_name',
+                        'users.id AS user_id',
+                        'users.name AS user_name',
+                    ])
+                    ->join('customers', 'customers.id', '=', 'customer_update.customer_id')
+                    ->join('users', 'users.id', '=', 'customer_update.user_id')
                     ->get();
+
                 $visaCustomers = DB::table('customers')
                     ->select([
                         'customers.id AS id',
