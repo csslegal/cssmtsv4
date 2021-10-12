@@ -18,6 +18,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Müşteri Adı</th>
+                            <th>Danışman</th>
                             <th>Durumu</th>
                             <th>Vize Tipi</th>
                             <th>Vize Süresi</th>
@@ -32,6 +33,7 @@
                                         href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->visa_file_id }}</a>
                                 </td>
                                 <td>{{ $visaCustomer->name }}</td>
+                                <td>{{ $visaCustomer->u_name }}</td>
                                 <td>
                                     @if ($visaCustomer->status)
                                         <span>Acil Dosya</span>

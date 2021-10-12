@@ -26,17 +26,11 @@
                 <tbody>
                     @foreach ($mTBGIS as $mTBGI)
                         <tr>
-                            <td>
-                                <a class="fw-bold" href="/musteri/{{ $mTBGI->m_id }}">
-                                    {{ $mTBGI->m_id }}
-                                </a>
-                            </td>
-                            <td>
-                                <a class="fw-bold" href="/musteri/{{ $mTBGI->m_id }}">
-                                    {{ $mTBGI->m_name }}
-                                </a>
-                            </td>
-                            <td>{{ $mTBGI->u_name }} </td>
+                            <td><a class="fw-bolder "
+                                    href="/musteri/{{ $mTBGI->customer_id }}">{{ $mTBGI->customer_id }}</a></td>
+                            <td><a class="fw-bold"
+                                    href="/musteri/{{ $mTBGI->customer_id }}">{{ $mTBGI->name }}</a></td>
+                            <td>{{ $mTBGI->user_name }} </td>
                             <td>
                                 @if ($mTBGI->onay == 0)
                                     <span class="fw-bold text-danger">Onaysız</span>
@@ -44,18 +38,14 @@
                                     <span class="fw-bold text-success">Onaylı</span>
                                 @endif
                             </td>
-                            <td>{{ $mTBGI->tarih }}</td>
+                            <td>{{ $mTBGI->created_at }}</td>
                             <td>
                                 @if ($mTBGI->onay == 0)
                                     <a class="btn btn-primary btn-sm text-white fw-bold"
-                                        href="/kullanici/mTBGI/{{ $mTBGI->mg_id }}/onay">
-                                        Onay Ver
-                                    </a>
+                                        href="/kullanici/mTBGI/{{ $mTBGI->id }}/onay">Onay Ver</a>
                                 @else
                                     <a class="btn btn-danger btn-sm text-white fw-bold"
-                                        href="/kullanici/mTBGI/{{ $mTBGI->mg_id }}/geri-al">
-                                        Geri Al
-                                    </a>
+                                        href="/kullanici/mTBGI/{{ $mTBGI->id }}/geri-al">Geri Al</a>
                                 @endif
                             </td>
                         </tr>
@@ -73,6 +63,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Müşteri Adı</th>
+                        <th>Danışman</th>
                         <th>Durumu</th>
                         <th>Vize Tipi</th>
                         <th>Vize Süresi</th>
@@ -86,6 +77,7 @@
                                 <a href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->visa_file_id }}</a>
                             </td>
                             <td>{{ $visaCustomer->name }}</td>
+                            <td>{{ $visaCustomer->u_name }}</td>
                             <td>
                                 @if ($visaCustomer->status)
                                     <span>Acil Dosya</span>
