@@ -11,19 +11,19 @@
                         <span>{{ $visaFileDetail->id }}</span>
                     </li>
                     <li>
-                        <span class="fw-bold">Vize Tipi:</span>
-                        <span>
-                            {{ $visaFileDetail->visa_type_name }} /
-                            {{ $visaFileDetail->visa_sub_type_name }}
-                        </span>
-                    </li>
-                    <li>
                         <span class="fw-bold">Vize Süresi:</span>
                         <span>{{ $visaFileDetail->visa_validity_name }}</span>
                     </li>
                     <li>
                         <span class="fw-bold">Dosya Aciliyeti:</span>
                         <span>{{ $visaFileDetail->status == 0 ? 'Normal' : 'Acil' }}</span>
+                    </li>
+                    <li>
+                        <span class="fw-bold">Vize Tipi:</span>
+                        <span>
+                            {{ $visaFileDetail->visa_type_name }} /
+                            {{ $visaFileDetail->visa_sub_type_name }}
+                        </span>
                     </li>
                 </ul>
             </div>
