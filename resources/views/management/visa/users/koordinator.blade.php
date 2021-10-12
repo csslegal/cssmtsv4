@@ -25,7 +25,7 @@
                                 <th>İstek Yapan</th>
                                 <th>Durumu</th>
                                 <th>İstek Tarihi</th>
-                                <th>İşlemler</th>
+                                <th class="text-center">İşlemler</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,7 +46,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $mTBGI->tarih }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         @if ($mTBGI->onay == 0)
                                             <a class="btn btn-primary btn-sm text-white fw-bold"
                                                 href="/yonetim/mTBGI/{{ $mTBGI->mg_id }}/onay">
@@ -75,7 +75,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Müşteri Adı</th>
-                                <th>Danışmanı</th>
+                                <th>Danışman</th>
                                 <th>Durumu</th>
                                 <th>Vize Tipi</th>
                                 <th>Vize Süresi</th>
