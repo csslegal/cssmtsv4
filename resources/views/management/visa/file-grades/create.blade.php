@@ -41,6 +41,7 @@
                         <option value="VISA_APPOINTMENT_GRADES_ID">Randevu Bilgileri İşlemi</option>
                         <option value="VISA_MADE_PAYMENT_GRADES_ID">Yapılan Ödeme İşlemi</option>
                         <option value="VISA_INVOICE_SAVE_GRADES_ID">Fatura Kayıt İşlemi</option>
+                        <option value="VISA_FILE_DELIVERY_GRADES_ID">Dosya Teslim İşlemi</option>
                         <option value="VISA_FILE_REFUSAL_GRADES_ID">Vize Reddi Tercüme İşlemi</option>
                     </select>
                     @error('env')

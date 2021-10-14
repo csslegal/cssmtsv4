@@ -34,7 +34,7 @@
                         <div class="col-12">
                             <label class="form-label">Env Bağlantısı</label>
                             <select name="env" class="form-control">
-                                <option >Seçim yapınız</option>
+                                <option>Seçim yapınız</option>
                                 <option value="VISA_FILE_OPEN_GRADES_ID">Dosya Açma İşlemi</option>
                                 <option value="VISA_PAYMENT_CONFIRM_GRADES_ID">Alınan Ödeme Onayı İşlemi</option>
                                 <option value="VISA_TRANSLATOR_AUTH_GRADES_ID">Tercüme Yetkilendirme</option>
@@ -43,6 +43,7 @@
                                 <option value="VISA_APPOINTMENT_GRADES_ID">Randevu Bilgileri İşlemi</option>
                                 <option value="VISA_MADE_PAYMENT_GRADES_ID">Yapılan Ödeme İşlemi</option>
                                 <option value="VISA_INVOICE_SAVE_GRADES_ID">Fatura Kayıt İşlemi</option>
+                                <option value="VISA_FILE_DELIVERY_GRADES_ID">Dosya Teslim İşlemi</option>
                                 <option value="VISA_FILE_REFUSAL_GRADES_ID">Vize Reddi Tercüme İşlemi</option>
                             </select>
                             @error('env')

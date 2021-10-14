@@ -42,6 +42,7 @@ use App\Http\Controllers\Visa\Grades\DactylogramController as VisaDactylogramCon
 use App\Http\Controllers\Visa\Grades\InvoicesSaveController as VisaInvoicesSaveController;
 use App\Http\Controllers\Visa\Grades\ApplicationResultController as VisaApplicationResultController;
 use App\Http\Controllers\Visa\Grades\FileDeliveryController as VisaFileDeliveryController;
+use App\Http\Controllers\Visa\Grades\RefusalTranslationController as VisaRefusalTranslationController;
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
@@ -85,6 +86,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('fatura-kayit', VisaInvoicesSaveController::class);
                 Route::resource('basvuru-sonuc', VisaApplicationResultController::class);
                 Route::resource('teslimat-bilgisi', VisaFileDeliveryController::class);
+                Route::resource('red-tercume', VisaRefusalTranslationController::class);
             });
         });
 

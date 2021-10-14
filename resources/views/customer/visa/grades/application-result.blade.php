@@ -53,13 +53,13 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <!--<div class="mb-3" id="r">
+                <div class="mb-3" id="r">
                     <div class="checkbox">
                         <label>
-                            <input name="tercume" disabled type="checkbox">
+                            <input name="tercume" type="checkbox">
                             Ret sonucunu tercümeye gönder</label>
                     </div>
-                    </div>--->
+                </div>
                 <button type="submit" class="btn btn-primary">Kaydet</button>
             </form>
         </div>
