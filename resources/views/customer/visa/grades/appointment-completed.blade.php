@@ -67,7 +67,7 @@
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-danger text-white confirm"
-                    data-title="Müşteri dosyası açılsın mı?">Tamamla</button>
+                    data-title="Müşteri randevusu kaydedilsin mı?">Tamamla</button>
             </form>
         </div>
     </div>
