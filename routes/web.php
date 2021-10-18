@@ -39,6 +39,11 @@ use App\Http\Controllers\Visa\Grades\ExpertAuthController as VisaExpertAuthContr
 use App\Http\Controllers\Visa\Grades\AppointmentCompletedController as VisaAppointmentCompletedController;
 use App\Http\Controllers\Visa\Grades\MadePaymentsController as VisaMadePaymentsController;
 use App\Http\Controllers\Visa\Grades\DactylogramController as VisaDactylogramController;
+
+use App\Http\Controllers\Visa\Grades\AppointmentPutOffController as VisaAppointmentPutOffController;
+use App\Http\Controllers\Visa\Grades\ReReceivedPaymentsController as VisaReReceivedPaymentsController;
+use App\Http\Controllers\Visa\Grades\ReReceivedPaymentsConfirmController as VisaReReceivedPaymentsConfirmController;
+
 use App\Http\Controllers\Visa\Grades\InvoicesSaveController as VisaInvoicesSaveController;
 use App\Http\Controllers\Visa\Grades\ApplicationResultController as VisaApplicationResultController;
 use App\Http\Controllers\Visa\Grades\FileDeliveryController as VisaFileDeliveryController;
@@ -83,10 +88,15 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('form-bilgileri', VisaAppointmentCompletedController::class);
                 Route::resource('yapilan-odeme', VisaMadePaymentsController::class);
                 Route::resource('parmak-izi', VisaDactylogramController::class);
+
+                Route::resource('randevu-erteleme', VisaAppointmentPutoffController::class);
+                Route::resource('yeniden-alinan-odeme', VisaReReceivedPaymentsController::class);
+                Route::resource('yeniden-alinan-odeme-onay', VisaReReceivedPaymentsConfirmController::class);
+
                 Route::resource('fatura-kayit', VisaInvoicesSaveController::class);
                 Route::resource('basvuru-sonuc', VisaApplicationResultController::class);
-                Route::resource('teslimat-bilgisi', VisaFileDeliveryController::class);
                 Route::resource('red-tercume', VisaRefusalTranslationController::class);
+                Route::resource('teslimat-bilgisi', VisaFileDeliveryController::class);
             });
         });
 
