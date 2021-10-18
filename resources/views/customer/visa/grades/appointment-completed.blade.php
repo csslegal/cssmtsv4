@@ -72,11 +72,3 @@
         </div>
     </div>
 @endsection
-
-@section('js')
-    <script>
-        $(function() {
-
-        });
-    </script>
-@endsection
