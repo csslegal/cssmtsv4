@@ -19,13 +19,13 @@
         <div class="card-body scroll">
 
             <form action="" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-sm-6 ">
                         <div class="card border-success mb-2">
                             <div class="card-body">
                                 <h5 class="card-title">Parmak izi verildi mi?</h5>
                                 <p>&nbsp;</p>
-                                @csrf
                                 <button type="submit" name="tamam" value="tamam"
                                     class="confirm btn btn-success float-end text-white "
                                     data-title="Devam edilsin mi?">Tamamla</button>
@@ -37,7 +37,6 @@
                             <div class="card-body">
                                 <h5 class="card-title">Randevu ertelendi mi?</h5>
                                 <p>&nbsp;</p>
-                                @csrf
                                 <button type="submit" class="btn btn-info float-end text-white confirm" name="ertele"
                                     value="ertele" data-title="Ertelensin mi?">Ertele</button>
                             </div>
@@ -48,11 +47,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">Randevu iptal mi?</h5>
                                 <p>&nbsp;</p>
-                                @csrf
                                 <button name="iptal" value="iptal" type="submit"
                                     class="btn btn-danger float-end text-white confirm" data-title="İptal edilsin mi?">İptal
                                     Et</button>
-
                             </div>
                         </div>
                     </div>
