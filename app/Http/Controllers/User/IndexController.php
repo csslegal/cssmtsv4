@@ -67,6 +67,7 @@ class IndexController extends Controller
                     ->where('visa_files.active', '=', 1)
                     ->where('visa_files.expert_id', '=', $request->session()->get('userId'))
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_GRADES_ID'))
+                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_PUTOFF_GRADES_ID'))
                     ->get();
 
                 return view('user.uzman.index')->with([
