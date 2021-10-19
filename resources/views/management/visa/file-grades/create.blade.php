@@ -39,6 +39,7 @@
                         <option value="VISA_TRANSLATION_GRADES_ID">Tercüme Tamamlama İşlemi</option>
                         <option value="VISA_EXPERT_AUTH_GRADES_ID">Uzman Yetkilendirme İşlemi</option>
                         <option value="VISA_APPOINTMENT_GRADES_ID">Randevu Bilgileri İşlemi</option>
+                        <option value="VISA_DACTYLOGRAM_GRADES_ID">Parmak İzi İşlemi</option>
                         <option value="VISA_MADE_PAYMENT_GRADES_ID">Yapılan Ödeme İşlemi</option>
                         <option value="VISA_INVOICE_SAVE_GRADES_ID">Fatura Kayıt İşlemi</option>
                         <option value="VISA_APPOINTMENT_PUTOFF_GRADES_ID">Randevu Erteleme İşlemi</option>
