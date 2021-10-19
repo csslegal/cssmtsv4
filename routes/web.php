@@ -77,6 +77,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::get('alinan-odeme-tamamla', [VisaReceivedPaymentsController::class, 'tamamla']);
                 Route::get('yapilan-odeme-tamamla', [VisaMadePaymentsController::class, 'tamamla']);
                 Route::get('fatura-kayit-tamamla', [VisaInvoicesSaveController::class, 'tamamla']);
+                Route::get('yeniden-alinan-odeme-tamamla', [VisaReReceivedPaymentsController::class, 'tamamla']);
 
                 Route::resource('alinan-odeme', VisaReceivedPaymentsController::class);
                 Route::resource('alinan-odeme-onay', VisaReceivedPaymentsConfirmController::class);
