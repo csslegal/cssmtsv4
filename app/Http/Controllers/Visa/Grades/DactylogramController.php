@@ -44,8 +44,6 @@ class DactylogramController extends Controller
      */
     public function store($id, $visa_file_id, Request $request)
     {
-
-
         if ($request->has('tamam')) {
             $visaFileGradesId = DB::table('visa_files')
                 ->select(['visa_file_grades_id'])
@@ -102,7 +100,7 @@ class DactylogramController extends Controller
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Randevu ertelendi',
+                'content' => 'Randevu tarihi erteleniyor.',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
