@@ -95,14 +95,37 @@ class AppointmentPutOffController extends Controller
         } else {
             /****randevu yenileme işlemine git*/
             $validatorStringArray = array(
-                'gwf' => 'required',
-                'hesap_adi' => 'required',
-                'sifre' => 'required',
+
                 'tarih' => 'required',
                 'saat' => 'required',
             );
 
             $request->validate($validatorStringArray);
+
+            $visaFileGradesId = DB::table('visa_files')
+                ->select(['visa_file_grades_id'])
+                ->where('id', '=', $visa_file_id)
+                ->first();
+
+            $visaFileGradesName = new VisaFileGradesName(
+                $visaFileGradesId->visa_file_grades_id
+            );
+
+            DB::table('visa_files')
+                ->where("id", "=", $visa_file_id)
+                ->update(['visa_file_grades_id' => env('VISA_DACTYLOGRAM_GRADES_ID')]);
+
+            DB::table('visa_file_logs')->insert([
+                'visa_file_id' => $visa_file_id,
+                'user_id' => $request->session()->get('userId'),
+                'subject' => $visaFileGradesName->getName(),
+                'content' => 'Randevu bilgileri ödemesiz güncellendi',
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
+
+            $request->session()
+                ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
+            return redirect('/musteri/' . $id . '/vize');
         }
     }
 
