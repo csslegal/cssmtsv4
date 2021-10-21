@@ -52,7 +52,7 @@
                 </div>
                 <div class="mb-3">
                     <label>Müşteri T.C. Numarası</label>
-                    <input type="text" name="tc-no" class="form-control" placeholder="T.C. numarasını giriniz"
+                    <input type="text" name="tc-no" autocomplete="off" class="form-control" placeholder="T.C. numarasını giriniz"
                         value="{{ $baseCustomerDetails->tcno != '' ? $baseCustomerDetails->tcno : old('tc-no') }}" />
                     @error('tc-no')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="mb-3">
                     <label>Müşteri Adresi</label>
-                    <input type="text" name="adres" class="form-control" placeholder="Adres giriniz"
+                    <input type="text" name="adres" autocomplete="off" class="form-control" placeholder="Adres giriniz"
                         value="{{ $baseCustomerDetails->adres != '' ? $baseCustomerDetails->adres : old('adres') }}" />
                     @error('adres')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -84,7 +84,7 @@
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-danger text-white confirm"
-                    data-title="Müşteri dosyası açılsın mı?">Tamamla</button>
+                    data-content="Müşteri dosyası açılsın mı?">Aşamayı Tamamla</button>
             </form>
         </div>
     </div>

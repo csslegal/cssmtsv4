@@ -28,7 +28,7 @@
                                 <p>&nbsp;</p>
                                 <button type="submit" name="tamam" value="tamam"
                                     class="confirm btn btn-success float-end text-white "
-                                    data-title="Devam edilsin mi?">Tamamla</button>
+                                    data-content="Devam edilsin mi?">Tamamla</button>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                                 <h5 class="card-title">Randevu ertelendi mi?</h5>
                                 <p>&nbsp;</p>
                                 <button type="submit" class="btn btn-info float-end text-white confirm" name="ertele"
-                                    value="ertele" data-title="Ertelensin mi?">Ertele</button>
+                                    value="ertele" data-content="Ertelensin mi?">Ertele</button>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                                 <h5 class="card-title">Randevu iptal mi?</h5>
                                 <p>&nbsp;</p>
                                 <button name="iptal" value="iptal" type="submit"
-                                    class="btn btn-danger float-end text-white confirm" data-title="İptal edilsin mi?">İptal
+                                    class="btn btn-danger float-end text-white confirm" data-content="İptal edilsin mi?">İptal
                                     Et</button>
                             </div>
                         </div>

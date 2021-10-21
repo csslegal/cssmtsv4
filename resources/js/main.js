@@ -18,15 +18,16 @@ $('#dataTable').DataTable({
 });
 
 $('a.confirm').confirm({
+    title:'Dikkat!',
     content: '',
     buttons: {
         hayır: {
-            btnClass: 'btn-info text-white',
+            btnClass: 'btn-info btn-sm text-white',
             action: function () {
             }
         },
         evet: {
-            btnClass: 'btn-danger text-white', // multiple classes.
+            btnClass: 'btn-danger btn-sm text-white', // multiple classes.
             action: function () {
                 location.href = this.$target.attr('href');
             }
@@ -34,15 +35,16 @@ $('a.confirm').confirm({
     }
 });
 $('form>button.confirm').confirm({
+    title:'Dikkat!',
     content: '',
     buttons: {
         hayır: {
-            btnClass: 'btn-info text-white',
+            btnClass: 'btn-info btn-sm text-white',
             action: function () {
             }
         },
         evet: {
-            btnClass: 'btn-danger text-white', // multiple classes.
+            btnClass: 'btn-danger btn-sm text-white', // multiple classes.
             action: function () {
                 $('form')[0].submit();
             }

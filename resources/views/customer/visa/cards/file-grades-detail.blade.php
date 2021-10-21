@@ -19,8 +19,8 @@
                     @if ($loop->first && $visaFileGradesPermitted['permitted'])
                         <span>
                             <a href="vize/{{ $visaFileDetail->id }}/{{ $visaFileGradesPermitted['grades_url'] }}"
-                                class="confirm btn btn-sm btn-danger text-white" data-title="Devam edilsin mi?">Sonraki
-                                işleme git</a>
+                                class="confirm btn btn-sm btn-danger text-white" data-content="{{ $visaFileGradesPermitted['grades_name'] }}ne yönlendirilsin mi?">Sonraki
+                                aşama</a>
                         </span>
                     @endif
                 </li>

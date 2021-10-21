@@ -8,7 +8,7 @@
                         @csrf
                         Müşteri hesap silmek için
                         <input type="hidden" name="id" value="{{ $temelBilgiler->id }}">
-                        <button class="confirm btn btn-sm btn-danger text-white" data-title="Müşteri silinsin mi?">tıkla</button>
+                        <button class="confirm btn btn-sm btn-danger text-white" data-content="Müşteri silinsin mi?">tıkla</button>
                     </form>
                 </li>
             </ul>

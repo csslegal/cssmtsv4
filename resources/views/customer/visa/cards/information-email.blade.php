@@ -33,7 +33,7 @@
                 @enderror
             </div>
             <button type="submit" class="btn btn-sm btn-danger text-white confirm"
-                data-title="E-mail gönderilsin mi?">Tamamla</button>
+                data-content="E-mail gönderilsin mi?">Tamamla</button>
         </form>
     </div>
 </div>
