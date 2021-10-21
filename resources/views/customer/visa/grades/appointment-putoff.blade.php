@@ -21,32 +21,32 @@
 
                 <div class="mb-3">
                     <label>GWF Numarası</label>
-                    <input type="text" disabled name="gwf" class="form-control" placeholder="GWF numarası girin"
-                        value="{{ $customerAppointment->gwf }}" />
+                    <input type="text" disabled name="gwf" autocomplete="off" class="form-control"
+                        placeholder="GWF numarası girin" value="{{ $customerAppointment->gwf }}" />
                     @error('gwf')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label>Hesap Adı</label>
-                    <input type="text" disabled name="hesap_adi" class="form-control" placeholder="Hesap adını girin"
-                        value="{{ $customerAppointment->name }}" />
+                    <input type="text" disabled name="hesap_adi" autocomplete="off" class="form-control"
+                        placeholder="Hesap adını girin" value="{{ $customerAppointment->name }}" />
                     @error('hesap_adi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label>Hesap Şifresi</label>
-                    <input type="text" disabled name="sifre" class="form-control" placeholder="Hesap şifresi girin"
-                        value="{{ $customerAppointment->password }}" />
+                    <input type="text" disabled name="sifre" autocomplete="off" class="form-control"
+                        placeholder="Hesap şifresi girin" value="{{ $customerAppointment->password }}" />
                     @error('sifre')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label>Randevu Tarihi</label>
-                    <input type="text" name="tarih" class="datepicker form-control" placeholder="Randevu tarihi girin"
-                        value="{{ $customerAppointment->date }}" />
+                    <input type="text" name="tarih" autocomplete="off" class="datepicker form-control"
+                        placeholder="Randevu tarihi girin" value="{{ $customerAppointment->date }}" />
                     @error('tarih')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -66,9 +66,10 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-success text-white">Ödemesiz Kaydet</button>
-                <button type="submit" name="odemeli" value="odemeli" class="btn btn-danger text-white" >Ödeme Alınmalı</button>
-                    @csrf
+                <button type="submit" class="btn btn-success text-white">Ödemesiz Aşamayı Tamamla</button>
+                <button type="submit" name="odemeli" value="odemeli" class="btn btn-danger text-white">Ödemeli Aşamayı
+                    Tamamla</button>
+                @csrf
             </form>
         </div>
     </div>

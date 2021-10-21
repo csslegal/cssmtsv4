@@ -63,7 +63,7 @@
                 </div>
                 <div class="mb-3" id="kn">
                     <label>Kargo Takip Numarası</label>
-                    <input type="text" class="form-control" name="kargo_takip_no" id="kargo_takip_no"
+                    <input type="text" class="form-control" name="kargo_takip_no" autocomplete="off" id="kargo_takip_no"
                         value="{{ old('kargo_takip_no') }}" />
                     @error('kargo_takip_no')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -82,7 +82,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm">Kaydet</button>
+                <button type="submit" class="btn btn-primary btn-sm">Aşamayı Tamamla</button>
             </form>
         </div>
     </div>

@@ -21,7 +21,7 @@
                 @csrf
                 <div class="mb-3">
                     <label>GWF Numarası</label>
-                    <input type="text" name="gwf" class="form-control" placeholder="GWF numarası girin"
+                    <input type="text" name="gwf" autocomplete="off" class="form-control" placeholder="GWF numarası girin"
                         value="{{ old('gwf') }}" />
                     @error('gwf')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -29,24 +29,24 @@
                 </div>
                 <div class="mb-3">
                     <label>Hesap Adı</label>
-                    <input type="text" name="hesap_adi" class="form-control" placeholder="Hesap adını girin"
-                        value="{{ old('hesap_adi') }}" />
+                    <input type="text" name="hesap_adi" autocomplete="off" class="form-control"
+                        placeholder="Hesap adını girin" value="{{ old('hesap_adi') }}" />
                     @error('hesap_adi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label>Hesap Şifresi</label>
-                    <input type="text" name="sifre" class="form-control" placeholder="Hesap şifresi girin"
-                        value="{{ old('sifre') }}" />
+                    <input type="text" name="sifre" autocomplete="off" class="form-control"
+                        placeholder="Hesap şifresi girin" value="{{ old('sifre') }}" />
                     @error('sifre')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label>Randevu Tarihi</label>
-                    <input type="text" name="tarih" class="datepicker form-control" placeholder="Randevu tarihi girin"
-                        value="{{ old('tarih') }}" />
+                    <input type="text" name="tarih" autocomplete="off" class="datepicker form-control"
+                        placeholder="Randevu tarihi girin" value="{{ old('tarih') }}" />
                     @error('tarih')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -67,7 +67,7 @@
                     @enderror
                 </div>
                 <button type="submit" class="btn btn-danger text-white confirm"
-                    data-title="Müşteri randevusu kaydedilsin mı?">Tamamla</button>
+                    data-content="Müşteri randevusu kaydedilsin mı?">Aşamayı Tamamla</button>
             </form>
         </div>
     </div>
