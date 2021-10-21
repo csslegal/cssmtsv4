@@ -174,7 +174,7 @@
 
                 <button type="submit" class="btn btn-primary">Ödeme Kaydet</button>
                 @if (count($madePayments) > 0)
-                    <a href="yapilan-odeme-tamamla" class="btn btn-danger text-white">Ödemeleri Tamamla</a>
+                    <a href="yapilan-odeme-tamamla" class="btn btn-danger text-white">Aşamayı Tamamla</a>
                 @endif
             </form>
         </div>
