@@ -28,6 +28,7 @@ class IndexController extends Controller
                 'visa_files.visa_file_grades_id AS visa_file_grades_id',
                 'visa_files.created_at AS created_at',
                 'visa_file_grades.url AS url',
+                'visa_file_grades.name AS grades_name',
                 'visa_types.name AS visa_type_name',
                 'visa_sub_types.name AS visa_sub_type_name',
                 'visa_validity.name AS visa_validity_name',
@@ -95,7 +96,8 @@ class IndexController extends Controller
                             $request->session()->get('userTypeId'),
                             $visaFileGradesUserType
                         ),
-                        'grades_url' => isset($visaFileDetail->url) ? $visaFileDetail->url : null
+                        'grades_url' => isset($visaFileDetail->url) ? $visaFileDetail->url : null,
+                        'grades_name' => isset($visaFileDetail->grades_name) ? $visaFileDetail->grades_name : null,
                     ],
                 ]
             );
