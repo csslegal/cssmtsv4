@@ -67,6 +67,7 @@ Route::middleware(['sessionCheck'])->group(function () {
         /**Vize işlemleri*/
         Route::group(['prefix' => '{id}/vize'], function () {
             Route::get('/', [VisaIndexController::class, 'index']);
+            Route::get('asama', [CustomerAjaxController::class, 'get_grades']);
             Route::resource('bilgi-emaili', VisaInformationEmailController::class);
 
             /**Dosya aşama işlemleri */

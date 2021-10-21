@@ -31,6 +31,17 @@
 
 @section('js')
     <script>
+        function newGrades() {
+            $.get('/musteri/{{ $baseCustomerDetails->id }}/vize/asama', {}, function(resp) {
+                if (resp == 1) {
+                    location.reload(true);
+                } else if (resp == 'NOT_FOUND_VISA_FILE') {} else {
+                    setTimeout('newGrades()', 5000);
+                }
+            });
+        }
+        newGrades();
+
         function goster(id) {
             $("#contentLoad").html('Veri alınıyor...');
             $("#contentHead").html('Dosya İşlemi Detayları');

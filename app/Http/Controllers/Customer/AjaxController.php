@@ -9,6 +9,27 @@ use Illuminate\Support\Facades\DB;
 
 class AjaxController extends Controller
 {
+    public function get_grades(Request $request, $id)
+    {
+        $visaIDgradesID = DB::table('customers')
+            ->select(['customers.id AS id', 'visa_files.id AS visa_file_id', 'visa_files.visa_file_grades_id AS visa_grades_id',])
+            ->join('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+            ->where('visa_files.active', '=', 1)
+            ->where('customers.id', '=', $id)->first();
+
+        if ($visaIDgradesID == null)
+            return 'NOT_FOUND_VISA_FILE';
+
+
+        if (!$request->session()->has($visaIDgradesID->id . '_visa_id_grades_id')) {
+            $request->session()->put($visaIDgradesID->id . '_visa_id_grades_id', $visaIDgradesID->visa_file_id . '_' . $visaIDgradesID->visa_grades_id);
+        }
+
+        if ($request->session()->get($visaIDgradesID->id . '_visa_id_grades_id') != $visaIDgradesID->visa_file_id . '_' . $visaIDgradesID->visa_grades_id) {
+            $request->session()->forget($visaIDgradesID->id . '_visa_id_grades_id');
+            return 1;
+        }
+    }
     public function post_name_kontrol(Request $request)
     {
         echo DB::table('customers')
