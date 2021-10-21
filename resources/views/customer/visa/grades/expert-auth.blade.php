@@ -68,7 +68,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-danger text-white btn-block">Tamamla</button>
+                <button type="submit" class="btn btn-danger text-white btn-block">Aşamayı Tamamla</button>
             </form>
         </div>
     </div>

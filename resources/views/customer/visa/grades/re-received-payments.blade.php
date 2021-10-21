@@ -175,7 +175,7 @@
                 <button type="submit" class="btn btn-primary">Yeniden Ödeme Kaydet</button>
                 @if (count($receivedPayments) > 0)
                     <a href="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/yeniden-alinan-odeme-tamamla"
-                        class="btn btn-danger text-white">Yeniden Ödemeleri Tamamla</a>
+                        class="btn btn-danger text-white">Aşamayı Tamamla</a>
                 @endif
             </form>
         </div>

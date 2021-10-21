@@ -17,7 +17,6 @@
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">Evrak listesi Gönder</div>
         <div class="card-body scroll">
-
             <form id="formPost" action="" method="post">
                 @csrf
                 <div class="mb-3">
@@ -32,7 +31,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button id="btnDisable" type="submit" class="btn btn-primary"> Gönder </button>
+                <button id="btnDisable" type="submit" class="btn btn-primary">Aşamayı Tamamla</button>
             </form>
         </div>
     </div>

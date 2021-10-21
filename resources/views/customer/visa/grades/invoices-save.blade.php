@@ -112,7 +112,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Kaydet</button>
                 @if (count($invoices) > 0)
-                    <a href="fatura-kayit-tamamla" class="btn btn-danger text-white">Tamamla</a>
+                    <a href="fatura-kayit-tamamla" class="btn btn-danger text-white">Aşamayı Tamamla</a>
                 @endif
             </form>
         </div>

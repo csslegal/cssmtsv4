@@ -60,7 +60,7 @@
                             Ret sonucunu tercümeye gönder</label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Kaydet</button>
+                <button type="submit" class="btn btn-primary">Aşamayı Tamamla</button>
             </form>
         </div>
     </div>
