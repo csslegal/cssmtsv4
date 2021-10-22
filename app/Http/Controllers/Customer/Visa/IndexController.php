@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Visa;
+namespace App\Http\Controllers\Customer\Visa;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

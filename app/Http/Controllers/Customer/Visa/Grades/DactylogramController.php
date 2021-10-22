@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Visa\Grades;
+namespace App\Http\Controllers\Customer\Visa\Grades;
 
 use App\Http\Controllers\Controller;
 use App\MyClass\VisaFileGradesName;
@@ -119,7 +119,37 @@ class DactylogramController extends Controller
             }
         }
         if ($request->has('iptal')) {
-            dd('iptal');
+
+            $visaFileGradesId = DB::table('visa_files')
+                ->select(['visa_file_grades_id'])
+                ->where('id', '=', $visa_file_id)
+                ->first();
+
+            $visaFileGradesName = new VisaFileGradesName(
+                $visaFileGradesId->visa_file_grades_id
+            );
+
+            DB::table('visa_file_logs')->insert([
+                'visa_file_id' => $visa_file_id,
+                'user_id' => $request->session()->get('userId'),
+                'subject' => $visaFileGradesName->getName(),
+                'content' => 'Randevu iptal edildi.',
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
+
+            if (DB::table('visa_files')
+                ->where("id", "=", $visa_file_id)
+                ->update(['visa_file_grades_id' => env('VISA_APPOINTMENT_CANCEL_GRADES_ID')])
+            ) {
+                $request->session()
+                    ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
+
+                return redirect('/musteri/' . $id . '/vize');
+            } else {
+                $request->session()
+                    ->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
+                return redirect('/musteri/' . $id . '/vize');
+            }
         }
     }
 

@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\General\LoginController as GeneralLoginController;
 use App\Http\Controllers\Management\IndexController as ManagementIndexController;
@@ -26,28 +25,28 @@ use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\AjaxController as UserAjaxController;
 use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
 use App\Http\Controllers\Customer\IndexController as CustomerIndexController;
-use App\Http\Controllers\Visa\IndexController as VisaIndexController;
-use App\Http\Controllers\Visa\InformationEmailController as VisaInformationEmailController;
-use App\Http\Controllers\Visa\Grades\FileOpenController as VisaFileOpenController;
-use App\Http\Controllers\Visa\Grades\ReceivedPaymentsController as VisaReceivedPaymentsController;
-use App\Http\Controllers\Visa\Grades\ReceivedPaymentsConfirmController as VisaReceivedPaymentsConfirmController;
-use App\Http\Controllers\Visa\Grades\DocumentListEmailSendController as VisaDocumentListEmailSendController;
-use App\Http\Controllers\Visa\Grades\DocumentListCompletedController as VisaDocumentListCompletedController;
-use App\Http\Controllers\Visa\Grades\TranslatorAuthController as VisaTranslatorAuthController;
-use App\Http\Controllers\Visa\Grades\TranslationsCompletedController as VisaTranslationsCompletedController;
-use App\Http\Controllers\Visa\Grades\ExpertAuthController as VisaExpertAuthController;
-use App\Http\Controllers\Visa\Grades\AppointmentCompletedController as VisaAppointmentCompletedController;
-use App\Http\Controllers\Visa\Grades\MadePaymentsController as VisaMadePaymentsController;
-use App\Http\Controllers\Visa\Grades\DactylogramController as VisaDactylogramController;
+use App\Http\Controllers\Customer\Visa\IndexController as VisaIndexController;
+use App\Http\Controllers\Customer\Visa\InformationEmailController as VisaInformationEmailController;
+use App\Http\Controllers\Customer\Visa\Grades\FileOpenController as VisaFileOpenController;
+use App\Http\Controllers\Customer\Visa\Grades\ReceivedPaymentsController as VisaReceivedPaymentsController;
+use App\Http\Controllers\Customer\Visa\Grades\ReceivedPaymentsConfirmController as VisaReceivedPaymentsConfirmController;
+use App\Http\Controllers\Customer\Visa\Grades\DocumentListEmailSendController as VisaDocumentListEmailSendController;
+use App\Http\Controllers\Customer\Visa\Grades\DocumentListCompletedController as VisaDocumentListCompletedController;
+use App\Http\Controllers\Customer\Visa\Grades\TranslatorAuthController as VisaTranslatorAuthController;
+use App\Http\Controllers\Customer\Visa\Grades\TranslationsCompletedController as VisaTranslationsCompletedController;
+use App\Http\Controllers\Customer\Visa\Grades\ExpertAuthController as VisaExpertAuthController;
+use App\Http\Controllers\Customer\Visa\Grades\AppointmentCompletedController as VisaAppointmentCompletedController;
+use App\Http\Controllers\Customer\Visa\Grades\MadePaymentsController as VisaMadePaymentsController;
+use App\Http\Controllers\Customer\Visa\Grades\DactylogramController as VisaDactylogramController;
 
-use App\Http\Controllers\Visa\Grades\AppointmentPutOffController as VisaAppointmentPutOffController;
-use App\Http\Controllers\Visa\Grades\ReReceivedPaymentsController as VisaReReceivedPaymentsController;
-use App\Http\Controllers\Visa\Grades\ReReceivedPaymentsConfirmController as VisaReReceivedPaymentsConfirmController;
+use App\Http\Controllers\Customer\Visa\Grades\AppointmentPutOffController as VisaAppointmentPutOffController;
+use App\Http\Controllers\Customer\Visa\Grades\ReReceivedPaymentsController as VisaReReceivedPaymentsController;
+use App\Http\Controllers\Customer\Visa\Grades\ReReceivedPaymentsConfirmController as VisaReReceivedPaymentsConfirmController;
 
-use App\Http\Controllers\Visa\Grades\InvoicesSaveController as VisaInvoicesSaveController;
-use App\Http\Controllers\Visa\Grades\ApplicationResultController as VisaApplicationResultController;
-use App\Http\Controllers\Visa\Grades\FileDeliveryController as VisaFileDeliveryController;
-use App\Http\Controllers\Visa\Grades\RefusalTranslationController as VisaRefusalTranslationController;
+use App\Http\Controllers\Customer\Visa\Grades\InvoicesSaveController as VisaInvoicesSaveController;
+use App\Http\Controllers\Customer\Visa\Grades\ApplicationResultController as VisaApplicationResultController;
+use App\Http\Controllers\Customer\Visa\Grades\FileDeliveryController as VisaFileDeliveryController;
+use App\Http\Controllers\Customer\Visa\Grades\RefusalTranslationController as VisaRefusalTranslationController;
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);

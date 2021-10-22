@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Visa\Grades;
+namespace App\Http\Controllers\Customer\Visa\Grades;
 
 use App\Http\Controllers\Controller;
 use App\MyClass\VisaFileGradesName;
@@ -209,7 +209,7 @@ class ReceivedPaymentsController extends Controller
 
         $whichGrades = new VisaFileWhichGrades();
         $nextGrades = $whichGrades->nextGrades($visa_file_id);
-      
+
         if (DB::table('visa_files')->where("id", "=", $visa_file_id)
             ->update(['visa_file_grades_id' => $nextGrades])
         ) {
