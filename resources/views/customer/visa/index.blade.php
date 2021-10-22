@@ -44,7 +44,7 @@
 
         function goster(id) {
             $("#contentLoad").html('Veri alınıyor...');
-            $("#contentHead").html('Dosya İşlemi Detayları');
+            $("#contentHead").html('Dosya İşlem Detayları');
             $.ajax({
                 type: 'POST',
                 url: "/musteri/ajax/vize-dosya-log",
