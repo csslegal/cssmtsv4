@@ -32,7 +32,7 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-sm btn-danger text-white confirm"
+            <button type="submit" class="btn btn-sm btn-danger text-white confirm" data-title="Dikkat!"
                 data-content="E-mail gönderilsin mi?">Tamamla</button>
         </form>
     </div>
