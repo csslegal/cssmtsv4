@@ -33,17 +33,17 @@
     <script>
         function newGrades() {
             $.get('/musteri/{{ $baseCustomerDetails->id }}/vize/asama', {}, function(resp) {
-                console.log(resp)
+                //console.log(resp)
                 if (resp == 'NOT_FOUND_VISA_FILE') {
-                    console.log('NOT_FOUND_VISA_FILE');
+                    //console.log('NOT_FOUND_VISA_FILE');
                 } else if (resp == 'REFRESH') {
-                    console.log('REFRESH');
+                    //console.log('REFRESH');
                     location.reload(true);
                 } else if (resp == 'WAIT') {
-                    console.log('WAIT');
+                    //console.log('WAIT');
                     setTimeout('newGrades()', 5000);
                 } else if (resp == 'SET') {
-                    console.log('SET');
+                    //console.log('SET');
                     setTimeout('newGrades()', 5000);
                 }
             });
