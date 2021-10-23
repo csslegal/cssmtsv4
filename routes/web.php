@@ -39,6 +39,8 @@ use App\Http\Controllers\Customer\Visa\Grades\AppointmentCompletedController as 
 use App\Http\Controllers\Customer\Visa\Grades\MadePaymentsController as VisaMadePaymentsController;
 use App\Http\Controllers\Customer\Visa\Grades\DactylogramController as VisaDactylogramController;
 
+use App\Http\Controllers\Customer\Visa\Grades\AppointmentCancelController as VisaAppointmentCancelController;
+
 use App\Http\Controllers\Customer\Visa\Grades\AppointmentPutOffController as VisaAppointmentPutOffController;
 use App\Http\Controllers\Customer\Visa\Grades\ReReceivedPaymentsController as VisaReReceivedPaymentsController;
 use App\Http\Controllers\Customer\Visa\Grades\ReReceivedPaymentsConfirmController as VisaReReceivedPaymentsConfirmController;
@@ -89,6 +91,8 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('form-bilgileri', VisaAppointmentCompletedController::class);
                 Route::resource('yapilan-odeme', VisaMadePaymentsController::class);
                 Route::resource('parmak-izi', VisaDactylogramController::class);
+
+                Route::resource('randevu-iptali', VisaAppointmentCancelController::class);
 
                 Route::resource('randevu-erteleme', VisaAppointmentPutoffController::class);
                 Route::resource('yeniden-alinan-odeme', VisaReReceivedPaymentsController::class);
