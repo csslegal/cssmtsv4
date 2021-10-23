@@ -10,20 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class MadePaymentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($id, $visa_file_id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')
-            ->select(
-                [
-                    'customers.id AS id',
-                    'visa_files.id AS visa_file_id',
-                ]
-            )
+            ->select([
+                'customers.id AS id',
+                'visa_files.id AS visa_file_id',
+            ])
             ->join('visa_files', 'visa_files.customer_id', '=', 'customers.id')
             ->where('visa_files.active', '=', 1)
             ->where('customers.id', '=', $id)->first();
@@ -42,40 +35,18 @@ class MadePaymentsController extends Controller
                 'visa_made_payments.created_at AS created_at',
                 'users.name AS user_name',
             ])
-
             ->leftJoin('users', 'users.id', '=', 'visa_made_payments.user_id')
-
-            ->where('visa_file_id', '=', $visa_file_id)
-            ->get();
+            ->where('visa_file_id', '=', $visa_file_id)->get();
 
         $madePaymentTypes = DB::table('visa_made_payment_types')->get();
 
-        return view('customer.visa.grades.made-payments')
-            ->with(
-                [
-                    'baseCustomerDetails' => $baseCustomerDetails,
-                    'madePayments' => $madePayments,
-                    'madePaymentTypes' => $madePaymentTypes,
-                ]
-            );
+        return view('customer.visa.grades.made-payments')->with([
+            'baseCustomerDetails' => $baseCustomerDetails,
+            'madePayments' => $madePayments,
+            'madePaymentTypes' => $madePaymentTypes,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store($id, $visa_file_id, Request $request)
     {
         $tl_kurus = "00";
@@ -189,46 +160,6 @@ class MadePaymentsController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id, $visa_file_id, $made_payment_id, Request $request)
     {
         if (is_numeric($made_payment_id)) {
@@ -252,6 +183,7 @@ class MadePaymentsController extends Controller
             return redirect('/musteri/' . $id . '/vize/' . $visa_file_id . '/yapilan-odeme');
         }
     }
+
     public function tamamla($id, $visa_file_id, Request $request)
     {
 
@@ -281,6 +213,11 @@ class MadePaymentsController extends Controller
                 ->where("id", "=", $visa_file_id)
                 ->update(['visa_file_grades_id' => $nextGrades])
             ) {
+
+                if ($request->session()->has($visa_file_id . '_grades_id')) {
+                    $request->session()->forget($visa_file_id . '_grades_id');
+                }
+
                 $request->session()
                     ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
 

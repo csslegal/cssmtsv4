@@ -41,22 +41,6 @@ class DocumentListEmailSendController extends Controller
             );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function  store($id, $visa_file_id, Request $request)
     {
         $request->validate(['dil' => 'required|numeric',]);
@@ -74,14 +58,10 @@ class DocumentListEmailSendController extends Controller
             ->leftJoin("visa_sub_types", "visa_sub_types.id", "=", "visa_files.visa_sub_type_id")
             ->leftJoin("visa_types", "visa_types.id", "=", "visa_sub_types.visa_type_id")
 
-            ->where(
-                [
-                    'visa_files.id' => $visa_file_id,
-                    "visa_emails_document_list.language_id" => $request->input("dil")
-                ]
-            )
-
-            ->first();
+            ->where([
+                'visa_files.id' => $visa_file_id,
+                "visa_emails_document_list.language_id" => $request->input("dil")
+            ])->first();
 
         if ($visaSubDocumentListEmailContent != null) {
 
@@ -105,8 +85,7 @@ class DocumentListEmailSendController extends Controller
 
             $visaFileGradesId = DB::table('visa_files')
                 ->select(['visa_file_grades_id'])
-                ->where('id', '=', $visa_file_id)
-                ->first();
+                ->where('id', '=', $visa_file_id)->first();
 
             $visaFileGradesName = new VisaFileGradesName(
                 $visaFileGradesId->visa_file_grades_id
@@ -117,7 +96,13 @@ class DocumentListEmailSendController extends Controller
 
             DB::table('visa_files')
                 ->where("id", "=", $visa_file_id)
-                ->update(['visa_file_grades_id' => $nextGrades]);
+                ->update([
+                    'visa_file_grades_id' => $nextGrades
+                ]);
+
+            if ($request->session()->has($visa_file_id . '_grades_id')) {
+                $request->session()->forget($visa_file_id . '_grades_id');
+            }
 
             DB::table('visa_file_logs')->insert([
                 'visa_file_id' => $visa_file_id,
@@ -127,16 +112,14 @@ class DocumentListEmailSendController extends Controller
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
-            DB::table('email_logs')->insert(
-                [
-                    'customer_id' => $id,
-                    'access_id' => 1, //vize işlem emaili
-                    'content' => $visaSubDocumentListEmailContent->content,
-                    'subject' => 'CSSlegal Evrak Listesi ' . date("YmDHis"),
-                    'user_id' => $request->session()->get('userId'),
-                    'created_at' => date('Y-m-d H:i:s'),
-                ]
-            );
+            DB::table('email_logs')->insert([
+                'customer_id' => $id,
+                'access_id' => 1, //vize işlem emaili
+                'content' => $visaSubDocumentListEmailContent->content,
+                'subject' => 'CSSlegal Evrak Listesi ' . date("YmDHis"),
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
             $request->session()
                 ->flash('mesajSuccess', 'Evrak listesi e-maili gönderildi');
             return redirect('/musteri/' . $id . '/vize');
@@ -145,50 +128,5 @@ class DocumentListEmailSendController extends Controller
                 ->flash('mesajInfo', 'Evrak listesi e-maili bulunamadı');
             return redirect('/musteri/' . $id . '/vize');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

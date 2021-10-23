@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class DactylogramController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')
@@ -26,22 +21,6 @@ class DactylogramController extends Controller
             ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store($id, $visa_file_id, Request $request)
     {
         if ($request->has('tamam')) {
@@ -71,6 +50,11 @@ class DactylogramController extends Controller
                     ->where("id", "=", $visa_file_id)
                     ->update(['visa_file_grades_id' => $nextGrades])
                 ) {
+
+                    if ($request->session()->has($visa_file_id . '_grades_id')) {
+                        $request->session()->forget($visa_file_id . '_grades_id');
+                    }
+
                     $request->session()
                         ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
 
@@ -87,6 +71,7 @@ class DactylogramController extends Controller
             }
         }
         if ($request->has('ertele')) {
+
             $visaFileGradesId = DB::table('visa_files')
                 ->select(['visa_file_grades_id'])
                 ->where('id', '=', $visa_file_id)
@@ -106,8 +91,15 @@ class DactylogramController extends Controller
 
             if (DB::table('visa_files')
                 ->where("id", "=", $visa_file_id)
-                ->update(['visa_file_grades_id' => env('VISA_APPOINTMENT_PUTOFF_GRADES_ID')])
+                ->update([
+                    'visa_file_grades_id' => env('VISA_APPOINTMENT_PUTOFF_GRADES_ID')
+                ])
             ) {
+
+                if ($request->session()->has($visa_file_id . '_grades_id')) {
+                    $request->session()->forget($visa_file_id . '_grades_id');
+                }
+
                 $request->session()
                     ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
 
@@ -133,14 +125,21 @@ class DactylogramController extends Controller
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Randevu iptal edildi.',
+                'content' => 'Randevu iptal ediliyor.',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
             if (DB::table('visa_files')
                 ->where("id", "=", $visa_file_id)
-                ->update(['visa_file_grades_id' => env('VISA_APPOINTMENT_CANCEL_GRADES_ID')])
+                ->update([
+                    'visa_file_grades_id' => env('VISA_APPOINTMENT_CANCEL_GRADES_ID')
+                ])
             ) {
+
+                if ($request->session()->has($visa_file_id . '_grades_id')) {
+                    $request->session()->forget($visa_file_id . '_grades_id');
+                }
+
                 $request->session()
                     ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
 
@@ -151,51 +150,5 @@ class DactylogramController extends Controller
                 return redirect('/musteri/' . $id . '/vize');
             }
         }
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

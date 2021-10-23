@@ -17,17 +17,35 @@ class AjaxController extends Controller
             ->where('visa_files.active', '=', 1)
             ->where('customers.id', '=', $id)->first();
 
-        if ($visaIDgradesID == null)
-            return 'NOT_FOUND_VISA_FILE';
+        // print_r($request->session()->all());
 
+        if ($visaIDgradesID == null) {
+            echo 'NOT_FOUND_VISA_FILE';
+        } else {
 
-        if (!$request->session()->has($visaIDgradesID->id . '_visa_id_grades_id')) {
-            $request->session()->put($visaIDgradesID->id . '_visa_id_grades_id', $visaIDgradesID->visa_file_id . '_' . $visaIDgradesID->visa_grades_id);
-        }
+            if (!$request->session()->has(
+                $visaIDgradesID->visa_file_id . '_grades_id'
+            )) {
+                $request->session()->put(
+                    $visaIDgradesID->visa_file_id . '_grades_id',
+                    $visaIDgradesID->visa_grades_id
+                );
+                echo 'SET';
+            } else {
 
-        if ($request->session()->get($visaIDgradesID->id . '_visa_id_grades_id') != $visaIDgradesID->visa_file_id . '_' . $visaIDgradesID->visa_grades_id) {
-            $request->session()->forget($visaIDgradesID->id . '_visa_id_grades_id');
-            return 1;
+                if ($request->session()->get(
+                    $visaIDgradesID->visa_file_id . '_grades_id'
+                ) != $visaIDgradesID->visa_grades_id) {
+
+                    $request->session()->forget(
+                        $visaIDgradesID->visa_file_id . '_grades_id'
+                    );
+                    echo 'REFRESH';
+                } else {
+
+                    echo 'WAIT';
+                }
+            }
         }
     }
     public function post_name_kontrol(Request $request)

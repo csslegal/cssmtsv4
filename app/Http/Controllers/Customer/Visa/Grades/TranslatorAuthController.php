@@ -18,12 +18,10 @@ class TranslatorAuthController extends Controller
     public function index($id, $visa_file_id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')
-            ->select(
-                [
-                    'customers.id AS id',
-                    'visa_files.id AS visa_file_id',
-                ]
-            )
+            ->select([
+                'customers.id AS id',
+                'visa_files.id AS visa_file_id',
+            ])
             ->join('visa_files', 'visa_files.customer_id', '=', 'customers.id')
             ->where('visa_files.active', '=', 1)
             ->where('customers.id', '=', $id)->first();
@@ -34,53 +32,32 @@ class TranslatorAuthController extends Controller
             ->get();
 
         $visaFilesTranslators = DB::table('visa_files')
-            ->select(
-                [
-                    'visa_types.name AS visa_type_name',
-                    'visa_files.translator_id AS translator_id',
-                    'visa_sub_types.name AS visa_sub_type_name',
-                    'visa_sub_types.id AS visa_sub_type_id',
-                ]
-            )
+            ->select([
+                'visa_types.name AS visa_type_name',
+                'visa_files.translator_id AS translator_id',
+                'visa_sub_types.name AS visa_sub_type_name',
+                'visa_sub_types.id AS visa_sub_type_id',
+            ])
             ->join('visa_sub_types', 'visa_files.visa_sub_type_id', '=', 'visa_sub_types.id')
             ->join('visa_types', 'visa_sub_types.visa_type_id', '=', 'visa_types.id')
             ->where('visa_files.visa_file_grades_id', '<=', env('VISA_TRANSLATION_GRADES_ID'))
             ->where('visa_files.active', '=', 1)
             ->get();
 
-        return view('customer.visa.grades.translator-auth')->with(
-            [
-                'translators' => $translators,
-                'baseCustomerDetails' => $baseCustomerDetails,
-                'visaFilesTranslators' => $visaFilesTranslators,
-            ]
-        );
+        return view('customer.visa.grades.translator-auth')->with([
+            'translators' => $translators,
+            'baseCustomerDetails' => $baseCustomerDetails,
+            'visaFilesTranslators' => $visaFilesTranslators,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store($id, $visa_file_id, Request $request)
     {
         $request->validate(['tercuman' => 'required|numeric',]);
 
         $visaFileGradesId = DB::table('visa_files')
             ->select(['visa_file_grades_id'])
-            ->where('id', '=', $visa_file_id)
-            ->first();
+            ->where('id', '=', $visa_file_id)->first();
 
         $visaFileGradesName = new VisaFileGradesName(
             $visaFileGradesId->visa_file_grades_id
@@ -93,13 +70,16 @@ class TranslatorAuthController extends Controller
 
             if (DB::table('visa_files')
                 ->where("id", "=", $visa_file_id)
-                ->update(
-                    [
-                        'visa_file_grades_id' => $nextGrades,
-                        'translator_id' => $request->input('tercuman'),
-                    ]
-                )
+                ->update([
+                    'visa_file_grades_id' => $nextGrades,
+                    'translator_id' => $request->input('tercuman'),
+                ])
             ) {
+
+                if ($request->session()->has($visa_file_id . '_grades_id')) {
+                    $request->session()->forget($visa_file_id . '_grades_id');
+                }
+
                 DB::table('visa_file_logs')->insert([
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),

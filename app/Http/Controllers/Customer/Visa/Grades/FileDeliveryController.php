@@ -81,9 +81,13 @@ class FileDeliveryController extends Controller
 
         $request->validate($validatorStringArray);
 
-        $visaFileGradesId = DB::table('visa_files')->select(['visa_file_grades_id'])
+        $visaFileGradesId = DB::table('visa_files')
+            ->select(['visa_file_grades_id'])
             ->where('id', '=', $visa_file_id)->first();
-        $visaFileGradesName = new VisaFileGradesName($visaFileGradesId->visa_file_grades_id);
+
+        $visaFileGradesName = new VisaFileGradesName(
+            $visaFileGradesId->visa_file_grades_id
+        );
 
         $whichGrades = new VisaFileWhichGrades();
         $nextGrades = $whichGrades->nextGrades($visa_file_id);
@@ -107,6 +111,10 @@ class FileDeliveryController extends Controller
                     'active' => 0,
                     'visa_file_grades_id' => $nextGrades
                 ]);
+
+            if ($request->session()->has($visa_file_id . '_grades_id')) {
+                $request->session()->forget($visa_file_id . '_grades_id');
+            }
 
             DB::table('visa_file_logs')->insert([
                 'visa_file_id' => $visa_file_id,

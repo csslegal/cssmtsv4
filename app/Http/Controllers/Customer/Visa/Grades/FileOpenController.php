@@ -21,34 +21,24 @@ class FileOpenController extends Controller
         $language = DB::table('language')->orderBy('orderby')->get();
         $users = DB::table('users')->orderBy('orderby')->get();
 
-        return view('customer.visa.grades.file-open')
-            ->with(
-                [
-                    'baseCustomerDetails' => $baseCustomerDetails,
-                    'visaTypes' => $visaTypes,
-                    'language' => $language,
-                    'users' => $users,
-                    'visaValidities' => $visaValidities,
+        return view('customer.visa.grades.file-open')->with([
+            'baseCustomerDetails' => $baseCustomerDetails,
+            'visaTypes' => $visaTypes,
+            'language' => $language,
+            'users' => $users,
+            'visaValidities' => $visaValidities,
 
-                ]
-            );
-    }
-
-    public function create()
-    {
-        //
+        ]);
     }
 
     public function store(Request $request, $id)
     {
-        $request->validate(
-            [
-                'vize-tipi' => 'required|numeric',
-                'vize-sure' => 'required|numeric',
-                'tc-no' => 'required|min:7',
-                'adres' => 'required|min:3',
-            ]
-        );
+        $request->validate([
+            'vize-tipi' => 'required|numeric',
+            'vize-sure' => 'required|numeric',
+            'tc-no' => 'required|min:7',
+            'adres' => 'required|min:3',
+        ]);
 
         $customerActiveFile = DB::table('visa_files')
             ->where('active', '=', 1)
@@ -57,15 +47,13 @@ class FileOpenController extends Controller
 
         if ($customerActiveFile == 0) {
 
-            $visaFileInsertId = DB::table('visa_files')->insertGetId(
-                [
-                    'customer_id' => $id,
-                    'visa_sub_type_id' => $request->input('vize-tipi'),
-                    'visa_validity_id' => $request->input('vize-sure'),
-                    'visa_file_grades_id' => env('VISA_FILE_OPEN_GRADES_ID'),
-                    'created_at' => date('Y-m-d H:i:s')
-                ]
-            );
+            $visaFileInsertId = DB::table('visa_files')->insertGetId([
+                'customer_id' => $id,
+                'visa_sub_type_id' => $request->input('vize-tipi'),
+                'visa_validity_id' => $request->input('vize-sure'),
+                'visa_file_grades_id' => env('VISA_FILE_OPEN_GRADES_ID'),
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
 
             do {
                 $dosyaRefNumber = rand(10000, 99999);
@@ -79,9 +67,10 @@ class FileOpenController extends Controller
 
                 DB::table('visa_files')
                     ->where('id', '=', $dosyaRefNumber)
-                    ->update(['advisor_id' => $request->session()->get('userId'),]);
+                    ->update([
+                        'advisor_id' => $request->session()->get('userId'),
+                    ]);
             } elseif (
-
                 $request->session()->get('userTypeId') == 1 ||
                 $request->session()->get('userTypeId') == 4 ||
                 $request->session()->get('userTypeId') == 7
@@ -90,14 +79,14 @@ class FileOpenController extends Controller
                     ->where('id', '=', $dosyaRefNumber)
                     ->update(['advisor_id' => $request->input('danisman'),]);
             }
-            DB::table('customers')->where('id', '=', $id)->update(
-                [
-                    'tcno' => $request->input('tc-no'),
-                    'adres' => $request->input('adres'),
-                ]
-            );
+            DB::table('customers')->where('id', '=', $id)->update([
+                'tcno' => $request->input('tc-no'),
+                'adres' => $request->input('adres'),
+            ]);
 
-            $visaFileGradesName = new VisaFileGradesName(env('VISA_FILE_OPEN_GRADES_ID'));
+            $visaFileGradesName = new VisaFileGradesName(
+                env('VISA_FILE_OPEN_GRADES_ID')
+            );
 
             DB::table('visa_file_logs')->insert([
                 'visa_file_id' => $dosyaRefNumber,
@@ -111,8 +100,10 @@ class FileOpenController extends Controller
             $nextGrades = $whichGrades->nextGrades($dosyaRefNumber);
 
             DB::table('visa_files')
-            ->where("id", "=", $dosyaRefNumber)
-            ->update(['visa_file_grades_id' => $nextGrades]);
+                ->where("id", "=", $dosyaRefNumber)
+                ->update([
+                    'visa_file_grades_id' => $nextGrades
+                ]);
 
             $request->session()
                 ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');

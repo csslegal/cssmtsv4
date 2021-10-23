@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class AppointmentPutOffController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($id, $visa_file_id)
     {
         $customerAppointment = DB::table('visa_appointments')
@@ -36,22 +31,6 @@ class AppointmentPutOffController extends Controller
             );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, $id, $visa_file_id)
     {
         if ($request->input('odemeli') == 'odemeli') {
@@ -73,13 +52,21 @@ class AppointmentPutOffController extends Controller
 
                 DB::table('visa_files')
                     ->where("id", "=", $visa_file_id)
-                    ->update(['visa_file_grades_id' => $nextGrades]);
+                    ->update([
+                        'visa_file_grades_id' => $nextGrades
+                    ]);
+
+
+                if ($request->session()->has($visa_file_id . '_grades_id')) {
+                    $request->session()->forget($visa_file_id . '_grades_id');
+                }
+
 
                 DB::table('visa_file_logs')->insert([
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
                     'subject' => $visaFileGradesName->getName(),
-                    'content' => 'Randevu alınması için ödeme alınması gerekli',
+                    'content' => 'Randevu erteleme, randevu alınması için ödeme alınması gerekli',
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
 
@@ -113,13 +100,19 @@ class AppointmentPutOffController extends Controller
 
             DB::table('visa_files')
                 ->where("id", "=", $visa_file_id)
-                ->update(['visa_file_grades_id' => env('VISA_DACTYLOGRAM_GRADES_ID')]);
+                ->update([
+                    'visa_file_grades_id' => env('VISA_DACTYLOGRAM_GRADES_ID')
+                ]);
+
+            if ($request->session()->has($visa_file_id . '_grades_id')) {
+                $request->session()->forget($visa_file_id . '_grades_id');
+            }
 
             DB::table('visa_file_logs')->insert([
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Randevu bilgileri ödemesiz güncellendi',
+                'content' => 'Randevu erteleme, randevu bilgileri ödemesiz güncellendi',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
@@ -127,50 +120,5 @@ class AppointmentPutOffController extends Controller
                 ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
             return redirect('/musteri/' . $id . '/vize');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

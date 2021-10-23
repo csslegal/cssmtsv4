@@ -10,20 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class ExpertAuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($id, $visa_file_id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')
-            ->select(
-                [
-                    'customers.id AS id',
-                    'visa_files.id AS visa_file_id',
-                ]
-            )
+            ->select([
+                'customers.id AS id',
+                'visa_files.id AS visa_file_id',
+            ])
             ->join('visa_files', 'visa_files.customer_id', '=', 'customers.id')
             ->where('visa_files.active', '=', 1)
             ->where('customers.id', '=', $id)->first();
@@ -34,45 +27,25 @@ class ExpertAuthController extends Controller
             ->get();
 
         $visaFilesExperts = DB::table('visa_files')
-            ->select(
-                [
-                    'visa_types.name AS visa_type_name',
-                    'visa_files.expert_id AS expert_id',
-                    'visa_sub_types.name AS visa_sub_type_name',
-                    'visa_sub_types.id AS visa_sub_type_id',
-                ]
-            )
+            ->select([
+                'visa_types.name AS visa_type_name',
+                'visa_files.expert_id AS expert_id',
+                'visa_sub_types.name AS visa_sub_type_name',
+                'visa_sub_types.id AS visa_sub_type_id',
+            ])
             ->join('visa_sub_types', 'visa_files.visa_sub_type_id', '=', 'visa_sub_types.id')
             ->join('visa_types', 'visa_sub_types.visa_type_id', '=', 'visa_types.id')
             ->where('visa_files.visa_file_grades_id', '<=', env('VISA_APPOINTMENT_GRADES_ID'))
             ->where('visa_files.active', '=', 1)
             ->get();
 
-        return view('customer.visa.grades.expert-auth')->with(
-            [
-                'experts' => $experts,
-                'baseCustomerDetails' => $baseCustomerDetails,
-                'visaFilesExperts' => $visaFilesExperts,
-            ]
-        );
+        return view('customer.visa.grades.expert-auth')->with([
+            'experts' => $experts,
+            'baseCustomerDetails' => $baseCustomerDetails,
+            'visaFilesExperts' => $visaFilesExperts,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, $id, $visa_file_id)
     {
         $request->validate(['uzman' => 'required|numeric',]);
@@ -93,13 +66,16 @@ class ExpertAuthController extends Controller
 
             if (DB::table('visa_files')
                 ->where("id", "=", $visa_file_id)
-                ->update(
-                    [
-                        'visa_file_grades_id' => $nextGrades,
-                        'expert_id' => $request->input('uzman'),
-                    ]
-                )
+                ->update([
+                    'visa_file_grades_id' => $nextGrades,
+                    'expert_id' => $request->input('uzman'),
+                ])
             ) {
+
+                if ($request->session()->has($visa_file_id . '_grades_id')) {
+                    $request->session()->forget($visa_file_id . '_grades_id');
+                }
+
                 DB::table('visa_file_logs')->insert([
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),

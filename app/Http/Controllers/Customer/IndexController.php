@@ -50,12 +50,16 @@ class IndexController extends Controller
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Farklı bilgiyle tekrar deneyiniz veya <a class="text-white" href="/musteri/ekle">bu linkten</a> yeni müşteri kaydı yapınız!');
-                return view('customer.search')->with(['arama' => $arama]);
+                return view('customer.search')->with([
+                    'arama' => $arama
+                ]);
             }
         } else {
             $request->session()
                 ->flash('mesajInfo', 'Sorgulama için yeterli veri giriniz. Girilen: <span class="fw-bold">' . $arama . '</span>');
-            return view('customer.search')->with(['arama' => $arama]);
+            return view('customer.search')->with([
+                'arama' => $arama
+            ]);
         }
     }
 
@@ -182,20 +186,20 @@ class IndexController extends Controller
     public function get_index(Request $request, $id)
     {
         $temelBilgiler = DB::table('customers')
-        ->select(
-            [
-                'customers.id AS id',
-                'customers.name AS name',
-                'customers.telefon AS telefon',
-                'customers.email AS email',
-                'customers.tcno AS tcno',
-                'customers.adres AS adres',
-                'customers.pasaport AS pasaport',
-                'customers.pasaport_tarihi AS pasaport_tarihi',
-                'application_offices.name AS application_name',
-                'appointment_offices.name AS appointment_name',
-            ]
-        )
+            ->select(
+                [
+                    'customers.id AS id',
+                    'customers.name AS name',
+                    'customers.telefon AS telefon',
+                    'customers.email AS email',
+                    'customers.tcno AS tcno',
+                    'customers.adres AS adres',
+                    'customers.pasaport AS pasaport',
+                    'customers.pasaport_tarihi AS pasaport_tarihi',
+                    'application_offices.name AS application_name',
+                    'appointment_offices.name AS appointment_name',
+                ]
+            )
             ->leftJoin('application_offices', 'application_offices.id', '=', 'customers.application_office_id')
             ->leftJoin('appointment_offices', 'appointment_offices.id', '=', 'customers.appointment_office_id');
 
@@ -204,30 +208,30 @@ class IndexController extends Controller
             $temelBilgiler = $temelBilgiler->where('customers.id', '=', $id)->first();
 
             $userAccesses = DB::table('users_access')
-            ->select('access.id',)
+                ->select('access.id',)
                 ->leftJoin('access', 'access.id', '=', 'users_access.access_id')
                 ->where('user_id', '=', $request->session()->get('userId'))
                 ->pluck('access.id')->toArray();
 
             $customerNotlari = DB::table('customer_notes as mn')
-            ->select(
-                "u.name AS u_name",
-                "mn.id AS mn_id",
-                "mn.created_at AS mn_created_at",
-                "mn.content AS mn_content"
-            )
+                ->select(
+                    "u.name AS u_name",
+                    "mn.id AS mn_id",
+                    "mn.created_at AS mn_created_at",
+                    "mn.content AS mn_content"
+                )
                 ->join("users AS u", "u.id", "=", "mn.user_id")
                 ->where("mn.customer_id", "=", $id)
                 ->get();
 
             $customerEmailLogs = DB::table('email_logs')
-            ->select(
-                'email_logs.id AS id',
-                'users.name AS u_name',
-                'access.name AS a_name',
-                'email_logs.subject AS subject',
-                'email_logs.created_at AS created_at',
-            )
+                ->select(
+                    'email_logs.id AS id',
+                    'users.name AS u_name',
+                    'access.name AS a_name',
+                    'email_logs.subject AS subject',
+                    'email_logs.created_at AS created_at',
+                )
                 ->leftJoin('users', 'users.id', '=', 'email_logs.user_id')
                 ->leftJoin('access', 'access.id', '=', 'email_logs.access_id')
                 ->where('email_logs.customer_id', '=', $id)
@@ -235,15 +239,15 @@ class IndexController extends Controller
 
 
             $visaFileGradesDescLog = DB::table('visa_file_logs')
-            ->select(
-                [
-                    'visa_file_logs.id AS id',
-                    'visa_file_logs.subject AS subject',
-                    'visa_file_logs.created_at AS created_at',
-                    'users.name AS user_name',
-                    'visa_files.id AS visa_file_id',
-                ]
-            )
+                ->select(
+                    [
+                        'visa_file_logs.id AS id',
+                        'visa_file_logs.subject AS subject',
+                        'visa_file_logs.created_at AS created_at',
+                        'users.name AS user_name',
+                        'visa_files.id AS visa_file_id',
+                    ]
+                )
                 ->join('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
                 ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
                 ->where('visa_files.customer_id', '=', $id)

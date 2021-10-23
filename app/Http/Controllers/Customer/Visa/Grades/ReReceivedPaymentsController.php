@@ -13,12 +13,10 @@ class ReReceivedPaymentsController extends Controller
     public function index($id, $visa_file_id)
     {
         $baseCustomerDetails = DB::table('customers')
-            ->select(
-                [
-                    'customers.id AS id',
-                    'visa_files.id AS visa_file_id',
-                ]
-            )
+            ->select([
+                'customers.id AS id',
+                'visa_files.id AS visa_file_id',
+            ])
             ->join('visa_files', 'visa_files.customer_id', '=', 'customers.id')
             ->where('visa_files.active', '=', 1)
             ->where('customers.id', '=', $id)->first();
@@ -38,22 +36,18 @@ class ReReceivedPaymentsController extends Controller
                 'visa_received_payments.created_at AS created_at',
                 'users.name AS user_name',
             ])
-
             ->leftJoin('users', 'users.id', '=', 'visa_received_payments.user_id')
-
             ->where('visa_file_id', '=', $visa_file_id)
             ->get();
 
         $receivedPaymentTypes = DB::table('visa_received_payment_types')->get();
 
         return view('customer.visa.grades.re-received-payments')
-            ->with(
-                [
-                    'baseCustomerDetails' => $baseCustomerDetails,
-                    'receivedPayments' => $receivedPayments,
-                    'receivedPaymentTypes' => $receivedPaymentTypes,
-                ]
-            );
+            ->with([
+                'baseCustomerDetails' => $baseCustomerDetails,
+                'receivedPayments' => $receivedPayments,
+                'receivedPaymentTypes' => $receivedPaymentTypes,
+            ]);
     }
     public function store($id, $visa_file_id, Request $request)
     {
@@ -173,8 +167,7 @@ class ReReceivedPaymentsController extends Controller
         if (is_numeric($received_payment_id)) {
             if (
                 DB::table('visa_received_payments')
-                ->where('id', '=', $received_payment_id)
-                ->delete()
+                ->where('id', '=', $received_payment_id)->delete()
             ) {
                 $request->session()
                     ->flash('mesajSuccess', 'Başarıyla silindi');
@@ -199,10 +192,13 @@ class ReReceivedPaymentsController extends Controller
 
         if ($nextGrades != null) {
 
-            $visaFileGradesId = DB::table('visa_files')->select(['visa_file_grades_id'])
+            $visaFileGradesId = DB::table('visa_files')
+                ->select(['visa_file_grades_id'])
                 ->where('id', '=', $visa_file_id)->first();
 
-            $visaFileGradesName = new VisaFileGradesName($visaFileGradesId->visa_file_grades_id);
+            $visaFileGradesName = new VisaFileGradesName(
+                $visaFileGradesId->visa_file_grades_id
+            );
 
             DB::table('visa_file_logs')->insert([
                 'visa_file_id' => $visa_file_id,
@@ -212,10 +208,14 @@ class ReReceivedPaymentsController extends Controller
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
-
             if (DB::table('visa_files')->where("id", "=", $visa_file_id)
                 ->update(['visa_file_grades_id' => $nextGrades])
             ) {
+
+                if ($request->session()->has($visa_file_id . '_grades_id')) {
+                    $request->session()->forget($visa_file_id . '_grades_id');
+                }
+
                 $request->session()
                     ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
 

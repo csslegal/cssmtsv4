@@ -46,8 +46,10 @@ class AppointmentCompletedController extends Controller
         $visaFileGradesName = new VisaFileGradesName(
             $visaFileGradesId->visa_file_grades_id
         );
+
         $whichGrades = new VisaFileWhichGrades();
         $nextGrades = $whichGrades->nextGrades($visa_file_id);
+
         if ($nextGrades != null) {
             $customerAppointmentCount = DB::table('visa_appointments')
                 ->where('visa_file_id', '=', $visa_file_id)
@@ -75,18 +77,17 @@ class AppointmentCompletedController extends Controller
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
             } else {
-                DB::table('visa_appointments')->where("visa_file_id", "=", $visa_file_id)
-                    ->update(
-                        array(
-                            'user_id' => $request->session()->get('userId'),
-                            'gwf' => $request->input('gwf'),
-                            'name' => $request->input('hesap_adi'),
-                            'password' => $request->input('sifre'),
-                            'date' => $request->input('tarih'),
-                            'time' => $request->input('saat'),
-                            'created_at' => date('Y-m-d H:i:s'),
-                        )
-                    );
+                DB::table('visa_appointments')
+                    ->where("visa_file_id", "=", $visa_file_id)
+                    ->update([
+                        'user_id' => $request->session()->get('userId'),
+                        'gwf' => $request->input('gwf'),
+                        'name' => $request->input('hesap_adi'),
+                        'password' => $request->input('sifre'),
+                        'date' => $request->input('tarih'),
+                        'time' => $request->input('saat'),
+                        'created_at' => date('Y-m-d H:i:s'),
+                    ]);
                 DB::table('visa_file_logs')->insert([
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
@@ -97,7 +98,15 @@ class AppointmentCompletedController extends Controller
             }
 
             DB::table('visa_files')->where("id", "=", $visa_file_id)
-                ->update(['visa_file_grades_id' => $nextGrades]);
+                ->update([
+                    'visa_file_grades_id' => $nextGrades
+                ]);
+
+
+            if ($request->session()->has($visa_file_id . '_grades_id')) {
+                $request->session()->forget($visa_file_id . '_grades_id');
+            }
+
             $request->session()
                 ->flash('mesajSuccess', 'İşlem başarıyla tamamlandı');
             return redirect('/musteri/' . $id . '/vize');

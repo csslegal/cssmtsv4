@@ -13,12 +13,10 @@ class ReceivedPaymentsConfirmController extends Controller
     public function index($id, $visa_file_id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')
-            ->select(
-                [
-                    'customers.id AS id',
-                    'visa_files.id AS visa_file_id',
-                ]
-            )
+            ->select([
+                'customers.id AS id',
+                'visa_files.id AS visa_file_id',
+            ])
             ->join('visa_files', 'visa_files.customer_id', '=', 'customers.id')
             ->where('visa_files.active', '=', 1)
             ->where('customers.id', '=', $id)->first();
@@ -38,19 +36,14 @@ class ReceivedPaymentsConfirmController extends Controller
                 'visa_received_payments.created_at AS created_at',
                 'users.name AS user_name',
             ])
-
             ->leftJoin('users', 'users.id', '=', 'visa_received_payments.user_id')
-
             ->where('visa_file_id', '=', $visa_file_id)
             ->get();
 
-        return view('customer.visa.grades.received-payments-confirm')
-            ->with(
-                [
-                    'baseCustomerDetails' => $baseCustomerDetails,
-                    'receivedPayments' => $receivedPayments,
-                ]
-            );
+        return view('customer.visa.grades.received-payments-confirm')->with([
+            'baseCustomerDetails' => $baseCustomerDetails,
+            'receivedPayments' => $receivedPayments,
+        ]);
     }
 
     public function update($id, $visa_file_id, Request $request)
@@ -77,17 +70,20 @@ class ReceivedPaymentsConfirmController extends Controller
 
         DB::table('visa_received_payments')
             ->where('visa_file_id', '=', $visa_file_id)
-            ->update(
-                [
-                    'confirm' => 1,
-                    'updated_at'=>date('Y-m-d H:i:s')
-                ]
-            );
+            ->update([
+                'confirm' => 1,
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
 
         if (DB::table('visa_files')
             ->where("id", "=", $visa_file_id)
             ->update(['visa_file_grades_id' => $nextGrades])
         ) {
+
+            if ($request->session()->has($visa_file_id . '_grades_id')) {
+                $request->session()->forget($visa_file_id . '_grades_id');
+            }
+
             $request->session()
                 ->flash('mesajSuccess', 'İşlem başarıyla yapıldı');
 
@@ -103,8 +99,7 @@ class ReceivedPaymentsConfirmController extends Controller
     {
         $visaFileGradesId = DB::table('visa_files')
             ->select(['visa_file_grades_id'])
-            ->where('id', '=', $visa_file_id)
-            ->first();
+            ->where('id', '=', $visa_file_id)->first();
 
         $visaFileGradesName = new VisaFileGradesName(
             $visaFileGradesId->visa_file_grades_id
@@ -118,7 +113,8 @@ class ReceivedPaymentsConfirmController extends Controller
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
-        DB::table('visa_received_payments')->where('visa_file_id', '=', $visa_file_id)->delete();
+        DB::table('visa_received_payments')
+            ->where('visa_file_id', '=', $visa_file_id)->delete();
 
         $whichGrades = new VisaFileWhichGrades();
         $lastGrades = $whichGrades->lastGrades($visa_file_id);
@@ -127,9 +123,13 @@ class ReceivedPaymentsConfirmController extends Controller
             ->where("id", "=", $visa_file_id)
             ->update(['visa_file_grades_id' => $lastGrades])
         ) {
+
+            if ($request->session()->has($visa_file_id . '_grades_id')) {
+                $request->session()->forget($visa_file_id . '_grades_id');
+            }
+
             $request->session()
                 ->flash('mesajSuccess', 'İşlem başarıyla yapıldı');
-
             return redirect('/musteri/' . $id . '/vize/');
         } else {
             $request->session()

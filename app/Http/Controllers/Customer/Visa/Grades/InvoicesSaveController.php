@@ -181,8 +181,7 @@ class InvoicesSaveController extends Controller
     {
         $visaFileGradesId = DB::table('visa_files')
             ->select(['visa_file_grades_id'])
-            ->where('id', '=', $visa_file_id)
-            ->first();
+            ->where('id', '=', $visa_file_id)->first();
 
         $visaFileGradesName = new VisaFileGradesName(
             $visaFileGradesId->visa_file_grades_id
@@ -203,8 +202,15 @@ class InvoicesSaveController extends Controller
 
             if (DB::table('visa_files')
                 ->where("id", "=", $visa_file_id)
-                ->update(['visa_file_grades_id' => $nextGrades])
+                ->update([
+                    'visa_file_grades_id' => $nextGrades
+                ])
             ) {
+
+                if ($request->session()->has($visa_file_id . '_grades_id')) {
+                    $request->session()->forget($visa_file_id . '_grades_id');
+                }
+
                 $request->session()
                     ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
 
