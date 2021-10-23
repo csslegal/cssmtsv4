@@ -115,10 +115,7 @@ class LoginController extends Controller
 
     public function get_cikis(Request $request)
     {
-        $request->session()->forget('session');
-        $request->session()->forget('userId');
-        $request->session()->forget('userTypeId');
-        $request->session()->forget('userName');
+        $request->session()->flush();
         return redirect('/');
     }
 
