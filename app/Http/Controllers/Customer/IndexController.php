@@ -21,38 +21,39 @@ class IndexController extends Controller
 
         if (strlen($arama) >= 3) {
 
-            $customerDetaylari = DB::table('customers AS m')
-                ->select(
-                    "m.name AS name",
-                    "m.email AS email",
-                    "m.telefon AS telefon",
-                    "m.tcno AS tcno",
-                    // "d.id AS d_id",
-                    "m.id AS m_id"
-                )
+            $customerDetails = DB::table('customers')->select([
+                "customers.id",
+                "customers.name",
+                "customers.telefon",
+                "customers.email",
+                "customers.tcno",
+                "users.name AS user_name",
+                "visa_files.active",
+                "visa_files.id AS visa_file_id",
+            ])
                 ->where(function ($query) use ($arama) {
-                    $query->orWhere('m.name', 'LIKE', '%' . $arama . '%');
-                    $query->orWhere('m.email', 'LIKE', '%' . $arama . '%');
-                    $query->orWhere('m.telefon', 'LIKE', '%' . $arama . '%');
-                    $query->orWhere('m.tcno', 'LIKE', '%' . $arama . '%');
+                    $query->orWhere('customers.name', 'LIKE', '%' . $arama . '%');
+                    $query->orWhere('customers.email', 'LIKE', '%' . $arama . '%');
+                    $query->orWhere('customers.telefon', 'LIKE', '%' . $arama . '%');
+                    $query->orWhere('customers.tcno', 'LIKE', '%' . $arama . '%');
                 })
-                //->leftJoin('dosya AS d', 'd.customer_id', '=', 'm.id')
-                //->orWhere('d.id', 'LIKE', '%' . $arama . '%')
+                ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+                ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
+                ->orWhere('visa_files.id', 'LIKE', '%' . $arama . '%')
+                ->orWhere('customers.pasaport', 'LIKE', '%' . $arama . '%')
                 ->get();
-            if ($customerDetaylari->count() > 0) {
-                return view('customer.search')
-                    ->with(
-                        [
-                            'customerDetaylari' => $customerDetaylari,
-                            'arama' => $arama
-                        ]
-                    );
+
+            //dd($customerDetails);
+
+            if ($customerDetails->count() > 0) {
+                return view('customer.search')->with([
+                    'customerDetails' => $customerDetails,
+                    'arama' => $arama
+                ]);
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Farklı bilgiyle tekrar deneyiniz veya <a class="text-white" href="/musteri/ekle">bu linkten</a> yeni müşteri kaydı yapınız!');
-                return view('customer.search')->with([
-                    'arama' => $arama
-                ]);
+                return view('customer.search')->with(['arama' => $arama]);
             }
         } else {
             $request->session()
@@ -185,21 +186,18 @@ class IndexController extends Controller
 
     public function get_index(Request $request, $id)
     {
-        $temelBilgiler = DB::table('customers')
-            ->select(
-                [
-                    'customers.id AS id',
-                    'customers.name AS name',
-                    'customers.telefon AS telefon',
-                    'customers.email AS email',
-                    'customers.tcno AS tcno',
-                    'customers.adres AS adres',
-                    'customers.pasaport AS pasaport',
-                    'customers.pasaport_tarihi AS pasaport_tarihi',
-                    'application_offices.name AS application_name',
-                    'appointment_offices.name AS appointment_name',
-                ]
-            )
+        $temelBilgiler = DB::table('customers')->select([
+            'customers.id AS id',
+            'customers.name AS name',
+            'customers.telefon AS telefon',
+            'customers.email AS email',
+            'customers.tcno AS tcno',
+            'customers.adres AS adres',
+            'customers.pasaport AS pasaport',
+            'customers.pasaport_tarihi AS pasaport_tarihi',
+            'application_offices.name AS application_name',
+            'appointment_offices.name AS appointment_name',
+        ])
             ->leftJoin('application_offices', 'application_offices.id', '=', 'customers.application_office_id')
             ->leftJoin('appointment_offices', 'appointment_offices.id', '=', 'customers.appointment_office_id');
 
@@ -213,41 +211,36 @@ class IndexController extends Controller
                 ->where('user_id', '=', $request->session()->get('userId'))
                 ->pluck('access.id')->toArray();
 
-            $customerNotlari = DB::table('customer_notes as mn')
-                ->select(
-                    "u.name AS u_name",
-                    "mn.id AS mn_id",
-                    "mn.created_at AS mn_created_at",
-                    "mn.content AS mn_content"
-                )
+            $customerNotlari = DB::table('customer_notes as mn')->select(
+                "u.name AS u_name",
+                "mn.id AS mn_id",
+                "mn.created_at AS mn_created_at",
+                "mn.content AS mn_content"
+            )
                 ->join("users AS u", "u.id", "=", "mn.user_id")
                 ->where("mn.customer_id", "=", $id)
                 ->get();
 
-            $customerEmailLogs = DB::table('email_logs')
-                ->select(
-                    'email_logs.id AS id',
-                    'users.name AS u_name',
-                    'access.name AS a_name',
-                    'email_logs.subject AS subject',
-                    'email_logs.created_at AS created_at',
-                )
+            $customerEmailLogs = DB::table('email_logs')->select(
+                'email_logs.id AS id',
+                'users.name AS u_name',
+                'access.name AS a_name',
+                'email_logs.subject AS subject',
+                'email_logs.created_at AS created_at',
+            )
                 ->leftJoin('users', 'users.id', '=', 'email_logs.user_id')
                 ->leftJoin('access', 'access.id', '=', 'email_logs.access_id')
                 ->where('email_logs.customer_id', '=', $id)
                 ->get();
 
 
-            $visaFileGradesDescLog = DB::table('visa_file_logs')
-                ->select(
-                    [
-                        'visa_file_logs.id AS id',
-                        'visa_file_logs.subject AS subject',
-                        'visa_file_logs.created_at AS created_at',
-                        'users.name AS user_name',
-                        'visa_files.id AS visa_file_id',
-                    ]
-                )
+            $visaFileGradesDescLog = DB::table('visa_file_logs')->select([
+                'visa_file_logs.id AS id',
+                'visa_file_logs.subject AS subject',
+                'visa_file_logs.created_at AS created_at',
+                'users.name AS user_name',
+                'visa_files.id AS visa_file_id',
+            ])
                 ->join('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
                 ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
                 ->where('visa_files.customer_id', '=', $id)
@@ -255,15 +248,13 @@ class IndexController extends Controller
                 ->orderByDesc('id')
                 ->first();
 
-            return view('customer.index')->with(
-                [
-                    'temelBilgiler' => $temelBilgiler,
-                    'customerNotlari' => $customerNotlari,
-                    'userAccesses' => $userAccesses,
-                    'customerEmailLogs' => $customerEmailLogs,
-                    'visaFileGradesDescLog' => $visaFileGradesDescLog,
-                ]
-            );
+            return view('customer.index')->with([
+                'temelBilgiler' => $temelBilgiler,
+                'customerNotlari' => $customerNotlari,
+                'userAccesses' => $userAccesses,
+                'customerEmailLogs' => $customerEmailLogs,
+                'visaFileGradesDescLog' => $visaFileGradesDescLog,
+            ]);
         } else {
             $request->session()
                 ->flash('mesajDanger', 'Müşteri ID bilgisi alınamadı');
@@ -273,68 +264,50 @@ class IndexController extends Controller
 
     public function post_not_ekle($id, Request $request)
     {
-        $request->validate(
-            [
-                'not' => 'required'
-            ]
-        );
+        $request->validate(['not' => 'required']);
         $customerNotId = DB::table('customer_notes')
-            ->insertGetId(
-                [
-                    'user_id' => $request->session()->get('userId'),
-                    'customer_id' => $id,
-                    'content' => $request->get('not'),
-                    'created_at' => date('Y-m-d H:i:s'),
-                ]
-            );
-        DB::table('customer_notes')
-            ->where(
-                ['id' => $customerNotId]
-            )
-            ->update(
-                ['orderby' => $customerNotId]
-            );
+            ->insertGetId([
+                'user_id' => $request->session()->get('userId'),
+                'customer_id' => $id,
+                'content' => $request->get('not'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
+        DB::table('customer_notes')->where(['id' => $customerNotId])
+            ->update(['orderby' => $customerNotId]);
 
         $request->session()
             ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
-
         return redirect('/musteri/' . $id . '/');
     }
 
     public function get_kayit_duzenle(Request $request, $id)
     {
 
-        $temelBilgiler = DB::table('customers')
-            ->where('id', '=', $id)
-            ->first();
+        $temelBilgiler = DB::table('customers')->where('id', '=', $id)->first();
 
         $randevuOfisleri = DB::table('appointment_offices')->get();
         $basvuruOfisleri = DB::table('application_offices')->get();
 
 
-        $guncellemeIstegi = DB::table('customer_update')
-            ->where('customer_id', '=', $id)
+        $guncellemeIstegi = DB::table('customer_update')->where('customer_id', '=', $id)
             ->where('user_id', '=', $request->session()->get('userId'))
             ->first();
 
         if ($guncellemeIstegi != null) {
             if ($guncellemeIstegi->onay == 1) {
-                # code...
                 $request->session()->flash('mesajSuccess', 'Güncelleme isteği onayı verildi');
             } else {
                 $request->session()->flash('mesajInfo', 'Güncelleme isteği onay bekliyor');
             }
         }
 
-        return view('customer.edit')->with(
-            [
-                'temelBilgiler' => $temelBilgiler,
-                'basvuruOfisleri' => $basvuruOfisleri,
-                'randevuOfisleri' => $randevuOfisleri,
-                'guncellemeIstegiSayisi' => $guncellemeIstegi != null ? 1 : 0,
-                'guncellemeIstegi' => $guncellemeIstegi == null ? null : $guncellemeIstegi
-            ]
-        );
+        return view('customer.edit')->with([
+            'temelBilgiler' => $temelBilgiler,
+            'basvuruOfisleri' => $basvuruOfisleri,
+            'randevuOfisleri' => $randevuOfisleri,
+            'guncellemeIstegiSayisi' => $guncellemeIstegi != null ? 1 : 0,
+            'guncellemeIstegi' => $guncellemeIstegi == null ? null : $guncellemeIstegi
+        ]);
     }
 
     public function post_kayit_duzenle(Request $request, $id)
@@ -381,13 +354,11 @@ class IndexController extends Controller
         /*** END EMAİL */
 
         /**ADRES */
-
         $updateArray = array_merge(
             $updateArray,
             array('adres' => $request->get('adres'))
         );
         /** END ADRES */
-
 
         $updateArray = array_merge(
             $updateArray,
@@ -425,8 +396,7 @@ class IndexController extends Controller
 
         if (DB::table('customers')->where('id', '=', $id)->update($updateArray)) {
 
-            DB::table('customer_update')
-                ->where('customer_id', '=', $id)
+            DB::table('customer_update')->where('customer_id', '=', $id)
                 ->where('user_id', '=', $request->session()->get('userId'))
                 ->delete();
 
@@ -440,24 +410,16 @@ class IndexController extends Controller
 
     public function get_kayit_duzenle_istek($id, Request $request)
     {
-        if (
-            DB::table('customer_update')
-            ->insert(
-                [
-                    'user_id' => $request->session()->get('userId'),
-                    'customer_id' => $id,
-                    'onay' => 0,
-                    'created_at' => date('Y-m-d H:i:s')
-                ]
-            )
-        ) {
+        if (DB::table('customer_update')->insert([
+            'user_id' => $request->session()->get('userId'),
+            'customer_id' => $id,
+            'onay' => 0,
+            'created_at' => date('Y-m-d H:i:s')
+        ])) {
             return redirect('/musteri/' . $id . '/duzenle');
         } else {
-            $request->session()->flash(
-                'mesajInfo',
-                'Güncelleme talebiniz kaydedilirken sorun oluştu'
-            );
-
+            $request->session()
+                ->flash('mesajInfo', 'Güncelleme talebiniz kaydedilirken sorun oluştu');
             return redirect('/musteri/' . $id . '/duzenle');
         }
     }
@@ -467,11 +429,7 @@ class IndexController extends Controller
         $id = $request->input('id');
 
         if (is_numeric($id)) {
-            if (
-                DB::table('customers')
-                ->where('id', '=', $id)
-                ->delete()
-            ) {
+            if (DB::table('customers')->where('id', '=', $id)->delete()) {
                 $request->session()
                     ->flash('mesajSuccess', 'Kayıt başarıyla silindi');
                 return redirect('/musteri/sorgula');
