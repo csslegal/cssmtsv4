@@ -66,15 +66,12 @@ class IndexController extends Controller
             )
             ->pluck('user_type_id')->toArray();
 
-        $visaFileGradesLogs = DB::table('visa_file_logs')
-            ->select(
-                [
-                    'visa_file_logs.id AS id',
-                    'visa_file_logs.subject AS subject',
-                    'visa_file_logs.created_at AS created_at',
-                    'users.name AS user_name',
-                ]
-            )
+        $visaFileGradesLogs = DB::table('visa_file_logs')->select([
+            'visa_file_logs.id AS id',
+            'visa_file_logs.subject AS subject',
+            'visa_file_logs.created_at AS created_at',
+            'users.name AS user_name',
+        ])
             ->join('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
             ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
             ->where('visa_files.customer_id', '=', $id)
@@ -82,24 +79,20 @@ class IndexController extends Controller
             ->orderByDesc('visa_file_logs.id')
             ->get();
 
-        return view('customer.visa.index')
-            ->with(
-                [
-                    'baseCustomerDetails' => $baseCustomerDetails,
-                    'visaTypes' => $visaTypes,
-                    'language' => $language,
-                    'visaFileDetail' => $visaFileDetail,
-                    'visaFileGradesLogs' => $visaFileGradesLogs,
-
-                    'visaFileGradesPermitted' => [
-                        'permitted' => in_array(
-                            $request->session()->get('userTypeId'),
-                            $visaFileGradesUserType
-                        ),
-                        'grades_url' => isset($visaFileDetail->url) ? $visaFileDetail->url : null,
-                        'grades_name' => isset($visaFileDetail->grades_name) ? $visaFileDetail->grades_name : null,
-                    ],
-                ]
-            );
+        return view('customer.visa.index')->with([
+            'baseCustomerDetails' => $baseCustomerDetails,
+            'visaTypes' => $visaTypes,
+            'language' => $language,
+            'visaFileDetail' => $visaFileDetail,
+            'visaFileGradesLogs' => $visaFileGradesLogs,
+            'visaFileGradesPermitted' => [
+                'permitted' => in_array(
+                    $request->session()->get('userTypeId'),
+                    $visaFileGradesUserType
+                ),
+                'grades_url' => isset($visaFileDetail->url) ? $visaFileDetail->url : null,
+                'grades_name' => isset($visaFileDetail->grades_name) ? $visaFileDetail->grades_name : null,
+            ],
+        ]);
     }
 }

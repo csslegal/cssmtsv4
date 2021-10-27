@@ -50,6 +50,8 @@ use App\Http\Controllers\Customer\Visa\Grades\ApplicationResultController as Vis
 use App\Http\Controllers\Customer\Visa\Grades\FileDeliveryController as VisaFileDeliveryController;
 use App\Http\Controllers\Customer\Visa\Grades\RefusalTranslationController as VisaRefusalTranslationController;
 
+use App\Http\Controllers\Customer\Visa\PaymentsController as VisaPaymentsController;
+
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
 
@@ -76,6 +78,10 @@ Route::middleware(['sessionCheck'])->group(function () {
 
             Route::group(['prefix' => '{visa_file_id}', 'middleware' => 'gradesCheck'], function () {
 
+                /***Dosya aşamalarından bağımsız bölümler */
+                Route::resource('odeme', VisaPaymentsController::class);
+
+                /***Dosya aşamaları başlangıç */
                 Route::get('alinan-odeme-tamamla', [VisaReceivedPaymentsController::class, 'tamamla']);
                 Route::get('yapilan-odeme-tamamla', [VisaMadePaymentsController::class, 'tamamla']);
                 Route::get('fatura-kayit-tamamla', [VisaInvoicesSaveController::class, 'tamamla']);
@@ -102,6 +108,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('basvuru-sonuc', VisaApplicationResultController::class);
                 Route::resource('red-tercume', VisaRefusalTranslationController::class);
                 Route::resource('teslimat-bilgisi', VisaFileDeliveryController::class);
+                /***Dosya aşamaları son */
             });
         });
 
