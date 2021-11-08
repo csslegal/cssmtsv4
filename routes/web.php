@@ -51,6 +51,7 @@ use App\Http\Controllers\Customer\Visa\Grades\FileDeliveryController as VisaFile
 use App\Http\Controllers\Customer\Visa\Grades\RefusalTranslationController as VisaRefusalTranslationController;
 
 use App\Http\Controllers\Customer\Visa\PaymentsController as VisaPaymentsController;
+use App\Http\Controllers\Customer\Visa\ArchivesController as VisaArchivesController;
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
@@ -72,6 +73,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('/', [VisaIndexController::class, 'index']);
             Route::get('asama', [CustomerAjaxController::class, 'get_grades']);
             Route::resource('bilgi-emaili', VisaInformationEmailController::class);
+            Route::resource('arsiv', VisaArchivesController::class);
 
             /**Dosya aşama işlemleri */
             Route::resource('dosya-ac', VisaFileOpenController::class);
