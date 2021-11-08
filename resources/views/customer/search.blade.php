@@ -66,7 +66,7 @@
                                             <span class="text-danger"> Veri bulunamadı</span>
                                         @else
                                             <a class="text-decoration-none"
-                                                href="/musteri/{{ $customerDetail->visa_file_id }}">{{ $customerDetail->visa_file_id }}</a>
+                                                href="/musteri/{{ $customerDetail->id }}/vize">{{ $customerDetail->visa_file_id }}</a>
                                         @endif
                                     </td>
                                     <td class="text-center">
