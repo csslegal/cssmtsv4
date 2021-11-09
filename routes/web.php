@@ -51,6 +51,7 @@ use App\Http\Controllers\Customer\Visa\Grades\FileDeliveryController as VisaFile
 use App\Http\Controllers\Customer\Visa\Grades\RefusalTranslationController as VisaRefusalTranslationController;
 
 use App\Http\Controllers\Customer\Visa\PaymentsController as VisaPaymentsController;
+use App\Http\Controllers\Customer\Visa\InvoicesController as VisaInvoicesController;
 use App\Http\Controllers\Customer\Visa\ArchivesController as VisaArchivesController;
 
 /**Genel yönlendirmeler*/
@@ -82,6 +83,7 @@ Route::middleware(['sessionCheck'])->group(function () {
 
                 /***Dosya aşamalarından bağımsız bölümler */
                 Route::resource('odeme', VisaPaymentsController::class);
+                Route::resource('faturalar', VisaInvoicesController::class);
 
                 /***Dosya aşamaları başlangıç */
                 Route::get('alinan-odeme-tamamla', [VisaReceivedPaymentsController::class, 'tamamla']);
