@@ -124,6 +124,13 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::post('not-sil', [CustomerAjaxController::class, 'post_not_sil']);
             Route::post('alt-vize-tipi', [CustomerAjaxController::class, 'post_visa_sub_type']);
             Route::post('vize-dosya-log', [CustomerAjaxController::class, 'post_visa_file_log_content']);
+
+            Route::group(['prefix' => 'vize/arsiv'], function () {
+                Route::post('log', [CustomerAjaxController::class, 'post_visa_archive_log']);
+                Route::post('odemeler', [CustomerAjaxController::class, 'post_visa_archive_payment']);
+                Route::post('makbuz', [CustomerAjaxController::class, 'post_visa_archive_receipt']);
+                Route::post('fatura', [CustomerAjaxController::class, 'post_visa_archive_invoice']);
+            });
         });
 
         Route::get('sorgula', [CustomerIndexController::class, 'get_sorgula']);
