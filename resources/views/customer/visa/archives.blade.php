@@ -141,7 +141,11 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Loglar</h5>
                                         <p>Dosya Logları</p>
-                                        <button class="btn btn-primary btn-sm float-end text-white">Göster</button>
+                                        <button class="btn btn-primary btn-sm float-end text-white"
+                                            onclick="contentLoad('log','{{ $visaArchive->id }}')" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal" title="Göster">
+                                            <i class="bi bi-image"></i> Göster
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +154,11 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Ödemeler</h5>
                                         <p>Ödeme detayları</p>
-                                        <button class="btn btn-primary btn-sm float-end text-white">Göster</button>
+                                        <button class="btn btn-primary btn-sm float-end text-white"
+                                            onclick="contentLoad('odeme','{{ $visaArchive->id }}')"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                            <i class="bi bi-image"></i> Göster
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +167,11 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Makbuzlar</h5>
                                         <p>Makbuz detayları</p>
-                                        <button class="btn btn-primary btn-sm float-end text-white">Göster</button>
+                                        <button class="btn btn-primary btn-sm float-end text-white"
+                                            onclick="contentLoad('makbuz','{{ $visaArchive->id }}')"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                            <i class="bi bi-image"></i> Göster
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +180,11 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Faturalar</h5>
                                         <p>Fatura detayları</p>
-                                        <button class="btn btn-primary btn-sm float-end text-white">Göster</button>
+                                        <button class="btn btn-primary btn-sm float-end text-white"
+                                            onclick="contentLoad('fatura','{{ $visaArchive->id }}')"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                            <i class="bi bi-image"></i> Göster
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -177,10 +193,49 @@
                 </div>
             </div>
         @endforeach
+
+        <!-- Modal -->
+        @include('customer.modals.content-load')
+
     @else
         <div class="alert alert-danger">
             Herhangi bir arşiv dosyası bulunamadı.
         </div>
     @endif
 
+@endsection
+@section('js')
+    <script>
+        function contentLoad(ne, id) {
+            var url = "/musteri/ajax/vize/arsiv/";
+            if (ne == 'fatura') {
+                url += "fatura";
+                $("#contentHead").html('Dosya Faturaları');
+            } else if (ne == 'makbuz') {
+                url += "makbuz";
+                $("#contentHead").html('Dosya Makbuzları');
+            } else if (ne == 'log') {
+                url += "log";
+                $("#contentHead").html('Dosya İşlem Geçmişi');
+            } else if (ne == 'odeme') {
+                url += "odemeler";
+                $("#contentHead").html('Dosya Ödemeleri');
+            }
+            $("#contentLoad").html('İçerik alınıyor...');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    'id': id,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(data, status, xhr) {
+                    $("#contentLoad").html(data);
+                },
+                error: function(data, status, xhr) {
+                    $("#contentLoad").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
+                }
+            });
+        }
+    </script>
 @endsection

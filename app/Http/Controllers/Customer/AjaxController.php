@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
-use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -147,5 +146,219 @@ class AjaxController extends Controller
             ->first();
 
         return ($getVisaTypes);
+    }
+
+    public function post_visa_archive_log(Request $request)
+    {
+        if (is_numeric($request->input('id'))) {
+
+            $visaFileLogs = DB::table('visa_file_logs')
+                ->select([
+                    'visa_file_logs.id AS id',
+                    'visa_file_logs.subject AS subject',
+                    'visa_file_logs.created_at AS created_at',
+                    'users.name AS user_name',
+                ])
+                ->join('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
+                ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
+                ->where('visa_files.id', '=', $request->input('id'))
+                ->orderByDesc('visa_file_logs.id')
+                ->get();
+            $sonuc = "<div class='card card-primary mb-3'><div class='card-header bg-primary text-white'>Loglar</div><div class='card-body scroll'>
+                    <table style='width:100%' class='table table-striped table-bordered table-sm table-light'>
+                        <thead>
+                        <th>ID</th>
+                        <th>İşlem</th>
+                        <th>Tarih</th>
+                        <th>İşlem Yapan</th>
+                        </thead>
+                        <tbody>";
+
+            foreach ($visaFileLogs as $visaFileLog) {
+                $sonuc .= "<tr>
+                                <td>" .  $visaFileLog->id . "</td>
+                                <td>" .  $visaFileLog->subject . "</td>
+                                <td>" .  $visaFileLog->created_at . "</td>
+                                <td>" .  $visaFileLog->user_name . "</td>
+                            </tr>
+                            ";
+            }
+            $sonuc .= "</tbody></table></div></div>";
+
+            return $sonuc;
+        } else {
+            echo 'Hatalı istek yapıldı';
+        }
+    }
+    public function post_visa_archive_payment(Request $request)
+    {
+        if (is_numeric($request->input('id'))) {
+
+            /***** Alınan ödemeler*/
+            $receivedPayments = DB::table('visa_received_payments')
+                ->select([
+                    'visa_received_payments.id AS id',
+                    'visa_received_payments.name AS name',
+                    'visa_received_payments.received_tl AS received_tl',
+                    'visa_received_payments.received_euro AS received_euro',
+                    'visa_received_payments.received_dolar AS received_dolar',
+                    'visa_received_payments.received_pound AS received_pound',
+                    'visa_received_payments.payment_total AS payment_total',
+                    'visa_received_payments.payment_method AS payment_method',
+                    'visa_received_payments.payment_date AS payment_date',
+                    'visa_received_payments.confirm AS confirm',
+                    'visa_received_payments.created_at AS created_at',
+                    'users.name AS user_name',
+                ])
+                ->leftJoin('users', 'users.id', '=', 'visa_received_payments.user_id')
+                ->where('visa_file_id', '=', $request->input('id'))
+                ->get();
+
+            $sonuc = "<div class='card card-primary mb-3'><div class='card-header bg-primary text-white'>Alınan Ödemeler</div><div class='card-body scroll'>
+                    <table style='width:100%' class='table table-striped table-bordered table-sm table-light'>
+                        <thead>
+                            <th>ID</th>
+                            <th>Başlıklar</th>
+                            <th>Onay</th>
+                            <th>İşlem Yapan</th>
+                            <th>Toplam(TL)</th>
+                            <th>Detaylar</th>
+                            <th>Ödeme Şekli</th>
+                            <th>Ödeme Tarihi</th>
+                            <th>İşlem Tarihi</th>
+                        </thead>
+                        <tbody>";
+            foreach ($receivedPayments as $receivedPayment) {
+                $sonuc .= "<tr>
+                                <td>" .  $receivedPayment->id . "</td>
+                                <td>" .  $receivedPayment->name . "</td>
+                                <td>";
+                $sonuc .=  $receivedPayment->confirm == 1 ? 'Onaylı' : 'Onaysız';
+                $sonuc .= "</td>
+                                <td>" .  $receivedPayment->user_name . "</td>
+                                <td>" .  $receivedPayment->payment_total . "</td><td>";
+                $sonuc .=  $receivedPayment->received_tl != '' ? $receivedPayment->received_tl . 'TL ' : '';
+                $sonuc .=  $receivedPayment->received_euro != '' ? $receivedPayment->received_euro . '£' : '';
+                $sonuc .=  $receivedPayment->received_dolar != '' ? $receivedPayment->received_dolar . '$' : '';
+                $sonuc .=  $receivedPayment->received_pound != '' ? $receivedPayment->received_pound . '€' : '';
+                $sonuc .=  "</td><td>" .  $receivedPayment->payment_method . "</td>
+                                <td>" .  $receivedPayment->payment_date . "</td>
+                                <td>" .  $receivedPayment->created_at . "</td>
+                            </tr>";
+            }
+            $sonuc .= "</tbody></table></div></div>";
+
+            /**** Yapılan ödemeler**/
+            $madePayments = DB::table('visa_made_payments')
+                ->select([
+                    'visa_made_payments.id AS id',
+                    'visa_made_payments.name AS name',
+                    'visa_made_payments.made_tl AS made_tl',
+                    'visa_made_payments.made_euro AS made_euro',
+                    'visa_made_payments.made_dolar AS made_dolar',
+                    'visa_made_payments.made_pound AS made_pound',
+                    'visa_made_payments.payment_total AS payment_total',
+                    'visa_made_payments.payment_method AS payment_method',
+                    'visa_made_payments.payment_date AS payment_date',
+                    'visa_made_payments.created_at AS created_at',
+                    'users.name AS user_name',
+                ])
+                ->leftJoin('users', 'users.id', '=', 'visa_made_payments.user_id')
+                ->where('visa_file_id', '=', $request->input('id'))->get();
+
+            $sonuc .= "<div class='card card-primary mb-3'><div class='card-header bg-primary text-white'>Yapılan Ödemeler</div><div class='card-body scroll'>
+                    <table style='width:100%' class='table table-striped table-bordered table-sm table-light'>
+                        <thead>
+                            <th>ID</th>
+                            <th>Başlıklar</th>
+                            <th>İşlem Yapan</th>
+                            <th>Toplam(TL)</th>
+                            <th>Detaylar</th>
+                            <th>Ödeme Şekli</th>
+                            <th>Ödeme Tarihi</th>
+                            <th>İşlem Tarihi</th>
+                        </thead>
+                        <tbody>";
+
+            foreach ($madePayments as $madePayment) {
+                $sonuc .= "
+                            <tr>
+                                <td>" .  $madePayment->id . "</td>
+                                <td>" .  $madePayment->name . "</td>
+                                <td>" .  $madePayment->user_name . "</td>
+                                <td>" .  $madePayment->payment_total . "</td><td>";
+                $sonuc .=  $madePayment->made_tl != '' ? $madePayment->made_tl . 'TL ' : '';
+                $sonuc .=  $madePayment->made_euro != '' ? $madePayment->made_euro . '£' : '';
+                $sonuc .=  $madePayment->made_dolar != '' ? $madePayment->made_dolar . '$' : '';
+                $sonuc .=  $madePayment->made_pound != '' ? $madePayment->made_pound . '€' : '';
+                $sonuc .=  "</td><td>" .  $madePayment->payment_method . "</td>
+                                <td>" .  $madePayment->payment_date . "</td>
+                                <td>" .  $madePayment->created_at . "</td>
+                            </tr>";
+            }
+            $sonuc .= "</tbody></table></div></div>";
+
+            return $sonuc;
+        } else {
+            echo 'Hatalı istek yapıldı';
+        }
+    }
+
+    public function post_visa_archive_invoice(Request $request)
+    {
+        if (is_numeric($request->input('id'))) {
+
+            $invoices = DB::table('visa_invoices')->select([
+                "visa_invoices.id AS id",
+                "visa_invoices.payment AS payment",
+                "visa_invoices.matrah AS matrah",
+                "visa_invoices.date AS date",
+                "visa_invoices.number AS number",
+                "visa_invoices.created_at AS created_at",
+                "users.name"
+            ])
+                ->Join("visa_files", "visa_files.id", "=", "visa_invoices.visa_file_id")
+                ->leftJoin("users", "users.id", "=", "visa_invoices.user_id")
+                ->where("visa_invoices.visa_file_id", "=", $request->input('id'))
+                ->distinct()
+                ->get();;
+
+            $sonuc = "<div class='card card-primary mb-3'><div class='card-header bg-primary text-white'>Faturalar</div><div class='card-body scroll'>
+                    <table style='width:100%' class='table table-striped table-bordered table-sm table-light'>
+                        <thead>
+                            <th>ID</th>
+                            <th>Toplam Ödeme</th>
+                            <th>İşlem Yapan</th>
+                            <th>Toplam Matrah</th>
+                            <th>Fatura Numarası</th>
+                            <th>Fatura Tarihi</th>
+                            <th>İşlem Tarihi</th>
+                        </thead>
+                        <tbody>";
+            foreach ($invoices as $invoice) {
+                $sonuc .= "<tr>
+                                <td>" .  $invoice->id . "</td>
+                                <td>" .  $invoice->payment . "</td>
+                                <td>" .  $invoice->name . "</td>
+                                <td>" .  $invoice->matrah . "</td>
+                                <td>" .  $invoice->number . "</td>
+                                <td>" .  $invoice->date . "</td>
+                                <td>" .  $invoice->created_at . "</td>
+                            </tr>";
+            }
+            $sonuc .= "</tbody></table></div></div>";
+
+            return $sonuc;
+        } else {
+            echo 'Hatalı istek yapıldı';
+        }
+    }
+    public function post_visa_archive_receipt(Request $request)
+    {
+        if (is_numeric($request->input('id'))) {
+            echo 'Sistemde makbuz kaydı bulunamadı';
+        } else {
+            echo 'Hatalı istek yapıldı';
+        }
     }
 }
