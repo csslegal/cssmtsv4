@@ -53,6 +53,7 @@ use App\Http\Controllers\Customer\Visa\Grades\RefusalTranslationController as Vi
 use App\Http\Controllers\Customer\Visa\PaymentsController as VisaPaymentsController;
 use App\Http\Controllers\Customer\Visa\InvoicesController as VisaInvoicesController;
 use App\Http\Controllers\Customer\Visa\ArchivesController as VisaArchivesController;
+use App\Http\Controllers\Customer\Visa\ArchiveTransportController as VisaArchiveTransportController;
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
@@ -84,6 +85,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 /***Dosya aşamalarından bağımsız bölümler */
                 Route::resource('odeme', VisaPaymentsController::class);
                 Route::resource('faturalar', VisaInvoicesController::class);
+                Route::resource('arsive-tasima', VisaArchiveTransportController::class);
 
                 /***Dosya aşamaları başlangıç */
                 Route::get('alinan-odeme-tamamla', [VisaReceivedPaymentsController::class, 'tamamla']);
