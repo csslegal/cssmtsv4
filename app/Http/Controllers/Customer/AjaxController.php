@@ -169,15 +169,19 @@ class AjaxController extends Controller
                         <thead>
                         <th>ID</th>
                         <th>İşlem</th>
+                        <th>Detay</th>
                         <th>Tarih</th>
                         <th>İşlem Yapan</th>
                         </thead>
                         <tbody>";
-
+            if ($visaFileLogs->count() == 0) {
+                $sonuc .= "<tr><td colspan='5'>Kayıt bulunamadı</td></tr>";
+            }
             foreach ($visaFileLogs as $visaFileLog) {
                 $sonuc .= "<tr>
                                 <td>" .  $visaFileLog->id . "</td>
                                 <td>" .  $visaFileLog->subject . "</td>
+                                <td><button class='btn btn-sm text-dark border' onclick='goster($visaFileLog->id)' title='İçeriği göster' data-bs-toggle='modal' data-bs-target='#exampleModal1'><i class=' bi bi-file-image'></i> Detay</button></td>
                                 <td>" .  $visaFileLog->created_at . "</td>
                                 <td>" .  $visaFileLog->user_name . "</td>
                             </tr>
@@ -228,6 +232,9 @@ class AjaxController extends Controller
                             <th>İşlem Tarihi</th>
                         </thead>
                         <tbody>";
+            if ($receivedPayments->count() == 0) {
+                $sonuc .= "<tr><td colspan='9'>Kayıt bulunamadı</td></tr>";
+            }
             foreach ($receivedPayments as $receivedPayment) {
                 $sonuc .= "<tr>
                                 <td>" .  $receivedPayment->id . "</td>
@@ -279,7 +286,9 @@ class AjaxController extends Controller
                             <th>İşlem Tarihi</th>
                         </thead>
                         <tbody>";
-
+            if ($madePayments->count() == 0) {
+                $sonuc .= "<tr><td colspan='8'>Kayıt bulunamadı</td></tr>";
+            }
             foreach ($madePayments as $madePayment) {
                 $sonuc .= "
                             <tr>
@@ -335,6 +344,9 @@ class AjaxController extends Controller
                             <th>İşlem Tarihi</th>
                         </thead>
                         <tbody>";
+            if ($invoices->count() == 0) {
+                $sonuc .= "<tr><td colspan='7'>Kayıt bulunamadı</td></tr>";
+            }
             foreach ($invoices as $invoice) {
                 $sonuc .= "<tr>
                                 <td>" .  $invoice->id . "</td>
@@ -356,7 +368,7 @@ class AjaxController extends Controller
     public function post_visa_archive_receipt(Request $request)
     {
         if (is_numeric($request->input('id'))) {
-            echo 'Sistemde makbuz kaydı bulunamadı';
+            echo 'Sistemde kaydı bulunamadı';
         } else {
             echo 'Hatalı istek yapıldı';
         }

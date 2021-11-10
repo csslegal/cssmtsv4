@@ -19,7 +19,7 @@ class CreateVisaApplicationResultTable extends Migration
             $table->integer('visa_file_id');
             $table->integer('user_id');
 
-            $table->string('visa_result');
+            $table->string('visa_result')->nullable();
             $table->string('visa_date');
             $table->string('visa_refusal_reason');
             $table->string('visa_refusal_date');

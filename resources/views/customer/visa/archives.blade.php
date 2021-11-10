@@ -33,7 +33,14 @@
                                     <span class="fw-bold">Vize Süresi:</span>
                                     <span>{{ $visaArchive->visa_validity_name }}</span>
                                 </li>
-                                @if ($visaArchive->visa_result)
+
+                                @if ($visaArchive->visa_result == null)
+                                    <li>
+                                        <span class="fw-bold">Sonuç:</span>
+                                        <span>Sonuç bulunamadı</span>
+                                    </li>
+
+                                @elseif ($visaArchive->visa_result == 1)
                                     <li>
                                         <span class="fw-bold">Sonuç:</span>
                                         <span>Olumlu </span>
@@ -42,7 +49,7 @@
                                         <span class="fw-bold">Vize Tarihi:</span>
                                         <span>{{ $visaArchive->visa_date }}</span>
                                     </li>
-                                @else
+                                @elseif ($visaArchive->visa_result==0)
                                     <li>
                                         <span class="fw-bold">Sonuç:</span>
                                         <span>Olumsuz </span>
@@ -56,7 +63,6 @@
                                         <span>{{ $visaArchive->visa_refusal_date }}</span>
                                     </li>
                                 @endif
-
                             </ul>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
@@ -197,6 +203,23 @@
         <!-- Modal -->
         @include('customer.modals.content-load')
 
+        <div class="modal fade" id="exampleModal1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel1" aria-hidden="true" style="z-index: 1056">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 id="contentHead1" class="modal-title" id="exampleModalLabel1">İçerik</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="contentLoad1">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     @else
         <div class="alert alert-danger">
             Herhangi bir arşiv dosyası bulunamadı.
@@ -206,6 +229,29 @@
 @endsection
 @section('js')
     <script>
+        function goster(id) {
+            $("#contentLoad1").html('Veri alınıyor...');
+            $("#contentHead1").html('Dosya İşlem Detayları');
+            $.ajax({
+                type: 'POST',
+                url: "/musteri/ajax/vize-dosya-log",
+                data: {
+                    'id': id,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(data, status, xhr) {
+                    if (data['content'] == '') {
+                        $("#contentLoad1").html('Veri girişi yapılmadı');
+                    } else {
+                        $("#contentLoad1").html(data['content']);
+                    }
+                },
+                error: function(data, status, xhr) {
+                    $("#contentLoad1").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
+                }
+            });
+        }
+
         function contentLoad(ne, id) {
             var url = "/musteri/ajax/vize/arsiv/";
             if (ne == 'fatura') {
