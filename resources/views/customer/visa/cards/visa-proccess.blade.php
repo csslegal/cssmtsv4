@@ -65,9 +65,10 @@
                     <div class="card border-success mb-2">
                         <div class="card-body">
                             <h5 class="card-title">Arşive Taşıma</h5>
-                            <p>Cari dosya arşive taşıma</p>
+                            <p>Cari dosyayı arşive taşıma</p>
                             <a class="confirm btn btn-success btn-sm float-end text-white" data-title="Dikkat!"
-                                data-content="Devam edilsin mi?" href="vize/{{ $visaFileDetail->id }}/arsive-tasima">
+                                data-content="Dosya direk arşive taşınacak! Devam edilsin mi?"
+                                href="vize/{{ $visaFileDetail->id }}/arsive-tasima">
                                 İşleme Git</a>
                         </div>
                     </div>
