@@ -31,7 +31,7 @@
                             <div class="col-12">
                                 <label class="form-label">Env Bağlantısı</label>
                                 <select name="env" class="form-control">
-                                    <option>Seçim yapınız</option>
+                                    <option value="">Seçim yapınız</option>
                                     <option value="VISA_FILE_OPEN_GRADES_ID">Dosya Açma İşlemi</option>
                                     <option value="VISA_PAYMENT_CONFIRM_GRADES_ID">Alınan Ödeme Onayı İşlemi</option>
                                     <option value="VISA_TRANSLATOR_AUTH_GRADES_ID">Tercüme Yetkilendirme</option>
@@ -45,8 +45,9 @@
                                     <option value="VISA_APPOINTMENT_CANCEL_GRADES_ID">Randevu İptali İşlemi</option>
                                     <option value="VISA_RE_PAYMENT_CONFIRM_GRADES_ID">Yeniden Alınan Ödeme Onayı İşlemi</option>
                                     <option value="VISA_FILE_DELIVERY_GRADES_ID">Dosya Teslim İşlemi</option>
-                                    <option value="VISA_FILE_CLOSED_GRADES_ID">Dosya Kapama İşlemi</option>
+                                    <option value="VISA_FILE_CLOSED_GRADES_ID">Dosya Kapandı İşlemi(Arşiv)</option>
                                     <option value="VISA_FILE_REFUSAL_GRADES_ID">Vize Reddi Tercüme İşlemi</option>
+                                    <option value="VISA_FILE_CLOSE_REQUEST_GRADES_ID">Dosya Kapama İsteği İşlemi</option>
                                 </select>
                                 @error('env')<div class="alert alert-danger">{{ $message }}</div>@enderror
                             </div>
