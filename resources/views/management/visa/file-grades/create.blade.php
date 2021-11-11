@@ -46,6 +46,7 @@
                         <option value="VISA_APPOINTMENT_CANCEL_GRADES_ID">Randevu İptali İşlemi</option>
                         <option value="VISA_RE_PAYMENT_CONFIRM_GRADES_ID">Yeniden Alınan Ödeme Onayı İşlemi</option>
                         <option value="VISA_FILE_DELIVERY_GRADES_ID">Dosya Teslim İşlemi</option>
+                        <option value="VISA_FILE_CLOSED_GRADES_ID">Dosya Kapama İşlemi</option>
                         <option value="VISA_FILE_REFUSAL_GRADES_ID">Vize Reddi Tercüme İşlemi</option>
                     </select>
                     @error('env')
