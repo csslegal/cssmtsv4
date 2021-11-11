@@ -8,11 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')

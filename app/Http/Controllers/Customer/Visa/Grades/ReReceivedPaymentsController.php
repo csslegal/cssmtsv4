@@ -49,6 +49,7 @@ class ReReceivedPaymentsController extends Controller
                 'receivedPaymentTypes' => $receivedPaymentTypes,
             ]);
     }
+
     public function store($id, $visa_file_id, Request $request)
     {
         $tl_kurus = "00";
@@ -184,6 +185,7 @@ class ReReceivedPaymentsController extends Controller
             return redirect('/musteri/' . $id . '/vize/' . $visa_file_id . '/yeniden-alinan-odeme');
         }
     }
+
     public function tamamla($id, $visa_file_id, Request $request)
     {
 

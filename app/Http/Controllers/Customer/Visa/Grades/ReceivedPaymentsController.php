@@ -185,6 +185,7 @@ class ReceivedPaymentsController extends Controller
             return redirect('/musteri/' . $id . '/vize/' . $visa_file_id . '/alinan-odeme');
         }
     }
+
     public function tamamla($id, $visa_file_id, Request $request)
     {
 

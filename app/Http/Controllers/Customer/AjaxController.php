@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class AjaxController extends Controller
 {
+
     public function get_grades(Request $request, $id)
     {
         $visaIDgradesID = DB::table('customers')
@@ -47,6 +48,7 @@ class AjaxController extends Controller
             }
         }
     }
+
     public function post_name_kontrol(Request $request)
     {
         echo DB::table('customers')
@@ -194,6 +196,7 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
+
     public function post_visa_archive_payment(Request $request)
     {
         if (is_numeric($request->input('id'))) {
@@ -365,6 +368,7 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
+
     public function post_visa_archive_receipt(Request $request)
     {
         if (is_numeric($request->input('id'))) {

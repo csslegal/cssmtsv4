@@ -8,11 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class InvoicesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($id, $visa_file_id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')->select([

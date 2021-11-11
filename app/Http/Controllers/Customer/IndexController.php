@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
+
     public function get_sorgula(Request $request)
     {
         return view('customer.search');

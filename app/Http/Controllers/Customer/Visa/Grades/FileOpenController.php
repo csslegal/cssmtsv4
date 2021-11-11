@@ -114,24 +114,4 @@ class FileOpenController extends Controller
             return redirect('/musteri/' . $id . '/vize');
         }
     }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
 }
