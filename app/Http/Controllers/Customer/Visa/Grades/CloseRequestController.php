@@ -17,9 +17,8 @@ class CloseRequestController extends Controller
     public function index($id, $visa_file_id, Request $request)
     {
 
-
-        $visaApplicationResultCount = DB::table('visa_application_result')
-            ->where('visa_file_id', '=', $visa_file_id)->get()->count();
+        $visaFiles = DB::table('visa_files')->where('id', '=', $visa_file_id)->first();
+        $visaApplicationResultCount = DB::table('visa_application_result')->where('visa_file_id', '=', $visa_file_id)->get()->count();
 
         $dataArray = array(
             'visa_file_id' => $visa_file_id,
@@ -32,24 +31,14 @@ class CloseRequestController extends Controller
         );
 
         if ($visaApplicationResultCount > 0) {
-            $dataArray = array_merge(
-                $dataArray,
-                array('updated_at' => date('Y-m-d H:i:s'))
-            );
-            DB::table('visa_application_result')
-                ->where("visa_file_id", "=", $visa_file_id)
-                ->update($dataArray);
+            $dataArray = array_merge($dataArray, array('updated_at' => date('Y-m-d H:i:s')));
+            DB::table('visa_application_result')->where("visa_file_id", "=", $visa_file_id)->update($dataArray);
         } else {
-            $dataArray = array_merge(
-                $dataArray,
-                array('created_at' => date('Y-m-d H:i:s'))
-            );
+            $dataArray = array_merge($dataArray, array('created_at' => date('Y-m-d H:i:s')));
             DB::table('visa_application_result')->insert($dataArray);
         }
 
-        $visaFileGradesName = new VisaFileGradesName(
-            env('VISA_FILE_CLOSE_REQUEST_GRADES_ID')
-        );
+        $visaFileGradesName = new VisaFileGradesName(env('VISA_FILE_CLOSE_REQUEST_GRADES_ID'));
 
         DB::table('visa_file_logs')->insert([
             'visa_file_id' => $visa_file_id,
@@ -60,14 +49,16 @@ class CloseRequestController extends Controller
         ]);
 
         DB::table('visa_files')->where("id", "=", $visa_file_id)
-            ->update(['visa_file_grades_id' => env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID')]);
+            ->update([
+                'visa_file_grades_id' => env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'),
+                'temp_grades_id' => $visaFiles->visa_file_grades_id,
+            ]);
 
         if ($request->session()->has($visa_file_id . '_grades_id')) {
             $request->session()->forget($visa_file_id . '_grades_id');
         }
 
-        $request->session()
-            ->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
+        $request->session()->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
         return redirect('/musteri/' . $id . '/vize');
     }
 }

@@ -51,6 +51,7 @@ use App\Http\Controllers\Customer\Visa\Grades\FileDeliveryController as VisaFile
 use App\Http\Controllers\Customer\Visa\Grades\RefusalTranslationController as VisaRefusalTranslationController;
 
 use App\Http\Controllers\Customer\Visa\Grades\CloseRequestController as VisaCloseRequestController;
+use App\Http\Controllers\Customer\Visa\Grades\CloseConfirmController as VisaCloseConfirmController;
 
 use App\Http\Controllers\Customer\Visa\PaymentsController as VisaPaymentsController;
 use App\Http\Controllers\Customer\Visa\InvoicesController as VisaInvoicesController;
@@ -118,7 +119,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('teslimat-bilgisi', VisaFileDeliveryController::class);
 
                 Route::resource('kapatma', VisaCloseRequestController::class);
-                //Route::resource('kapatma-onayi', VisaCloseConfirmController::class);
+                Route::resource('kapatma-onayi', VisaCloseConfirmController::class);
                 //Route::resource('iade-bilgileri', VisaRefundController::class);
                 //Route::resource('iade-bilgileri-onayi', VisaRefundConfirmController::class); //sonrasında teslimat aşamasına gececek
                 /***Dosya aşamaları son */
