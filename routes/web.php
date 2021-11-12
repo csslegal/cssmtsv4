@@ -50,6 +50,8 @@ use App\Http\Controllers\Customer\Visa\Grades\ApplicationResultController as Vis
 use App\Http\Controllers\Customer\Visa\Grades\FileDeliveryController as VisaFileDeliveryController;
 use App\Http\Controllers\Customer\Visa\Grades\RefusalTranslationController as VisaRefusalTranslationController;
 
+use App\Http\Controllers\Customer\Visa\Grades\CloseRequestController as VisaCloseRequestController;
+
 use App\Http\Controllers\Customer\Visa\PaymentsController as VisaPaymentsController;
 use App\Http\Controllers\Customer\Visa\InvoicesController as VisaInvoicesController;
 use App\Http\Controllers\Customer\Visa\ArchivesController as VisaArchivesController;
@@ -114,6 +116,11 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('basvuru-sonuc', VisaApplicationResultController::class);
                 Route::resource('red-tercume', VisaRefusalTranslationController::class);
                 Route::resource('teslimat-bilgisi', VisaFileDeliveryController::class);
+
+                Route::resource('kapatma', VisaCloseRequestController::class);
+                //Route::resource('kapatma-onayi', VisaCloseConfirmController::class);
+                //Route::resource('iade-bilgileri', VisaRefundController::class);
+                //Route::resource('iade-bilgileri-onayi', VisaRefundConfirmController::class); //sonrasında teslimat aşamasına gececek
                 /***Dosya aşamaları son */
             });
         });

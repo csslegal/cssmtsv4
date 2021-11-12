@@ -48,6 +48,9 @@
                                     <option value="VISA_FILE_CLOSED_GRADES_ID">Dosya Kapandı İşlemi(Arşiv)</option>
                                     <option value="VISA_FILE_REFUSAL_GRADES_ID">Vize Reddi Tercüme İşlemi</option>
                                     <option value="VISA_FILE_CLOSE_REQUEST_GRADES_ID">Dosya Kapama İsteği İşlemi</option>
+                                    <option value="VISA_FILE_CLOSE_CONFIRM_GRADES_ID">Dosya Kapama Onayı İşlemi</option>
+                                    <option value="VISA_FILE_REFUND_GRADES_ID">Dosya İade Bilgileri İşlemi</option>
+                                    <option value="VISA_FILE_REFUND_CONFIRM_GRADES_ID">Dosya İade Bilgileri Onayı İşlemi</option>
                                 </select>
                                 @error('env')<div class="alert alert-danger">{{ $message }}</div>@enderror
                             </div>

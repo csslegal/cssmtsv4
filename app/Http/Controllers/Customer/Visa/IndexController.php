@@ -11,8 +11,7 @@ class IndexController extends Controller
 
     public function index($id, Request $request)
     {
-        $baseCustomerDetails = DB::table('customers')
-            ->where('id', '=', $id)->first();
+        $baseCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
 
         $visaTypes = DB::table('visa_types')->get();
         $language = DB::table('language')->get();
@@ -41,26 +40,14 @@ class IndexController extends Controller
             ->leftJoin('users AS user_advisor', 'user_advisor.id', '=', 'visa_files.advisor_id')
             ->leftJoin('users AS user_translator', 'user_translator.id', '=', 'visa_files.translator_id')
             ->leftJoin('users AS user_expert', 'user_expert.id', '=', 'visa_files.expert_id')
-
             ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
             ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
             ->leftJoin('visa_appointments', 'visa_appointments.visa_file_id', '=', 'visa_files.id')
-
             ->where('visa_files.customer_id', '=', $id)
             ->where('visa_files.active', '=', 1)
-
             ->first();
-
-        $visaFileGradesUserType = DB::table('visa_file_grades_users_type')
-            ->select(['user_type_id'])
-            ->where(
-                'visa_file_grade_id',
-                '=',
-                isset($visaFileDetail->visa_file_grades_id) ? $visaFileDetail->visa_file_grades_id : env('VISA_FILE_OPEN_GRADES_ID')
-            )
-            ->pluck('user_type_id')->toArray();
 
         $visaFileGradesLogs = DB::table('visa_file_logs')->select([
             'visa_file_logs.id AS id',
@@ -75,6 +62,18 @@ class IndexController extends Controller
             ->orderByDesc('visa_file_logs.id')
             ->get();
 
+        /***dosya acma */
+        $visaFileGradesUserType = DB::table('visa_file_grades_users_type')
+            ->select(['user_type_id'])
+            ->where('visa_file_grade_id', '=', isset($visaFileDetail->visa_file_grades_id) ? $visaFileDetail->visa_file_grades_id : env('VISA_FILE_OPEN_GRADES_ID'))
+            ->pluck('user_type_id')->toArray();
+
+        /***arşive taşıma */
+        $fileCloseRequestGrade = DB::table('visa_file_grades_users_type')
+            ->select(['user_type_id'])
+            ->where('visa_file_grade_id', '=', env('VISA_FILE_CLOSE_REQUEST_GRADES_ID'))
+            ->pluck('user_type_id')->toArray();
+
         return view('customer.visa.index')->with([
             'baseCustomerDetails' => $baseCustomerDetails,
             'visaTypes' => $visaTypes,
@@ -82,12 +81,23 @@ class IndexController extends Controller
             'visaFileDetail' => $visaFileDetail,
             'visaFileGradesLogs' => $visaFileGradesLogs,
             'visaFileGradesPermitted' => [
+                /**standart kullanıcı tipinw göre yetkilendirildi mi */
                 'permitted' => in_array(
                     $request->session()->get('userTypeId'),
                     $visaFileGradesUserType
                 ),
                 'grades_url' => isset($visaFileDetail->url) ? $visaFileDetail->url : null,
                 'grades_name' => isset($visaFileDetail->grades_name) ? $visaFileDetail->grades_name : null,
+                /***dosya kapama işlemlerinin herhangi birinde ise kapama isteği yapılmasını göstermeyi engelleme */
+                'fileCloseRequestGradeIds' => in_array(
+                    $visaFileDetail->visa_file_grades_id,
+                    array(env('VISA_FILE_CLOSE_REQUEST_GRADES_ID'), env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'), env('VISA_FILE_REFUND_GRADES_ID'), env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'),)
+                ),
+                /***dosya kapama isteği işlemi için yetkilendirme yapıldı mı */
+                'fileCloseRequestGrade' => in_array(
+                    $request->session()->get('userTypeId'),
+                    $fileCloseRequestGrade
+                ),
             ],
         ]);
     }
