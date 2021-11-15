@@ -52,6 +52,8 @@ use App\Http\Controllers\Customer\Visa\Grades\RefusalTranslationController as Vi
 
 use App\Http\Controllers\Customer\Visa\Grades\CloseRequestController as VisaCloseRequestController;
 use App\Http\Controllers\Customer\Visa\Grades\CloseConfirmController as VisaCloseConfirmController;
+use App\Http\Controllers\Customer\Visa\Grades\RefundPaymentsController as VisaRefundPaymentsController;
+use App\Http\Controllers\Customer\Visa\Grades\RefundPaymentsConfirmController as VisaRefundPaymentsConfirmController;
 
 use App\Http\Controllers\Customer\Visa\PaymentsController as VisaPaymentsController;
 use App\Http\Controllers\Customer\Visa\InvoicesController as VisaInvoicesController;
@@ -95,6 +97,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::get('yapilan-odeme-tamamla', [VisaMadePaymentsController::class, 'tamamla']);
                 Route::get('fatura-kayit-tamamla', [VisaInvoicesSaveController::class, 'tamamla']);
                 Route::get('yeniden-alinan-odeme-tamamla', [VisaReReceivedPaymentsController::class, 'tamamla']);
+                Route::get('iade-bilgileri-tamamla', [VisaRefundPaymentsController::class, 'tamamla']);
 
                 Route::resource('alinan-odeme', VisaReceivedPaymentsController::class);
                 Route::resource('alinan-odeme-onay', VisaReceivedPaymentsConfirmController::class);
@@ -120,8 +123,8 @@ Route::middleware(['sessionCheck'])->group(function () {
 
                 Route::resource('kapatma', VisaCloseRequestController::class);
                 Route::resource('kapatma-onayi', VisaCloseConfirmController::class);
-                //Route::resource('iade-bilgileri', VisaRefundController::class);
-                //Route::resource('iade-bilgileri-onayi', VisaRefundConfirmController::class); //sonrasında teslimat aşamasına gececek
+                Route::resource('iade-bilgileri', VisaRefundPaymentsController::class);
+                Route::resource('iade-bilgileri-onayi', VisaRefundPaymentsConfirmController::class); //sonrasında teslimat aşamasına gececek
                 /***Dosya aşamaları son */
             });
         });
