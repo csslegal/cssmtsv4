@@ -25,8 +25,8 @@
                         <th>Onay</th>
                         <th>İşlem Yapan</th>
                         <th>Toplam(TL)</th>
-                        <th>Detaylar</th>
                         <th>Ödeme Şekli</th>
+                        <th>Detaylar</th>
                         <th>Ödeme Tarihi</th>
                         <th>İşlem Tarihi</th>
                     </tr>
@@ -67,8 +67,7 @@
                         <i class="bi bi-x-lg"></i> Ödemeleri İptal Et
                     </button>
                 </form>
-                <form method="POST"
-                    action="alinan-odeme-onay/1">
+                <form method="POST" action="alinan-odeme-onay/1">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
                     <button class="btn btn-success text-white m-2" type="submit" data-bs-toggle="tooltip"

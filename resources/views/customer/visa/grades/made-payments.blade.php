@@ -189,8 +189,8 @@
                         <th>Başlıklar</th>
                         <th>İşlem Yapan</th>
                         <th>Toplam(TL)</th>
-                        <th>Detaylar</th>
                         <th>Ödeme Şekli</th>
+                        <th>Detaylar</th>
                         <th>Ödeme Tarihi</th>
                         <th>İşlem Tarihi</th>
                         <th>İşlemler</th>
