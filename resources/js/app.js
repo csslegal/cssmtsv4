@@ -15,6 +15,9 @@ new AirDatepicker('.datepicker', {
 new AirDatepicker('.datepicker1', {
     buttons: ['today', 'clear'],
 })
+new AirDatepicker('.datepicker2', {
+    buttons: ['today', 'clear'],
+})
 
 // Core - these two are required :-)
 require('tinymce');
