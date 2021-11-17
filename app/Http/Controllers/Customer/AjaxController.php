@@ -310,6 +310,62 @@ class AjaxController extends Controller
             }
             $sonuc .= "</tbody></table></div></div>";
 
+            $refundPayments = DB::table('visa_refund_payments')
+                ->select([
+                    'visa_refund_payments.id AS id',
+                    'visa_refund_payments.name AS name',
+                    'visa_refund_payments.refund_tl AS refund_tl',
+                    'visa_refund_payments.refund_euro AS refund_euro',
+                    'visa_refund_payments.refund_dolar AS refund_dolar',
+                    'visa_refund_payments.refund_pound AS refund_pound',
+                    'visa_refund_payments.payment_total AS payment_total',
+                    'visa_refund_payments.payment_method AS payment_method',
+                    'visa_refund_payments.payment_date AS payment_date',
+                    'visa_refund_payments.confirm AS confirm',
+                    'visa_refund_payments.created_at AS created_at',
+                    'users.name AS user_name',
+                ])
+                ->leftJoin('users', 'users.id', '=', 'visa_refund_payments.user_id')
+                ->where('visa_file_id', '=', $request->input('id'))->get();
+
+            $sonuc .= "<div class='card card-primary mb-3'><div class='card-header bg-primary text-white'>İade Ödemeler</div><div class='card-body scroll'>
+                    <table style='width:100%' class='table table-striped table-bordered table-sm table-light'>
+                        <thead>
+                            <th>ID</th>
+                            <th>Başlıklar</th>
+                            <th>Onay</th>
+                            <th>İşlem Yapan</th>
+                            <th>Toplam (TL)</th>
+                            <th>Detaylar</th>
+                            <th>Ödeme Şekli</th>
+                            <th>Ödeme Tarihi</th>
+                            <th>İşlem Tarihi</th>
+                        </thead>
+                        <tbody>";
+            if ($refundPayments->count() == 0) {
+                $sonuc .= "<tr><td colspan='8'>Kayıt bulunamadı</td></tr>";
+            }
+            foreach ($refundPayments as $refundPayment) {
+                $sonuc .= "
+                            <tr>
+                                <td>" .  $refundPayment->id . "</td>
+                                <td>" .  $refundPayment->name . "</td>
+                                <td>";
+                $sonuc .=  $refundPayment->confirm == 1 ? 'Onaylı' : 'Onaysız';
+                $sonuc .= "     </td>
+                                <td>" .  $refundPayment->user_name . "</td>
+                                <td>" .  $refundPayment->payment_total . "</td><td>";
+                $sonuc .=  $refundPayment->refund_tl != '' ? $refundPayment->refund_tl . 'TL ' : '';
+                $sonuc .=  $refundPayment->refund_euro != '' ? $refundPayment->refund_euro . '£' : '';
+                $sonuc .=  $refundPayment->refund_dolar != '' ? $refundPayment->refund_dolar . '$' : '';
+                $sonuc .=  $refundPayment->refund_pound != '' ? $refundPayment->refund_pound . '€' : '';
+                $sonuc .=  "</td><td>" .  $refundPayment->payment_method . "</td>
+                                <td>" .  $refundPayment->payment_date . "</td>
+                                <td>" .  $refundPayment->created_at . "</td>
+                            </tr>";
+            }
+            $sonuc .= "</tbody></table></div></div>";
+
             return $sonuc;
         } else {
             echo 'Hatalı istek yapıldı';

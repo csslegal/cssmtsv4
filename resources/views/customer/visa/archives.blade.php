@@ -49,6 +49,11 @@
                                         <span class="fw-bold">Vize Tarihi:</span>
                                         <span>{{ $visaArchive->visa_date }}</span>
                                     </li>
+                                @elseif ($visaArchive->visa_result == 2)
+                                    <li>
+                                        <span class="fw-bold">Sonuç:</span>
+                                        <span>İade (Dosya Kapama)</span>
+                                    </li>
                                 @elseif ($visaArchive->visa_result==0)
                                     <li>
                                         <span class="fw-bold">Sonuç:</span>
