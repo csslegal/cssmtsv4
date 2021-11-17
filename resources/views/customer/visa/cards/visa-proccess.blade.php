@@ -2,7 +2,7 @@
     <div class="card-header bg-primary text-white">Vize Dosya İşlemleri</div>
     <div class="card-body scroll">
         <div class="row">
-            @if (!isset($visaFileDetail) && $visaFileGradesPermitted->permitted)
+            @if (!isset($visaFileDetail) && $visaFileGradesPermitted['permitted'])
                 <div class="col-lg-4 col-md-6 col-sm-6 ">
                     <div class="card border-primary mb-2">
                         <div class="card-body">
