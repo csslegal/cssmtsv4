@@ -21,6 +21,7 @@ class IndexController extends Controller
                 'visa_files.id AS id',
                 'visa_files.status AS status',
                 'visa_files.visa_file_grades_id AS visa_file_grades_id',
+                'visa_files.temp_grades_id AS temp_grades_id',
                 'visa_files.created_at AS created_at',
                 'visa_file_grades.url AS url',
                 'visa_file_grades.name AS grades_name',
@@ -89,10 +90,8 @@ class IndexController extends Controller
                 'grades_url' => isset($visaFileDetail->url) ? $visaFileDetail->url : null,
                 'grades_name' => isset($visaFileDetail->grades_name) ? $visaFileDetail->grades_name : null,
                 /***dosya kapama işlemlerinin herhangi birinde ise kapama isteği yapılmasını göstermeyi engelleme */
-                'fileCloseRequestGradeIds' => in_array(
-                    $visaFileDetail->visa_file_grades_id,
-                    array(env('VISA_FILE_CLOSE_REQUEST_GRADES_ID'), env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'), env('VISA_FILE_REFUND_GRADES_ID'), env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'),)
-                ),
+                'fileCloseRequestGradeIds' => isset($visaFileDetail->temp_grades_id) ? true : false,
+
                 /***dosya kapama isteği işlemi için yetkilendirme yapıldı mı */
                 'fileCloseRequestGrade' => in_array(
                     $request->session()->get('userTypeId'),
