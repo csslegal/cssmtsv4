@@ -11,7 +11,7 @@
 
     @if (in_array(1, $userAccesses))
         <div class="card card-primary mb-3">
-            <div class="card-header bg-primary text-white">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
+            <div class="card-header bg-primary text-white fw-bold">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
             <div class="card-body scroll">
                 <table id="dataTableVize" class="table table-striped table-bordered display table-light" style="width:100%">
                     <thead>
@@ -54,7 +54,7 @@
     @endif
     @if (in_array(2, $userAccesses))
         <div class="card card-primary mb-3">
-            <div class="card-header bg-primary text-white">Harici Tercüme Dosyası İşlemi Bekleyen Müşteriler</div>
+            <div class="card-header bg-primary text-white fw-bold">Harici Tercüme Dosyası İşlemi Bekleyen Müşteriler</div>
             <div class="card-body scroll">
                 <table id="dataTableHarici" class=" table table-striped table-bordered display table-light"
                     style="width:100%">
@@ -82,7 +82,7 @@
     @endif
     @if (in_array(3, $userAccesses))
         <div class="card card-primary mb-3">
-            <div class="card-header bg-primary text-white">Dil Okulu Dosyası İşlemi Bekleyen Müşteriler</div>
+            <div class="card-header bg-primary text-white fw-bold">Dil Okulu Dosyası İşlemi Bekleyen Müşteriler</div>
             <div class="card-body scroll">
                 <table id="dataTableDilOkulu" class=" table table-striped table-bordered display table-light"
                     style="width:100%">

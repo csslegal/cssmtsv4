@@ -1,5 +1,5 @@
 <div class="card card-primary mb-3">
-    <div class="card-header bg-danger text-white">Cari Dosya Geçmişi</div>
+    <div class="card-header bg-danger text-white fw-bold">Cari Dosya Geçmişi</div>
 
     <div class="card-body scroll">
         <span class="text-red fw-bold">İşlemler</span>
@@ -19,7 +19,8 @@
                     @if ($loop->first && $visaFileGradesPermitted['permitted'])
                         <span>
                             <a href="vize/{{ $visaFileDetail->id }}/{{ $visaFileGradesPermitted['grades_url'] }}"
-                                class="confirm btn btn-sm btn-danger text-white" data-title="Dikkat!" data-content="{{ $visaFileGradesPermitted['grades_name'] }}ne yönlendirilsin mi?">Sonraki
+                                class="confirm btn btn-sm btn-danger text-white" data-title="Dikkat!"
+                                data-content="{{ $visaFileGradesPermitted['grades_name'] }}ne yönlendirilsin mi?">Sonraki
                                 aşama</a>
                         </span>
                     @endif

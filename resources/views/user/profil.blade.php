@@ -9,7 +9,7 @@
     </nav>
 
     <div class="card card-primary">
-        <div class="card-header bg-primary text-white">Profilim</div>
+        <div class="card-header bg-primary text-white fw-bold">Profilim</div>
         <div class="card-body">
 
             <div class="row p-2 mb-3">
@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <h2>Şifre Güncelle</h2>
+            <h3>Şifre Güncelle</h3>
 
             <form method="POST" action="/kullanici/profil">
                 @csrf

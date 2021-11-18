@@ -45,7 +45,6 @@
     <script>
         $(document).ready(function() {
             $('.toast').toast('show');
-
         });
         setTimeout(function() {
             window.location.reload(1);

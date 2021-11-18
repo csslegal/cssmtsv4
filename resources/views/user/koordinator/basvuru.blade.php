@@ -10,7 +10,7 @@
     @include('user.hosgeldin')
 
     <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">Müşteri Temel Bilgileri Güncelleme İstekleri</div>
+        <div class="card-header bg-primary text-white fw-bold">Müşteri Temel Bilgileri Güncelleme İstekleri</div>
         <div class="card-body scroll">
 
             <table id="dataTable" class=" table table-striped table-bordered display table-light" style="width:100%">
@@ -57,7 +57,7 @@
     </div>
 
     <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
+        <div class="card-header bg-primary text-white fw-bold">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
         <div class="card-body scroll">
             <table id="dataTableVize" class="table table-striped table-bordered display table-light" style="width:100%">
                 <thead>

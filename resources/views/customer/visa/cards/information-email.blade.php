@@ -1,5 +1,5 @@
 <div class="card card-primary mb-3">
-    <div class="card-header bg-primary text-white">Bilgi E-mail Gönder</div>
+    <div class="card-header bg-primary text-white fw-bold">Bilgi E-mail Gönder</div>
     <div class="card-body scroll">
         <form action="/musteri/{{ $baseCustomerDetails->id }}/vize/bilgi-emaili" method="POST">
             @csrf

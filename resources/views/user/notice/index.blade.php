@@ -8,11 +8,10 @@
         </ol>
     </nav>
     <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">Duyurular</div>
+        <div class="card-header bg-primary text-white fw-bold">Duyurular</div>
         <div class="card-body">
 
-            <table id="dataTableDilOkulu" class=" table table-striped table-bordered display table-light"
-                style="width:100%">
+            <table id="dataTableDilOkulu" class=" table table-striped table-bordered display table-light" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -47,7 +46,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Duyuru İçeriği</h5>
+                    <h5 class="modal-title fw-bold" id="exampleModalLabel">Duyuru İçeriği</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="icerikYükle">

@@ -1,5 +1,5 @@
 <div class="card card-primary mb-3">
-    <div class="card-header bg-danger text-white">Cari Dosya Detayları</div>
+    <div class="card-header bg-danger text-white  fw-bold">Cari Dosya Detayları</div>
 
     <div class="card-body scroll">
         <div class="row">
