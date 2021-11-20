@@ -23,6 +23,7 @@ use App\Http\Controllers\Management\VisaValidityController as ManagementVisaVali
 use App\Http\Controllers\Management\UrlController;
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\AjaxController as UserAjaxController;
+use App\Http\Controllers\User\Visa\IndexController as UserVisaIndexController;
 use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
 use App\Http\Controllers\Customer\IndexController as CustomerIndexController;
 use App\Http\Controllers\Customer\Visa\IndexController as VisaIndexController;
@@ -168,6 +169,17 @@ Route::middleware(['sessionCheck'])->group(function () {
         Route::get('duyuru', [UserIndexController::class, 'get_duyuru']);
         Route::get('mTBGI/{id}/onay', [UserIndexController::class, 'get_TBGI_onay']);
         Route::get('mTBGI/{id}/geri-al', [UserIndexController::class, 'get_TBGI_gerial']);
+
+        /***koordinator vize işlemleri */
+        Route::group(['prefix' => 'vize'], function () {
+            Route::get('/', [UserVisaIndexController::class, 'get_index']);
+            Route::get('danisman', [UserVisaIndexController::class, 'get_danisman']);
+            Route::get('uzman', [UserVisaIndexController::class, 'get_uzman']);
+            Route::get('muhasebe', [UserVisaIndexController::class, 'get_muhasebe']);
+            Route::get('tercuman', [UserVisaIndexController::class, 'get_tercuman']);
+            Route::get('ofis-sorumlusu', [UserVisaIndexController::class, 'get_ofis_sorumlusu']);
+        });
+
 
         /*** Kullanıcılar ajax işlemleri*/
         Route::group(['prefix' => 'ajax'], function () {

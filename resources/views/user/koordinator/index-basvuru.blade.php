@@ -9,10 +9,60 @@
 
     @include('user.hosgeldin')
 
+    <div class="row mb-2">
+        @if (in_array(1, $userAccesses))
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card mb-2">
+                    <div class="card-header text-white bg-primary mb-3 fw-bold">Vize İşlemleri</div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Vize ile ilgili toplam
+                            <span class="fw-bold text-danger">{{ $visaCustomersCount }}</span>
+                            işlem bulunmakta.
+                        </p>
+                        <a href="/kullanici/vize" class="btn text-white btn-danger btn-block">Git</a>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (in_array(2, $userAccesses))
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card   mb-2">
+                    <div class="card-header text-white bg-primary mb-3 fw-bold">Harici Tercüme İşlemleri</div>
+                    <div class="card-body">
+                        <p class="card-text">Harici Tercümeler ile ilgili bütün işlemler.</p>
+                        <a href="/kullanici/harici" class="btn text-white btn-danger btn-block">Git</a>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (in_array(3, $userAccesses))
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card  mb-2">
+                    <div class="card-header text-white bg-primary mb-3 fw-bold">Dil Okulu İşlemleri</div>
+                    <div class="card-body">
+                        <p class="card-text">Dil Okulu ile ilgili bütün işlemler.</p>
+                        <a href="/kullanici/dilokulu" class="btn text-white btn-danger btn-block">Git</a>
+                    </div>
+                </div>
+            </div>
+        @endif
+        @if (in_array(4, $userAccesses))
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card  mb-2">
+                    <div class="card-header text-white bg-primary mb-3 fw-bold">İçerik Yönetim İşlemleri</div>
+                    <div class="card-body">
+                        <p class="card-text">Web siteleri yönetimi ile ilgili bütün işlemler.</p>
+                        <a href="/kullanici/web" class="btn text-white btn-danger btn-block">Git</a>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white fw-bold">Müşteri Temel Bilgileri Güncelleme İstekleri</div>
         <div class="card-body scroll">
-
             <table id="dataTable" class=" table table-striped table-bordered display table-light" style="width:100%">
                 <thead>
                     <tr>
@@ -55,47 +105,5 @@
             </table>
         </div>
     </div>
-
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white fw-bold">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
-        <div class="card-body scroll">
-            <table id="dataTableVize" class="table table-striped table-bordered display table-light" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Müşteri Adı</th>
-                        <th>Danışman</th>
-                        <th>Durumu</th>
-                        <th>Vize Tipi</th>
-                        <th>Vize Süresi</th>
-                        <th>Dosya Aşaması</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($visaCustomers as $visaCustomer)
-                        <tr class="{{ $visaCustomer->status ? 'text-success' : '' }}">
-                            <td>
-                                <a href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->visa_file_id }}</a>
-                            </td>
-                            <td>{{ $visaCustomer->name }}</td>
-                            <td>{{ $visaCustomer->u_name }}</td>
-                            <td>
-                                @if ($visaCustomer->status)
-                                    <span>Acil Dosya</span>
-                                @else
-                                    <span>Normal Dosya</span>
-                                @endif
-                            </td>
-                            <td>{{ $visaCustomer->visa_type_name }} / {{ $visaCustomer->visa_sub_type_name }}
-                            </td>
-                            <td>{{ $visaCustomer->visa_validity_name }}</td>
-                            <td>{{ $visaCustomer->visa_file_grades_name }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-
 
 @endsection

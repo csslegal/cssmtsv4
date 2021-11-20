@@ -78,11 +78,11 @@ class IndexController extends Controller
             case 4: //b. koordinatoor
                 $mTBGIS = DB::table('customer_update')
                     ->select([
-                        'customer_update.created_at',
+                        'customers.id AS customer_id',
+                        'customers.name AS name',
                         'customer_update.id',
                         'customer_update.onay AS onay',
-                        'customers.name AS name',
-                        'customers.id AS customer_id',
+                        'customer_update.created_at',
                         'users.id AS user_id',
                         'users.name AS user_name',
                     ])
@@ -90,7 +90,7 @@ class IndexController extends Controller
                     ->join('users', 'users.id', '=', 'customer_update.user_id')
                     ->get();
 
-                $visaCustomers = DB::table('customers')
+                $visaCustomersCount = DB::table('customers')
                     ->select([
                         'customers.id AS id',
                         'customers.name AS name',
@@ -112,11 +112,11 @@ class IndexController extends Controller
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
-                    ->get();
+                    ->get()->count();
 
-                return view('user.koordinator.basvuru')->with([
+                return view('user.koordinator.index-basvuru')->with([
                     'userAccesses' => $userAccesses,
-                    'visaCustomers' => $visaCustomers,
+                    'visaCustomersCount' => $visaCustomersCount,
                     'mTBGIS' => $mTBGIS,
                 ]);
                 break;
@@ -187,11 +187,11 @@ class IndexController extends Controller
             case 7: //m.koordinator
                 $mTBGIS = DB::table('customer_update')
                     ->select([
-                        'customer_update.created_at',
-                        'customer_update.onay',
-                        'customer_update.id',
                         'customers.id AS customer_id',
-                        'customers.name A customer_name',
+                        'customers.name AS customer_name',
+                        'customer_update.id',
+                        'customer_update.onay',
+                        'customer_update.created_at',
                         'users.id AS user_id',
                         'users.name AS user_name',
                     ])
@@ -199,7 +199,7 @@ class IndexController extends Controller
                     ->join('users', 'users.id', '=', 'customer_update.user_id')
                     ->get();
 
-                $visaCustomers = DB::table('customers')
+                $visaCustomersCount = DB::table('customers')
                     ->select([
                         'customers.id AS id',
                         'customers.name AS name',
@@ -223,11 +223,11 @@ class IndexController extends Controller
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
-                    ->get();
+                    ->get()->count();
 
-                return view('user.koordinator.musteri')->with([
+                return view('user.koordinator.index-musteri')->with([
                     'userAccesses' => $userAccesses,
-                    'visaCustomers' => $visaCustomers,
+                    'visaCustomersCount' => $visaCustomersCount,
                     'mTBGIS' => $mTBGIS,
                 ]);
                 break;
