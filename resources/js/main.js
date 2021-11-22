@@ -8,17 +8,19 @@ window.onpopstate = function () { window.history.pushState(null, "", window.loca
 
 //datatable olusturma
 $('#dataTableVize,#dataTableDilOkulu,#dataTableHarici').DataTable({
-    "order": [[0, "desc"]],
+    "order": [[0, 'asc'],],
     "columnDefs": [{ "type": "num", "targets": 0 }],
     language: { url: '/dataTables.tr.json' },
 
 });
 $('#dataTable').DataTable({
+    "order": [[0, 'asc'],],
+    "columnDefs": [{ "type": "num", "targets": 0 }],
     language: { url: '/dataTables.tr.json' },
 });
 
 $('a.confirm').confirm({
-    title:'Dikkat!',
+    title: 'Dikkat!',
     content: '',
     buttons: {
         hayır: {
@@ -35,7 +37,7 @@ $('a.confirm').confirm({
     }
 });
 $('form>button.confirm').confirm({
-    title:'Dikkat!',
+    title: 'Dikkat!',
     content: '',
     buttons: {
         hayır: {
