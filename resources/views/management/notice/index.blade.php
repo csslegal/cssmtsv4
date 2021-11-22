@@ -16,8 +16,7 @@
 
             @include('include.toast')
 
-            <table id="dataTable" class=" table table-striped table-bordered display table-light "
-                style="width:100%">
+            <table id="dataTable" class=" table table-striped table-bordered display table-light " style="width:100%">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -46,7 +45,7 @@
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button onclick="goster({{ $kayit->d_id }})" class="text-success"
                                         data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                        <i class="bi bi-image"></i>
+                                        <i class="bi bi-image"></i> Göster
                                     </button>
                                     <a href="/yonetim/duyuru/{{ $kayit->d_id }}/edit">
                                         <button data-bs-toggle="tooltip" data-bs-placement="top" title="Düzenle">
@@ -70,26 +69,13 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Duyuru İçeriği</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="icerikYükle">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('customer.modals.content-load')
+
 @endsection
 @section('js')
     <script>
         function goster(id) {
-            $("#icerikYükle").html('Veri alınıyor...');
+            $("#contentLoad").html('Veri alınıyor...');
             $.ajax({
                 type: 'POST',
                 url: "/yonetim/ajax/duyuru",
@@ -98,10 +84,10 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data, status, xhr) {
-                    $("#icerikYükle").html(data['icerik']);
+                    $("#contentLoad").html(data['icerik']);
                 },
                 error: function(data, status, xhr) {
-                    $("#icerikYükle").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
+                    $("#contentLoad").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
                 }
             });
 

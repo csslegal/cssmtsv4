@@ -30,8 +30,8 @@
                             <td>{{ $duyuru->d_u_tarih }}</td>
                             <td>
                                 <button class="border btn" onclick="duyuruGoster({{ $duyuru->d_id }})"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster"><i
-                                        class="bi bi-image"></i>
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                    <i class="bi bi-image"></i> Göster
                                 </button>
                             </td>
                         </tr>
@@ -42,26 +42,12 @@
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold" id="exampleModalLabel">Duyuru İçeriği</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="icerikYükle">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('customer.modals.content-load')
 @endsection
 @section('js')
     <script>
         function duyuruGoster(id) {
-            $("#icerikYükle").html('Veri alınıyor...');
+            $("#contentLoad").html('Veri alınıyor...');
             $.ajax({
                 type: 'POST',
                 url: "/kullanici/ajax/duyuru",
@@ -70,10 +56,10 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data, status, xhr) {
-                    $("#icerikYükle").html(data['icerik']);
+                    $("#contentLoad").html(data['icerik']);
                 },
                 error: function(data, status, xhr) {
-                    $("#icerikYükle").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
+                    $("#contentLoad").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
                 }
             });
         }
