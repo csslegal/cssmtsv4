@@ -64,7 +64,7 @@
                     {{ csrf_field() }}
                     <button class="btn btn-danger text-white m-2" type="submit" data-bs-toggle="tooltip"
                         data-bs-placement="top" title="Ödemeleri iptal et">
-                        <i class="bi bi-x-lg"></i> İade Ödemeleri İptal Et
+                        <i class="bi bi-x-lg"></i> İptal Et
                     </button>
                 </form>
                 <form method="POST" action="iade-bilgileri-onayi/1">
@@ -72,7 +72,7 @@
                     {{ csrf_field() }}
                     <button class="btn btn-success text-white m-2" type="submit" data-bs-toggle="tooltip"
                         data-bs-placement="top" title="Ödemeleri onayla">
-                        <i class="bi bi-check-lg"></i> İade Ödemeleri Onayla
+                        <i class="bi bi-check-lg"></i> Onayla
                     </button>
                 </form>
             </div>

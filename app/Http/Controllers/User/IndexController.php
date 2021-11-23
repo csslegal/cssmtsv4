@@ -114,7 +114,6 @@ class IndexController extends Controller
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'))
                     ->get()->count();
-
                 return view('user.koordinator.index-basvuru')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomersCount' => $visaCustomersCount,
@@ -171,13 +170,12 @@ class IndexController extends Controller
                     ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
                     ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
                     ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-
-
                     ->where('visa_files.active', '=', 1)
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_PAYMENT_CONFIRM_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_MADE_PAYMENT_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_INVOICE_SAVE_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_RE_PAYMENT_CONFIRM_GRADES_ID'))
+                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'))
                     ->get();
 
                 return view('user.muhasebe.index')->with([
@@ -212,21 +210,18 @@ class IndexController extends Controller
                         'visa_sub_types.name AS visa_sub_type_name',
                         'users.name AS u_name',
                     ])
-
                     ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
                     ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
                     ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
                     ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
                     ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
                     ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-
                     ->where('visa_files.active', '=', 1)
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'))
                     ->get()->count();
-
                 return view('user.koordinator.index-musteri')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomersCount' => $visaCustomersCount,
