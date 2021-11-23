@@ -58,8 +58,7 @@
                     <select name="uzman" class="form-control">
                         <option selected value="">Lütfen seçim yapın</option>
                         @foreach ($experts as $expert)
-                            <option value="{{ $expert->id }}"
-                                {{ old('uzman') == $expert->id ? 'selected' : '' }}>
+                            <option value="{{ $expert->id }}" {{ old('uzman') == $expert->id ? 'selected' : '' }}>
                                 {{ $expert->name }}
                             </option>
                         @endforeach

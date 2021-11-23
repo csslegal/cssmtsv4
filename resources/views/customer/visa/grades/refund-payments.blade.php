@@ -308,7 +308,7 @@
                     <label class="form-label">İade Tarihi</label>
                     <input type="text" class="form-control datepicker" name="iade_tarihi"
                         value="{{ old('iade_tarihi') == '' ? '' : old('iade_tarihi') }}" autocomplete="off"
-                        placeholder="İade alınma tarihi" />
+                        placeholder="İade tarihi" />
                     @error('iade_tarihi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
