@@ -147,11 +147,13 @@ class VisaController extends Controller
             ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
             ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-
             ->where('visa_files.active', '=', 1)
+
             ->where('visa_files.visa_file_grades_id', '=', env('VISA_PAYMENT_CONFIRM_GRADES_ID'))
             ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_MADE_PAYMENT_GRADES_ID'))
             ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_INVOICE_SAVE_GRADES_ID'))
+            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_RE_PAYMENT_CONFIRM_GRADES_ID'))
+            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'))
             ->get();
         return view('management.visa.users.muhasebe')->with(
             [
@@ -204,6 +206,7 @@ class VisaController extends Controller
             ->where('visa_files.active', '=', 1)
             ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
             ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
+            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'))
             ->get();
 
         return view('management.visa.users.koordinator')->with(
