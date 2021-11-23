@@ -34,6 +34,7 @@ class IndexController extends Controller
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
+                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'))
                     ->get();
                 return view('user.koordinator.visa.musteri')->with([
                     'visaCustomers' => $visaCustomers,
@@ -62,6 +63,7 @@ class IndexController extends Controller
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
+                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'))
                     ->get();
                 return view('user.koordinator.visa.basvuru')->with([
                     'visaCustomers' => $visaCustomers,
