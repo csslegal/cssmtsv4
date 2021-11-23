@@ -69,7 +69,7 @@ class CloseConfirmController extends Controller
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
-            if (DB::table('visa_files')->where("id", "=", $visa_file_id)->update(['visa_file_grades_id' => $visaFiles->temp_grades_id])) {
+            if (DB::table('visa_files')->where("id", "=", $visa_file_id)->update(['visa_file_grades_id' => $visaFiles->temp_grades_id, 'temp_grades_id' => null])) {
 
                 if ($request->session()->has($visa_file_id . '_grades_id')) {
                     $request->session()->forget($visa_file_id . '_grades_id');
