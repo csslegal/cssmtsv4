@@ -343,7 +343,7 @@ class AjaxController extends Controller
                         </thead>
                         <tbody>";
             if ($refundPayments->count() == 0) {
-                $sonuc .= "<tr><td colspan='8'>Kayıt bulunamadı</td></tr>";
+                $sonuc .= "<tr><td colspan='9'>Kayıt bulunamadı</td></tr>";
             }
             foreach ($refundPayments as $refundPayment) {
                 $sonuc .= "
