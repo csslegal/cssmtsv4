@@ -90,7 +90,7 @@ Route::middleware(['sessionCheck'])->group(function () {
 
                 /***Dosya aşamalarından bağımsız bölümler */
                 Route::resource('odeme', VisaPaymentsController::class);
-                Route::resource('faturalar', VisaInvoicesController::class);
+                Route::resource('fatura', VisaInvoicesController::class);
                 Route::resource('arsive-tasima', VisaArchiveTransportController::class);
 
                 /***Dosya aşamaları başlangıç */
@@ -141,11 +141,12 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::post('alt-vize-tipi', [CustomerAjaxController::class, 'post_visa_sub_type']);
             Route::post('vize-dosya-log', [CustomerAjaxController::class, 'post_visa_file_log_content']);
 
-            Route::group(['prefix' => 'vize/arsiv'], function () {
-                Route::post('log', [CustomerAjaxController::class, 'post_visa_archive_log']);
-                Route::post('odemeler', [CustomerAjaxController::class, 'post_visa_archive_payment']);
-                Route::post('makbuz', [CustomerAjaxController::class, 'post_visa_archive_receipt']);
-                Route::post('fatura', [CustomerAjaxController::class, 'post_visa_archive_invoice']);
+            Route::group(['prefix' => 'vize'], function () {
+
+                Route::post('arsiv-log', [CustomerAjaxController::class, 'post_visa_archive_log']);
+                Route::post('arsiv-odeme', [CustomerAjaxController::class, 'post_visa_archive_payment']);
+                Route::post('arsiv-makbuz', [CustomerAjaxController::class, 'post_visa_archive_receipt']);
+                Route::post('arsiv-fatura', [CustomerAjaxController::class, 'post_visa_archive_invoice']);
             });
         });
 
