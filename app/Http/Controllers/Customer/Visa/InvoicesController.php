@@ -19,6 +19,11 @@ class InvoicesController extends Controller
             ->where('visa_files.active', '=', 1)
             ->where('customers.id', '=', $id)->first();
 
+        if ($baseCustomerDetails == null) {
+            $request->session()->flash('mesajDanger', 'Müşteri bilgisi bulunamadı');
+            return redirect('/musteri/sorgula');
+        }
+
         $visaFileInvoiceGradesUserType = DB::table('visa_file_grades_users_type')
             ->select(['user_type_id'])
             ->where('visa_file_grade_id', '=', env('VISA_INVOICE_SAVE_GRADES_ID'))

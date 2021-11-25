@@ -153,8 +153,8 @@
                                         <h5 class="card-title">Loglar</h5>
                                         <p>Dosya Logları</p>
                                         <button class="btn btn-primary btn-sm float-end text-white"
-                                            onclick="contentLoad('log','{{ $visaArchive->id }}')" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal" title="Göster">
+                                            onclick="contentLoad('arsiv-log','{{ $visaArchive->id }}')"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
                                             <i class="bi bi-image"></i> Göster
                                         </button>
                                     </div>
@@ -166,7 +166,7 @@
                                         <h5 class="card-title">Ödemeler</h5>
                                         <p>Ödeme detayları</p>
                                         <button class="btn btn-primary btn-sm float-end text-white"
-                                            onclick="contentLoad('odeme','{{ $visaArchive->id }}')"
+                                            onclick="contentLoad('arsiv-odeme','{{ $visaArchive->id }}')"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
                                             <i class="bi bi-image"></i> Göster
                                         </button>
@@ -179,7 +179,7 @@
                                         <h5 class="card-title">Makbuzlar</h5>
                                         <p>Makbuz detayları</p>
                                         <button class="btn btn-primary btn-sm float-end text-white"
-                                            onclick="contentLoad('makbuz','{{ $visaArchive->id }}')"
+                                            onclick="contentLoad('arsiv-makbuz','{{ $visaArchive->id }}')"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
                                             <i class="bi bi-image"></i> Göster
                                         </button>
@@ -192,7 +192,7 @@
                                         <h5 class="card-title">Faturalar</h5>
                                         <p>Fatura detayları</p>
                                         <button class="btn btn-primary btn-sm float-end text-white"
-                                            onclick="contentLoad('fatura','{{ $visaArchive->id }}')"
+                                            onclick="contentLoad('arsiv-fatura','{{ $visaArchive->id }}')"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
                                             <i class="bi bi-image"></i> Göster
                                         </button>
@@ -258,18 +258,18 @@
         }
 
         function contentLoad(ne, id) {
-            var url = "/musteri/ajax/vize/arsiv/";
-            if (ne == 'fatura') {
-                url += "fatura";
+            var url = "/musteri/ajax/vize/";
+            if (ne == 'arsiv-fatura') {
+                url += "arsiv-fatura";
                 $("#contentHead").html('Dosya Faturaları');
-            } else if (ne == 'makbuz') {
-                url += "makbuz";
+            } else if (ne == 'arsiv-makbuz') {
+                url += "arsiv-makbuz";
                 $("#contentHead").html('Dosya Makbuzları');
-            } else if (ne == 'log') {
-                url += "log";
+            } else if (ne == 'arsiv-log') {
+                url += "arsiv-log";
                 $("#contentHead").html('Dosya İşlem Geçmişi');
-            } else if (ne == 'odeme') {
-                url += "odemeler";
+            } else if (ne == 'arsiv-odeme') {
+                url += "arsiv-odeme";
                 $("#contentHead").html('Dosya Ödemeleri');
             }
             $("#contentLoad").html('İçerik alınıyor...');

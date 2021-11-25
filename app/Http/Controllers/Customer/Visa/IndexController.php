@@ -13,6 +13,11 @@ class IndexController extends Controller
     {
         $baseCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
 
+        if ($baseCustomerDetails == null) {
+            $request->session()->flash('mesajDanger', 'Müşteri bilgisi bulunamadı');
+            return redirect('/musteri/sorgula');
+        }
+
         $visaTypes = DB::table('visa_types')->get();
         $language = DB::table('language')->get();
 

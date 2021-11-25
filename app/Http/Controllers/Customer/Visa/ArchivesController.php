@@ -9,10 +9,15 @@ use Illuminate\Support\Facades\DB;
 class ArchivesController extends Controller
 {
 
-    public function index($id)
+    public function index($id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')
             ->where('id', '=', $id)->first();
+
+        if ($baseCustomerDetails == null) {
+            $request->session()->flash('mesajDanger', 'Müşteri bilgisi bulunamadı');
+            return redirect('/musteri/sorgula');
+        }
 
         $visaArchives = DB::table('visa_files')
             ->select([
