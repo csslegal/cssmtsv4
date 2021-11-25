@@ -59,20 +59,18 @@
                 </tbody>
             </table>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <form method="POST" action="alinan-odeme-onay/0">
-                    {{ method_field('DELETE') }}
+                <form method="POST" action="">
                     {{ csrf_field() }}
                     <button class="btn btn-danger text-white m-2" type="submit" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Ödemeleri iptal et">
-                        <i class="bi bi-x-lg"></i> Ödemeleri İptal Et
+                        data-bs-placement="top" title="Ödemeleri iptal et" name="reddet" value="reddet">
+                        <i class="bi bi-x-lg"></i> İptal Et
                     </button>
                 </form>
-                <form method="POST" action="alinan-odeme-onay/1">
-                    {{ method_field('PUT') }}
+                <form method="POST" action="">
                     {{ csrf_field() }}
                     <button class="btn btn-success text-white m-2" type="submit" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Ödemeleri onayla">
-                        <i class="bi bi-check-lg"></i> Ödemeleri Onayla
+                        data-bs-placement="top" title="Ödemeleri onayla" name="onayla" value="onayla">
+                        <i class="bi bi-check-lg"></i> Onayla
                     </button>
                 </form>
             </div>

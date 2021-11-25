@@ -37,8 +37,7 @@ class ReceivedPaymentsConfirmController extends Controller
                 'users.name AS user_name',
             ])
             ->leftJoin('users', 'users.id', '=', 'visa_received_payments.user_id')
-            ->where('visa_file_id', '=', $visa_file_id)
-            ->get();
+            ->where('visa_file_id', '=', $visa_file_id)->get();
 
         return view('customer.visa.grades.received-payments-confirm')->with([
             'baseCustomerDetails' => $baseCustomerDetails,
@@ -46,95 +45,55 @@ class ReceivedPaymentsConfirmController extends Controller
         ]);
     }
 
-    public function update($id, $visa_file_id, Request $request)
+    public function store($id, $visa_file_id, Request $request)
     {
-        $visaFileGradesId = DB::table('visa_files')
-            ->select(['visa_file_grades_id'])
-            ->where('id', '=', $visa_file_id)
-            ->first();
-
-        $visaFileGradesName = new VisaFileGradesName(
-            $visaFileGradesId->visa_file_grades_id
-        );
-
+        $visaFileGradesId = DB::table('visa_files')->select(['visa_file_grades_id'])->where('id', '=', $visa_file_id)->first();
+        $visaFileGradesName = new VisaFileGradesName($visaFileGradesId->visa_file_grades_id);
         $whichGrades = new VisaFileWhichGrades();
-        $nextGrades = $whichGrades->nextGrades($visa_file_id);
 
-        DB::table('visa_file_logs')->insert([
-            'visa_file_id' => $visa_file_id,
-            'user_id' => $request->session()->get('userId'),
-            'subject' => $visaFileGradesName->getName(),
-            'content' => 'Ödemeler onaylandı',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('visa_received_payments')
-            ->where('visa_file_id', '=', $visa_file_id)
-            ->update([
-                'confirm' => 1,
-                'updated_at' => date('Y-m-d H:i:s')
+        if ($request->onayla == "onayla") {
+            $nextGrades = $whichGrades->nextGrades($visa_file_id);
+            DB::table('visa_file_logs')->insert([
+                'visa_file_id' => $visa_file_id,
+                'user_id' => $request->session()->get('userId'),
+                'subject' => $visaFileGradesName->getName(),
+                'content' => 'Ödemeler onaylandı',
+                'created_at' => date('Y-m-d H:i:s'),
             ]);
+            DB::table('visa_received_payments')->where('visa_file_id', '=', $visa_file_id)->update(['confirm' => 1, 'updated_at' => date('Y-m-d H:i:s')]);
 
-        if (DB::table('visa_files')
-            ->where("id", "=", $visa_file_id)
-            ->update(['visa_file_grades_id' => $nextGrades])
-        ) {
-
-            if ($request->session()->has($visa_file_id . '_grades_id')) {
-                $request->session()->forget($visa_file_id . '_grades_id');
+            if (DB::table('visa_files')->where("id", "=", $visa_file_id)->update(['visa_file_grades_id' => $nextGrades])) {
+                if ($request->session()->has($visa_file_id . '_grades_id')) {
+                    $request->session()->forget($visa_file_id . '_grades_id');
+                }
+                $request->session()->flash('mesajSuccess', 'İşlem başarıyla yapıldı');
+                return redirect('/musteri/' . $id . '/vize/');
+            } else {
+                $request->session()->flash('mesajDanger', 'İşlem sıralasında sorun oluştu');
+                return redirect('/musteri/' . $id . '/vize/' . $visa_file_id . '/alinan-odeme-onay');
             }
-
-            $request->session()
-                ->flash('mesajSuccess', 'İşlem başarıyla yapıldı');
-
-            return redirect('/musteri/' . $id . '/vize/');
-        } else {
-            $request->session()
-                ->flash('mesajDanger', 'İşlem sıralasında sorun oluştu');
-            return redirect('/musteri/' . $id . '/vize/' . $visa_file_id . '/alinan-odeme-onay');
         }
-    }
+        if ($request->reddet == "reddet") {
+            $lastGrades = $whichGrades->lastGrades($visa_file_id);
+            DB::table('visa_file_logs')->insert([
+                'visa_file_id' => $visa_file_id,
+                'user_id' => $request->session()->get('userId'),
+                'subject' => $visaFileGradesName->getName(),
+                'content' => 'Ödeme bilgileri iptal edildi',
+                'created_at' => date('Y-m-d H:i:s'),
+            ]);
+            DB::table('visa_received_payments')->where('visa_file_id', '=', $visa_file_id)->delete();
 
-    public function destroy($id, $visa_file_id, Request $request)
-    {
-        $visaFileGradesId = DB::table('visa_files')
-            ->select(['visa_file_grades_id'])
-            ->where('id', '=', $visa_file_id)->first();
-
-        $visaFileGradesName = new VisaFileGradesName(
-            $visaFileGradesId->visa_file_grades_id
-        );
-
-        DB::table('visa_file_logs')->insert([
-            'visa_file_id' => $visa_file_id,
-            'user_id' => $request->session()->get('userId'),
-            'subject' => $visaFileGradesName->getName(),
-            'content' => 'Ödeme bilgileri iptal edildi',
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
-
-        DB::table('visa_received_payments')
-            ->where('visa_file_id', '=', $visa_file_id)->delete();
-
-        $whichGrades = new VisaFileWhichGrades();
-        $lastGrades = $whichGrades->lastGrades($visa_file_id);
-
-        if (DB::table('visa_files')
-            ->where("id", "=", $visa_file_id)
-            ->update(['visa_file_grades_id' => $lastGrades])
-        ) {
-
-            if ($request->session()->has($visa_file_id . '_grades_id')) {
-                $request->session()->forget($visa_file_id . '_grades_id');
+            if (DB::table('visa_files')->where("id", "=", $visa_file_id)->update(['visa_file_grades_id' => $lastGrades])) {
+                if ($request->session()->has($visa_file_id . '_grades_id')) {
+                    $request->session()->forget($visa_file_id . '_grades_id');
+                }
+                $request->session()->flash('mesajSuccess', 'İşlem başarıyla yapıldı');
+                return redirect('/musteri/' . $id . '/vize/');
+            } else {
+                $request->session()->flash('mesajDanger', 'İşlem sıralasında sorun oluştu');
+                return redirect('/musteri/' . $id . '/vize');
             }
-
-            $request->session()
-                ->flash('mesajSuccess', 'İşlem başarıyla yapıldı');
-            return redirect('/musteri/' . $id . '/vize/');
-        } else {
-            $request->session()
-                ->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
-            return redirect('/musteri/' . $id . '/vize');
         }
     }
 }
