@@ -39,7 +39,7 @@
                             <h5 class="card-title fw-bold">Faturalar</h5>
                             <p>Cari dosya fatura detayları;</p>
                             <a class="btn btn-danger btn-sm text-white float-end"
-                                href="vize/{{ $visaFileDetail->id }}/faturalar">İşleme Git</a>
+                                href="vize/{{ $visaFileDetail->id }}/fatura">İşleme Git</a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,6 @@
             @if (isset($visaFileDetail))
 
                 @if (!$visaFileGradesPermitted['fileCloseRequestGradeIds'] && $visaFileGradesPermitted['fileCloseRequestGrade'])
-
                     <div class="col-lg-4 col-md-6 col-sm-6 ">
                         <div class="card border-warning mb-2">
                             <div class="card-body">
@@ -61,7 +60,7 @@
                     </div>
                 @endif
 
-                <!-- <div class="col-lg-4 col-md-6 col-sm-6 ">
+                <div class="col-lg-4 col-md-6 col-sm-6 ">
                     <div class="card border-info mb-2">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">Arşive Taşı</h5>
@@ -71,7 +70,7 @@
                                 href="vize/{{ $visaFileDetail->id }}/arsive-tasima">İşleme Git</a>
                         </div>
                     </div>
-                </div>-->
+                </div>
             @endif
 
             <div class="col-lg-4 col-md-6 col-sm-6 ">
