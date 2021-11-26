@@ -164,7 +164,9 @@ class VisaController extends Controller
 
     public function get_ofis_sorumlusu(Request $request)
     {
-        return view('management.visa.users.ofis-sorumlusu');
+        return view('management.visa.users.ofis-sorumlusu')->with([
+            'visaCustomers' => [],
+        ]);
     }
 
     public function get_koordinator(Request $request)
@@ -204,8 +206,10 @@ class VisaController extends Controller
             ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
 
             ->where('visa_files.active', '=', 1)
+
             ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
             ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
+            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
             ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'))
             ->get();
 

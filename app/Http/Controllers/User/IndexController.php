@@ -229,8 +229,45 @@ class IndexController extends Controller
                 ]);
                 break;
             case 8: //ofis sorumlusu
-                return view('user.ofissorumlusu.index')->with([
-                    'userAccesses' => $userAccesses
+
+                /***ofis sorumlusu ofis ıd alma */
+                $userApplicationOfficeId = DB::table('users')
+                    ->select(['application_office_id'])
+                    ->where('id', '=', $request->session()->get('userId'))->first();
+
+                /**ofis ıd ve danısman olan kullanıcılar */
+                $arrayUserIDs = DB::table('users')
+                    ->select(['id'])
+                    ->where('application_office_id', '=', $userApplicationOfficeId->application_office_id)
+                    ->where('user_type_id', '=', 2)->get()->pluck('id')->toArray();
+
+                /***danısman aktif dosyaları */
+                $visaCustomersCount = DB::table('customers')
+                    ->select([
+                        'customers.id AS id',
+                        'customers.name AS name',
+                        'visa_files.id AS visa_file_id',
+                        'visa_files.status AS status',
+                        'visa_file_grades.name AS visa_file_grades_name',
+                        'visa_validity.name AS visa_validity_name',
+                        'visa_types.name AS visa_type_name',
+                        'visa_sub_types.name AS visa_sub_type_name',
+                        'users.name AS u_name',
+                    ])
+                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
+                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
+                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+                    ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
+
+                    ->where('visa_files.active', '=', 1)
+                    ->whereIn('visa_files.advisor_id', $arrayUserIDs)
+                    ->get()->count();
+
+                return view('user.ofis-sorumlusu.index')->with([
+                    'userAccesses' => $userAccesses,
+                    'visaCustomersCount' => $visaCustomersCount,
                 ]);
                 break;
             default:

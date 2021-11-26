@@ -7,7 +7,7 @@
                 <ol class="breadcrumb ">
                     <li class="breadcrumb-item"><a href="/kullanici">Kullanıcı İşlemleri</a></li>
                     <li class="breadcrumb-item"><a href="/kullanici/vize">Vize İşlemleri</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Ofis Sorumlusu</li>
+                    <li class="breadcrumb-item active" aria-current="page">Danışman</li>
                 </ol>
             </nav>
 

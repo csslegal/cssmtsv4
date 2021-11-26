@@ -181,7 +181,6 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('ofis-sorumlusu', [UserVisaIndexController::class, 'get_ofis_sorumlusu']);
         });
 
-
         /*** Kullanıcılar ajax işlemleri*/
         Route::group(['prefix' => 'ajax'], function () {
             Route::post('duyuru', [UserAjaxController::class, 'post_duyuru_icerik_cek']);
