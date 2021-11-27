@@ -21,11 +21,16 @@ use App\Http\Controllers\Management\VisaFileGradesController as ManagementVisaFi
 use App\Http\Controllers\Management\VisaFileGradesUsersTypeController as ManagementVisaFileGradesUsersTypeController;
 use App\Http\Controllers\Management\VisaValidityController as ManagementVisaValidityController;
 use App\Http\Controllers\Management\UrlController;
+
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\AjaxController as UserAjaxController;
 use App\Http\Controllers\User\Visa\IndexController as UserVisaIndexController;
-use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
+
 use App\Http\Controllers\Customer\IndexController as CustomerIndexController;
+use App\Http\Controllers\Customer\SearchController as CustomerSearchController;
+use App\Http\Controllers\Customer\NoteController as CustomerNoteController;
+use App\Http\Controllers\Customer\EditRequestController as CustomerEditRequestController;
+use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
 use App\Http\Controllers\Customer\Visa\IndexController as VisaIndexController;
 use App\Http\Controllers\Customer\Visa\InformationEmailController as VisaInformationEmailController;
 use App\Http\Controllers\Customer\Visa\Grades\FileOpenController as VisaFileOpenController;
@@ -150,7 +155,13 @@ Route::middleware(['sessionCheck'])->group(function () {
             });
         });
 
-        Route::get('sorgula', [CustomerIndexController::class, 'get_sorgula']);
+        Route::resource('/', CustomerIndexController::class);
+        Route::resource('search', CustomerSearchController::class);
+        Route::resource('{id}/not-ekle', CustomerNoteController::class);
+        Route::resource('{id}/duzenle-istek', CustomerEditRequestController::class);
+
+
+        /**Route::get('sorgula', [CustomerIndexController::class, 'get_sorgula']);
         Route::post('sorgula', [CustomerIndexController::class, 'post_sorgula']);
         Route::get('ekle', [CustomerIndexController::class, 'get_ekle']);
         Route::post('ekle', [CustomerIndexController::class, 'post_ekle']);
@@ -159,7 +170,7 @@ Route::middleware(['sessionCheck'])->group(function () {
         Route::post('{id}/not-ekle', [CustomerIndexController::class, 'post_not_ekle']);
         Route::get('{id}/duzenle', [CustomerIndexController::class, 'get_kayit_duzenle']);
         Route::post('{id}/duzenle', [CustomerIndexController::class, 'post_kayit_duzenle']);
-        Route::get('{id}/duzenle-istek', [CustomerIndexController::class, 'get_kayit_duzenle_istek']);
+        Route::get('{id}/duzenle-istek', [CustomerIndexController::class, 'get_kayit_duzenle_istek']);**/
     });
 
     /**Kullanıcılar yönlendirmeler*/
