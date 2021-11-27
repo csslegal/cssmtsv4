@@ -13,7 +13,7 @@
         </ol>
     </nav>
     <div class="row justify-content-md-center offset-md-2 col-md-8 mt-5">
-        <form action="/musteri/sorgula" method="POST">
+        <form action="" method="POST">
             <div class="input-group input-group-lg mt-5 mb-4">
                 <input type="text" class="form-control" name="arama" autocomplete="off"
                     value="{{ isset($arama) ? $arama : '' }}" placeholder="Kayıt sorgula" data-bs-toggle="tooltip"

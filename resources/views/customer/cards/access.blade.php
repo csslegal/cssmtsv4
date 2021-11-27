@@ -31,7 +31,7 @@
                             </span>
                         </li>
                     </ul>
-                    <a href="/musteri/{{ $temelBilgiler->id }}/vize" class="btn btn-primary float-end">Git</a>
+                    <a href="/musteri/{{ $baseCustomerDetails->id }}/vize" class="btn btn-primary float-end">Git</a>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                             Başvuru ödeme alınması bekleniyor tamamlandı <br>{{ date('Y-m-d H:i:s') }}
                         </li>
                     </ul>
-                    <a href="/musteri/{{ $temelBilgiler->id }}/harici" class="btn btn-primary float-end">Git</a>
+                    <a href="/musteri/{{ $baseCustomerDetails->id }}/harici" class="btn btn-primary float-end">Git</a>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
                             Başvuru ödeme alınması bekleniyor tamamlandı <br>{{ date('Y-m-d H:i:s') }}
                         </li>
                     </ul>
-                    <a href="/musteri/{{ $temelBilgiler->id }}/dilokulu" class="btn btn-primary float-end">Git</a>
+                    <a href="/musteri/{{ $baseCustomerDetails->id }}/dilokulu" class="btn btn-primary float-end">Git</a>
                 </div>
             </div>
         </div>

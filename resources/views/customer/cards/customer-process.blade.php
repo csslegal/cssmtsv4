@@ -7,7 +7,7 @@
                     <form action="/musteri/destroy" method="POST">
                         @csrf
                         Müşteri hesap silmek için
-                        <input type="hidden" name="id" value="{{ $temelBilgiler->id }}">
+                        <input type="hidden" name="id" value="{{ $baseCustomerDetails->id }}">
                         <button class="confirm btn btn-sm btn-danger text-white" data-title="Dikkat!"
                             data-content="Müşteri silinsin mi?">tıkla</button>
                     </form>
@@ -17,7 +17,7 @@
         <div class="col-md-6">
             <ul>
                 <li class="">Müşteri bilgileri logları için
-                    <a class="text-danger" href="/musteri/{{ $temelBilgiler->id }}/logs">tıkla</a>
+                    <a class="text-danger" href="/musteri/{{ $baseCustomerDetails->id }}/logs">tıkla</a>
                 </li>
             </ul>
         </div>

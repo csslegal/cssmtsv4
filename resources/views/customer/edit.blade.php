@@ -10,7 +10,7 @@
                 </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="/musteri/{{ $temelBilgiler->id }}">Müşteri Sayfası</a>
+                <a href="/musteri/{{ $baseCustomerDetails->id }}">Müşteri Sayfası</a>
             </li>
             <li class="breadcrumb-item active">Müşteri Düzenle</li>
         </ol>
@@ -19,13 +19,13 @@
     <div class="card card-primary">
         <div class="card-header bg-primary text-white">Müşteri Düzenle</div>
         <div class="card-body">
-            <form method="post" action="/musteri/{{ $temelBilgiler->id }}/duzenle">
+            <form method="post" action="/musteri/{{ $baseCustomerDetails->id }}/duzenle">
                 <div class="border border-1 p-2 mb-3">
                     <div class="mb-3">
                         <label for="name" class="form-label">Müşteri Adı</label>
 
                         <input class="form-control" name="name" autocomplete="off" type="text"
-                            value="{{ $temelBilgiler != '' ? $temelBilgiler->name : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
+                            value="{{ $baseCustomerDetails != '' ? $baseCustomerDetails->name : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
                         @if ($guncellemeIstegi != '')
                             @if ($guncellemeIstegi->onay == 0)
                                 readonly @endif
@@ -40,7 +40,7 @@
                     <div class="mb-3">
                         <label for="telefon" class="form-label">Müşteri Telefon</label>
                         <input class="form-control" name="telefon" autocomplete="off" type="text"
-                            value="{{ $temelBilgiler->telefon != '' ? $temelBilgiler->telefon : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
+                            value="{{ $baseCustomerDetails->telefon != '' ? $baseCustomerDetails->telefon : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
                         @if ($guncellemeIstegi != '')
                             @if ($guncellemeIstegi->onay == 0) readonly @endif
                         @else readonly @endif
@@ -52,7 +52,7 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Müşteri E-mail</label>
                         <input class="form-control" name="email" autocomplete="off" type="text"
-                            value="{{ $temelBilgiler->email != '' ? $temelBilgiler->email : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
+                            value="{{ $baseCustomerDetails->email != '' ? $baseCustomerDetails->email : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
                         @if ($guncellemeIstegi != '')
                             @if ($guncellemeIstegi->onay == 0) readonly @endif
                         @else readonly @endif
@@ -63,7 +63,7 @@
                     </div>
                     @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
                         @if ($guncellemeIstegiSayisi == 0)
-                            <div class="mb-1"> <a href="/musteri/{{ $temelBilgiler->id }}/duzenle-istek"
+                            <div class="mb-1"> <a href="/musteri/{{ $baseCustomerDetails->id }}/duzenle-istek"
                                     class="text-danger">Güncelleme İsteği Gönder</a>
                             </div>
                         @endif
@@ -72,7 +72,7 @@
                 <div class="mb-3">
                     <label for="adres" class="form-label">Müşteri Adresi</label>
                     <input autocomplete="off" type="text" class="form-control" name="adres"
-                        value="{{ $temelBilgiler->adres != '' ? $temelBilgiler->adres : old('adres') }}">
+                        value="{{ $baseCustomerDetails->adres != '' ? $baseCustomerDetails->adres : old('adres') }}">
                     @error('adres')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -80,7 +80,7 @@
                 <div class="mb-3">
                     <label for="adres" class="form-label">Müşteri T.C. Numarası</label>
                     <input type="text" class="form-control" name="tcno"
-                        value="{{ $temelBilgiler->tcno != '' ? $temelBilgiler->tcno : old('tcno') }}">
+                        value="{{ $baseCustomerDetails->tcno != '' ? $baseCustomerDetails->tcno : old('tcno') }}">
                     @error('tcno')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -90,7 +90,7 @@
                     <select class="form-select" name="basvuru_ofis">
                         <option value="">Lütfen başvuru ofisini seçin</option>
                         @foreach ($basvuruOfisleri as $basvuruOfisi)
-                            <option {{ $temelBilgiler->application_office_id == $basvuruOfisi->id ? 'selected' : '' }}
+                            <option {{ $baseCustomerDetails->application_office_id == $basvuruOfisi->id ? 'selected' : '' }}
                                 value="{{ $basvuruOfisi->id }}">{{ $basvuruOfisi->name }}
                             </option>
                         @endforeach
@@ -101,7 +101,7 @@
                     <select class="form-select" name="randevu_ofis">
                         <option value="">Randevu ofisini seçiniz</option>
                         @foreach ($randevuOfisleri as $randevuOfisi)
-                            <option {{ $temelBilgiler->appointment_office_id == $randevuOfisi->id ? 'selected' : '' }}
+                            <option {{ $baseCustomerDetails->appointment_office_id == $randevuOfisi->id ? 'selected' : '' }}
                                 value="{{ $randevuOfisi->id }}">{{ $randevuOfisi->name }}
                             </option>
                         @endforeach
@@ -111,19 +111,19 @@
                     <label for="adres" class="form-label">Pasaport Numarası</label>
                     <input type="text" name="pasaport" placeholder="Müşteri güncel pasaport numarası" class="form-control"
                         autocomplete="off"
-                        value="{{ $temelBilgiler->pasaport != '' ? $temelBilgiler->pasaport : old('pasaport') }}">
+                        value="{{ $baseCustomerDetails->pasaport != '' ? $baseCustomerDetails->pasaport : old('pasaport') }}">
                 </div>
                 <div class="mb-3">
                     <label for="adres" class="form-label ">Pasaport Tarihi</label>
                     <input type="date" class="form-control " name="pasaport_tarihi" autocomplete="off"
                         placeholder="Müşteri güncel pasport tarihi" min="{{ date('Y-m-d') }}" date-format="YYYY MM DD"
-                        value="{{ $temelBilgiler->pasaport_tarihi != '' ? $temelBilgiler->pasaport_tarihi : old('pasaport_tarihi') }}">
+                        value="{{ $baseCustomerDetails->pasaport_tarihi != '' ? $baseCustomerDetails->pasaport_tarihi : old('pasaport_tarihi') }}">
                 </div>
 
                 <div class="mb-3">
                     <label for="">E-mail gönderilsin mi?</label>&nbsp;
                     <input name="bilgilendirme" type="checkbox"
-                        {{ $temelBilgiler->bilgilendirme_onayi == 1 ? 'checked' : '' }} />
+                        {{ $baseCustomerDetails->bilgilendirme_onayi == 1 ? 'checked' : '' }} />
                 </div>
                 <!-- {{ csrf_field() }} -->
 
