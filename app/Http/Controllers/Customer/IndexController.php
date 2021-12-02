@@ -13,8 +13,10 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->session()->flash('mesajDanger', 'Hatalı istek yapıldı');
+        return redirect('/musteri/sorgula');
     }
 
     /**

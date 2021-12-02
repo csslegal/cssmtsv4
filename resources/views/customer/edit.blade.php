@@ -19,7 +19,8 @@
     <div class="card card-primary">
         <div class="card-header bg-primary text-white">Müşteri Düzenle</div>
         <div class="card-body">
-            <form method="post" action="/musteri/{{ $baseCustomerDetails->id }}/duzenle">
+            <form method="post" action="/musteri/{{ $baseCustomerDetails->id }}">
+                @method('PUT')
                 <div class="border border-1 p-2 mb-3">
                     <div class="mb-3">
                         <label for="name" class="form-label">Müşteri Adı</label>
@@ -40,7 +41,8 @@
                     <div class="mb-3">
                         <label for="telefon" class="form-label">Müşteri Telefon</label>
                         <input class="form-control" name="telefon" autocomplete="off" type="text"
-                            value="{{ $baseCustomerDetails->telefon != '' ? $baseCustomerDetails->telefon : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
+                            value="{{ $baseCustomerDetails->telefon != '' ? $baseCustomerDetails->telefon : '' }}"
+                            @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
                         @if ($guncellemeIstegi != '')
                             @if ($guncellemeIstegi->onay == 0) readonly @endif
                         @else readonly @endif
@@ -52,7 +54,8 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Müşteri E-mail</label>
                         <input class="form-control" name="email" autocomplete="off" type="text"
-                            value="{{ $baseCustomerDetails->email != '' ? $baseCustomerDetails->email : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
+                            value="{{ $baseCustomerDetails->email != '' ? $baseCustomerDetails->email : '' }}"
+                            @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
                         @if ($guncellemeIstegi != '')
                             @if ($guncellemeIstegi->onay == 0) readonly @endif
                         @else readonly @endif
@@ -90,7 +93,8 @@
                     <select class="form-select" name="basvuru_ofis">
                         <option value="">Lütfen başvuru ofisini seçin</option>
                         @foreach ($basvuruOfisleri as $basvuruOfisi)
-                            <option {{ $baseCustomerDetails->application_office_id == $basvuruOfisi->id ? 'selected' : '' }}
+                            <option
+                                {{ $baseCustomerDetails->application_office_id == $basvuruOfisi->id ? 'selected' : '' }}
                                 value="{{ $basvuruOfisi->id }}">{{ $basvuruOfisi->name }}
                             </option>
                         @endforeach
@@ -101,7 +105,8 @@
                     <select class="form-select" name="randevu_ofis">
                         <option value="">Randevu ofisini seçiniz</option>
                         @foreach ($randevuOfisleri as $randevuOfisi)
-                            <option {{ $baseCustomerDetails->appointment_office_id == $randevuOfisi->id ? 'selected' : '' }}
+                            <option
+                                {{ $baseCustomerDetails->appointment_office_id == $randevuOfisi->id ? 'selected' : '' }}
                                 value="{{ $randevuOfisi->id }}">{{ $randevuOfisi->name }}
                             </option>
                         @endforeach

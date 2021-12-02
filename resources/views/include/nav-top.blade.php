@@ -48,7 +48,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->is('musteri/sorgula') || request()->is('musteri/ekle') ? 'active text-white' : '' }}"
+                    <a class="nav-link dropdown-toggle {{ request()->is('musteri/sorgula') || request()->is('musteri/create') ? 'active text-white' : '' }}"
                         href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="bi bi-people-fill"></i>&nbspMüşteri
                         İşlemleri</a>
@@ -58,8 +58,8 @@
                                 href="/musteri/sorgula"><i class="bi bi-search"></i>&nbspMüşteri Sorgula</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->is('musteri/ekle') ? 'active text-white' : '' }}"
-                                href="/musteri/ekle"><i class="bi bi-person-plus-fill"></i>&nbspMüşteri Kayıt</a>
+                            <a class="dropdown-item {{ request()->is('musteri/create') ? 'active text-white' : '' }}"
+                                href="/musteri/create"><i class="bi bi-person-plus-fill"></i>&nbspMüşteri Kayıt</a>
                         </li>
                     </ul>
                 </li>

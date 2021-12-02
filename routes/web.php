@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\General\LoginController as GeneralLoginController;
 use App\Http\Controllers\Management\IndexController as ManagementIndexController;
 use App\Http\Controllers\Management\NoticeController as ManagementNoticeController;
@@ -79,7 +80,13 @@ Route::middleware(['sessionCheck'])->group(function () {
     Route::get('/cikis', [GeneralLoginController::class, "get_cikis"]);
 
     /**Musteri yönlendirmeler*/
+    Route::resource('musteri/sorgula', CustomerSearchController::class);
+    Route::resource('musteri', CustomerIndexController::class);
+
     Route::group(['prefix' => 'musteri'], function () {
+
+        Route::resource('{id}/not-ekle', CustomerNoteController::class);
+        Route::resource('{id}/duzenle-istek', CustomerEditRequestController::class);
 
         /**Vize işlemleri*/
         Route::group(['prefix' => '{id}/vize'], function () {
@@ -154,12 +161,6 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::post('arsiv-fatura', [CustomerAjaxController::class, 'post_visa_archive_invoice']);
             });
         });
-
-        Route::resource('/', CustomerIndexController::class);
-        Route::resource('search', CustomerSearchController::class);
-        Route::resource('{id}/not-ekle', CustomerNoteController::class);
-        Route::resource('{id}/duzenle-istek', CustomerEditRequestController::class);
-
 
         /**Route::get('sorgula', [CustomerIndexController::class, 'get_sorgula']);
         Route::post('sorgula', [CustomerIndexController::class, 'post_sorgula']);

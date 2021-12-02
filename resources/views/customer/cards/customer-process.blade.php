@@ -4,7 +4,8 @@
         <div class="col-md-6">
             <ul>
                 <li class="">
-                    <form action="/musteri/destroy" method="POST">
+                    <form action="" method="POST">
+                        @method('DELETE')
                         @csrf
                         Müşteri hesap silmek için
                         <input type="hidden" name="id" value="{{ $baseCustomerDetails->id }}">

@@ -63,7 +63,7 @@ class SearchController extends Controller
                 ]);
             } else {
                 $request->session()
-                    ->flash('mesajDanger', 'Farklı bilgiyle tekrar deneyiniz veya <a class="text-white" href="/musteri/ekle">bu linkten</a> yeni müşteri kaydı yapınız!');
+                    ->flash('mesajDanger', 'Farklı bilgiyle tekrar deneyiniz veya <a class="text-white" href="/musteri/create">bu linkten</a> yeni müşteri kaydı yapınız!');
                 return view('customer.search')->with(['arama' => $arama]);
             }
         } else {

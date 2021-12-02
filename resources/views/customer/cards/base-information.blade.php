@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="gap-2">
-                <a href="/musteri/{{ $baseCustomerDetails->id }}/duzenle"
+                <a href="/musteri/{{ $baseCustomerDetails->id }}/edit"
                     class="btn btn-danger btn-sm text-white">Düzenle</a>
             </div>
         </div>

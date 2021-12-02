@@ -4,7 +4,7 @@
     <ul>
         <li>Profil sayfasına gitmek için <a class="fw-bold" href="/kullanici/profil">tıkla</a></li>
         <li>Duyuru sayfasına gitmek için <a class="fw-bold" href="/kullanici/duyuru">tıkla</a></li>
-        <li>Müşteri ekleme sayfasına gitmek için <a class="fw-bold" href="/musteri/ekle">tıkla</a></li>
+        <li>Müşteri ekleme sayfasına gitmek için <a class="fw-bold" href="/musteri/create">tıkla</a></li>
         <li>Müşteri sorgulama sayfasına gitmek için <a class="fw-bold" href="/musteri/sorgula">tıkla</a></li>
     </ul>
     <hr>

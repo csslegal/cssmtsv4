@@ -25,8 +25,8 @@
                 <i class="bi bi-search"></i>&nbspMüşteri Sorgula</a>
         </li>
         <li class="nav-item pt-1 ">
-            <a class="nav-link {{ request()->is('musteri/ekle') ? 'active bg-primary text-white' : '' }}"
-                href="/musteri/ekle">
+            <a class="nav-link {{ request()->is('musteri/create') ? 'active bg-primary text-white' : '' }}"
+                href="/musteri/create">
                 <i class="bi bi-person-plus-fill"></i>&nbspMüşteri Kayıt</a>
         </li>
         @if (session('userTypeId') == 1)
