@@ -16,6 +16,7 @@ class CreateVisaFileGradesTable extends Migration
         Schema::create('visa_file_grades', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->integer('active')->default(1);
             $table->string('url')->nullable();
             $table->integer('orderby')->nullable();
             $table->timestamps();

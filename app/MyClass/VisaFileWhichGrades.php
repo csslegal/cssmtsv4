@@ -19,6 +19,7 @@ class VisaFileWhichGrades
         $lastVisaFileGrades = DB::table('visa_file_grades')
             ->select("id")
             ->where('orderby', '<', $visaFileGradesDetail->orderby)
+            ->where('active', '=', 1)
             ->orderBy('orderby', 'DESC')
             ->limit(1)
             ->get();
@@ -37,6 +38,7 @@ class VisaFileWhichGrades
         $lastVisaFileGrades = DB::table('visa_file_grades')
             ->select("id")
             ->where('orderby', '>', $visaFileGradesDetail->orderby)
+            ->where('active', '=', 1)
             ->orderBy('orderby', 'ASC')
             ->limit(1)
             ->get();
