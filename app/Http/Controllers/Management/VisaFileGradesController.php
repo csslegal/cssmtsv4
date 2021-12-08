@@ -16,13 +16,10 @@ class VisaFileGradesController extends Controller
      */
     public function index()
     {
-        $kayitlar = DB::table('visa_file_grades')
-            ->get();
+        $kayitlar = DB::table('visa_file_grades')->get();
 
         return view('management.visa.file-grades.index')
-            ->with(
-                ['kayitlar' => $kayitlar]
-            );
+            ->with(['kayitlar' => $kayitlar]);
     }
 
     /**
@@ -61,9 +58,7 @@ class VisaFileGradesController extends Controller
         )) {
             DB::table('visa_file_grades')
                 ->where('id', '=', $kayitId)
-                ->update([
-                    'orderby' => $kayitId
-                ]);
+                ->update(['orderby' => $kayitId]);
             if ($env != "") {
                 $envSet = new EnvSettings();
                 $envSet->setEnvironmentValue($env, $kayitId);
@@ -97,15 +92,8 @@ class VisaFileGradesController extends Controller
      */
     public function edit($id)
     {
-        $kayit = DB::table('visa_file_grades')
-            ->where('id', '=', $id)
-            ->first();
-        return view('management.visa.file-grades.edit')
-            ->with(
-                [
-                    'kayit' => $kayit
-                ]
-            );
+        $kayit = DB::table('visa_file_grades')->where('id', '=', $id)->first();
+        return view('management.visa.file-grades.edit')->with(['kayit' => $kayit]);
     }
 
     /**
@@ -118,30 +106,26 @@ class VisaFileGradesController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:100|min:3'
+            'name' => 'required|max:100|min:3',
+            'aktif' => 'required',
         ]);
 
         if (is_numeric($id)) {
-            if (
-                DB::table('visa_file_grades')
-                ->where('id', '=', $id)
-                ->update(
-                    [
-                        'name' => $request->input('name'),
-                        "updated_at" => date('Y-m-d H:i:s')
-                    ]
-                )
+            if (DB::table('visa_file_grades')->where('id', '=', $id)
+                ->update([
+                    'name' => $request->input('name'),
+                    'active' => $request->input('aktif'),
+                    "updated_at" => date('Y-m-d H:i:s')
+                ])
             ) {
                 if ($request->input('env') != "") {
                     $envSet = new EnvSettings();
                     $envSet->setEnvironmentValue($request->input('env'), $id);
                 }
-                $request->session()
-                    ->flash('mesajSuccess', 'Başarıyla güncellendi');
+                $request->session()->flash('mesajSuccess', 'Başarıyla güncellendi');
                 return redirect('yonetim/vize/dosya-asama');
             } else {
-                $request->session()
-                    ->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
+                $request->session()->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
                 return redirect('yonetim/vize/dosya-asama');
             }
         } else {

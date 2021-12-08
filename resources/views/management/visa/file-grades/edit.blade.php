@@ -26,7 +26,19 @@
                             <label class="form-label">Url</label>
                             <input type="text" value="@isset($kayit){!! $kayit->url !!}@endisset" name="url"
                                     class="form-control">
-                                @error('url')<div class="alert alert-danger">{{ $message }}</div>@enderror
+                                @error('url')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Durumu</label>
+                                <select name="aktif" class="form-control">
+                                    <option @if ($kayit->active == 1) selected @endif value="1">Aktif</option>
+                                    <option @if ($kayit->active == 0) selected @endif value="0">Pasif</option>
+                                </select>
+                                @error('aktif')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Env Bağlantısı</label>

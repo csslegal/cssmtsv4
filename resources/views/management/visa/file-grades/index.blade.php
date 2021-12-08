@@ -18,6 +18,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Durumu</th>
                         <th>Adı</th>
                         <th>Url</th>
                         <th>E. Tarih</th>
@@ -30,6 +31,7 @@
                     @foreach ($kayitlar as $kayit)
                         <tr>
                             <td>{{ $kayit->orderby }}</td>
+                            <td>{{ $kayit->active == 1 ? 'Aktif' : 'Pasif' }}</td>
                             <td>{{ $kayit->name }}</td>
                             <td>{{ $kayit->url }}</td>
                             <td>{{ $kayit->created_at }}</td>
@@ -71,7 +73,7 @@
 @endsection
 @section('js')
     <script>
-        function sorting(id,status,table) {
+        function sorting(id, status, table) {
             $.ajax({
                 type: 'POST',
                 url: "/yonetim/ajax/sirala",
