@@ -12,73 +12,57 @@ class LoginController extends Controller
 {
     public function store(Request $request)
     {
-        //IP kontrolu yapılıyor
-        if (
-            DB::table('application_offices')
-            ->where('ip', '=', $request->ip())
-            ->get()
-            ->count() > 0
-        ) {
+        $inputKontrol = new MyClassInputKontrol();
 
-            //her ihtimale harşı güvenlik kontrolu
-            $inputKontrol = new MyClassInputKontrol();
+        //her ihtimale harşı güvenlik kontrolu
+        $email =  $inputKontrol->kontrol($request->input('email'));
+        $password = base64_encode($inputKontrol->kontrol($request->input('password')));
 
-            $email =  $inputKontrol->kontrol($request->input('email'));
-            $password = base64_encode($inputKontrol->kontrol($request->input('password')));
+        /**** Yetkisiz ofis dışında giris kontrolu */
+        $unlimitedControlCount = DB::table('users')
+            ->where('email', '=', $email)
+            ->where('unlimited', '=', 1)
+            ->where('active', '=', 1)
+            ->get()->count();
 
-
+        if (DB::table('application_offices')->where('ip', '=', $request->ip())->get()->count() > 0 || $unlimitedControlCount > 0) {
             $request->validate([
                 'email' => 'required|max:255|email',
                 'password' => 'required|min:8',
             ]);
 
-            $emailVarmi = DB::table('users')
-                ->where('email', '=', $email)
-                ->where('active', '=', 1)
-                ->get();
+            $emailControl = DB::table('users')->where('email', '=', $email)->where('active', '=', 1)->get();
+            if ($emailControl->count() > 0) {
 
-            if ($emailVarmi->count() > 0) {
+                $passwordControl = $emailControl->where('password', '=', $password);
+                if ($passwordControl->count() > 0) {
 
-                $sifreDogruMu = $emailVarmi->where('password', '=', $password);
-
-                if ($sifreDogruMu->count() > 0) {
-
-                    $users = $sifreDogruMu->first();
-
-                    //Mesai saati kontrolu
-                    $mesaiKontrolu = new MesaiKontrol($users->id);
-
-                    if ($mesaiKontrolu->kontrol() == 1) {
+                    $users = $passwordControl->first();
+                    $mesaiControl = new MesaiKontrol($users->id);
+                    if ($mesaiControl->kontrol() == 1 || $unlimitedControlCount > 0) {
 
                         $request->session()->put('session', time() + (config('app.oturumSuresi') * 60));
                         $request->session()->put('userId', $users->id);
                         $request->session()->put('userTypeId', $users->user_type_id);
                         $request->session()->put('userName', $users->name);
-
                         if ($users->user_type_id == 1) {
-                            //Admin sayfası
                             return redirect('/yonetim');
                         } else {
-                            //Admin harici herkes
                             return redirect('/kullanici');
                         }
-                    } elseif (($mesaiKontrolu->kontrol()) == 2) {
-                        $request->session()
-                            ->flash('mesaj', 'Mesai saatleriniz sistemde kaydı bulunamadı');
+                    } elseif ($mesaiControl->kontrol() == 2) {
+                        $request->session()->flash('mesaj', 'Mesai saatleriniz sistemde kaydı değil');
                         return view('general.login');
                     } else {
-                        $request->session()
-                            ->flash('mesaj', 'Mesai saatleri dışında giriş yapılamaz');
+                        $request->session()->flash('mesaj', 'Mesai saatleri içinde veya özel yetkiye sahip giriş yapabilir');
                         return view('general.login');
                     }
                 } else {
-                    $request->session()
-                        ->flash('mesaj', 'Şifre hatalı girildi');
+                    $request->session()->flash('mesaj', 'Şifre hatalı girildi');
                     return view('general.login');
                 }
             } else {
-                $request->session()
-                    ->flash('mesaj', 'Böyle bir kullanıcı bulunamadı');
+                $request->session()->flash('mesaj', 'Böyle bir kullanıcı bulunamadı');
                 return view('general.login');
             }
         } else {
@@ -93,22 +77,13 @@ class LoginController extends Controller
         if ($request->session()->has('session')) {
 
             if ($request->session()->get('userTypeId') == 1) {
-                //Admin sayfası
                 return redirect('/yonetim');
-            } elseif (
-                DB::table('users_type')
-                ->where('id', '=', $request->session()->get('userTypeId'))
-                ->get()
-                ->count() > 0
-            ) {
-                //Admin harici herkes
+            } elseif (DB::table('users_type')->where('id', '=', $request->session()->get('userTypeId'))->get()->count() > 0) {
                 return redirect('/kullanici');
             } else {
-                //farklı type ise hatalı istek
                 return view('general.401');
             }
         } else {
-            //Oturum yok ise giriş sayfasına yönlendirilecek
             return redirect('giris');
         }
     }

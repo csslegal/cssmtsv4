@@ -99,10 +99,20 @@
                         <label class="form-label">Hesap Durumu</label>
                         <select name="durum" class="form-control">
                             <option value="">Seçim Yapınız</option>
-                                <option {{ $kayit->active == 1 ? 'selected' : '' }} value="1">Normal Hesap</option>
-                                <option {{ $kayit->active == 0 ? 'selected' : '' }} value="0">Pasif Hesap</option>
+                            <option {{ $kayit->active == 1 ? 'selected' : '' }} value="1">Normal Hesap</option>
+                            <option {{ $kayit->active == 0 ? 'selected' : '' }} value="0">Pasif Hesap</option>
                         </select>
                         @error('durum')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label">Giriş Durumu</label>
+                        <select name="kisitli" class="form-control">
+                            <option @if ($kayit->unlimited == 1) selected @endif value="1">Kısıtlamasız</option>
+                            <option @if ($kayit->unlimited == 0) selected @endif value="0">Kısıtlamalı</option>
+                        </select>
+                        @error('kisitli')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
