@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <meta name="robots" content="noimageindex, nofollow, nosnippet">
+    <meta name="robots" content="noindex, noimageindex, nofollow, nosnippet">
 
     <title>404 | Not Found | Sayfa bulunamadı</title>
 

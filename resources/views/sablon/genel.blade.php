@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noimageindex, nofollow, nosnippet">
+    <meta name="robots" content="noindex, noimageindex, nofollow, nosnippet">
 
     <title>Kullanıcı Oturum @yield('title')</title>
     <!-- Styles -->
