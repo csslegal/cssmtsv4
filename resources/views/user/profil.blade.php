@@ -11,32 +11,30 @@
     <div class="card card-primary">
         <div class="card-header bg-primary text-white fw-bold">Profilim</div>
         <div class="card-body">
-
-            <div class="row p-2 mb-3">
-                <div class="col-md-6">
-                    <span class="fw-bold text-primary">Bilgilerim</span>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
                     <ul>
-                        <li> Adınız:
+                        <li>Adınız:
                             <span class="fw-bold text-danger"> {{ $kullaniciBilgileri->u_name }} </span>
                         </li>
-                        <li> E-mail Adresiniz:
+                        <li>E-mail Adresiniz:
                             <span class="fw-bold text-danger"> {{ $kullaniciBilgileri->u_email }} </span>
                         </li>
-                        <li> Çalışma Ofisi:
+                        <li>Çalışma Ofisi:
                             <span class="fw-bold text-danger"> {{ $kullaniciBilgileri->bo_name }} </span>
                         </li>
                         <li>
                             <span class="fw-bold">Yetki Seviyesi:</span>
                             <span class="fw-bold text-danger"> {{ $kullaniciBilgileri->ut_name }} </span>
                         </li>
-                        <li> Mesai Saatleri:
+                        <li>Mesai Saatleri:
                             <span class="fw-bold text-danger">
                                 {{ $kullaniciBilgileri->giris }} - {{ $kullaniciBilgileri->cikis }}
                             </span>
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12">
                     <span class="fw-bold text-primary">Sistem Erişim İzinleri</span>
                     <ul>
                         @if (count($erisimIzinleri) > 0)
@@ -49,9 +47,12 @@
                     </ul>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <h3>Şifre Güncelle</h3>
-
+    <div class="card card-primary">
+        <div class="card-header bg-primary text-white fw-bold">Şifre Güncelleme</div>
+        <div class="card-body">
             <form method="POST" action="/kullanici/profil">
                 @csrf
                 <div class="row g-3">

@@ -4,32 +4,27 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Profil</li>
+            <li class="breadcrumb-item active" aria-current="page">Profilim</li>
         </ol>
     </nav>
 
     <div class="card card-primary">
-        <div class="card-header bg-primary text-white">Profilim</div>
+        <div class="card-header bg-primary text-white fw-bold">Profilim</div>
         <div class="card-body">
-
-            <h2>Bilgilerim</h2>
-            <div class="row p-4 mb-5 bg-light ">
+            <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <ul>
-                        <li>
-                            Adınız:
+                        <li>Adınız:
                             <span class="fw-bold text-danger">
                                 {{ $yonetimBilgileri->name }}
                             </span>
                         </li>
-                        <li>
-                            E-mail Adresiniz:
+                        <li>E-mail Adresiniz:
                             <span class="fw-bold text-danger">
                                 {{ $yonetimBilgileri->email }}
                             </span>
                         </li>
-                        <li>
-                            Çalışma Ofisi:
+                        <li>Çalışma Ofisi:
                             <span class="fw-bold text-danger">
                                 {{ $yonetimBilgileri->bo_name }}
                             </span>
@@ -40,8 +35,7 @@
                                 {{ $yonetimBilgileri->ut_name }}
                             </span>
                         </li>
-                        <li>
-                            Mesai Saatleri:
+                        <li>Mesai Saatleri:
                             <span class="fw-bold text-danger">
                                 {{ $yonetimBilgileri->giris }} -
                                 {{ $yonetimBilgileri->cikis }}
@@ -50,7 +44,7 @@
                     </ul>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <span class="fw-bold text-primary">Erişim İzinleri</span>
+                    <span class="fw-bold text-primary">Sistem Erişim İzinleri</span>
                     <ol>
                         @if (count($erisimIzinleri) > 0)
                             @foreach ($erisimIzinleri as $erisimIzin)
@@ -62,12 +56,12 @@
                     </ol>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <hr class="my-4">
-
-            <h2>Güncelle</h2>
-
-
+    <div class="card card-primary">
+        <div class="card-header bg-primary text-white fw-bold">Şifre Güncelleme</div>
+        <div class="card-body">
             <form method="POST" action="/yonetim/profil">
                 @csrf
                 <div class="row g-3">
