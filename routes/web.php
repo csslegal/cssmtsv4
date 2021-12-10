@@ -31,6 +31,7 @@ use App\Http\Controllers\Customer\IndexController as CustomerIndexController;
 use App\Http\Controllers\Customer\SearchController as CustomerSearchController;
 use App\Http\Controllers\Customer\NoteController as CustomerNoteController;
 use App\Http\Controllers\Customer\EditRequestController as CustomerEditRequestController;
+use App\Http\Controllers\Customer\LogsController as CustomerLogsController;
 use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
 use App\Http\Controllers\Customer\Visa\IndexController as VisaIndexController;
 use App\Http\Controllers\Customer\Visa\InformationEmailController as VisaInformationEmailController;
@@ -87,6 +88,7 @@ Route::middleware(['sessionCheck'])->group(function () {
 
         Route::resource('{id}/not-ekle', CustomerNoteController::class);
         Route::resource('{id}/duzenle-istek', CustomerEditRequestController::class);
+        Route::resource('{id}/logs', CustomerLogsController::class);
 
         /**Vize işlemleri*/
         Route::group(['prefix' => '{id}/vize'], function () {
