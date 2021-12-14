@@ -81,7 +81,7 @@
                 if (document.layers) { //NS4
                     setTimeout("document.preloader.visibility = 'hidden'", 1000);
                 } else { //IE4
-                    setTimeout("document.all.preloader.style.display='none'", 1000);
+                    setTimeout("document.all.preloader.style.display = 'none'", 1000);
                 }
             }
         }

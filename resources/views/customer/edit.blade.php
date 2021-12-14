@@ -25,11 +25,12 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Müşteri Adı</label>
 
-                        <input class="form-control" name="name" autocomplete="off" type="text"
+                        <input class="form-control" name="name" id="name" autocomplete="off" type="text"
                             value="{{ $baseCustomerDetails != '' ? $baseCustomerDetails->name : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
                         @if ($guncellemeIstegi != '')
                             @if ($guncellemeIstegi->onay == 0)
-                                readonly @endif
+                                readonly
+                            @endif
                         @else
                             readonly
                         @endif
@@ -120,18 +121,16 @@
                 </div>
                 <div class="mb-3">
                     <label for="adres" class="form-label ">Pasaport Tarihi</label>
-                    <input type="date" class="form-control " name="pasaport_tarihi" autocomplete="off"
-                        placeholder="Müşteri güncel pasport tarihi" min="{{ date('Y-m-d') }}" date-format="YYYY MM DD"
+                    <input type="text" class="form-control datepicker" name="pasaport_tarihi" autocomplete="off"
+                        placeholder="Müşteri güncel pasport tarihi"
                         value="{{ $baseCustomerDetails->pasaport_tarihi != '' ? $baseCustomerDetails->pasaport_tarihi : old('pasaport_tarihi') }}">
                 </div>
 
                 <div class="mb-3">
                     <label for="">E-mail gönderilsin mi?</label>&nbsp;
-                    <input name="bilgilendirme" type="checkbox"
+                    <input name="email-onay" type="checkbox"
                         {{ $baseCustomerDetails->bilgilendirme_onayi == 1 ? 'checked' : '' }} />
                 </div>
-                <!-- {{ csrf_field() }} -->
-
                 @csrf
                 <button class="w-100 mt-3 btn btn-danger text-white " type="submit">Kaydet</button>
             </form>
