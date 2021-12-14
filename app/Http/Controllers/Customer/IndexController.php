@@ -8,22 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         $request->session()->flash('mesajDanger', 'Hatalı istek yapıldı');
         return redirect('/musteri/sorgula');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $randevuOfisleri = DB::table('appointment_offices')->get();
@@ -35,12 +26,6 @@ class IndexController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $pasaport = null;
@@ -100,14 +85,14 @@ class IndexController extends Controller
                 ])
             ) {
                 if ($not != "") {
-                    $customerNotId = DB::table('customer_notes')
+                    $customerNoteId = DB::table('customer_notes')
                         ->insertGetId([
                             'user_id' => $user_id,
                             'customer_id' => $customer_id,
                             'content' => $not,
                             'created_at' => date('Y-m-d H:i:s'),
                         ]);
-                    DB::table('customer_notes')->where(['id' => $customerNotId])->update(['orderby' => $customerNotId]);
+                    DB::table('customer_notes')->where(['id' => $customerNoteId])->update(['orderby' => $customerNoteId]);
                 }
                 $request->session()->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
                 return redirect('/musteri/sorgula');
@@ -121,12 +106,6 @@ class IndexController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id, Request $request)
     {
 
@@ -155,15 +134,15 @@ class IndexController extends Controller
                 ->where('user_id', '=', $request->session()->get('userId'))
                 ->pluck('access.id')->toArray();
 
-            $customerNotlari = DB::table('customer_notes as mn')
+            $customerNotes = DB::table('customer_notes')
                 ->select([
-                    "u.name AS u_name",
-                    "mn.id AS mn_id",
-                    "mn.created_at AS mn_created_at",
-                    "mn.content AS mn_content"
+                    "users.name AS u_name",
+                    "customer_notes.id",
+                    "customer_notes.created_at",
+                    "customer_notes.content"
                 ])
-                ->join("users AS u", "u.id", "=", "mn.user_id")
-                ->where("mn.customer_id", "=", $id)->get();
+                ->join("users", "users.id", "=", "customer_notes.user_id")
+                ->where("customer_notes.customer_id", "=", $id)->get();
 
             $customerEmailLogs = DB::table('email_logs')
                 ->select([
@@ -194,7 +173,7 @@ class IndexController extends Controller
 
             return view('customer.index')->with([
                 'baseCustomerDetails' => $baseCustomerDetails,
-                'customerNotlari' => $customerNotlari,
+                'customerNotes' => $customerNotes,
                 'userAccesses' => $userAccesses,
                 'customerEmailLogs' => $customerEmailLogs,
                 'visaFileGradesDescLog' => $visaFileGradesDescLog,
@@ -205,19 +184,12 @@ class IndexController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
 
         $randevuOfisleri = DB::table('appointment_offices')->get();
         $basvuruOfisleri = DB::table('application_offices')->get();
-
 
         $guncellemeIstegi = DB::table('customer_update')->where('customer_id', '=', $id)
             ->where('user_id', '=', $request->session()->get('userId'))->first();
@@ -239,71 +211,159 @@ class IndexController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $validatorStringArray = array();
         $updateArray = array();
+        $logsArray = array();
 
-        /**NAME */
+        $currentCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
+
         $validatorStringArray = array_merge($validatorStringArray, array('name' => 'required|string|min:3',));
-        $updateArray = array_merge($updateArray, array('name' => mb_convert_case(mb_strtolower($request->get('name')), MB_CASE_TITLE, "UTF-8")));
-        /***END NAME */
-
-        /**TELEFON */
         $validatorStringArray = array_merge($validatorStringArray, array('telefon' => 'required|numeric|min:7'));
-        $updateArray = array_merge($updateArray, array('telefon' => $request->get('telefon')));
-        /** END TELEFON */
-
-        /**EMAİL */
         $validatorStringArray = array_merge($validatorStringArray, array('email' => 'required|min:3|email'));
-        $updateArray = array_merge($updateArray, array('email' => $request->get('email')));
-        /*** END EMAİL */
 
-        /**ADRES */
-        $updateArray = array_merge($updateArray, array('adres' => $request->get('adres')));
-        /** END ADRES */
+        if ($currentCustomerDetails->name != mb_convert_case(mb_strtolower($request->get('name')), MB_CASE_TITLE, "UTF-8")) {
+            $updateArray = array_merge($updateArray, array('name' => mb_convert_case(mb_strtolower($request->get('name')), MB_CASE_TITLE, "UTF-8")));
+            array_push($logsArray, array(
+                'operation_name' => 'Müşteri adı güncelleme',
+                'before' => $currentCustomerDetails->name,
+                'after' => mb_convert_case(mb_strtolower($request->get('name')), MB_CASE_TITLE, "UTF-8"),
+                'customer_id' => $id,
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ));
+        }
+        if ($currentCustomerDetails->telefon != $request->get('telefon')) {
+            $updateArray = array_merge($updateArray, array('telefon' => $request->get('telefon')));
+            array_push($logsArray, array(
+                'operation_name' => 'Müşteri telefon güncelleme',
+                'before' => $currentCustomerDetails->telefon,
+                'after' => $request->get('telefon'),
+                'customer_id' => $id,
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ));
+        }
+        if ($currentCustomerDetails->email != $request->get('email')) {
+            $updateArray = array_merge($updateArray, array('email' => $request->get('email')));
+            array_push($logsArray, array(
+                'operation_name' => 'Müşteri e-maili güncelleme',
+                'before' => $currentCustomerDetails->email,
+                'after' => $request->get('email'),
+                'customer_id' => $id,
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ));
+        }
+        if ($currentCustomerDetails->adres != $request->get('adres')) {
+            $updateArray = array_merge($updateArray, array('adres' => $request->get('adres')));
+            array_push($logsArray, array(
+                'operation_name' => 'Müşteri adresi güncelleme',
+                'before' => $currentCustomerDetails->adres,
+                'after' => $request->get('adres'),
+                'customer_id' => $id,
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ));
+        }
+        if ($currentCustomerDetails->tcno != $request->get('tcno')) {
+            $updateArray = array_merge($updateArray, array('tcno' => $request->get('tcno')));
+            array_push($logsArray, array(
+                'operation_name' => 'Müşteri kimlik no güncelleme',
+                'before' => $currentCustomerDetails->tcno,
+                'after' => $request->get('tcno'),
+                'customer_id' => $id,
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ));
+        }
+        if ($currentCustomerDetails->application_office_id != $request->get('basvuru_ofis')) {
+            $updateArray = array_merge($updateArray, array('application_office_id' => $request->get('basvuru_ofis')));
 
-        $updateArray = array_merge($updateArray, array('tcno' => $request->get('tcno')));
+            $beforeApplicationOffice = DB::table('application_offices')->select('name')->where('id', '=', $currentCustomerDetails->application_office_id)->first();
+            $afterApplicationOffice = DB::table('application_offices')->select('name')->where('id', '=', $request->get('basvuru_ofis'))->first();
+            array_push($logsArray, array(
+                'operation_name' => 'Müşteri basvuru ofisi güncelleme',
+                'before' => isset($beforeApplicationOffice->name) ? $beforeApplicationOffice->name : null,
+                'after' => isset($afterApplicationOffice->name) ? $afterApplicationOffice->name : null,
+                'customer_id' => $id,
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ));
+        }
+        if ($currentCustomerDetails->appointment_office_id != $request->get('randevu_ofis')) {
+            $updateArray = array_merge($updateArray, array('appointment_office_id' => $request->get('randevu_ofis')));
 
-        /**randevu basvuru */
-        $updateArray = array_merge($updateArray, array('application_office_id' => $request->get('basvuru_ofis')));
-        $updateArray = array_merge($updateArray, array('appointment_office_id' => $request->get('randevu_ofis')));
+            $beforeAppointmentOffice = DB::table('appointment_offices')->select('name')->where('id', '=', $currentCustomerDetails->appointment_office_id)->first();
+            $afterAppointmentOffice = DB::table('appointment_offices')->select('name')->where('id', '=', $request->get('randevu_ofis'))->first();
 
-        /**pasaport */
-        $updateArray = array_merge($updateArray, array('pasaport' => $request->get('pasaport')));
-        /**END pasaport */
+            array_push($logsArray, array(
+                'operation_name' => 'Müşteri randevu ofisi güncelleme',
+                'before' => isset($beforeAppointmentOffice->name) ? $beforeAppointmentOffice->name : null,
+                'after' => isset($afterAppointmentOffice->name) ? $afterAppointmentOffice->name : null,
+                'customer_id' => $id,
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ));
+        }
+        if ($currentCustomerDetails->pasaport != $request->get('pasaport')) {
+            $updateArray = array_merge($updateArray, array('pasaport' => $request->get('pasaport')));
+            array_push($logsArray, array(
+                'operation_name' => 'Müşteri pasaportu güncelleme',
+                'before' => $currentCustomerDetails->pasaport,
+                'after' => $request->get('pasaport'),
+                'customer_id' => $id,
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ));
+        }
+        if ($currentCustomerDetails->pasaport_tarihi != $request->get('pasaport_tarihi')) {
+            $updateArray = array_merge($updateArray, array('pasaport_tarihi' => $request->get('pasaport_tarihi')));
+            array_push($logsArray, array(
+                'operation_name' => 'Müşteri pasaport tarihi güncelleme',
+                'before' => $currentCustomerDetails->pasaport_tarihi,
+                'after' => $request->get('pasaport_tarihi'),
+                'customer_id' => $id,
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ));
+        }
 
-        /**pasaport tarihi*/
-        $updateArray = array_merge($updateArray, array('pasaport_tarihi' => $request->get('pasaport_tarihi')));
-        /**end pasaport tarihi */
+        $bilgilendirmeEmailOnayi = $request->get('email-onay') != null ? 1 : 0;
 
+        if ($currentCustomerDetails->bilgilendirme_onayi != $bilgilendirmeEmailOnayi) {
+            $updateArray = array_merge($updateArray, array('bilgilendirme_onayi' => $bilgilendirmeEmailOnayi));
+            array_push($logsArray, array(
+                'operation_name' => 'Müşteri email onayı güncelleme',
+                'before' => $currentCustomerDetails->bilgilendirme_onayi == 1 ? 'Onaylı' : 'Onaysız',
+                'after' => $bilgilendirmeEmailOnayi == 1 ? 'Onaylı' : 'Onaysız',
+                'customer_id' => $id,
+                'user_id' => $request->session()->get('userId'),
+                'created_at' => date('Y-m-d H:i:s'),
+            ));
+        }
         $request->validate($validatorStringArray);
 
-        if (DB::table('customers')->where('id', '=', $id)->update($updateArray)) {
+        if ($updateArray != null) {
 
-            DB::table('customer_update')->where('customer_id', '=', $id)->where('user_id', '=', $request->session()->get('userId'))->delete();
+            if (DB::table('customers')->where('id', '=', $id)->update($updateArray)) {
 
-            $request->session()->flash('mesajSuccess', 'Güncelleme başarıyla yapıldı');
-            return redirect('/musteri/' . $id);
+                DB::table('customer_logs')->insert($logsArray);
+                DB::table('customer_update')->where('customer_id', '=', $id)->where('user_id', '=', $request->session()->get('userId'))->delete();
+
+                $request->session()->flash('mesajSuccess', 'Güncelleme başarıyla yapıldı');
+                return redirect('/musteri/' . $id);
+            } else {
+                $request->session()->flash('mesajDanger', 'Güncelleme sırasında sorun oluştu');
+                return redirect('/musteri/' . $id);
+            }
         } else {
-            $request->session()->flash('mesajDanger', 'Güncelleme sırasında sorun oluştu');
+            $request->session()->flash('mesajInfo', 'Değişiklik bulunamadı');
             return redirect('/musteri/' . $id);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id, Request $request)
     {
 

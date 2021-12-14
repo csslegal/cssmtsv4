@@ -19,8 +19,8 @@ class CreateCustomerLogsTable extends Migration
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->text('operation_name');
-            $table->text('before');
-            $table->text('after');
+            $table->text('before')->nullable();
+            $table->text('after')->nullable();
             $table->timestamps();
         });
     }
