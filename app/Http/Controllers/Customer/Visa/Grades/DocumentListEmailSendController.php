@@ -45,7 +45,7 @@ class DocumentListEmailSendController extends Controller
         if (env('SENDING_MAIL')) {
 
             $request->validate(['dil' => 'required|numeric',]);
-            $visaSubDocumentListEmailContent = DB::table('visa_emails_document_list')
+            $visaSubDocumentList = DB::table('visa_emails_document_list')
                 ->select(
                     "visa_types.name AS vt_name",
                     "visa_sub_types.name AS vta_name",
@@ -58,28 +58,28 @@ class DocumentListEmailSendController extends Controller
                     'visa_files.id' => $visa_file_id,
                     "visa_emails_document_list.language_id" => $request->input("dil")
                 ])->first();
-            if ($visaSubDocumentListEmailContent != null) {
+            if ($visaSubDocumentList != null) {
 
                 $data = [
                     'title' => "CSS legal PDF Dökümleri",
                     'baslik' => "Evrak Listesi",
-                    'documentList' => $visaSubDocumentListEmailContent,
+                    'documentList' => $visaSubDocumentList,
                 ];
                 $pdf = PDF::loadView('pdf.document-list', $data);
                 $fileName = time() . '.pdf';
-                $pdf->save('C:/xampp/htdocs/laravel/cssmtsv4/storage/app/public/pdf/' . $fileName);
+                $pdf->save(env('PATH_URL') . 'storage/app/public/pdf/' . $fileName);
                 try {
                     $customer = DB::table('customers')->where('id', '=', $id)->first();
                     Mail::send('email.document-list', [null], function ($m) use ($customer, $fileName) {
                         $m->to($customer->email, $customer->name)
                             ->subject('Evrak Listesi ' . date("His") . ' | CSS Legal')
-                            ->attach('C:/xampp/htdocs/laravel/cssmtsv4/storage/app/public/' . $fileName);
-                        //->bcc('mehmetaliturkan@engin.group', $name = null);
+                            ->attach(env('PATH_URL') . 'storage/app/public/' . $fileName)
+                            ->bcc('mehmetaliturkan@engin.group', $name = null);
                     });
                     DB::table('email_logs')->insert([
                         'customer_id' => $id,
                         'access_id' => 1, //vize işlem emaili
-                        'content' => $visaSubDocumentListEmailContent->content,
+                        'content' => $visaSubDocumentList->content,
                         'subject' => 'Evrak Listesi ' . date("His") . ' | CSS Legal',
                         'user_id' => $request->session()->get('userId'),
                         'created_at' => date('Y-m-d H:i:s'),

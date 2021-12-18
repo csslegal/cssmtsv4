@@ -15,40 +15,30 @@ class InformationEmailController extends Controller
         if (env('SENDING_MAIL')) {
 
             if (is_numeric($id)) {
-                $request->validate([
-                    'alt_vize' => 'required|numeric',
-                    'dil' => 'required|numeric',
-                ]);
-
-                $visaSubInformationEmailContent = DB::table('visa_emails_information')
-                    ->select(
+                $request->validate(['alt_vize' => 'required|numeric', 'dil' => 'required|numeric',]);
+                $visaSubInformation = DB::table('visa_emails_information')
+                    ->select([
                         "visa_types.name AS vt_name",
                         "visa_sub_types.name AS vta_name",
                         "visa_emails_information.content AS content"
-                    )
+                    ])
                     ->leftJoin("visa_sub_types", "visa_sub_types.id", "=", "visa_emails_information.visa_sub_type_id")
                     ->leftJoin("visa_types", "visa_types.id", "=", "visa_sub_types.visa_type_id")
                     ->where([
                         "visa_sub_types.id" => $request->input("alt_vize"),
                         "visa_emails_information.language_id" => $request->input("dil")
                     ])->first();
-                if ($visaSubInformationEmailContent != null) {
+                if ($visaSubInformation != null) {
 
+                    $customer = DB::table('customers')->where('id', '=', $id)->first();
                     try {
-                        //$customer = DB::table('customers')->where('id', '=', $id)->first();
-                        //Mail::send(
-                        //    'email.information',
-                        //    ['customer' => $customer, 'visaSubInformationEmailContent' => $visaSubInformationEmailContent],
-                        //    function ($m) use ($customer) {
-                        //        $m->to($customer->email, $customer->name)
-                        //            ->subject('Bilgi E-maili ' . date("His"). ' | CSS Legal')
-                        //            ->bcc('mehmetaliturkan@engin.group', $name = null);
-                        //    }
-                        //);
+                        Mail::send('email.information', ['customer' => $customer, 'visaSubInformation' => $visaSubInformation], function ($m) use ($customer) {
+                            $m->to($customer->email, $customer->name)->subject('Bilgi E-maili ' . date("His") . ' | CSS Legal')->bcc('mehmetaliturkan@engin.group', $name = null);
+                        });
                         DB::table('email_logs')->insert([
                             'customer_id' => $id,
                             'access_id' => 1, //vize işlem emaili
-                            'content' => $visaSubInformationEmailContent->content,
+                            'content' => $visaSubInformation->content,
                             'subject' => 'Bilgi E-maili ' . date("His") . ' | CSS Legal',
                             'user_id' => $request->session()->get('userId'),
                             'created_at' => date('Y-m-d H:i:s'),
