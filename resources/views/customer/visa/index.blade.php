@@ -1,6 +1,6 @@
 @extends('sablon.genel')
 
-@section('title') | Müşteri Vize Anasayfa @endsection
+@section('title') Vize Anasayfa @endsection
 
 @section('content')
 

@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') Evrak listesi Gönderme @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">

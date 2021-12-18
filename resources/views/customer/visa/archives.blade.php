@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') Vize Arşivler @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">

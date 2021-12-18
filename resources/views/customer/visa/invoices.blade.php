@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') Vize Faturalar @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">

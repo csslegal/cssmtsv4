@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') Duyurular - Kullanıcı Oturum @endsection
+
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb ">

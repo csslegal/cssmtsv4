@@ -1,5 +1,8 @@
 @extends('sablon.genel')
 
+
+@section('title') Müşteri Kayıt @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">

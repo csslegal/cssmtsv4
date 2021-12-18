@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') İade Bilgileri Onayı @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">

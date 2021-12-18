@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') Müşteri Düzenle @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">

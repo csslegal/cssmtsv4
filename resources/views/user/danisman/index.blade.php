@@ -1,4 +1,6 @@
 @extends('sablon.genel')
+
+@section('title') Anasayfa - Kullanıcı Oturum @endsection
 @section('content')
 
     <nav aria-label="breadcrumb">

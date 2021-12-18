@@ -11,7 +11,7 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-        $request->session()->flash('mesajDanger', 'Hatalı istek yapıldı');
+        //$request->session()->flash('mesajDanger', 'Hatalı istek yapıldı');
         return redirect('/musteri/sorgula');
     }
 
@@ -368,9 +368,11 @@ class IndexController extends Controller
     {
 
         if (is_numeric($id)) {
+
             if (DB::table('customers')->where('id', '=', $id)->delete()) {
+
                 $request->session()->flash('mesajSuccess', 'Kayıt başarıyla silindi');
-                return redirect('/musteri');
+                return redirect('/musteri/sorgula');
             } else {
                 $request->session()->flash('mesajDanger', 'Kayıt silinirken sorun oluştu');
                 return redirect('/musteri/' . $id);

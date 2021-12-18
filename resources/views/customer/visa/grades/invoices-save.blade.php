@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') Fatura Kayıt @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">

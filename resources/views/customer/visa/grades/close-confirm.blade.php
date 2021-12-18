@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') Dosya Kapatma Onayı @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">

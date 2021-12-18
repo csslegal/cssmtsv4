@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') Red Sonucu Tercümesi @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">

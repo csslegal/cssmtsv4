@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') Parmak İzi Verme @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">

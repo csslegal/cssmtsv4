@@ -1,5 +1,7 @@
 @extends('sablon.genel')
 
+@section('title') Yapılan Ödemeler @endsection
+
 @section('content')
 
     <nav aria-label="breadcrumb">
