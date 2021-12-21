@@ -7,7 +7,7 @@ window.history.pushState(null, "", window.location.href);
 window.onpopstate = function () { window.history.pushState(null, "", window.location.href); };
 
 //datatable olusturma
-$('#dataTableVize,#dataTableDilOkulu,#dataTableHarici').DataTable({
+$('#dataTableVize,#dataTableDilOkulu,#dataTableHarici,#dataTableWeb').DataTable({
     "order": [[0, 'asc'],],
     "columnDefs": [{ "type": "num", "targets": 0 }],
     language: { url: '/dataTables.tr.json' },
