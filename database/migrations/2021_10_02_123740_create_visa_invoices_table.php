@@ -15,7 +15,10 @@ class CreateVisaInvoicesTable extends Migration
     {
         Schema::create('visa_invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('visa_file_id');
+
+            $table->unsignedBigInteger('visa_file_id');
+            $table->foreign('visa_file_id')->references('id')->on('visa_files')->onDelete('cascade');
+
             $table->integer('user_id');
             $table->string('payment');
             $table->string('matrah');

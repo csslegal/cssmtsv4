@@ -17,8 +17,7 @@ class CreateVisaFilesTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->foreign('customer_id')->references('id')
-                ->on('customers')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
 
             $table->integer('visa_sub_type_id')->nullable(); //vize tipi
             $table->integer('visa_validity_id')->nullable(); //vize süresi

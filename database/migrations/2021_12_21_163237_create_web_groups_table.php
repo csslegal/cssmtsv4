@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTypeTable extends Migration
+class CreateWebGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateUsersTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_type', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('web_groups', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('name');
             $table->integer('orderby')->default(0);
+
+            // $table->unsignedBigInteger('user_id')->nullable();
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateUsersTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_type');
+        Schema::dropIfExists('web_groups');
     }
 }

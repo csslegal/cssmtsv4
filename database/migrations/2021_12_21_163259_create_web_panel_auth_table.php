@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmailLogsTable extends Migration
+class CreateWebPanelAuthTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,18 @@ class CreateEmailLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('email_logs', function (Blueprint $table) {
-            $table->bigIncrements('id');
-
-            $table->integer('access_id')->nullable();
-
-            $table->unsignedBigInteger('customer_id')->nullable();
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-
+        Schema::create('web_panel_auth', function (Blueprint $table) {
+            $table->increments('id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->text('subject');
-            $table->text('content');
+            $table->unsignedBigInteger('panel_id')->nullable();
+            $table->foreign('panel_id')->references('id')->on('web_panels')->onDelete('cascade');
+
+            $table->string('start_time');
+            $table->string('and_time');
+            $table->smallInteger('access')->default(0); //
+            $table->integer('orderby')->default(0);
 
             $table->timestamps();
         });
@@ -38,6 +37,6 @@ class CreateEmailLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('email_log');
+        Schema::dropIfExists('web_panel_auth');
     }
 }

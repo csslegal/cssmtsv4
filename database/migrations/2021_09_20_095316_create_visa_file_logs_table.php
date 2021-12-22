@@ -17,8 +17,7 @@ class CreateVisaFileLogsTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('visa_file_id')->nullable();
-            $table->foreign('visa_file_id')->references('id')
-                ->on('visa_files')->onDelete('cascade');
+            $table->foreign('visa_file_id')->references('id')->on('visa_files')->onDelete('cascade');
 
             $table->integer('user_id')->nullable(); //işlem yapan
 

@@ -17,14 +17,10 @@ class CreateVisaFileGradesUsersTypeTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('user_type_id');
+            $table->foreign('user_type_id')->references('id')->on('users_type')->onDelete('cascade');
+
             $table->unsignedBigInteger('visa_file_grade_id');
-
-            $table->foreign('user_type_id')->references('id')
-                ->on('users_type')->onDelete('cascade');
-
-
-            $table->foreign('visa_file_grade_id')->references('id')
-                ->on('visa_file_grades')->onDelete('cascade');
+            $table->foreign('visa_file_grade_id')->references('id')->on('visa_file_grades')->onDelete('cascade');
 
             $table->timestamps();
         });

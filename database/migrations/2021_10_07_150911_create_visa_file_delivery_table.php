@@ -16,8 +16,10 @@ class CreateVisaFileDeliveryTable extends Migration
         Schema::create('visa_file_delivery', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->unsignedBigInteger('visa_file_id');
+            $table->foreign('visa_file_id')->references('id')->on('visa_files')->onDelete('cascade');
+
             $table->integer('application_office_id');
-            $table->integer('visa_file_id');
             $table->integer('user_id');
 
             $table->string('delivery_method');

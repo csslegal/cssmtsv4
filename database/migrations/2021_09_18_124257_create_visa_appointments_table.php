@@ -15,13 +15,16 @@ class CreateVisaAppointmentsTable extends Migration
     {
         Schema::create('visa_appointments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('visa_file_id');
+
+            $table->unsignedBigInteger('visa_file_id');
+            $table->foreign('visa_file_id')->references('id')->on('visa_files')->onDelete('cascade');
+
             $table->integer('user_id');
             $table->string('gwf');
-            $table->string('name');//hesap
-            $table->string('password');//hesap
-            $table->string('date');//tarih
-            $table->string('time');//saat
+            $table->string('name'); //hesap
+            $table->string('password'); //hesap
+            $table->string('date'); //tarih
+            $table->string('time'); //saat
             $table->timestamps();
         });
     }
