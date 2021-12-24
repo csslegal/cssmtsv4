@@ -1,0 +1,57 @@
+@extends('sablon.yonetim')
+
+@section('content')
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb ">
+            <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
+            <li class="breadcrumb-item"><a href="/yonetim/web">Web İşlemleri</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Gruplar</li>
+        </ol>
+    </nav>
+    <div class="card card-primary mb-3">
+        <div class="card-header bg-primary text-white">
+            Gruplar
+            <a class="float-end text-white" href="/yonetim/web/groups/create">Ekle</a>
+        </div>
+        <div class="card-body scroll">
+            <table id="dataTable" class=" table table-striped table-bordered display table-light " style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Grup Adı</th>
+                        <th>E. Tarih</th>
+                        <th>G. Tarih</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($results as $result)
+                        <tr>
+                            <td>{{ $result->id }}</td>
+                            <td>{{ $result->name }}</td>
+                            <td>{{ $result->created_at }}</td>
+                            <td>{{ $result->updated_at }}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <a href="/yonetim/web/groups/{{ $result->id }}/edit">
+                                        <button data-bs-toggle="tooltip" data-bs-placement="top" title="Düzenle">
+                                            <i class="bi bi-pencil-square "></i>
+                                        </button>
+                                    </a>
+                                    <form action="/yonetim/web/groups/{{ $result->id }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right"
+                                            title="Sil">
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@endsection

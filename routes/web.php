@@ -13,6 +13,12 @@ use App\Http\Controllers\Management\AppointmentOfficeController as ManagementApp
 use App\Http\Controllers\Management\UsersAccessController as ManagementUsersAccessController;
 use App\Http\Controllers\Management\UsersController as ManagementUsersController;
 use App\Http\Controllers\Management\UsersTypeController as ManagementUsersTypeController;
+
+use App\Http\Controllers\Management\WebController as ManagementWebController;
+use App\Http\Controllers\Management\WebGroupsController as ManagementWebGroupsController;
+use App\Http\Controllers\Management\WebPanelsController as ManagementWebPanelsController;
+use App\Http\Controllers\Management\WebPanelAuthController as ManagementWebPanelAuthController;
+
 use App\Http\Controllers\Management\VisaController as ManagementVisaController;
 use App\Http\Controllers\Management\VisaEmailsDocumentListController as ManagementVisaEmailsDocumentListController;
 use App\Http\Controllers\Management\VisaSubTypesController as ManagementVisaSubTypesController;
@@ -245,6 +251,20 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::resource('evrak-emaili', ManagementVisaEmailsDocumentListController::class);
             Route::resource('dosya-asama', ManagementVisaFileGradesController::class);
             Route::resource('dosya-asama-erisim', ManagementVisaFileGradesUsersTypeController::class);
+        });
+
+        /****Yonetim web işlemleri */
+        Route::group(['prefix' => 'web'], function () {
+            Route::get('/', [ManagementWebController::class, 'get_index']);
+            Route::get('engineer', [ManagementWebController::class, 'get_engineer']);
+            Route::get('editor', [ManagementWebController::class, 'get_editor']);
+            Route::get('writer', [ManagementWebController::class, 'get_writer']);
+            Route::get('graphic', [ManagementWebController::class, 'get_graphic']);
+
+
+            Route::resource('groups', ManagementWebGroupsController::class);
+            Route::resource('panels', ManagementWebPanelsController::class);
+            Route::resource('panel-auth', ManagementWebPanelAuthController::class);
         });
 
         /*****Url tespit İşlemleri */
