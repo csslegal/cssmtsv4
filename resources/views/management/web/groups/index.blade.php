@@ -9,12 +9,11 @@
         </ol>
     </nav>
     <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">
-            Gruplar
+        <div class="card-header bg-primary text-white">Gruplar
             <a class="float-end text-white" href="/yonetim/web/groups/create">Ekle</a>
         </div>
         <div class="card-body scroll">
-            <table id="dataTable" class=" table table-striped table-bordered display table-light " style="width:100%">
+            <table id="dataTable" class="table table-striped table-bordered display table-light " style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>

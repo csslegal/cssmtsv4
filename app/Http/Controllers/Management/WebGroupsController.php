@@ -26,7 +26,7 @@ class WebGroupsController extends Controller
         $request->validate(['name' => 'required|max:100min:3']);
         if ($kayitId = DB::table('web_groups')->insertGetId([
             'name' => $name,
-            "created_at" =>  date('Y-m-d H:i:s'),
+            " " =>  date('Y-m-d H:i:s'),
             "updated_at" => date('Y-m-d H:i:s'),
         ])) {
             DB::table('web_groups')

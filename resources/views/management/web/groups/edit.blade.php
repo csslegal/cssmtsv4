@@ -5,6 +5,7 @@
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/web">Web İşlemleri</a></li>
+            <li class="breadcrumb-item"><a href="/yonetim/web/groups">Gruplar</a></li>
             <li class="breadcrumb-item active" aria-current="page">Düzenle</li>
         </ol>
     </nav>
