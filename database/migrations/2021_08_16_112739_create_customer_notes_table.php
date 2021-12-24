@@ -18,7 +18,7 @@ class CreateCustomerNotesTable extends Migration
             $table->integer('user_id');
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->text('icerik');
+            $table->text('content');
             $table->integer('orderby')->nullable();
             $table->timestamps();
         });
