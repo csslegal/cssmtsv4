@@ -169,17 +169,6 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::post('arsiv-fatura', [CustomerAjaxController::class, 'post_visa_archive_invoice']);
             });
         });
-
-        /**Route::get('sorgula', [CustomerIndexController::class, 'get_sorgula']);
-        Route::post('sorgula', [CustomerIndexController::class, 'post_sorgula']);
-        Route::get('ekle', [CustomerIndexController::class, 'get_ekle']);
-        Route::post('ekle', [CustomerIndexController::class, 'post_ekle']);
-        Route::post('destroy', [CustomerIndexController::class, 'destroy']);
-        Route::get('{id}', [CustomerIndexController::class, 'get_index']);
-        Route::post('{id}/not-ekle', [CustomerIndexController::class, 'post_not_ekle']);
-        Route::get('{id}/duzenle', [CustomerIndexController::class, 'get_kayit_duzenle']);
-        Route::post('{id}/duzenle', [CustomerIndexController::class, 'post_kayit_duzenle']);
-        Route::get('{id}/duzenle-istek', [CustomerIndexController::class, 'get_kayit_duzenle_istek']);**/
     });
 
     /**Kullanıcılar yönlendirmeler*/
@@ -260,7 +249,6 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('editor', [ManagementWebController::class, 'get_editor']);
             Route::get('writer', [ManagementWebController::class, 'get_writer']);
             Route::get('graphic', [ManagementWebController::class, 'get_graphic']);
-
 
             Route::resource('groups', ManagementWebGroupsController::class);
             Route::resource('panels', ManagementWebPanelsController::class);
