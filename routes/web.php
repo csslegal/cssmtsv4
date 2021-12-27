@@ -220,6 +220,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::post('evrak-emaili', [ManagementAjaxController::class, 'post_evrak_emaili_cek']);
             Route::post('sirala', [ManagementAjaxController::class, 'post_sorting']);
             Route::post('dosya-asama-erisim', [ManagementAjaxController::class, 'post_visa_file_grades_users_type']);
+            Route::post('panel-list', [ManagementAjaxController::class, 'post_panel_list']);
         });
 
         /**Yonetim vize işlemleri*/

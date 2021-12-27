@@ -14,12 +14,10 @@ class CreateWebPanelAuthTable extends Migration
     public function up()
     {
         Schema::create('web_panel_auth', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->unsignedBigInteger('panel_id')->nullable();
-            $table->foreign('panel_id')->references('id')->on('web_panels')->onDelete('cascade');
 
             $table->string('start_time');
             $table->string('and_time');
