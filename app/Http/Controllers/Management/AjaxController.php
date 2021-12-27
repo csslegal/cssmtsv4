@@ -62,7 +62,7 @@ class AjaxController extends Controller
                 ->where('user_type_id', '=', $request->input('id'))
                 ->get();
             if ($kayitlar->count() == 0) {
-                $sonuc = '<div class="text text-danger">Dosya aşamaları erişimi verilmedi</div>' ;
+                $sonuc = '<div class="text text-danger">Dosya aşamaları erişimi verilmedi</div>';
             } else {
                 $sonuc = "<ul>";
                 foreach ($kayitlar as  $kayit) {
@@ -71,6 +71,33 @@ class AjaxController extends Controller
                 $sonuc .= "</ul>";
             }
 
+            return  $sonuc;
+        } else {
+            echo 'Hatalı istek yapıldı';
+        }
+    }
+    public function post_panel_list(Request $request)
+    {
+        if (is_numeric($request->input('id'))) {
+
+            $kayitlar = DB::table('web_panel_user')->select(['web_panels.name AS name', 'web_groups.name AS g_name'])
+                ->join('web_panels', 'web_panels.id', '=', 'web_panel_user.panel_id')
+                ->join('web_groups', 'web_groups.id', '=', 'web_panels.group_id')
+                ->where('web_panel_user.panel_auth_id', '=', $request->input('id'))
+                ->orderBy('web_groups.name')
+                ->orderBy('web_panels.name')
+                ->get();
+
+
+            if ($kayitlar->count() == 0) {
+                $sonuc = '<div class="text text-danger">Veri kaydı bulunamadı</div>';
+            } else {
+                $sonuc = "<div class='text text-primary'>Panel Listesi</div><ol>";
+                foreach ($kayitlar as  $kayit) {
+                    $sonuc .= "<li> " . $kayit->g_name . ' - ' . $kayit->name . "</li>";
+                }
+                $sonuc .= "</ol>";
+            }
             return  $sonuc;
         } else {
             echo 'Hatalı istek yapıldı';
