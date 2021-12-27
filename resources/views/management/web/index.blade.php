@@ -25,22 +25,21 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
-                    <div class="card border-primary mb-2">
+                    <div class="card border-secondary mb-2">
                         <div class="card-body">
                             <h5 class="card-title">Paneller</h5>
                             <p class="card-text fw-bold"> Toplam {{ $countWebPanels }} panel sistemde kayıtlı.
                             </p>
-                            <a href="/yonetim/web/panels" class="btn btn-primary float-end">Git</a>
+                            <a href="/yonetim/web/panels" class="btn btn-secondary float-end">Git</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
-                    <div class="card border-primary mb-2">
+                    <div class="card border-danger mb-2">
                         <div class="card-body">
-                            <h5 class="card-title">Panel Yetkiler'</h5>
-                            <p class="card-text fw-bold"> Toplam {{ $countWebPanelAuth }} panel yetkisi
-                                sistemde kayıtlı. </p>
-                            <a href="/yonetim/web/panel-auth" class="btn btn-primary float-end">Git</a>
+                            <h5 class="card-title">Panel Yetkileri</h5>
+                            <p class="card-text fw-bold"> Toplam {{ $countWebPanelAuth }} yetki sistemde kayıtlı. </p>
+                            <a href="/yonetim/web/panel-auth" class="btn btn-danger text-white float-end">Git</a>
                         </div>
                     </div>
                 </div>
