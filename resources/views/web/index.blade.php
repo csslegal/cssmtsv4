@@ -40,23 +40,20 @@
                                             <div class="card-body">
                                                 <h6 class="card-title fw-bold">{{ $webPanel->name }}</h6>
                                                 <form action="{{ $webPanel->url }}" method="POST">
-                                                    <input type="hidden" name="u"
-                                                        value="{{ base64_encode(session('userName')) }}">
-                                                    <input type="hidden" name="w"
-                                                        value="{{ base64_encode($webPanel->name) }}">
-                                                    <input type="hidden" name="i"
-                                                        value="{{ base64_encode(session('userId')) }}">
-                                                    <input type="hidden" name="t_e"
-                                                        value="{{ base64_encode($webPanel->access) }}">
-                                                    <input type="hidden" name="t"
-                                                        value="{{ base64_encode(session('userTypeId')) }}">
-                                                    <input type="hidden" name="s" @php date_default_timezone_set('Europe/London'); @endphp
-                                                        value="{{ 'R_' . md5('#rplus?*') . '::' . md5(date('H-d-m-Y')) . '_A' }}"
-                                                        @php date_default_timezone_set('Europe/Istanbul'); @endphp>
+                                                    <input value="{{ base64_encode(session('userName')) }}" type="hidden"
+                                                        name="u">
+                                                    <input value="{{ base64_encode($webPanel->name) }}" type="hidden"
+                                                        name="w">
+                                                    <input value="{{ base64_encode(session('userId')) }}" type="hidden"
+                                                        name="i">
+                                                    <input value="{{ base64_encode($webPanel->access) }}" type="hidden"
+                                                        name="t_e">
+                                                    <input value="{{ base64_encode(session('userTypeId')) }}"
+                                                        type="hidden" name="t">
+                                                    <input value='test' type="hidden" name="s">
                                                     <input type="hidden" name="d" value="tr" />
-                                                    <button type="submit" class="btn btn-success text-white float-end">
-                                                        Panele git
-                                                    </button>
+                                                    <button type="submit"
+                                                        class="btn btn-success text-white float-end">Panele git</button>
                                                 </form>
                                             </div>
                                         </div>
