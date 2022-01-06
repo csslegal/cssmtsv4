@@ -29,6 +29,8 @@ use App\Http\Controllers\Management\VisaFileGradesUsersTypeController as Managem
 use App\Http\Controllers\Management\VisaValidityController as ManagementVisaValidityController;
 use App\Http\Controllers\Management\UrlController;
 
+use App\Http\Controllers\Web\IndexController as WebIndexController;
+
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\AjaxController as UserAjaxController;
 use App\Http\Controllers\User\Visa\IndexController as UserVisaIndexController;
@@ -188,6 +190,11 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('muhasebe', [UserVisaIndexController::class, 'get_muhasebe']);
             Route::get('tercuman', [UserVisaIndexController::class, 'get_tercuman']);
             Route::get('ofis-sorumlusu', [UserVisaIndexController::class, 'get_ofis_sorumlusu']);
+        });
+
+        /**web yönlendirmeleri */
+        Route::prefix('web')->group(function () {
+            Route::resource('/', WebIndexController::class);
         });
 
         /*** Kullanıcılar ajax işlemleri*/

@@ -53,9 +53,9 @@
         @if (in_array(4, $userAccesses))
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card  mb-2">
-                    <div class="card-header text-white bg-primary mb-3 fw-bold">İçerik Yönetim İşlemleri</div>
+                    <div class="card-header text-white bg-primary mb-3 fw-bold">Web Panelleri İşlemleri</div>
                     <div class="card-body">
-                        <p class="card-text">Web siteleri yönetimi ile ilgili bütün işlemler.</p>
+                        <p class="card-text">Web panelleriyle ilgili bütün işlemler.</p>
                         <a href="/kullanici/web" class="btn text-white btn-danger btn-block">Git</a>
                     </div>
                 </div>

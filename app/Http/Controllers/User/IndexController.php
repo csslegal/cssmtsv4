@@ -11,60 +11,71 @@ class IndexController extends Controller
 {
     public function get_index(Request $request)
     {
-        $userAccesses = DB::table('users_access')
-            ->select('access.id',)
+        $visaCustomers = DB::table('customers')
+            ->select([
+                'customers.id AS id',
+                'customers.name AS name',
+                'visa_files.id AS visa_file_id',
+                'visa_files.status AS status',
+                'visa_file_grades.name AS visa_file_grades_name',
+                'visa_validity.name AS visa_validity_name',
+                'visa_types.name AS visa_type_name',
+                'visa_sub_types.name AS visa_sub_type_name',
+            ])
+            ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+            ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
+            ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+            ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
+            ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+
+            ->where('visa_files.active', '=', 1);
+
+        $visaCustomersUsers = DB::table('customers')
+            ->select([
+                'customers.id AS id',
+                'customers.name AS name',
+                'visa_files.id AS visa_file_id',
+                'visa_files.status AS status',
+                'visa_file_grades.name AS visa_file_grades_name',
+                'visa_validity.name AS visa_validity_name',
+                'visa_types.name AS visa_type_name',
+                'visa_sub_types.name AS visa_sub_type_name',
+                'users.name AS u_name',
+            ])
+            ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+            ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
+            ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+            ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
+            ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+            ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
+
+            ->where('visa_files.active', '=', 1);
+
+        $webResults = DB::table('web_panel_auth')->where('user_id', '=', $request->session()->get('userId'))->get();
+        if ($webResults->count() > 0) {
+            //dd(date("Y-m-d", strtotime($webResults->start_time)) . " " . date("Y-m-d", time()));
+            //suanki time başlangıctan buyuk sondan kucuk olamalı ki erişim izni olsun
+            $webResultsFirst =  $webResults->first();
+            $panelsTimeAccess = (strtotime($webResultsFirst->start_time) <= strtotime(date("Y-m-d", time()))) && (strtotime(date("Y-m-d", time())) <= strtotime($webResultsFirst->and_time));
+        } else {
+            $panelsTimeAccess = false;
+        }
+        $userAccesses = DB::table('users_access')->select('access.id',)
             ->leftJoin('access', 'access.id', '=', 'users_access.access_id')
             ->where('user_id', '=', $request->session()->get('userId'))
             ->pluck('access.id')->toArray();
-
         switch ($request->session()->get('userTypeId')) {
             case 2: //danisman
-                $visaCustomers = DB::table('customers')
-                    ->select([
-                        'customers.id AS id',
-                        'customers.name AS name',
-                        'visa_files.id AS visa_file_id',
-                        'visa_files.status AS status',
-                        'visa_file_grades.name AS visa_file_grades_name',
-                        'visa_validity.name AS visa_validity_name',
-                        'visa_types.name AS visa_type_name',
-                        'visa_sub_types.name AS visa_sub_type_name',
-                    ])
-                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
-                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
-                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
-
-                    ->where('visa_files.active', '=', 1)
-                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
-                    ->get();
-
+                $visaCustomers = $visaCustomers->where('visa_files.advisor_id', '=', $request->session()->get('userId'))->get();
                 return view('user.danisman.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
+                    'webResults' => $webResults,
+                    'panelsTimeAccess' => $panelsTimeAccess,
                 ]);
                 break;
             case 3: //uzman
-                $visaCustomers = DB::table('customers')
-                    ->select([
-                        'customers.id AS id',
-                        'customers.name AS name',
-                        'visa_files.id AS visa_file_id',
-                        'visa_files.status AS status',
-                        'visa_file_grades.name AS visa_file_grades_name',
-                        'visa_validity.name AS visa_validity_name',
-                        'visa_types.name AS visa_type_name',
-                        'visa_sub_types.name AS visa_sub_type_name',
-                        'users.name AS u_name',
-                    ])
-                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
-                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
-                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
-                    ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-                    ->where('visa_files.active', '=', 1)
+                $visaCustomers = $visaCustomersUsers
                     ->where('visa_files.expert_id', '=', $request->session()->get('userId'))
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_PUTOFF_GRADES_ID'))
@@ -73,6 +84,8 @@ class IndexController extends Controller
                 return view('user.uzman.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
+                    'webResults' => $webResults,
+                    'panelsTimeAccess' => $panelsTimeAccess,
                 ]);
                 break;
             case 4: //b. koordinatoor
@@ -90,25 +103,7 @@ class IndexController extends Controller
                     ->join('users', 'users.id', '=', 'customer_update.user_id')
                     ->get();
 
-                $visaCustomersCount = DB::table('customers')
-                    ->select([
-                        'customers.id AS id',
-                        'customers.name AS name',
-                        'visa_files.id AS visa_file_id',
-                        'visa_files.status AS status',
-                        'visa_file_grades.name AS visa_file_grades_name',
-                        'visa_validity.name AS visa_validity_name',
-                        'visa_types.name AS visa_type_name',
-                        'visa_sub_types.name AS visa_sub_type_name',
-                        'users.name AS u_name',
-                    ])
-                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
-                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
-                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
-                    ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-                    ->where('visa_files.active', '=', 1)
+                $visaCustomersCount = $visaCustomersUsers
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
@@ -118,69 +113,34 @@ class IndexController extends Controller
                     'userAccesses' => $userAccesses,
                     'visaCustomersCount' => $visaCustomersCount,
                     'mTBGIS' => $mTBGIS,
+                    'panelsTimeAccess' => $panelsTimeAccess,
                 ]);
                 break;
             case 5: //tercuman
-                $visaCustomers = DB::table('customers')
-                    ->select([
-                        'customers.id AS id',
-                        'customers.name AS name',
-                        'visa_files.id AS visa_file_id',
-                        'visa_files.status AS status',
-                        'visa_file_grades.name AS visa_file_grades_name',
-                        'visa_validity.name AS visa_validity_name',
-                        'visa_types.name AS visa_type_name',
-                        'visa_sub_types.name AS visa_sub_type_name',
-                        'users.name AS u_name',
-                    ])
-                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
-                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
-                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
-                    ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-
-                    ->where('visa_files.active', '=', 1)
+                $visaCustomers = $visaCustomersUsers
                     ->where('visa_files.translator_id', '=', $request->session()->get('userId'))
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATION_GRADES_ID'))
                     ->get();
-
                 return view('user.tercuman.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
+                    'webResults' => $webResults,
+                    'panelsTimeAccess' => $panelsTimeAccess,
                 ]);
                 break;
             case 6: //muhasebe
-                $visaCustomers = DB::table('customers')
-                    ->select([
-                        'customers.id AS id',
-                        'customers.name AS name',
-                        'visa_files.id AS visa_file_id',
-                        'visa_files.status AS status',
-                        'visa_file_grades.name AS visa_file_grades_name',
-                        'visa_validity.name AS visa_validity_name',
-                        'visa_types.name AS visa_type_name',
-                        'visa_sub_types.name AS visa_sub_type_name',
-                        'users.name AS u_name',
-                    ])
-
-                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
-                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
-                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
-                    ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-                    ->where('visa_files.active', '=', 1)
+                $visaCustomers = $visaCustomersUsers
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_PAYMENT_CONFIRM_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_MADE_PAYMENT_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_INVOICE_SAVE_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_RE_PAYMENT_CONFIRM_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'))
                     ->get();
-
                 return view('user.muhasebe.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
+                    'webResults' => $webResults,
+                    'panelsTimeAccess' => $panelsTimeAccess,
                 ]);
                 break;
             case 7: //m.koordinator
@@ -198,25 +158,7 @@ class IndexController extends Controller
                     ->join('users', 'users.id', '=', 'customer_update.user_id')
                     ->get();
 
-                $visaCustomersCount = DB::table('customers')
-                    ->select([
-                        'customers.id AS id',
-                        'customers.name AS name',
-                        'visa_files.id AS visa_file_id',
-                        'visa_files.status AS status',
-                        'visa_file_grades.name AS visa_file_grades_name',
-                        'visa_validity.name AS visa_validity_name',
-                        'visa_types.name AS visa_type_name',
-                        'visa_sub_types.name AS visa_sub_type_name',
-                        'users.name AS u_name',
-                    ])
-                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
-                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
-                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
-                    ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-                    ->where('visa_files.active', '=', 1)
+                $visaCustomersCount  = $visaCustomersUsers
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
@@ -226,48 +168,70 @@ class IndexController extends Controller
                     'userAccesses' => $userAccesses,
                     'visaCustomersCount' => $visaCustomersCount,
                     'mTBGIS' => $mTBGIS,
+                    'panelsTimeAccess' => $panelsTimeAccess,
                 ]);
                 break;
             case 8: //ofis sorumlusu
-
-                /***ofis sorumlusu ofis ıd alma */
                 $userApplicationOfficeId = DB::table('users')
                     ->select(['application_office_id'])
                     ->where('id', '=', $request->session()->get('userId'))->first();
-
-                /**ofis ıd ve danısman olan kullanıcılar */
                 $arrayUserIDs = DB::table('users')
                     ->select(['id'])
                     ->where('application_office_id', '=', $userApplicationOfficeId->application_office_id)
                     ->where('user_type_id', '=', 2)->get()->pluck('id')->toArray();
-
-                /***danısman aktif dosyaları */
-                $visaCustomersCount = DB::table('customers')
-                    ->select([
-                        'customers.id AS id',
-                        'customers.name AS name',
-                        'visa_files.id AS visa_file_id',
-                        'visa_files.status AS status',
-                        'visa_file_grades.name AS visa_file_grades_name',
-                        'visa_validity.name AS visa_validity_name',
-                        'visa_types.name AS visa_type_name',
-                        'visa_sub_types.name AS visa_sub_type_name',
-                        'users.name AS u_name',
-                    ])
-                    ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
-                    ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
-                    ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-                    ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-                    ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
-                    ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-
-                    ->where('visa_files.active', '=', 1)
+                $visaCustomersCount = $visaCustomersUsers
                     ->whereIn('visa_files.advisor_id', $arrayUserIDs)
                     ->get()->count();
-
                 return view('user.ofis-sorumlusu.index')->with([
                     'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
+                    'webResults' => $webResults,
+                    'panelsTimeAccess' => $panelsTimeAccess,
                     'visaCustomersCount' => $visaCustomersCount,
+                ]);
+                break;
+            case 10: //muhendis
+                $visaCustomers = $visaCustomersUsers
+                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    ->get();
+                return view('user.engineer.index')->with([
+                    'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
+                    'webResults' => $webResults,
+                    'panelsTimeAccess' => $panelsTimeAccess,
+                ]);
+                break;
+            case 11: //yazar
+                $visaCustomers = $visaCustomersUsers
+                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    ->get();
+                return view('user.writer.index')->with([
+                    'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
+                    'webResults' => $webResults,
+                    'panelsTimeAccess' => $panelsTimeAccess,
+                ]);
+                break;
+            case 12: //grafiker
+                $visaCustomers = $visaCustomersUsers
+                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    ->get();
+                return view('user.graphic.index')->with([
+                    'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
+                    'webResults' => $webResults,
+                    'panelsTimeAccess' => $panelsTimeAccess,
+                ]);
+                break;
+            case 13: //editor
+                $visaCustomers = $visaCustomersUsers
+                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    ->get();
+                return view('user.editor.index')->with([
+                    'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
+                    'webResults' => $webResults,
+                    'panelsTimeAccess' => $panelsTimeAccess,
                 ]);
                 break;
             default:
