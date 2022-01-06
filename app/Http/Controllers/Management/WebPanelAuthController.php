@@ -36,8 +36,11 @@ class WebPanelAuthController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kullanici' => 'required|numeric', 'baslangic' => 'required',
-            'bitis' => 'required', 'erisim' => 'required', 'panels' => 'required',
+            'kullanici' => 'required|numeric',
+            'baslangic' => 'required',
+            'bitis' => 'required',
+            'erisim' => 'required',
+            'panels' => 'required',
         ]);
         if (DB::table('web_panel_auth')->where('user_id', '=', $request->input('kullanici'))->count() > 0) {
             $request->session()->flash('mesajDanger', 'Bu kullanıcı daha önceden kaydedildi.');
@@ -80,16 +83,21 @@ class WebPanelAuthController extends Controller
             ->where('panel_auth_id', '=', $id)->get()->pluck('panel_id')->toArray();
 
         return view('management.web.panel-auth.edit')->with([
-            'result' => $result, 'users' => $users, 'groups' => $groups,
-            'panels' => $panels, 'panelIDs' => $panelIDs,
+            'result' => $result,
+            'users' => $users,
+            'groups' => $groups,
+            'panels' => $panels,
+            'panelIDs' => $panelIDs,
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'kullanici' => 'required|numeric', 'baslangic' => 'required',
-            'bitis' => 'required', 'erisim' => 'required',
+            'kullanici' => 'required|numeric',
+            'baslangic' => 'required',
+            'bitis' => 'required',
+            'erisim' => 'required',
         ]);
         if (is_numeric($id)) {
             if (
@@ -100,10 +108,13 @@ class WebPanelAuthController extends Controller
                 ])
             ) {
                 DB::table('web_panel_user')->where('panel_auth_id', '=', $id)->delete();
-                foreach ($request->input('panels') as $panel) {
-                    DB::table('web_panel_user')->insert([
-                        'panel_id' => $panel, 'panel_auth_id' => $id,  "updated_at" => date('Y-m-d H:i:s'),
-                    ]);
+
+                if ($request->input('panels') != null) {
+                    foreach ($request->input('panels') as $panel) {
+                        DB::table('web_panel_user')->insert([
+                            'panel_id' => $panel, 'panel_auth_id' => $id,  "updated_at" => date('Y-m-d H:i:s'),
+                        ]);
+                    }
                 }
                 $request->session()->flash('mesajSuccess', 'Başarıyla güncellendi');
                 return redirect('yonetim/web/panel-auth');
