@@ -2,7 +2,7 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
             <li class="breadcrumb-item active" aria-current="page">Vize Tipleri</li>
@@ -34,9 +34,9 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <!--<button onclick="goster({{ $kayit->id }})" class="text-success"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                                    <i class="bi bi-image"></i>
-                                                </button>-->
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                                        <i class="bi bi-image"></i>
+                                                    </button>-->
                                     <a href="/yonetim/vize/vize-tipi/{{ $kayit->id }}/edit">
                                         <button data-bs-toggle="tooltip" data-bs-placement="top" title="Düzenle">
                                             <i class="bi bi-pencil-square "></i>

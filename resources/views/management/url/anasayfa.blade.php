@@ -2,14 +2,14 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item"><a href="/url">Url</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ $webSite->name }}</li>
         </ol>
     </nav>
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">
-           {{ $webSite->name }} anasayfa urlleri
+            {{ $webSite->name }} anasayfa urlleri
 
         </div>
         <div class="card-body scroll">

@@ -87,6 +87,7 @@ Route::middleware(['sessionCheck'])->group(function () {
 
     Route::get('/index', [GeneralLoginController::class, "get_index"]);
     Route::get('/cikis', [GeneralLoginController::class, "get_cikis"]);
+    Route::post('/theme', [GeneralLoginController::class, "post_theme"]);
 
     /**Musteri yönlendirmeler*/
     Route::resource('musteri/sorgula', CustomerSearchController::class);

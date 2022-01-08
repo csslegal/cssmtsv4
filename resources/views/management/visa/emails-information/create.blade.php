@@ -2,7 +2,7 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize/bilgi-emaili">Bilgi E-mailleri</a></li>
@@ -20,8 +20,8 @@
                         <select name="dil" class="form-control">
                             <option value="">Seçim yapınız</option>
                             @foreach ($language as $lang)
-                                <option {{ old('dil') == $lang->id ? 'selected' : '' }}
-                                    value="{{ $lang->id }}">{{ $lang->name }}</option>
+                                <option {{ old('dil') == $lang->id ? 'selected' : '' }} value="{{ $lang->id }}">
+                                    {{ $lang->name }}</option>
                             @endforeach
                         </select>
                         @error('dil')
@@ -34,7 +34,8 @@
                             <option value="">Seçim yapınız</option>
                             @foreach ($visaSubTypes as $visaSubType)
                                 <option {{ old('vize-tipi') == $visaSubType->id ? 'selected' : '' }}
-                                    value="{{ $visaSubType->id }}">{{ $visaSubType->vt_name." / ".$visaSubType->vst_name }}</option>
+                                    value="{{ $visaSubType->id }}">
+                                    {{ $visaSubType->vt_name . ' / ' . $visaSubType->vst_name }}</option>
                             @endforeach
                         </select>
                         @error('vize-tipi')
@@ -43,7 +44,8 @@
                     </div>
                     <div class="col-12">
                         <label class="form-label">Bilgi E-maill İçeriği</label>
-                        <textarea id="editor400" name="icerik" class="form-control wysiwyg">{!! old('icerik') !!}</textarea>
+                        <textarea id="editor400" name="icerik"
+                            class="form-control wysiwyg">{!! old('icerik') !!}</textarea>
                         @error('icerik')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

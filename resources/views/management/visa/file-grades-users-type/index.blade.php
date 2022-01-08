@@ -2,7 +2,7 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
             <li class="breadcrumb-item active" aria-current="page">Dosya Aşama Erişimleri</li>
@@ -69,7 +69,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
                         <span id="usersTypeName"></span>
-                       Kullanıcı Tipine Erişimi Verilen Dosya Aşamaları
+                        Kullanıcı Tipine Erişimi Verilen Dosya Aşamaları
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>

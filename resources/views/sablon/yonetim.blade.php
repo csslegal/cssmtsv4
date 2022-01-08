@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, noimageindex, nofollow, nosnippet">
-
     <title>@yield('title') </title>
     <!-- Styles -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('storage/logo.png') }}" />
@@ -31,7 +30,7 @@
     @yield('css')
 </head>
 
-<body onload="is_loaded();">
+<body class="light bg-light" onload="is_loaded();">
     @include('include.preload')
     <div class="container">
         <div class="row">
@@ -47,10 +46,24 @@
     <script>
         $(document).ready(function() {
             $('.toast').toast('show');
+
+            setTimeout(function() {
+                window.location.reload(1);
+            }, {{ config('app.yenilenmeSuresi') * 1000 }});
+
+            @if (session('theme') == 'dark')
+
+                $([".light [class*='-light']", ".dark [class*='-dark']"]).each((i, ele) => {
+                $(ele).removeClass('bg-light').addClass('bg-dark');
+                $(ele).removeClass('text-light').addClass('text-dark');
+                $(ele).removeClass('navbar-dark').addClass('navbar-light');
+                });
+                $('body').removeClass('bg-light').addClass('bg-dark');
+                $('#breadcrumb').addClass('bg-light');
+                $('#navbar').removeClass('navbar-dark').addClass('navbar-light');
+                $('#navbar').removeClass('bg-dark').addClass('bg-light');
+            @endif
         });
-        setTimeout(function() {
-            window.location.reload(1);
-        }, {{ config('app.yenilenmeSuresi') * 1000 }});
 
         function is_loaded() { //DOM
             if (document.getElementById) {

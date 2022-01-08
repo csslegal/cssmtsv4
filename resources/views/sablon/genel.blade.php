@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, noimageindex, nofollow, nosnippet">
-
     <title>@yield('title')</title>
     <!-- Styles -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('storage/logo.png') }}" />
@@ -31,17 +30,13 @@
     @yield('css')
 </head>
 
-<body onload="is_loaded();">
-
+<body class="light bg-light" onload="is_loaded();">
     @include('include.preload')
-
     <div class="container">
         <div class="row">
             <div class="col">
                 @include('include.nav-top')
-
                 @include('include.toast')
-
                 @yield('content')
             </div>
         </div>
@@ -51,28 +46,23 @@
     <script>
         $(document).ready(function() {
             $('.toast').toast('show');
-        });
-        //duyuruSayisiAl();
-        setTimeout(function() {
-            window.location.reload(1);
-            //duyuruSayisiAl();
-        }, {{ config('app.yenilenmeSuresi') * 1000 }});
+            setTimeout(function() {
+                window.location.reload(1);
+            }, {{ config('app.yenilenmeSuresi') * 1000 }});
 
-        function duyuruSayisiAl() {
-            $.ajax({
-                url: "/kullanici/ajax/duyuru-sayisi",
-                type: 'get',
-                success: function(sonuc) {
-                    if (sonuc != 0) {
-                        text = '<i class="bi bi-stack"></i>' + $("#duyuruSayisi").text() + " (" + sonuc + ") ";
-                        $("#duyuruSayisi").text('');
-                        $("#duyuruSayisi")
-                            .addClass(["fw-bold"])
-                            .html(text);
-                    }
-                }
-            });
-        }
+            @if (session('theme') == 'dark')
+
+                $([".light [class*='-light']", ".dark [class*='-dark']"]).each((i, ele) => {
+                $(ele).removeClass('bg-light').addClass('bg-dark');
+                $(ele).removeClass('text-light').addClass('text-dark');
+                $(ele).removeClass('navbar-dark').addClass('navbar-light');
+                });
+                $('body').removeClass('bg-light').addClass('bg-dark');
+                $('#breadcrumb').addClass('bg-light');
+                $('#navbar').removeClass('navbar-dark').addClass('navbar-light');
+                $('#navbar').removeClass('bg-dark').addClass('bg-light');
+            @endif
+        });
 
         function is_loaded() { //DOM
             if (document.getElementById) {

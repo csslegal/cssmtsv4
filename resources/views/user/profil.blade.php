@@ -4,13 +4,13 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb ">
+        <ol id="breadcrumb" class="breadcrumb p-2">
             <li class="breadcrumb-item"><a href="/kullanici">Kullanıcı İşlemleri</a></li>
             <li class="breadcrumb-item active" aria-current="page">Profilim</li>
         </ol>
     </nav>
 
-    <div class="card card-primary">
+    <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white fw-bold">Profilim</div>
         <div class="card-body">
             <div class="row">
@@ -47,6 +47,12 @@
                             <li>Yok</li>
                         @endif
                     </ul>
+                    <hr>
+                    <span class="fw-bold text-primary">Sistem Teması</span>
+                    <select class="form-control" onchange="themeChange()">
+                        <option @if (session('theme') == 'light') selected @endif>Light @if (session('theme') == 'light') teması aktif @endif</option>
+                        <option @if (session('theme') == 'dark') selected @endif>Dark @if (session('theme') == 'dark') teması aktif @endif</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -77,4 +83,23 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        function themeChange() {
+            $.ajax({
+                url: "/theme",
+                type: 'post',
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                success: function(sonuc) {
+                    if (sonuc == 1) {
+                        window.location.reload(1);
+                    }
+                }
+            });
+        }
+    </script>
 @endsection

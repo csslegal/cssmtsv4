@@ -2,7 +2,7 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize/alt-vize-tipi">Alt Vize Tipleri</a></li>
@@ -20,7 +20,7 @@
                     <select name="vize-tipi" class="form-control">
                         <option value="">Seçim yapınız</option>
                         @foreach ($visaTypes as $visaType)
-                            <option {{  $kayit->visa_type_id == $visaType->id ? 'selected' : '' }}
+                            <option {{ $kayit->visa_type_id == $visaType->id ? 'selected' : '' }}
                                 value="{{ $visaType->id }}">{{ $visaType->name }}</option>
                         @endforeach
                     </select>
@@ -31,7 +31,7 @@
 
                 <div class="col-12">
                     <label class="form-label">Alt Vize Tipi</label>
-                    <input type="text" value="{{  $kayit->name }}" name="name" class="form-control">
+                    <input type="text" value="{{ $kayit->name }}" name="name" class="form-control">
                     @error('name')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

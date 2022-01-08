@@ -2,7 +2,7 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/duyuru">Duyurular</a></li>
             <li class="breadcrumb-item active" aria-current="page">Düzenle</li>
@@ -17,10 +17,11 @@
                 @error('icerik')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                <textarea id="editor400" name="icerik">@isset($kayit){!! $kayit->icerik !!}@endisset{!! old('icerik') !!}</textarea>
+                <textarea id="editor400"
+                    name="icerik">@isset($kayit){!! $kayit->icerik !!}@endisset{!! old('icerik') !!}</textarea>
                     <br>
                     <div class="form-check">
-                        <input type="checkbox" name="active" class="form-check-input" @if ($kayit->active==1) checked @endif>
+                        <input type="checkbox" name="active" class="form-check-input" @if ($kayit->active == 1) checked @endif>
                         <label class="form-check-label" for="flexCheckChecked">
                             Normal duyuru mu?
                         </label>

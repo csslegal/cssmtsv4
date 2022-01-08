@@ -2,7 +2,7 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize/dosya-asama-erisim">Dosya Aşama Erişimleri</a>
@@ -25,8 +25,7 @@
                         <select name="tip" class="form-control">
                             <option value="">Seçim Yapınız</option>
                             @foreach ($usersTypes as $userType)
-                                <option {{ $kayit->id == $userType->id ? 'selected' : '' }}
-                                    value="{{ $userType->id }}">
+                                <option {{ $kayit->id == $userType->id ? 'selected' : '' }} value="{{ $userType->id }}">
                                     {{ $userType->name }}
                                 </option>
                             @endforeach

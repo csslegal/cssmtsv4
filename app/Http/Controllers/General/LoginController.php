@@ -45,6 +45,7 @@ class LoginController extends Controller
                         $request->session()->put('userId', $users->id);
                         $request->session()->put('userTypeId', $users->user_type_id);
                         $request->session()->put('userName', $users->name);
+                        $request->session()->put('theme', 'light');
                         if ($users->user_type_id == 1) {
                             return redirect('/yonetim');
                         } else {
@@ -100,6 +101,20 @@ class LoginController extends Controller
             return redirect('/');
         } else {
             return view('general.login');
+        }
+    }
+    public function post_theme(Request $request)
+    {
+        if ($request->session()->has('theme')) {
+
+            if ($request->session()->get('theme') == 'dark') {
+
+                $request->session()->put('theme', 'light');
+                return 1;
+            } else {
+                $request->session()->put('theme', 'dark');
+                return 1;
+            }
         }
     }
 }

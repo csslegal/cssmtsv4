@@ -5,7 +5,7 @@
         <div class="col-md-12">
 
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb ">
+                <ol id="breadcrumb" class="breadcrumb p-2 ">
                     <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
                     <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Muhasebe</li>
