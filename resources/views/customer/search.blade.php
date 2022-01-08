@@ -5,7 +5,7 @@
 @section('content')
 
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -22,7 +22,7 @@
                     data-bs-placement="bottom" data-bs-html="true"
                     title="Sorgulama Kriterleri <li>İsim Soyisim</li><li>E-Mail</li><li>Telefon</li><li>T.C. No</li><li> Pasaport No</li><li>Dosya Ref. No</li>">
                 {{ csrf_field() }}
-                <button class="btn btn-primary" type="submit">Ara</button>
+                <button class="btn btn-primary border" type="submit">Ara</button>
             </div>
         </form>
     </div>
