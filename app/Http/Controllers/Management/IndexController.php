@@ -10,6 +10,11 @@ class IndexController extends Controller
 {
     public function get_index(Request $request)
     {
+        $userAccesses = DB::table('users_access')->select('access.id',)
+            ->leftJoin('access', 'access.id', '=', 'users_access.access_id')
+            ->where('user_id', '=', $request->session()->get('userId'))
+            ->pluck('access.id')->toArray();
+
         return view('management.index')->with([
             'countUsers' => DB::table('users')->where('active', '=', '1')->get()->count(),
             'countUserType' => DB::table('users_type')->get()->count(),
@@ -18,6 +23,7 @@ class IndexController extends Controller
             'countAppointmentOffice' => DB::table('appointment_offices')->get()->count(),
             'countNotice' => DB::table('notice')->where('active', '=', '1')->get()->count(),
             'countLanguage' => DB::table('language')->get()->count(),
+            'userAccesses' => $userAccesses,
 
         ]);
     }
