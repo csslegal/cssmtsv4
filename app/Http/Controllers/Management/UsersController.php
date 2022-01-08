@@ -212,6 +212,7 @@ class UsersController extends Controller
                 'user_id' => $id,
                 "updated_at" => date('Y-m-d H:i:s'),
             ]);
+
             if (count((array)$userAccesses) > 0) {
 
                 DB::table('users_access')->where('user_id', '=', $id)->delete();
@@ -228,6 +229,8 @@ class UsersController extends Controller
                     );
                 }
                 DB::table('users_access')->insert($arrayUserAccesses);
+            } else {
+                DB::table('users_access')->where('user_id', '=', $id)->delete();
             }
             $request->session()->flash('mesajSuccess', 'Başarıyla kaydedildi');
             return redirect('yonetim/users');
