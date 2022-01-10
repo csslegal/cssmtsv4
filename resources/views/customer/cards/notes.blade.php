@@ -5,7 +5,7 @@
                 Ekle</a>
 
         </div>
-        <div class="card-body">
+        <div class="card-body scroll">
             <table id="dataTable" class="table table-striped table-bordered display table-light" style="width:100%">
                 <thead>
                     <tr>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, noimageindex, nofollow, nosnippet">
-    <title>@yield('title') </title>
+    <title>@yield('title') Yönetim</title>
     <!-- Styles -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('storage/logo.png') }}" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

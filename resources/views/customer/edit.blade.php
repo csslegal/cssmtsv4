@@ -5,7 +5,7 @@
 @section('content')
 
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -20,7 +20,7 @@
 
     <div class="card card-primary">
         <div class="card-header bg-primary text-white">Müşteri Düzenle</div>
-        <div class="card-body">
+        <div class="card-body scroll">
             <form method="post" action="/musteri/{{ $baseCustomerDetails->id }}">
                 @method('PUT')
                 <div class="border border-1 p-2 mb-3">

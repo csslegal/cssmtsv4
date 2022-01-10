@@ -14,8 +14,6 @@
         </div>
         <div class="card-body scroll">
 
-            @include('include.toast')
-
             <table id="dataTable" class=" table table-striped table-bordered display table-light " style="width:100%">
                 <thead>
                     <tr>
@@ -37,9 +35,9 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <!--<button onclick="goster({{ $kayit->id }})" class="text-success"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                                <i class="bi bi-image"></i>
-                                            </button>-->
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                                    <i class="bi bi-image"></i>
+                                                </button>-->
                                     <a href="/yonetim/appointment-office/{{ $kayit->id }}/edit">
                                         <button data-bs-toggle="tooltip" data-bs-placement="top" title="Düzenle">
                                             <i class="bi bi-pencil-square "></i>

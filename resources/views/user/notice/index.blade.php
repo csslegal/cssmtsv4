@@ -4,14 +4,14 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item"><a href="/kullanici">Kullanıcı İşlemleri</a></li>
             <li class="breadcrumb-item active" aria-current="page">Duyurular</li>
         </ol>
     </nav>
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white fw-bold">Duyurular</div>
-        <div class="card-body">
+        <div class="card-body scroll">
 
             <table id="dataTableDilOkulu" class=" table table-striped table-bordered display table-light" style="width:100%">
                 <thead>

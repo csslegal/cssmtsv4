@@ -13,13 +13,10 @@
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">Düzenle</div>
         <div class="card-body">
-
-
             <form method="POST" action="/yonetim/vize/dosya-asama-erisim/{{ $kayit->id }}">
                 @method('PUT')
                 @csrf
                 <div class="row g-3">
-
                     <div class="col-12">
                         <label class="form-label">Kullanıcı Tipi</label>
                         <select name="tip" class="form-control">
@@ -47,7 +44,6 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
-
                 </div>
                 <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Tamamla</button>
             </form>

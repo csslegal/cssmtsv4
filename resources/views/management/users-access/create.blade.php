@@ -14,7 +14,6 @@
         <div class="card-body">
             <form method="POST" action="/yonetim/users-access">
                 @csrf
-
                 <div class="row g-3">
                     <div class="col-12">
                         <label class="form-label"> Adı</label>
@@ -24,7 +23,6 @@
                         @enderror
                     </div>
                 </div>
-
                 <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Tamamla</button>
             </form>
         </div>

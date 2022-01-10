@@ -15,7 +15,7 @@
                     <div class="card-header text-white bg-primary mb-3">Vize İşlemleri</div>
                     <div class="card-body">
                         <p class="card-text">Vize ile ilgili bütün işlemler.</p>
-                        <a href="/yonetim/vize" class="btn text-white btn-danger btn-block">Git</a>
+                        <a href="/yonetim/vize" class="btn text-white btn-primary btn-block">Git</a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <div class="card-header text-white bg-primary mb-3">Harici Tercüme İşlemleri</div>
                     <div class="card-body">
                         <p class="card-text">Harici Tercümeler ile ilgili bütün işlemler.</p>
-                        <a href="/yonetim/harici" class="btn text-white btn-danger btn-block">Git</a>
+                        <a href="/yonetim/harici" class="btn text-white btn-primary btn-block">Git</a>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     <div class="card-header text-white bg-primary mb-3">Dil Okulu İşlemleri</div>
                     <div class="card-body">
                         <p class="card-text">Dil Okulu ile ilgili bütün işlemler.</p>
-                        <a href="/yonetim/dilokulu" class="btn text-white btn-danger btn-block">Git</a>
+                        <a href="/yonetim/dilokulu" class="btn text-white btn-primary btn-block">Git</a>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     <div class="card-header text-white bg-primary mb-3">Web İşlemleri</div>
                     <div class="card-body">
                         <p class="card-text">Web siteleri ile ilgili bütün işlemler.</p>
-                        <a href="/yonetim/web" class="btn text-white btn-danger btn-block">Git</a>
+                        <a href="/yonetim/web" class="btn text-white btn-primary btn-block">Git</a>
                     </div>
                 </div>
             </div>
@@ -62,8 +62,7 @@
                             <div class="card border-primary mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Diller</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countLanguage }} dil sistemde kayıtlı.
-                                    </p>
+                                    <p class="card-text">Sistemde {{ $countLanguage }} kayıt var.</p>
                                     <a href="yonetim/language" class="btn btn-primary float-end">Git</a>
                                 </div>
                             </div>
@@ -72,8 +71,7 @@
                             <div class="card border-primary mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Duyurular</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countNotice }} duyuru sistemde kayıtlı.
-                                    </p>
+                                    <p class="card-text">Sistemde {{ $countNotice }} kayıt var.</p>
                                     <a href="yonetim/duyuru" class="btn btn-primary float-end">Git</a>
                                 </div>
                             </div>
@@ -82,8 +80,7 @@
                             <div class="card border-success mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Kullanıcı Tipleri</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countUserType }} kullanici tipi sistemde
-                                        kayıtlı. </p>
+                                    <p class="card-text">Sistemde {{ $countUserType }} kayıt var.</p>
                                     <a href="yonetim/users-type" class="btn btn-primary float-end">Git</a>
                                 </div>
                             </div>
@@ -92,8 +89,7 @@
                             <div class="card border-danger mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Kullanıcılar</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countUsers }} kullanici sistemde kayıtlı.
-                                    </p>
+                                    <p class="card-text"> Sistemde {{ $countUsers }} kayıt var.</p>
                                     <a href="yonetim/users" class="btn btn-primary float-end">Git</a>
                                 </div>
                             </div>
@@ -102,10 +98,7 @@
                             <div class="card border-info mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Kullanıcı Erişimleri</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countUserAccess }} kullanici erişimi
-                                        sistemde
-                                        kayıtlı.
-                                    </p>
+                                    <p class="card-text"> Sistemde {{ $countUserAccess }} kayıt var.</p>
                                     <a href="yonetim/users-access" class="btn btn-primary float-end">Git</a>
                                 </div>
                             </div>
@@ -114,8 +107,8 @@
                             <div class="card border-primary mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Randevu Ofisleri</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countAppointmentOffice }} ofis sistemde
-                                        kayıtlı. </p>
+                                    <p class="card-text"> Sistemde {{ $countAppointmentOffice }} kayıt var.
+                                    </p>
                                     <a href="yonetim/appointment-office" class="btn btn-primary float-end">Git</a>
                                 </div>
                             </div>
@@ -124,8 +117,8 @@
                             <div class="card border-success mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Başvuru Ofisleri</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countApplicationOffice }} ofis sistemde
-                                        kayıtlı. </p>
+                                    <p class="card-text">Sistemde {{ $countApplicationOffice }} kayıt var.
+                                    </p>
                                     <a href="yonetim/application-office" class="btn btn-primary float-end">Git</a>
                                 </div>
                             </div>

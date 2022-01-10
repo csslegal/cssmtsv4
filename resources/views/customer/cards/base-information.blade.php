@@ -36,7 +36,7 @@
             </div>
             <div class="gap-2">
                 <a href="/musteri/{{ $baseCustomerDetails->id }}/edit"
-                    class="btn btn-danger btn-sm text-white">Düzenle</a>
+                    class="btn btn-primary text-white float-end">Güncelle</a>
             </div>
         </div>
     </div>

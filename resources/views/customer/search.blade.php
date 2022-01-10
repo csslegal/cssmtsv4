@@ -30,7 +30,7 @@
         <div class="col-md-12 mt-5 mb-3">
             <div class="card card-primary">
                 <div class="card-header bg-primary text-white">Bulunan Sonuçlar</div>
-                <div class="card-body  scroll">
+                <div class="card-body scroll">
                     <table id="dataTable" class=" table table-striped table-bordered display table-light"
                         style="width:100%">
                         <thead>
@@ -39,8 +39,8 @@
                                 <th class="text-center">Adı</th>
                                 <th class="text-center">Telefon</th>
                                 <th class="text-center">Email</th>
-                                <th class="text-center">Dosya Ref No</th>
-                                <th class="text-center">Dosya Durumu</th>
+                                <th class="text-center">Ref.&nbsp;No</th>
+                                <th class="text-center">Durumu</th>
                                 <th class="text-center">Danışman</th>
                             </tr>
                         </thead>
@@ -74,7 +74,7 @@
                                     <td class="text-center">
                                         @if ($customerDetail->active == '1')
                                             <span class="text-success">Cari Dosya</span>
-                                        @elseif ($customerDetail->active=="0")
+                                        @elseif ($customerDetail->active == '0')
                                             <span class="text-info">Arşiv Dosya</span>
                                         @elseif ($customerDetail->active == null)
                                             <span class="text-danger">Veri bulunmadı</span>

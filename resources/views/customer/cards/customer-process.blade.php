@@ -1,26 +1,39 @@
-<div class="alert alert-primary alert-dismissible fade show" role="alert">
-    <h4 class="alert-heading">Müşteri Sayfası</h4>
-    <div class="row">
-        <div class="col-md-6">
-            <ul>
-                <li class="">
-                    <form action="" method="POST">
-                        @method('DELETE')
-                        @csrf
-                        Müşteri hesap silmek için
-                        <input type="hidden" name="id" value="{{ $baseCustomerDetails->id }}">
-                        <button class="confirm btn btn-sm btn-danger text-white" data-title="Dikkat!"
-                            data-content="Müşteri silinsin mi?">tıkla</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-        <div class="col-md-6">
-            <ul>
-                <li class="">Müşteri bilgileri logları için
-                    <a class="text-danger" href="/musteri/{{ $baseCustomerDetails->id }}/logs">tıkla</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+ <div class="card card-primary mb-3" id="temel">
+     <div class="card-header bg-primary text-white">Müşteri İşlemleri</div>
+
+     <div class="card-body scroll">
+         <div class="row">
+             <div class="col-xl-4 col-lg-4">
+                 <div class="card border-primary mb-3">
+                     <div class="card-body">
+                         <h5 class="card-title">Müşteri Hesabı Silme</h5>
+                         <br>
+                         <p>Müşteri hesabı silme işlemini yapma</p>
+                         <form action="" method="POST">
+                             @method('DELETE')
+                             @csrf
+                             <input type="hidden" name="id" value="{{ $baseCustomerDetails->id }}">
+                             <button class="confirm btn btn-primary text-white float-end" data-title="Dikkat!"
+                                 data-content="Müşteri silinsin mi?">
+                                 İşlem yap
+                             </button>
+                         </form>
+                     </div>
+                 </div>
+             </div>
+             <div class="col-xl-4 col-lg-4">
+                 <div class="card border-primary mb-3">
+                     <div class="card-body">
+                         <h5 class="card-title">Müşteri Logları</h5>
+                         <br>
+                         <p>Müşteri bilgileri logları detaylarını gösterme</p>
+                         <a href="/musteri/{{ $baseCustomerDetails->id }}/logs"
+                             class="btn btn-primary text-white float-end">
+                             Git
+                         </a>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>

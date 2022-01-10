@@ -17,7 +17,7 @@
     </nav>
     <div class="card card-primary">
         <div class="card-header bg-primary text-white">Müşteri Kayıt</div>
-        <div class="card-body">
+        <div class="card-body scroll">
             <form method="post" action="/musteri">
                 <div class="mb-3">
                     <label for="name" class="form-label">Müşteri Adı</label>
