@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-primary mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Dosya Aşamaları</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countFileGrades }} dosya aşaması sistemde
@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-primary mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Dosya Aşama Erişimleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaFileGradesUsersType }} kullanıcı
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-primary mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Vize Tipleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaTypes }} vize tipi sistemde kayıtlı.
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-primary mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Alt Vize Tipleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaSubTypes }} alt vize tipi sistemde
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-primary mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Vize Süreleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaValidity }} vize süresi sistemde
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-primary mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Bilgi E-mailleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaEmailInformationList }} bilgi
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-primary mb-2">
+                            <div class="card  mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Evrak Listesi Emailleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaEmailDocumentList }} evrak listesi
