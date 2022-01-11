@@ -33,13 +33,15 @@ class InformationEmailController extends Controller
                     $customer = DB::table('customers')->where('id', '=', $id)->first();
                     try {
                         Mail::send('email.information', ['customer' => $customer, 'visaSubInformation' => $visaSubInformation], function ($m) use ($customer) {
-                            $m->to($customer->email, $customer->name)->subject('Bilgi E-maili ' . date("His") . ' | CSS Legal')->bcc('mehmetaliturkan@engin.group', $name = null);
+                            $m->to($customer->email, $customer->name)
+                                ->subject('Bilgi E-maili ' . time() . ' | CSS Legal')
+                                ->bcc('mehmetaliturkan@engin.group', $name = null);
                         });
                         DB::table('email_logs')->insert([
                             'customer_id' => $id,
                             'access_id' => 1, //vize işlem emaili
                             'content' => $visaSubInformation->content,
-                            'subject' => 'Bilgi E-maili ' . date("His") . ' | CSS Legal',
+                            'subject' => 'Bilgi E-maili ' . time() . ' | CSS Legal',
                             'user_id' => $request->session()->get('userId'),
                             'created_at' => date('Y-m-d H:i:s'),
                         ]);

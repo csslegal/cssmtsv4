@@ -67,20 +67,20 @@ class DocumentListEmailSendController extends Controller
                 ];
                 $pdf = PDF::loadView('pdf.document-list', $data);
                 $fileName = time() . '.pdf';
-                $pdf->save(env('PATH_URL') . 'storage/app/public/pdf/' . $fileName);
+                $pdf->save(env('PATH_URL') . 'public/storage/pdf/' . $fileName);
                 try {
                     $customer = DB::table('customers')->where('id', '=', $id)->first();
                     Mail::send('email.document-list', [null], function ($m) use ($customer, $fileName) {
                         $m->to($customer->email, $customer->name)
-                            ->subject('Evrak Listesi ' . date("His") . ' | CSS Legal')
-                            ->attach(env('PATH_URL') . 'storage/app/public/' . $fileName)
-                            ->bcc('mehmetaliturkan@engin.group', $name = null);
+                            ->subject('Evrak Listesi ' . time()  . ' | CSS Legal')
+                            ->attach(env('PATH_URL') . 'public/storage/pdf/' . $fileName)
+                            ->bcc('mehmetaliturkan@csslegal.com', $name = null);
                     });
                     DB::table('email_logs')->insert([
                         'customer_id' => $id,
                         'access_id' => 1, //vize işlem emaili
                         'content' => $visaSubDocumentList->content,
-                        'subject' => 'Evrak Listesi ' . date("His") . ' | CSS Legal',
+                        'subject' => 'Evrak Listesi ' . time() . ' | CSS Legal',
                         'user_id' => $request->session()->get('userId'),
                         'created_at' => date('Y-m-d H:i:s'),
                     ]);
