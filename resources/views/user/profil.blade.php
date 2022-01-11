@@ -16,24 +16,11 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <ul>
-                        <li>Adınız:
-                            <span class="fw-bold text-danger"> {{ $kullaniciBilgileri->u_name }} </span>
-                        </li>
-                        <li>E-mail Adresiniz:
-                            <span class="fw-bold text-danger"> {{ $kullaniciBilgileri->u_email }} </span>
-                        </li>
-                        <li>Çalışma Ofisi:
-                            <span class="fw-bold text-danger"> {{ $kullaniciBilgileri->bo_name }} </span>
-                        </li>
-                        <li>
-                            <span class="fw-bold">Yetki Seviyesi:</span>
-                            <span class="fw-bold text-danger"> {{ $kullaniciBilgileri->ut_name }} </span>
-                        </li>
-                        <li>Mesai Saatleri:
-                            <span class="fw-bold text-danger">
-                                {{ $kullaniciBilgileri->giris }} - {{ $kullaniciBilgileri->cikis }}
-                            </span>
-                        </li>
+                        <li>Adınız: {{ $kullaniciBilgileri->u_name }} </li>
+                        <li>E-mail Adresiniz: {{ $kullaniciBilgileri->u_email }} </li>
+                        <li>Çalışma Ofisi: {{ $kullaniciBilgileri->bo_name }} </li>
+                        <li>Yetki Seviyesi: {{ $kullaniciBilgileri->ut_name }} </li>
+                        <li>Mesai Saatleri: {{ $kullaniciBilgileri->giris }} - {{ $kullaniciBilgileri->cikis }} </li>
                     </ul>
                 </div>
                 <div class="col-md-6 col-sm-12">

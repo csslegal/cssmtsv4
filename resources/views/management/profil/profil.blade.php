@@ -13,34 +13,13 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
+                    <span class="fw-bold text-primary">Kullanıcı Detayları</span>
                     <ul>
-                        <li>Adınız:
-                            <span class="fw-bold text-danger">
-                                {{ $yonetimBilgileri->name }}
-                            </span>
-                        </li>
-                        <li>E-mail Adresiniz:
-                            <span class="fw-bold text-danger">
-                                {{ $yonetimBilgileri->email }}
-                            </span>
-                        </li>
-                        <li>Çalışma Ofisi:
-                            <span class="fw-bold text-danger">
-                                {{ $yonetimBilgileri->bo_name }}
-                            </span>
-                        </li>
-                        <li>
-                            <span class="fw-bold">Yetki Seviyesi:</span>
-                            <span class="fw-bold text-danger">
-                                {{ $yonetimBilgileri->ut_name }}
-                            </span>
-                        </li>
-                        <li>Mesai Saatleri:
-                            <span class="fw-bold text-danger">
-                                {{ $yonetimBilgileri->giris }} -
-                                {{ $yonetimBilgileri->cikis }}
-                            </span>
-                        </li>
+                        <li>Adınız: {{ $yonetimBilgileri->name }}</li>
+                        <li>E-mail Adresiniz: {{ $yonetimBilgileri->email }}</li>
+                        <li>Çalışma Ofisi: {{ $yonetimBilgileri->bo_name }}</li>
+                        <li>Yetki Seviyesi: {{ $yonetimBilgileri->ut_name }}</li>
+                        <li>Mesai Saatleri: {{ $yonetimBilgileri->giris }} - {{ $yonetimBilgileri->cikis }}</li>
                     </ul>
                 </div>
                 <div class="col-md-6 col-sm-12">
