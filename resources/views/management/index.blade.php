@@ -59,7 +59,7 @@
                 <div class="card-body ">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-primary mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Diller</h5>
                                     <p class="card-text">Sistemde {{ $countLanguage }} kayıt var.</p>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-primary mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Duyurular</h5>
                                     <p class="card-text">Sistemde {{ $countNotice }} kayıt var.</p>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-success mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Kullanıcı Tipleri</h5>
                                     <p class="card-text">Sistemde {{ $countUserType }} kayıt var.</p>
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-danger mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Kullanıcılar</h5>
                                     <p class="card-text"> Sistemde {{ $countUsers }} kayıt var.</p>
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-info mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Kullanıcı Erişimleri</h5>
                                     <p class="card-text"> Sistemde {{ $countUserAccess }} kayıt var.</p>
@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-primary mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Randevu Ofisleri</h5>
                                     <p class="card-text"> Sistemde {{ $countAppointmentOffice }} kayıt var.
@@ -114,7 +114,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card border-success mb-2">
+                            <div class="card mb-2">
                                 <div class="card-body">
                                     <h5 class="card-title">Başvuru Ofisleri</h5>
                                     <p class="card-text">Sistemde {{ $countApplicationOffice }} kayıt var.
