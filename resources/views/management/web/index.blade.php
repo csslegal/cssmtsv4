@@ -37,9 +37,18 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
                     <div class="card mb-2">
                         <div class="card-body">
-                            <h5 class="card-title">Panel Yetkileri</h5>
+                            <h5 class="card-title">Panel Yetkileri Düzenle</h5>
                             <p class="card-text fw-bold"> Toplam {{ $countWebPanelAuth }} yetki sistemde kayıtlı. </p>
                             <a href="/yonetim/web/panel-auth" class="btn btn-primary float-end">Git</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 ">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <h5 class="card-title">Panellere Git</h5>
+                            <p class="card-text fw-bold">Web site panllerine geçiş yapma</p>
+                            <a href="/yonetim/web/paneller" class="btn btn-primary float-end">Git</a>
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/web">Web İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/web/panel-auth">Panel Yetkileri</a></li>
@@ -55,6 +55,8 @@
                 <div class="col-12 mb-3">
                     <label class="fw-bold">Sistemde Kayıtlı Paneller</label>
                     <hr>
+                    <input type="checkbox" id="checkedAll" /> Hepsini seç
+                    <br>
                     <div class="row">
                         @foreach ($groups as $group)
                             <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 mb-3">
@@ -63,7 +65,8 @@
                                 <ol>
                                     @foreach ($panels->where('group_id', '=', $group->id) as $panel)
                                         <li>
-                                            <input type="checkbox" name="panels[]" value="{{ $panel->id }}" />
+                                            <input type="checkbox" class="checkSingle" name="panels[]"
+                                                value="{{ $panel->id }}" />
                                             {{ $panel->name }}
                                         </li>
                                     @endforeach
@@ -76,4 +79,37 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $("#checkedAll").change(function() {
+                if (this.checked) {
+                    $(".checkSingle").each(function() {
+                        this.checked = true;
+                    })
+                } else {
+                    $(".checkSingle").each(function() {
+                        this.checked = false;
+                    })
+                }
+            });
+
+            $(".checkSingle").click(function() {
+                if ($(this).is(":checked")) {
+                    var isAllChecked = 0;
+                    $(".checkSingle").each(function() {
+                        if (!this.checked)
+                            isAllChecked = 1;
+                    })
+                    if (isAllChecked == 0) {
+                        $("#checkedAll").prop("checked", true);
+                    }
+                } else {
+                    $("#checkedAll").prop("checked", false);
+                }
+            });
+        });
+    </script>
 @endsection

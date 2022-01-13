@@ -258,6 +258,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('editor', [ManagementWebController::class, 'get_editor']);
             Route::get('writer', [ManagementWebController::class, 'get_writer']);
             Route::get('graphic', [ManagementWebController::class, 'get_graphic']);
+            Route::get('paneller', [ManagementWebController::class, 'get_paneller']);
 
             Route::resource('groups', ManagementWebGroupsController::class);
             Route::resource('panels', ManagementWebPanelsController::class);
