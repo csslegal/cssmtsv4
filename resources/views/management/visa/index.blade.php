@@ -12,6 +12,11 @@
 
             @include('include.management.visa.nav')
 
+            @include('include.management.visa.send-email-logs')
+
+            <!-- Modal -->
+            @include('include.management.content-load')
+
             <div class="card">
                 <div class="card-header text-white bg-primary mb-3">Genel Vize İşlemleri</div>
                 <div class="card-body">
@@ -95,4 +100,51 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        function contentLoad(ne, id) {
+            var url = "";
+            if (ne == 'not') {
+                url = "/musteri/ajax/not-goster";
+            } else if (ne == 'email') {
+                url = "/musteri/ajax/email-goster";
+            }
+            $("#contentLoad").html('İçerik alınıyor...');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {
+                    'id': id,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(data, status, xhr) {
+                    $("#contentLoad").html(data['content']);
+                },
+                error: function(data, status, xhr) {
+                    $("#contentLoad")
+                        .html('<div class="alert alert-error" > ' +
+                            xhr + ' </div> ');
+                }
+            });
+        }
+
+        function notSil(id) {
+            $.ajax({
+                type: 'POST',
+                url: "/musteri/ajax/not-sil",
+                data: {
+                    'id': id,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(data, status, xhr) {
+                    location.reload();
+                },
+                error: function(data, status, xhr) {
+                    alert(xhr);
+                }
+            });
+        }
+    </script>
 @endsection

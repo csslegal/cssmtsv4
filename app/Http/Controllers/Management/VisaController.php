@@ -18,6 +18,34 @@ class VisaController extends Controller
         $countVisaEmailInformationList = DB::table('visa_emails_information')->get()->count();
         $countVisaEmailDocumentList = DB::table('visa_emails_document_list')->get()->count();
 
+        $customerNotes = DB::table('customer_notes')
+            ->select([
+                "users.name AS u_name",
+                'customers.name AS c_name',
+                "customer_notes.id",
+                "customer_notes.created_at",
+                "customer_notes.content"
+            ])
+            ->leftJoin('customers', 'customers.id', '=', 'customer_notes.customer_id')
+            ->leftJoin("users", "users.id", "=", "customer_notes.user_id")
+            ->orderByDesc('customer_notes.id')
+            ->get();
+
+        $customerEmailLogs = DB::table('email_logs')
+            ->select([
+                'email_logs.id AS id',
+                'users.name AS u_name',
+                'customers.name AS c_name',
+                'access.name AS a_name',
+                'email_logs.subject AS subject',
+                'email_logs.created_at AS created_at',
+            ])
+            ->leftJoin('users', 'users.id', '=', 'email_logs.user_id')
+            ->leftJoin('customers', 'customers.id', '=', 'email_logs.customer_id')
+            ->leftJoin('access', 'access.id', '=', 'email_logs.access_id')
+            ->orderByDesc('email_logs.id')
+            ->get();
+
         return view('management.visa.index')->with(
             [
                 'countVisaTypes' => $countVisaTypes,
@@ -27,6 +55,8 @@ class VisaController extends Controller
                 'countVisaValidity' => $countVisaValidity,
                 'countVisaEmailInformationList' => $countVisaEmailInformationList,
                 'countVisaEmailDocumentList' => $countVisaEmailDocumentList,
+                'customerNotes' => $customerNotes,
+                'customerEmailLogs' => $customerEmailLogs,
             ]
         );
     }
