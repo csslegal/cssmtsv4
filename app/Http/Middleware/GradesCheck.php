@@ -11,7 +11,7 @@ class GradesCheck
     public function handle(Request $request, Closure $next)
     {
         $theLastedURL = request()->segment(count(request()->segments()));
-
+        //dd($theLastedURL);
         $arrayURLS = array(
             'fatura',
             'odeme',
@@ -40,8 +40,11 @@ class GradesCheck
 
             /****istisna olarak hatalı fakat genel işlemlerden birisi değilse hatayı devam ettirecek */
             if (!in_array($theLastedURL, $arrayURLS)) {
-                $request->session()->flash('mesajDanger', 'Hatalı istek yapıldı');
-                return redirect('/musteri/' . $request->id);
+
+                if (!is_numeric($theLastedURL)) {
+                    $request->session()->flash('mesajDanger', 'Hatalı istek yapıldı');
+                    return redirect('/musteri/' . $request->id);
+                }
             }
         }
         return $next($request);
