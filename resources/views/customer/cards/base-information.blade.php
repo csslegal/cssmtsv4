@@ -1,7 +1,8 @@
 @if (isset($baseCustomerDetails))
     <div class="card card-primary mb-3" id="temel">
-        <div class="card-header bg-primary text-white">Müşteri Bilgileri</div>
-
+        <div class="card-header bg-primary text-white">Müşteri Bilgileri
+            <a class="float-end text-white" href="/musteri/{{ $baseCustomerDetails->id }}/edit">Güncelle</a>
+        </div>
         <div class="card-body scroll">
             <div class="row">
                 <div class="col-md-6">
@@ -33,10 +34,6 @@
                         </li>
                     </ul>
                 </div>
-            </div>
-            <div class="gap-2">
-                <a href="/musteri/{{ $baseCustomerDetails->id }}/edit"
-                    class="btn btn-primary text-white float-end">Güncelle</a>
             </div>
         </div>
     </div>
