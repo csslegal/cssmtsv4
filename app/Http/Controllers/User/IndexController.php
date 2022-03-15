@@ -234,6 +234,17 @@ class IndexController extends Controller
                     'panelsTimeAccess' => $panelsTimeAccess,
                 ]);
                 break;
+            case 14: //s.m uzmanı
+                $visaCustomers = $visaCustomersUsers
+                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    ->get();
+                return view('user.sosyal.index')->with([
+                    'userAccesses' => $userAccesses,
+                    'visaCustomers' => $visaCustomers,
+                    'webResults' => $webResults,
+                    'panelsTimeAccess' => $panelsTimeAccess,
+                ]);
+                break;
             default:
                 return view('general.401');
         }

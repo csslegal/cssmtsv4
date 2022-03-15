@@ -3,6 +3,7 @@
         <div class="card-header bg-primary text-white">Müşteri Bilgileri
             <a class="float-end text-white" href="/musteri/{{ $baseCustomerDetails->id }}/edit">Güncelle</a>
         </div>
+        
         <div class="card-body scroll">
             <div class="row">
                 <div class="col-md-6">
