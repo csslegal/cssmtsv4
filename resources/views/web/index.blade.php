@@ -1,6 +1,8 @@
 @extends('sablon.genel')
 
-@section('title') Web Anasayfa @endsection
+@section('title')
+    Web Anasayfa
+@endsection
 
 @section('content')
 
@@ -54,12 +56,14 @@
                                                         @php date_default_timezone_set('Europe/Istanbul'); @endphp type="hidden" name="s">
                                                     <input type="hidden" name="d" value="tr" />
                                                     <button type="submit"
-                                                        class="btn btn-success text-white float-end">Panele git</button>
+                                                        class="btn btn-primary text-white float-end">Panele git</button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                    @if ($loop->last) <hr>@endif
+                                    @if ($loop->last)
+                                        <hr>
+                                    @endif
                                 @endforeach
                             @endif
                         </div>
