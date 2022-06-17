@@ -2,15 +2,17 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol id="breadcrumb" class="breadcrumb p-2 ">
-            <li class="breadcrumb-item"><a href="/url">Url</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $webSite->name }}</li>
+        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+            <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
+            <li class="breadcrumb-item"><a href="/yonetim/web">Web İşlemleri</a></li>
+            <li class="breadcrumb-item"><a href="/yonetim/web/url">Url Analizleri</a></li>
+            <li class="breadcrumb-item"><a href="/yonetim/web/url/{{ $webSite->id }}">{{ $webSite->name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $webSiteAnasayfa->name }}</li>
         </ol>
     </nav>
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">
-            {{ $webSite->name }} anasayfa urlleri
-
+            Altsayfa Urller
         </div>
         <div class="card-body scroll">
             <table id="dataTable" class="table table-striped table-bordered display table-light " style="width:100%">
@@ -18,17 +20,13 @@
                     <tr>
                         <th>ID</th>
                         <th>URL</th>
-                        <th>Linkler</th>
-                        <th>Linkler</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($kayitlar as $kayit)
                         <tr>
                             <td>{{ $kayit->id }}</td>
-                            <td>{{ $kayit->name }}</td>
-                            <td><a href="/url/{{ $webSite->id }}/subpage/{{ $kayit->id }}">Git</a></td>
-                            <td><a href="/url/{{ $webSite->id }}/subpage/{{ $kayit->id }}/home">Getir</a></td>
+                            <td>{{ $kayit->alt_name }}</td>
                         </tr>
                     @endforeach
                 </tbody>

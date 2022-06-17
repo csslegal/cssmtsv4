@@ -2,35 +2,47 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
-            <li class="breadcrumb-item active" aria-current="page">Url</li>
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
+            <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
+            <li class="breadcrumb-item"><a href="/yonetim/web">Web İşlemleri</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Url Analizleri</li>
         </ol>
     </nav>
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">
             Url
-            <a class="float-end text-white" href="/url/create">Ekle</a>
+            <div class="dropdown float-end text-white">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    İşlemler
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="/yonetim/web/url/create">URL Ekle</a></li>
+                    <li><a class="dropdown-item" href="/yonetim/web/url/detay">Link Detayları</a></li>
+                </ul>
+            </div>
         </div>
         <div class="card-body scroll">
-            <table id="dataTableVize" class="table table-striped table-bordered display table-light " style="width:100%">
+            <table id="dataTable" class="table table-striped table-bordered display table-light " style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Adı</th>
                         <th>E. Tarih</th>
                         <th>G. Tarih</th>
-                        <th>Özet Getir</th>
-
-                        <th>Linkler</th>
-                        <th>Linkler</th>
+                        <th>Özet</th>
+                        <th>Detay</th>
+                        <!-- <th>Linkler</th><th>Linkler</th>-->
                         <th>Sil</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @php $i=1 @endphp
                     @foreach ($kayitlar as $kayit)
                         <tr>
-                            <td>{{ $kayit->id }}</td>
-                            <td>{{ $kayit->name }}</td>
+                            <td>{{ $i++ }}</td>
+                            <td class="@php echo $kayit->detay_kontrol==1? " text-success":""; @endphp">{{ $kayit->name }}
+                            </td>
                             <td>{{ $kayit->created_at }}</td>
                             <td>{{ $kayit->updated_at }}</td>
                             <td>
@@ -39,10 +51,15 @@
                                     <i class="bi bi-image"></i>
                                 </button>
                             </td>
-                            <td><a href="/url/{{ $kayit->id }}">Git</a></td>
-                            <td><a href="/url/{{ $kayit->id }}/home">Getir</a></td>
                             <td>
-                                <form action="/url/{{ $kayit->id }}" method="post">
+                                <button onclick="detay({{ $kayit->id }})" data-bs-target="#exampleModal"
+                                    class="text-danger" data-bs-toggle="modal">
+                                    <i class="bi bi-image"></i>
+                                </button>
+                            </td>
+                            <!--<td><a href="/yonetim/web/url/{{ $kayit->id }}">Git</a></td><td><a href="/yonetim/web/url/{{ $kayit->id }}/home">Getir</a></td>-->
+                            <td>
+                                <form action="/yonetim/web/url/{{ $kayit->id }}" method="post">
                                     @method('DELETE')
                                     @csrf
                                     <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Sil">
@@ -72,7 +89,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('js')
@@ -80,10 +96,30 @@
         function goster(id) {
             $("#icerikYükle").html(
                 '<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div><span class="m-2">Yükleniyor...</span></div>'
-                );
+            );
             $.ajax({
                 type: 'POST',
-                url: "/url/ajax",
+                url: "/yonetim/web/url/ajax-ozet",
+                data: {
+                    'id': id,
+                    "_token": "{{ csrf_token() }}",
+                },
+                success: function(data, status, xhr) {
+                    $("#icerikYükle").html(data);
+                },
+                error: function(data, status, xhr) {
+                    $("#icerikYükle").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
+                },
+            });
+        }
+
+        function detay(id) {
+            $("#icerikYükle").html(
+                '<div class="d-flex justify-content-center"><div class="spinner-border" role="status"></div><span class="m-2">Yükleniyor...</span></div>'
+            );
+            $.ajax({
+                type: 'POST',
+                url: "/yonetim/web/url/ajax-detay",
                 data: {
                     'id': id,
                     "_token": "{{ csrf_token() }}",

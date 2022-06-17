@@ -19,9 +19,9 @@ class UrlController extends Controller
      */
     public function index()
     {
-        $webSiteUrls = DB::table('url')->get();
+        $webSiteUrls = DB::table('url')->orderBy('detay_kontrol', 'ASC')->orderBy('name', 'ASC')->get();
 
-        return view('management.url.index')->with(
+        return view('management.web.url.index')->with(
             [
                 'kayitlar' => $webSiteUrls,
             ]
@@ -35,7 +35,7 @@ class UrlController extends Controller
      */
     public function create()
     {
-        return view('management.url.create');
+        return view('management.web.url.create');
     }
 
     /**
@@ -64,11 +64,11 @@ class UrlController extends Controller
 
             $request->session()
                 ->flash('mesajSuccess', 'Başarıyla kaydedildi');
-            return redirect('/url');
+            return redirect('/yonetim/web/url');
         } else {
             $request->session()
                 ->flash('mesajDanger', 'Sistemde kayıtlı');
-            return redirect('/url');
+            return redirect('/yonetim/web/url');
         }
     }
 
@@ -86,7 +86,7 @@ class UrlController extends Controller
         $webSiteAnasayfaLinkleri = DB::table('url_anasayfa')
             ->where('url_id', '=', $id)->get();
 
-        return view('management.url.anasayfa')->with(
+        return view('management.web.url.anasayfa')->with(
             [
                 'kayitlar' => $webSiteAnasayfaLinkleri,
                 'webSite' => $webSite,
@@ -126,23 +126,27 @@ class UrlController extends Controller
     public function destroy($id, Request $request)
     {
         if (is_numeric($id)) {
-            if (
-                DB::table('url')
-                ->where('id', '=', $id)
-                ->delete()
-            ) {
-                $request->session()
-                    ->flash('mesajSuccess', 'Başarıyla silindi');
-                return redirect('url');
+            if (DB::table('url')->where('id', '=', $id)->delete()) {
+
+                DB::table('url_edits')->where('url_id', '=', $id)->delete();
+
+                $urlAnaSayfalar = DB::table('url_anasayfa')->where('url_id', '=', $id)->get();
+                foreach ($urlAnaSayfalar as $urlAnaSayfa) {
+                    DB::table('url_altsayfa')->where('url_anasayfa_id', '=', $urlAnaSayfa->id)->delete();
+                }
+                DB::table('url_anasayfa')->where('url_id', '=', $id)->delete();
+
+                $request->session()->flash('mesajSuccess', 'Başarıyla silindi');
+                return redirect('/yonetim/web/url');
             } else {
                 $request->session()
                     ->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
-                return redirect('url');
+                return redirect('/yonetim/web/url');
             }
         } else {
             $request->session()
                 ->flash('mesajDanger', 'ID alınırken sorun oluştu');
-            return redirect('url');
+            return redirect('/yonetim/web/url');
         }
     }
 
@@ -151,7 +155,7 @@ class UrlController extends Controller
         $webSite = DB::table('url')
             ->where('id', '=', $id)->first();
 
-        $WebSiteHome = new WebSiteUrls($webSite->name);
+        $WebSiteHome = new WebSiteUrls($webSite->name, true);
         $webSiteHomeUrls = $WebSiteHome->fetch();
 
         DB::table('url_anasayfa')
@@ -167,7 +171,7 @@ class UrlController extends Controller
         }
         $request->session()
             ->flash('mesajSuccess', 'Başarıyla alındı');
-        return redirect('/url/' . $id);
+        return redirect('/yonetim/web/url/' . $id);
     }
 
     public function get_subpage($id, $subId)
@@ -190,7 +194,7 @@ class UrlController extends Controller
             ->where('url_anasayfa.id', '=', $subId)
             ->get();
 
-        return view('management.url.altsayfa')->with(
+        return view('management.web.url.altsayfa')->with(
             [
                 'kayitlar' => $webSiteUrls,
                 'webSite' => $webSite,
@@ -198,12 +202,13 @@ class UrlController extends Controller
             ]
         );
     }
+
     public function get_subpage_links($id, $subId, Request $request)
     {
         $webSite = DB::table('url_anasayfa')
             ->where('id', '=', $subId)->first();
 
-        $WebSiteHome = new WebSiteUrls($webSite->name);
+        $WebSiteHome = new WebSiteUrls($webSite->name, false);
         $webSiteHomeUrls = $WebSiteHome->fetch();
 
         //dd($webSiteHomeUrls);
@@ -221,119 +226,138 @@ class UrlController extends Controller
         }
         $request->session()
             ->flash('mesajSuccess', 'Başarıyla alındı');
-        return redirect('/url/' . $id . '/subpage/' . $subId);
+        return redirect('/yonetim/web/url/' . $id . '/subpage/' . $subId);
     }
 
-    public function get_ajax(Request $request)
+    public function get_ajax_ozet(Request $request)
     {
         $result = "";
         $id = $request->input('id');
 
-        $webSite = DB::table('url')
-            ->where('id', '=', $id)->first();
+        $webSite = DB::table('url')->where('id', '=', $id)->first();
+        DB::table('url_edits')->where('url_id', '=', $id)->delete();
 
-        DB::table('url_edits')
-            ->where('url_id', '=', $id)->delete();
-
-        $WebSiteHome = new WebSiteUrls($webSite->name);
+        $WebSiteHome = new WebSiteUrls($webSite->name, true);
         $webSiteHomeUrls = $WebSiteHome->fetch();
 
         for ($iHome = 0; $iHome < count($webSiteHomeUrls); $iHome++) {
 
             if (strpos($webSiteHomeUrls[$iHome], $webSite->name) !== false) {
-
-                $WebSiteSubpage = new WebSiteUrls($webSiteHomeUrls[$iHome]);
+                $WebSiteSubpage = new WebSiteUrls($webSiteHomeUrls[$iHome], false);
                 $webSiteSubpageUrls = $WebSiteSubpage->fetch();
 
                 for ($iSubPage = 0; $iSubPage < count($webSiteSubpageUrls); $iSubPage++) {
-
                     if (strpos($webSiteSubpageUrls[$iSubPage], $webSite->name) !== false) {
                         //siteye ait link ise
-
                     } else {
-
-
                         if (array_key_exists('host', parse_url($webSiteSubpageUrls[$iSubPage]))) {
-
                             $urlSadelestirme = parse_url($webSiteSubpageUrls[$iSubPage])['host'];
                         } else {
                             $urlSadelestirme =  $webSiteSubpageUrls[$iSubPage];
                         }
-
-                        if (
-                            DB::table('url_edits')
-                            ->where('url_id', '=', $id)
-                            ->where('name', '=',  $urlSadelestirme)
-                            ->count() == 0
-                        ) {
-
-                            DB::table('url_edits')->insert(
-                                [
-                                    'name' => $urlSadelestirme,
-                                    'url_id' => $id,
-                                    'count' => 1
-                                ]
-                            );
+                        if (DB::table('url_edits')->where('url_id', '=', $id)->where('name', '=',  $urlSadelestirme)->count() == 0) {
+                            DB::table('url_edits')->insert(['name' => $urlSadelestirme, 'url_id' => $id, 'count' => 1]);
                         } else {
-
-                            DB::table('url_edits')
-                                ->where('url_id', '=', $id)
-                                ->where('name', '=', $urlSadelestirme)
-                                ->update(
-                                    [
-                                        'count' => DB::raw('count+1')
-                                    ]
-                                );
+                            DB::table('url_edits')->where('url_id', '=', $id)->where('name', '=', $urlSadelestirme)->update(['count' => DB::raw('count+1')]);
                         }
                     }
                 }
             } else {
                 //siteye ait link değilse
                 if (array_key_exists('host', parse_url($webSiteHomeUrls[$iHome]))) {
-
                     $urlSadelestirme = parse_url($webSiteHomeUrls[$iHome])['host'];
                 } else {
                     $urlSadelestirme =  $webSiteHomeUrls[$iHome];
                 }
-                if (
-                    DB::table('url_edits')
-                    ->where('url_id', '=', $id)
-                    ->where('name', '=', $urlSadelestirme)
-                    ->count() == 0
-                ) {
-
-                    DB::table('url_edits')->insert(
-                        [
-                            'name' =>  $urlSadelestirme,
-                            'url_id' => $id,
-                            'count' => 1
-                        ]
-                    );
+                if (DB::table('url_edits')->where('url_id', '=', $id)->where('name', '=', $urlSadelestirme)->count() == 0) {
+                    DB::table('url_edits')->insert(['name' =>  $urlSadelestirme, 'url_id' => $id, 'count' => 1]);
                 } else {
-
-                    DB::table('url_edits')
-                        ->where('url_id', '=', $id)
-                        ->where('name', '=',  $urlSadelestirme)
-                        ->update(
-                            [
-                                'count' => DB::raw('count+1')
-                            ]
-                        );
+                    DB::table('url_edits')->where('url_id', '=', $id)->where('name', '=',  $urlSadelestirme)->update(['count' => DB::raw('count+1')]);
                 }
             }
         }
-
         $result .= 'Link Çıkışı Sayıları:';
         $result .= '<ul>';
-
         $results = DB::table('url_edits')->where('url_id', '=', $id)->get();
-
         foreach ($results as $res) {
             $result .= '<li>' . $res->name . ' : <span class="fw-bold">' . $res->count . '</span></li>';
         }
-
         $result .= '</ul>';
-
         return $result;
+    }
+
+    public function get_detay(Request $request)
+    {
+        $urlDetaylar = DB::table('url')->select(
+            [
+                'url.name AS u_name',
+                'url.detay_kontrol AS detay_kontrol',
+                'url_detay.id AS id',
+                'url_detay.kaynak AS kaynak',
+                'url_detay.hedef AS hedef',
+            ]
+        )->join('url_detay', 'url.id', '=', 'url_detay.url_id')->get();
+
+        return view('management.web.url.detay')->with(
+            [
+                'urlDetaylar' => $urlDetaylar,
+            ]
+        );
+    }
+
+    public function get_ajax_detay(Request $request)
+    {
+        $id = $request->input('id');
+
+        $webSite = DB::table('url')->where('id', '=', $id)->first();
+        DB::table('url_detay')->where('url_id', '=', $id)->delete();
+
+        $WebSiteHome = new WebSiteUrls($webSite->name, true);
+        $webSiteHomeUrls = $WebSiteHome->fetch();
+
+
+        for ($iHome = 0; $iHome < count($webSiteHomeUrls); $iHome++) {
+
+            if (strpos($webSiteHomeUrls[$iHome], $webSite->name) !== false || count(explode('/', $webSiteHomeUrls[$iHome])) < 2) {
+
+                if (count(explode('/', $webSiteHomeUrls[$iHome])) == 1)
+                    $webSiteHomeUrls[$iHome] = $webSite->name . '/' . $webSiteHomeUrls[$iHome];
+
+                $WebSiteSubpage = new WebSiteUrls($webSiteHomeUrls[$iHome], false);
+                $webSiteSubpageUrls = $WebSiteSubpage->fetch();
+
+                for ($iSubPage = 0; $iSubPage < count($webSiteSubpageUrls); $iSubPage++) {
+
+                    if (
+                        strpos($webSiteSubpageUrls[$iSubPage], $webSite->name) !== false || count(explode('/', $webSiteSubpageUrls[$iSubPage])) < 3 || (substr($webSiteSubpageUrls[$iSubPage], 0, 1) == '/' && substr($webSiteSubpageUrls[$iSubPage], 0, 1) != substr($webSiteSubpageUrls[$iSubPage], 1, 1))
+                    ) {
+                        //siteye ait link ise
+                    } else {
+
+                        if (
+                            DB::table('url_detay')->where('url_id', '=', $id)
+                            ->where('kaynak', '=', $webSiteHomeUrls[$iHome])
+                            ->where('hedef', '=', $webSiteSubpageUrls[$iSubPage])
+                            ->count() == 0
+                        ) {
+                            DB::table('url_detay')->insert(['kaynak' => $webSiteHomeUrls[$iHome], 'url_id' => $id, 'hedef' => $webSiteSubpageUrls[$iSubPage]]);
+                        }
+                    }
+                }
+            } else {
+
+                if (
+                    DB::table('url_detay')->where('url_id', '=', $id)
+                    ->where('kaynak', '=', $webSite->name)
+                    ->where('hedef', '=', $webSiteHomeUrls[$iHome])
+                    ->count() == 0
+                ) {
+                    DB::table('url_detay')->insert(['kaynak' => $webSite->name, 'url_id' => $id, 'hedef' => $webSiteHomeUrls[$iHome]]);
+                }
+            }
+        }
+        DB::table('url')->where('id', '=', $id)->update(['detay_kontrol' => 1]);
+
+        return "İşlem Tamamlandı";
     }
 }

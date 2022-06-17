@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\MyClass;
 
 use DOMDocument;
@@ -8,12 +7,12 @@ use DOMDocument;
 class WebSiteUrls
 {
     public $url;
+    public $istek;
 
-    public function __construct($url)
-
+    public function __construct($url, $istek)
     {
-
         $this->url = $url;
+        $this->istek = $istek;
 
         $options = array(
             'http' => array(
@@ -41,19 +40,20 @@ class WebSiteUrls
 
         foreach ($links as $link) {
             if (
-                $link->getAttribute('href') != ''
-                && $link->getAttribute('href') != '/'
-                &&  substr($link->getAttribute('href'), 0, 1) != '#'
-                &&  substr($link->getAttribute('href'), 0, 6) != 'mailto'
-                &&  substr($link->getAttribute('href'), 0, 3) != 'tel'
-                &&  substr($link->getAttribute('href'), 0, 2) != '//'
-                &&  substr($link->getAttribute('href'), 0, 2) != '..'
+                $link->getAttribute('href') != ''                       &&
+                $link->getAttribute('href') != '/'                      &&
+                substr($link->getAttribute('href'), 0, 1) != '#'        &&
+                substr($link->getAttribute('href'), 0, 6) != 'mailto'   &&
+                substr($link->getAttribute('href'), 0, 3) != 'tel'      &&
+                substr($link->getAttribute('href'), 0, 2) != '//'       &&
+                substr($link->getAttribute('href'), 0, 2) != '..'
             ) {
-                if (
-                    substr($link->getAttribute('href'), 0, 1) == '/'
-                    && substr($link->getAttribute('href'), 1, 1) != '/'
-                ) {
-                    array_push($linksArray, $this->url . $link->getAttribute('href'));
+                if (substr($link->getAttribute('href'), 0, 1) == '/' && substr($link->getAttribute('href'), 1, 1) != '/') {
+                    if ($this->istek) {
+                        $urlExpodes = explode('/', $this->url);
+                        array_push($linksArray, $urlExpodes[0] . "//" . $urlExpodes[2] . $link->getAttribute('href'));
+                    } else {
+                    }
                 } else {
                     array_push($linksArray, $link->getAttribute('href'));
                 }

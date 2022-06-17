@@ -47,8 +47,19 @@
                     <div class="card mb-2">
                         <div class="card-body">
                             <h5 class="card-title">Panellere Git</h5>
-                            <p class="card-text fw-bold">Web site panllerine geçiş yapma</p>
+                            <p class="card-text fw-bold">Web site panellerine geçiş yapma</p>
                             <a href="/yonetim/web/paneller" class="btn btn-primary float-end">Git</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="col-lg-3 col-md-6 col-sm-6 ">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <h5 class="card-title">URL Analizleri</h5>
+                            <p class="card-text fw-bold">URL Analizleri Git</p>
+                            <a href="/yonetim/web/url" class="btn btn-primary float-end">Git</a>
                         </div>
                     </div>
                 </div>

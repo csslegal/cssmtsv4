@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUrlTable extends Migration
+class CreateUrlDetayTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateUrlTable extends Migration
      */
     public function up()
     {
-        Schema::create('url', function (Blueprint $table) {
+        Schema::create('url_detay', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('detay_kontrol')->default('0');
-            $table->string('name');
+            $table->bigInteger('url_id');
+            $table->text('kaynak');
+            $table->text('hedef');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateUrlTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('url');
+        Schema::dropIfExists('url_detay');
     }
 }

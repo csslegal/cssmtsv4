@@ -221,7 +221,7 @@ Route::middleware(['sessionCheck'])->group(function () {
         Route::resource('appointment-office', ManagementAppointmentOfficeController::class);
         Route::resource('language', ManagementLanguageController::class);
 
-        /*** Yonetim ajax işlemleri*/
+        /**Yonetim ajax işlemleri*/
         Route::group(['prefix' => 'ajax'], function () {
             Route::post('duyuru', [ManagementAjaxController::class, 'post_duyuru_cek']);
             Route::post('bilgi-emaili', [ManagementAjaxController::class, 'post_bilgi_emaili_cek']);
@@ -251,7 +251,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::resource('dosya-asama-erisim', ManagementVisaFileGradesUsersTypeController::class);
         });
 
-        /****Yonetim web işlemleri */
+        /**Yonetim web işlemleri*/
         Route::group(['prefix' => 'web'], function () {
             Route::get('/', [ManagementWebController::class, 'get_index']);
             Route::get('engineer', [ManagementWebController::class, 'get_engineer']);
@@ -260,16 +260,18 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('graphic', [ManagementWebController::class, 'get_graphic']);
             Route::get('paneller', [ManagementWebController::class, 'get_paneller']);
 
+            /**Url tespit İşlemleri */
+            Route::post('/url/ajax-ozet', [UrlController::class, 'get_ajax_ozet']);
+            Route::post('/url/ajax-detay', [UrlController::class, 'get_ajax_detay']);
+            Route::get('/url/detay', [UrlController::class, 'get_detay']);
+            Route::get('/url/{id}/home', [UrlController::class, 'get_home_links']);
+            Route::get('/url/{id}/subpage/{subId}', [UrlController::class, 'get_subpage']);
+            Route::get('/url/{id}/subpage/{subId}/home', [UrlController::class, 'get_subpage_links']);
+
             Route::resource('groups', ManagementWebGroupsController::class);
             Route::resource('panels', ManagementWebPanelsController::class);
             Route::resource('panel-auth', ManagementWebPanelAuthController::class);
+            Route::resource('url', UrlController::class);
         });
-
-        /*****Url tespit İşlemleri */
-        Route::resource('url', UrlController::class);
-        Route::post('/url/ajax', [UrlController::class, 'get_ajax']);
-        Route::get('/url/{id}/home', [UrlController::class, 'get_home_links']);
-        Route::get('/url/{id}/subpage/{subId}', [UrlController::class, 'get_subpage']);
-        Route::get('/url/{id}/subpage/{subId}/home', [UrlController::class, 'get_subpage_links']);
     });
 });
