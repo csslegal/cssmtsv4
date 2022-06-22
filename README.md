@@ -1,9 +1,8 @@
-
-Gerekli Olan NPM Kütüphaneleri
-
 Web site: https://csslegal.com
 
 Keyword: Müşteri Takip Sistemi
+
+Gerekli Olan NPM Kütüphaneleri
 
 "@popperjs/core": 2.9.3
 "bootstrap": 5.1.0
