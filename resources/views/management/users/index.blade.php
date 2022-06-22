@@ -24,8 +24,6 @@
                         <th>Kullanıcı Tipi</th>
                         <th>Mesai Ofisi</th>
                         <th>Mesai Saati</th>
-                        <th>Eklenme Tarih</th>
-                        <th>Güncelleme Tarih</th>
                         <th>İşlem</th>
                     </tr>
                 </thead>
@@ -42,8 +40,6 @@
                             <td>{{ $kayit->bo_name }}</td>
                             <td>{{ $kayit->um_giris }} - {{ $kayit->um_cikis }}</td>
 
-                            <td>{{ $kayit->u_created_at }}</td>
-                            <td>{{ $kayit->u_updated_at }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <!--<button onclick="goster({{ $kayit->u_id }})" class="text-success"

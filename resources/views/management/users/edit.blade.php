@@ -88,8 +88,8 @@
                             <input name="mesaiGiris" type="text" class="form-control" placeholder="08:00"
                                 value="{{ old('mesaiGiris') ? old('mesaiGiris') : '08:00' }}">
                             <span class="input-group-text">-</span>
-                            <input name="mesaiCikis" type="text" class="form-control" placeholder="17:00"
-                                value="{{ old('mesaiCikis') ? old('mesaiCikis') : '17:00' }}">
+                            <input name="mesaiCikis" type="text" class="form-control" placeholder="18:00"
+                                value="{{ old('mesaiCikis') ? old('mesaiCikis') : '18:00' }}">
                         </div>
                         @error('mesaiCikis')
                             <div class="alert alert-danger">{{ $message }}</div>
