@@ -2,6 +2,14 @@ Web site: https://csslegal.com
 
 Keyword: Müşteri Takip Sistemi
 
+Özellikler
+
+Koordinator Tanımlı
+Ofis Sorumluları Tanımlı
+Temel Bilgi Güncelleme Onayı Tanımlı
+Fatura Kesimi Tanımlı
+Danışman Özelleştırme Tanımlı
+
 Gerekli Olan NPM Kütüphaneleri
 
 "@popperjs/core": 2.9.3
