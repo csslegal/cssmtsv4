@@ -12,6 +12,9 @@
 
             @include('include.management.visa.nav')
 
+            <!-- vize dosyaları logları-->
+            @include('include.management.visa.logs')
+
             @include('include.management.visa.send-email-logs')
 
             <!-- Modal -->
@@ -109,7 +112,9 @@
             if (ne == 'not') {
                 url = "/musteri/ajax/not-goster";
             } else if (ne == 'email') {
-                url = "/musteri/ajax/email-goster";
+                url = "/musteri/ajax/email-log-goster";
+            } else if (ne == 'visa') {
+                url = "/musteri/ajax/visa-log-goster";
             }
             $("#contentLoad").html('İçerik alınıyor...');
             $.ajax({
@@ -120,12 +125,16 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data, status, xhr) {
-                    $("#contentLoad").html(data['content']);
+                    if (data['content']==='') {
+                        $("#contentLoad").html('Veri bulunamadı.');
+
+                    } else {
+
+                        $("#contentLoad").html(data['content']);
+                    }
                 },
                 error: function(data, status, xhr) {
-                    $("#contentLoad")
-                        .html('<div class="alert alert-error" > ' +
-                            xhr + ' </div> ');
+                    $("#contentLoad").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
                 }
             });
         }

@@ -159,7 +159,8 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::post('telefon-kontrol', [CustomerAjaxController::class, 'post_telefon_kontrol']);
             Route::post('email-kontrol', [CustomerAjaxController::class, 'post_email_kontrol']);
             Route::post('not-goster', [CustomerAjaxController::class, 'post_not_goster']);
-            Route::post('email-goster', [CustomerAjaxController::class, 'post_email_goster']);
+            Route::post('email-log-goster', [CustomerAjaxController::class, 'post_email_log_goster']);
+            Route::post('visa-log-goster', [CustomerAjaxController::class, 'post_visa_log_goster']);
             Route::post('not-sil', [CustomerAjaxController::class, 'post_not_sil']);
             Route::post('alt-vize-tipi', [CustomerAjaxController::class, 'post_visa_sub_type']);
             Route::post('vize-dosya-log', [CustomerAjaxController::class, 'post_visa_file_log_content']);

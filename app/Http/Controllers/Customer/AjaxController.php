@@ -98,10 +98,22 @@ class AjaxController extends Controller
         }
     }
 
-    public function post_email_goster(Request $request)
+    public function post_email_log_goster(Request $request)
     {
         if (is_numeric($request->input('id'))) {
             return DB::table('email_logs')
+            ->select('content')
+            ->where('id', '=', $request->input('id'))
+                ->first();
+        } else {
+
+            echo 'Hatalı istek yapıldı';
+        }
+    }
+    public function post_visa_log_goster(Request $request)
+    {
+        if (is_numeric($request->input('id'))) {
+            return DB::table('visa_file_logs')
                 ->select('content')
                 ->where('id', '=', $request->input('id'))
                 ->first();
