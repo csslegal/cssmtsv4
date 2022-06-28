@@ -11,25 +11,6 @@ class IndexController extends Controller
 {
     public function get_index(Request $request)
     {
-        $visaCustomers = DB::table('customers')
-            ->select([
-                'customers.id AS id',
-                'customers.name AS name',
-                'visa_files.id AS visa_file_id',
-                'visa_files.status AS status',
-                'visa_file_grades.name AS visa_file_grades_name',
-                'visa_validity.name AS visa_validity_name',
-                'visa_types.name AS visa_type_name',
-                'visa_sub_types.name AS visa_sub_type_name',
-            ])
-            ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
-            ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
-            ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-            ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-            ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
-
-            ->where('visa_files.active', '=', 1);
-
         $visaCustomersUsers = DB::table('customers')
             ->select([
                 'customers.id AS id',
@@ -66,7 +47,9 @@ class IndexController extends Controller
             ->pluck('access.id')->toArray();
         switch ($request->session()->get('userTypeId')) {
             case 2: //danisman
-                $visaCustomers = $visaCustomers->where('visa_files.advisor_id', '=', $request->session()->get('userId'))->get();
+                $visaCustomers = $visaCustomersUsers
+                    //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    ->get();
                 return view('user.danisman.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
@@ -88,34 +71,7 @@ class IndexController extends Controller
                     'panelsTimeAccess' => $panelsTimeAccess,
                 ]);
                 break;
-            case 4: //b. koordinatoor
-                $mTBGIS = DB::table('customer_update')
-                    ->select([
-                        'customers.id AS customer_id',
-                        'customers.name AS name',
-                        'customer_update.id',
-                        'customer_update.onay AS onay',
-                        'customer_update.created_at',
-                        'users.id AS user_id',
-                        'users.name AS user_name',
-                    ])
-                    ->join('customers', 'customers.id', '=', 'customer_update.customer_id')
-                    ->join('users', 'users.id', '=', 'customer_update.user_id')
-                    ->get();
 
-                $visaCustomersCount = $visaCustomersUsers
-                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'))
-                    ->get()->count();
-                return view('user.koordinator.index-basvuru')->with([
-                    'userAccesses' => $userAccesses,
-                    'visaCustomersCount' => $visaCustomersCount,
-                    'mTBGIS' => $mTBGIS,
-                    'panelsTimeAccess' => $panelsTimeAccess,
-                ]);
-                break;
             case 5: //tercuman
                 $visaCustomers = $visaCustomersUsers
                     //->where('visa_files.translator_id', '=', $request->session()->get('userId'))
@@ -143,56 +99,9 @@ class IndexController extends Controller
                     'panelsTimeAccess' => $panelsTimeAccess,
                 ]);
                 break;
-            case 7: //m.koordinator
-                $mTBGIS = DB::table('customer_update')
-                    ->select([
-                        'customers.id AS customer_id',
-                        'customers.name AS customer_name',
-                        'customer_update.id',
-                        'customer_update.onay',
-                        'customer_update.created_at',
-                        'users.id AS user_id',
-                        'users.name AS user_name',
-                    ])
-                    ->join('customers', 'customers.id', '=', 'customer_update.customer_id')
-                    ->join('users', 'users.id', '=', 'customer_update.user_id')
-                    ->get();
-
-                $visaCustomersCount  = $visaCustomersUsers
-                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATOR_AUTH_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_EXPERT_AUTH_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_CANCEL_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_CLOSE_CONFIRM_GRADES_ID'))
-                    ->get()->count();
-                return view('user.koordinator.index-musteri')->with([
-                    'userAccesses' => $userAccesses,
-                    'visaCustomersCount' => $visaCustomersCount,
-                    'mTBGIS' => $mTBGIS,
-                    'panelsTimeAccess' => $panelsTimeAccess,
-                ]);
-                break;
-            case 8: //ofis sorumlusu
-                $userApplicationOfficeId = DB::table('users')
-                    ->select(['application_office_id'])
-                    ->where('id', '=', $request->session()->get('userId'))->first();
-                $arrayUserIDs = DB::table('users')
-                    ->select(['id'])
-                    ->where('application_office_id', '=', $userApplicationOfficeId->application_office_id)
-                    ->where('user_type_id', '=', 2)->get()->pluck('id')->toArray();
-                $visaCustomersCount = $visaCustomersUsers
-                    ->whereIn('visa_files.advisor_id', $arrayUserIDs)
-                    ->get()->count();
-                return view('user.ofis-sorumlusu.index')->with([
-                    'userAccesses' => $userAccesses,
-                    'visaCustomers' => $visaCustomers,
-                    'webResults' => $webResults,
-                    'panelsTimeAccess' => $panelsTimeAccess,
-                    'visaCustomersCount' => $visaCustomersCount,
-                ]);
-                break;
             case 10: //muhendis
                 $visaCustomers = $visaCustomersUsers
-                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
                 return view('user.engineer.index')->with([
                     'userAccesses' => $userAccesses,
@@ -203,7 +112,7 @@ class IndexController extends Controller
                 break;
             case 11: //yazar
                 $visaCustomers = $visaCustomersUsers
-                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
                 return view('user.writer.index')->with([
                     'userAccesses' => $userAccesses,
@@ -214,7 +123,7 @@ class IndexController extends Controller
                 break;
             case 12: //grafiker
                 $visaCustomers = $visaCustomersUsers
-                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
                 return view('user.graphic.index')->with([
                     'userAccesses' => $userAccesses,
@@ -225,7 +134,7 @@ class IndexController extends Controller
                 break;
             case 13: //editor
                 $visaCustomers = $visaCustomersUsers
-                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
                 return view('user.editor.index')->with([
                     'userAccesses' => $userAccesses,
@@ -236,7 +145,7 @@ class IndexController extends Controller
                 break;
             case 14: //s.m uzmanı
                 $visaCustomers = $visaCustomersUsers
-                    ->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
                 return view('user.sosyal.index')->with([
                     'userAccesses' => $userAccesses,
@@ -330,41 +239,4 @@ class IndexController extends Controller
         );
     }
 
-    public function get_TBGI_onay(Request $request, $mg_id)
-    {
-        if (is_numeric($mg_id)) {
-
-            if (DB::table('customer_update')
-                ->where('id', '=', $mg_id)
-                ->update(['onay' => 1])
-
-            ) {
-                $request->session()
-                    ->flash('mesajSuccess', 'Onay işlemi tamamlandı');
-                return redirect('/kullanici');
-            }
-        } else {
-            $request->session()
-                ->flash('mesajDanger', 'Hatalı bilgi girdiniz');
-            return redirect('/kullanici');
-        }
-    }
-    public function get_TBGI_gerial(Request $request, $mg_id)
-    {
-        if (is_numeric($mg_id)) {
-
-            if (DB::table('customer_update')
-                ->where('id', '=', $mg_id)
-                ->update(['onay' => 0])
-            ) {
-                $request->session()
-                    ->flash('mesajSuccess', 'Geri alma işlemi tamamlandı');
-                return redirect('/kullanici');
-            }
-        } else {
-            $request->session()
-                ->flash('mesajDanger', 'Hatalı bilgi girdiniz');
-            return redirect('/kullanici');
-        }
-    }
 }

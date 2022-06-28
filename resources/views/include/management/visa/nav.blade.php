@@ -4,10 +4,6 @@
             href="/yonetim/vize/danisman">Danışman<br>İşlemleri</a>
     </li>
     <li class="nav-item m-1">
-        <a class="nav-link {{ request()->is('yonetim/vize/ofis-sorumlusu') ? 'active bg-primary' : 'bg-danger text-white' }} btn btn-block"
-            href="/yonetim/vize/ofis-sorumlusu">Ofis&nbsp;Sorumlusu<br>İşlemleri</a>
-    </li>
-    <li class="nav-item m-1">
         <a class="nav-link {{ request()->is('yonetim/vize/muhasebe') ? 'active bg-primary' : 'bg-danger text-white' }} btn btn-block"
             href="/yonetim/vize/muhasebe">Muhasebe<br>İşlemleri</a>
     </li>
@@ -18,10 +14,5 @@
     <li class="nav-item m-1">
         <a class="nav-link {{ request()->is('yonetim/vize/uzman') ? 'active bg-primary' : 'bg-danger text-white' }} btn btn-block"
             href="/yonetim/vize/uzman">Uzman<br>İşlemleri</a>
-    </li>
-
-    <li class="nav-item m-1">
-        <a class="nav-link {{ request()->is('yonetim/vize/koordinator') ? 'active bg-primary' : 'bg-danger text-white' }} btn btn-block"
-            href="/yonetim/vize/koordinator">Koordinatör<br>İşlemleri</a>
     </li>
 </ul>

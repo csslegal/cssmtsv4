@@ -8,5 +8,5 @@
         <li>Müşteri sorgulama sayfasına gitmek için <a class="fw-bold" href="/musteri/sorgula">tıkla</a></li>
     </ul>
     <hr>
-    <p class="mb-0 text-danger fw-bold">Hadi müşteri işlemleri yapma zamanı!</p>
+    <p class="mb-0 text-danger fw-bold">Yapacak çook işlerim var!</p>
 </div>
