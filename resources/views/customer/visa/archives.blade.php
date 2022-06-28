@@ -1,11 +1,13 @@
 @extends('sablon.genel')
 
-@section('title') Vize Arşivler @endsection
+@section('title')
+    Vize Arşivler
+@endsection
 
 @section('content')
 
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -20,7 +22,8 @@
     @if ($visaArchives->count() > 0)
         @foreach ($visaArchives as $visaArchive)
             <div class="card border-primary mb-3">
-                <div class="card-header bg-primary text-white">{{ $visaArchive->id }} Referans Numaralı Arşiv Dosyası</div>
+                <div class="card-header bg-primary text-white">{{ $visaArchive->id }} Referans Numaralı Arşiv Dosyası
+                </div>
                 <div class="card-body scroll">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6">
@@ -41,7 +44,6 @@
                                         <span class="fw-bold">Sonuç:</span>
                                         <span>Sonuç bulunamadı</span>
                                     </li>
-
                                 @elseif ($visaArchive->visa_result == 1)
                                     <li>
                                         <span class="fw-bold">Sonuç:</span>
@@ -56,7 +58,7 @@
                                         <span class="fw-bold">Sonuç:</span>
                                         <span>İade (Dosya Kapama)</span>
                                     </li>
-                                @elseif ($visaArchive->visa_result==0)
+                                @elseif ($visaArchive->visa_result == 0)
                                     <li>
                                         <span class="fw-bold">Sonuç:</span>
                                         <span>Olumsuz </span>
@@ -110,7 +112,7 @@
                                         <span class="fw-bold">Teslimat Şekli:</span>
                                         <span>Elden kimlik ile</span>
                                     </li>
-                                @elseif($visaArchive->delivery_method==2)
+                                @elseif($visaArchive->delivery_method == 2)
                                     <li>
                                         <span class="fw-bold">Teslimat Şekli:</span>
                                         <span>{{ $visaArchive->courier_company }} </span>
@@ -119,7 +121,7 @@
                                         <span class="fw-bold">Kargo Takip No:</span>
                                         <span>{{ $visaArchive->tracking_number }} </span>
                                     </li>
-                                @elseif($visaArchive->delivery_method==3)
+                                @elseif($visaArchive->delivery_method == 3)
                                     <li>
                                         <span class="fw-bold">Teslimat Şekli:</span>
                                         <span>Başvuru yenileme</span>
@@ -149,7 +151,7 @@
                         <hr>
 
                         <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="card border-danger mb-2">
                                     <div class="card-body">
                                         <h5 class="card-title">Loglar</h5>
@@ -162,7 +164,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="card border-danger mb-2">
                                     <div class="card-body">
                                         <h5 class="card-title">Ödemeler</h5>
@@ -175,7 +177,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+                            <!--<div class="col-lg-4 col-md-4 col-sm-6 col-6">
                                 <div class="card border-danger mb-2">
                                     <div class="card-body">
                                         <h5 class="card-title">Makbuzlar</h5>
@@ -201,6 +203,7 @@
                                     </div>
                                 </div>
                             </div>
+                        -->
                         </div>
                     </div>
                 </div>
@@ -226,10 +229,12 @@
                 </div>
             </div>
         </div>
-
     @else
-        <div class="alert alert-danger">
-            Herhangi bir arşiv dosyası bulunamadı.
+        <div class="card card-primary mb-3">
+            <div class="card-body scroll">
+                Herhangi bir arşiv dosyası bulunamadı.
+
+            </div>
         </div>
     @endif
 
