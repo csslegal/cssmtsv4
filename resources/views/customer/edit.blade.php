@@ -1,9 +1,10 @@
 @extends('sablon.genel')
 
-@section('title') Müşteri Düzenle @endsection
+@section('title')
+    Müşteri Düzenle
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
         <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
@@ -26,17 +27,8 @@
                 <div class="border border-1 p-2 mb-3">
                     <div class="mb-3">
                         <label for="name" class="form-label">Müşteri Adı</label>
-
                         <input class="form-control" name="name" id="name" autocomplete="off" type="text"
-                            value="{{ $baseCustomerDetails != '' ? $baseCustomerDetails->name : '' }}" @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
-                        @if ($guncellemeIstegi != '')
-                            @if ($guncellemeIstegi->onay == 0)
-                                readonly
-                            @endif
-                        @else
-                            readonly
-                        @endif
-                        @endif >
+                            value="{{ $baseCustomerDetails != '' ? $baseCustomerDetails->name : '' }}">
                         @error('name')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -44,12 +36,7 @@
                     <div class="mb-3">
                         <label for="telefon" class="form-label">Müşteri Telefon</label>
                         <input class="form-control" name="telefon" autocomplete="off" type="text"
-                            value="{{ $baseCustomerDetails->telefon != '' ? $baseCustomerDetails->telefon : '' }}"
-                            @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
-                        @if ($guncellemeIstegi != '')
-                            @if ($guncellemeIstegi->onay == 0) readonly @endif
-                        @else readonly @endif
-                        @endif>
+                            value="{{ $baseCustomerDetails->telefon != '' ? $baseCustomerDetails->telefon : '' }}">
                         @error('telefon')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -57,23 +44,11 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Müşteri E-mail</label>
                         <input class="form-control" name="email" autocomplete="off" type="text"
-                            value="{{ $baseCustomerDetails->email != '' ? $baseCustomerDetails->email : '' }}"
-                            @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
-                        @if ($guncellemeIstegi != '')
-                            @if ($guncellemeIstegi->onay == 0) readonly @endif
-                        @else readonly @endif
-                        @endif>
+                            value="{{ $baseCustomerDetails->email != '' ? $baseCustomerDetails->email : '' }}">
                         @error('email')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    @if (session('userTypeId') != 1 && session('userTypeId') != 4 && session('userTypeId') != 7)
-                        @if ($guncellemeIstegiSayisi == 0)
-                            <div class="mb-1"> <a href="/musteri/{{ $baseCustomerDetails->id }}/duzenle-istek"
-                                    class="text-danger">Güncelleme İsteği Gönder</a>
-                            </div>
-                        @endif
-                    @endif
                 </div>
                 <div class="mb-3">
                     <label for="adres" class="form-label">Müşteri Adresi</label>
@@ -117,8 +92,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="adres" class="form-label">Pasaport Numarası</label>
-                    <input type="text" name="pasaport" placeholder="Müşteri güncel pasaport numarası" class="form-control"
-                        autocomplete="off"
+                    <input type="text" name="pasaport" placeholder="Müşteri güncel pasaport numarası"
+                        class="form-control" autocomplete="off"
                         value="{{ $baseCustomerDetails->pasaport != '' ? $baseCustomerDetails->pasaport : old('pasaport') }}">
                 </div>
                 <div class="mb-3">
