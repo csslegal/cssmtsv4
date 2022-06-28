@@ -123,6 +123,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 ">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Müşteri Bilgileri</h5>
+                                    <p class="card-text">Sistemde {{ $countCustomer }} kayıt var.
+                                    </p>
+                                    <a href="yonetim/customers" class="btn btn-primary float-end">Git</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

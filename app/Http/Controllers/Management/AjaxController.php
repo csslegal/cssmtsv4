@@ -103,6 +103,80 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
+
+    public function get_customers_list(Request $request)
+    {
+
+        ## Read value
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // Rows display per page
+
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $search_arr['value']; // Search value
+
+        // Total records
+        $totalRecords = DB::table('customers')->count();
+        $totalRecordswithFilter =
+            DB::table('customers')->select('count(*) as allcount')->where('name', 'like', '%' . $searchValue . '%')->count();
+
+        // Fetch records
+        $records = DB::table('customers')->orderBy($columnName, $columnSortOrder)
+            ->where('customers.name', 'like', '%' . $searchValue . '%')
+            ->select('customers.*')
+            ->skip($start)
+            ->take($rowperpage)
+            ->get();
+
+        $data_arr = array();
+
+
+
+        foreach ($records as $record) {
+            $id = $record->id;
+            $name = $record->name;
+            $telefon = $record->telefon;
+            $email = $record->email;
+            $adres = $record->adres;
+
+            $data_arr[] = array(
+                "id" => $id,
+                "name" => $name,
+                "telefon" => $telefon,
+                "email" => $email,
+                "adres" => $adres,
+            );
+        }
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordswithFilter,
+            "aaData" => $data_arr
+        );
+
+        echo json_encode($response);
+        exit;
+
+        /***$kayitlar = DB::table('customers')->select([
+            'customers.id AS id',
+            'customers.name AS name',
+            'customers.tcno AS tcno',
+            'customers.email AS email',
+            'customers.telefon AS telefon',
+            'customers.adres AS adres',
+            'customers.created_at AS created_at',
+            'users.name AS u_name',
+        ])->leftJoin('users', 'users.id', '=', 'customers.user_id')->orderByDesc('id')->limit(10)->get();**/
+    }
+
     public function post_evrak_emaili_cek(Request $request)
     {
         if (is_numeric($request->input('id'))) {

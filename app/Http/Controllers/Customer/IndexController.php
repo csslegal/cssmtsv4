@@ -11,7 +11,6 @@ class IndexController extends Controller
 
     public function index(Request $request)
     {
-        //$request->session()->flash('mesajDanger', 'Hatalı istek yapıldı');
         return redirect('/musteri/sorgula');
     }
 
@@ -187,27 +186,13 @@ class IndexController extends Controller
     public function edit($id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
-
         $randevuOfisleri = DB::table('appointment_offices')->get();
         $basvuruOfisleri = DB::table('application_offices')->get();
 
-        $guncellemeIstegi = DB::table('customer_update')->where('customer_id', '=', $id)
-            ->where('user_id', '=', $request->session()->get('userId'))->first();
-
-        if ($guncellemeIstegi != null) {
-            if ($guncellemeIstegi->onay == 1) {
-                $request->session()->flash('mesajSuccess', 'Güncelleme isteği onayı verildi');
-            } else {
-                $request->session()->flash('mesajInfo', 'Güncelleme isteği onay bekliyor');
-            }
-        }
-
         return view('customer.edit')->with([
             'baseCustomerDetails' => $baseCustomerDetails,
-            'basvuruOfisleri' => $basvuruOfisleri,
             'randevuOfisleri' => $randevuOfisleri,
-            'guncellemeIstegiSayisi' => $guncellemeIstegi != null ? 1 : 0,
-            'guncellemeIstegi' => $guncellemeIstegi == null ? null : $guncellemeIstegi
+            'basvuruOfisleri' => $basvuruOfisleri,
         ]);
     }
 

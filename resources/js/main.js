@@ -19,6 +19,21 @@ $('#dataTable').DataTable({
     language: { url: '/dataTables.tr.json' },
 });
 
+$('#dtaTable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "/yonetim/ajax/customers",
+    language: { url: '/dataTables.tr.json' },
+    columns: [
+        { data: 'id' },
+        { data: 'name' },
+        { data: 'telefon' },
+        { data: 'email' },
+        { data: 'adres' },
+
+    ]
+});
+
 $('a.confirm').confirm({
     title: 'Dikkat!',
     content: '',
