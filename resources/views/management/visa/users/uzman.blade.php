@@ -23,7 +23,7 @@
                                 <th>ID</th>
                                 <th>Müşteri Adı</th>
                                 <th>Danışmanı</th>
-                                <th>Uzmani</th>
+                                <th>Uzmanı</th>
                                 <th>Durumu</th>
                                 <th>Vize Tipi</th>
                                 <th>Vize Süresi</th>
