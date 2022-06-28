@@ -7,6 +7,7 @@ use App\Http\Controllers\Management\IndexController as ManagementIndexController
 use App\Http\Controllers\Management\NoticeController as ManagementNoticeController;
 use App\Http\Controllers\Management\ProfilController as ManagementProfilController;
 use App\Http\Controllers\Management\LanguageController as ManagementLanguageController;
+use App\Http\Controllers\Management\CustomersController as ManagementCustomersController;
 use App\Http\Controllers\Management\AjaxController as ManagementAjaxController;
 use App\Http\Controllers\Management\ApplicationOfficeController as ManagementApplicationOfficeController;
 use App\Http\Controllers\Management\AppointmentOfficeController as ManagementAppointmentOfficeController;
@@ -33,7 +34,6 @@ use App\Http\Controllers\Web\IndexController as WebIndexController;
 
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\AjaxController as UserAjaxController;
-use App\Http\Controllers\User\Visa\IndexController as UserVisaIndexController;
 
 use App\Http\Controllers\Customer\IndexController as CustomerIndexController;
 use App\Http\Controllers\Customer\SearchController as CustomerSearchController;
@@ -181,18 +181,6 @@ Route::middleware(['sessionCheck'])->group(function () {
         Route::get('profil', [UserIndexController::class, 'get_profil']);
         Route::post('profil', [UserIndexController::class, 'post_profil']);
         Route::get('duyuru', [UserIndexController::class, 'get_duyuru']);
-        Route::get('mTBGI/{id}/onay', [UserIndexController::class, 'get_TBGI_onay']);
-        Route::get('mTBGI/{id}/geri-al', [UserIndexController::class, 'get_TBGI_gerial']);
-
-        /***koordinator vize işlemleri */
-        Route::group(['prefix' => 'vize'], function () {
-            Route::get('/', [UserVisaIndexController::class, 'get_index']);
-            Route::get('danisman', [UserVisaIndexController::class, 'get_danisman']);
-            Route::get('uzman', [UserVisaIndexController::class, 'get_uzman']);
-            Route::get('muhasebe', [UserVisaIndexController::class, 'get_muhasebe']);
-            Route::get('tercuman', [UserVisaIndexController::class, 'get_tercuman']);
-            Route::get('ofis-sorumlusu', [UserVisaIndexController::class, 'get_ofis_sorumlusu']);
-        });
 
         /**web yönlendirmeleri */
         Route::prefix('web')->group(function () {
@@ -210,8 +198,6 @@ Route::middleware(['sessionCheck'])->group(function () {
     Route::group(['prefix' => 'yonetim', 'middleware' => 'managementCheck'], function () {
 
         Route::get('/', [ManagementIndexController::class, 'get_index']);
-        Route::get('mTBGI/{id}/onay', [ManagementIndexController::class, 'get_TBGI_onay']);
-        Route::get('mTBGI/{id}/geri-al', [ManagementIndexController::class, 'get_TBGI_gerial']);
 
         Route::resource('duyuru', ManagementNoticeController::class);
         Route::resource('profil', ManagementProfilController::class);
@@ -220,6 +206,7 @@ Route::middleware(['sessionCheck'])->group(function () {
         Route::resource('users-access', ManagementUsersAccessController::class);
         Route::resource('application-office', ManagementApplicationOfficeController::class);
         Route::resource('appointment-office', ManagementAppointmentOfficeController::class);
+        Route::resource('customers', ManagementCustomersController::class);
         Route::resource('language', ManagementLanguageController::class);
 
         /**Yonetim ajax işlemleri*/
@@ -230,6 +217,8 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::post('sirala', [ManagementAjaxController::class, 'post_sorting']);
             Route::post('dosya-asama-erisim', [ManagementAjaxController::class, 'post_visa_file_grades_users_type']);
             Route::post('panel-list', [ManagementAjaxController::class, 'post_panel_list']);
+
+            Route::get('customers', [ManagementAjaxController::class, 'get_customers_list']);
         });
 
         /**Yonetim vize işlemleri*/
@@ -240,8 +229,6 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('uzman', [ManagementVisaController::class, 'get_uzman']);
             Route::get('muhasebe', [ManagementVisaController::class, 'get_muhasebe']);
             Route::get('tercuman', [ManagementVisaController::class, 'get_tercuman']);
-            Route::get('koordinator', [ManagementVisaController::class, 'get_koordinator']);
-            Route::get('ofis-sorumlusu', [ManagementVisaController::class, 'get_ofis_sorumlusu']);
 
             Route::resource('vize-tipi', ManagementVisaTypesController::class);
             Route::resource('vize-suresi', ManagementVisaValidityController::class);
