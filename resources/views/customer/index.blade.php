@@ -23,7 +23,7 @@
 
     @include('customer.cards.notes')
 
-    @include('customer.cards.send-email-logs')
+    <!--@include('customer.cards.send-email-logs')-->
 
     <!-- Modal -->
     @include('customer.modals.content-load')

@@ -15,7 +15,7 @@
             <!-- vize dosyaları logları-->
             @include('include.management.visa.logs')
 
-            @include('include.management.visa.send-email-logs')
+            <!--@include('include.management.visa.send-email-logs')-->
 
             <!-- Modal -->
             @include('include.management.content-load')

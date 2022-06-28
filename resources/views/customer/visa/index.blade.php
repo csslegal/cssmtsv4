@@ -25,7 +25,7 @@
         @include('customer.visa.cards.file-grades-detail')
     @endif
 
-    @include('customer.visa.cards.information-email')
+   <!-- @include('customer.visa.cards.information-email')-->
 
     @include('customer.modals.content-load')
 
