@@ -18,6 +18,7 @@ Gerekli Olan NPM Kütüphaneleri
 Gerekli Composer Kütüphaneleri
 
 1. "barryvdh/laravel-dompdf"
+2. "maatwebsite/excel"
 
 DB Kurulumu
 
