@@ -1,5 +1,10 @@
 <div class="card card-primary mb-3">
-    <div class="card-header bg-danger text-white  fw-bold">Cari Dosya Detayları</div>
+    <div class="card-header bg-danger text-white  fw-bold">Cari Dosya Detayları
+        @if (session('userTypeId') == 1)
+            <a data-bs-toggle="modal" onclick="asama();" data-bs-target="#exampleModal" class="float-end fw-bold text-white"
+                href="#">Dosya Aşama İşlemleri</a>
+        @endif
+    </div>
 
     <div class="card-body scroll">
         <div class="row">

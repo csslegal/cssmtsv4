@@ -1,9 +1,10 @@
 @extends('sablon.genel')
 
-@section('title') Müşteri Anasayfa @endsection
+@section('title')
+    Müşteri Anasayfa
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
         <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
@@ -23,13 +24,10 @@
 
     @include('customer.cards.notes')
 
-    <!--@include('customer.cards.send-email-logs')-->
-
     <!-- Modal -->
     @include('customer.modals.content-load')
 
     @include('customer.modals.note-add-modal')
-
 @endsection
 
 @section('js')
@@ -54,8 +52,7 @@
                 },
                 error: function(data, status, xhr) {
                     $("#contentLoad")
-                        .html('<div class="alert alert-error" > ' +
-                            xhr + ' </div> ');
+                        .html('<div class="alert alert-error" > ' + xhr + ' </div> ');
                 }
             });
         }

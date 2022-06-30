@@ -13,6 +13,7 @@ class GradesCheck
         $theLastedURL = request()->segment(count(request()->segments()));
         //dd($theLastedURL);
         $arrayURLS = array(
+            'asama-guncelle',
             'fatura',
             'odeme',
             'kapatma',

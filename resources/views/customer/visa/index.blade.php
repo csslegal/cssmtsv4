@@ -1,11 +1,12 @@
 @extends('sablon.genel')
 
-@section('title') Vize Anasayfa @endsection
+@section('title')
+    Vize Anasayfa
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -25,10 +26,7 @@
         @include('customer.visa.cards.file-grades-detail')
     @endif
 
-   <!-- @include('customer.visa.cards.information-email')-->
-
     @include('customer.modals.content-load')
-
 @endsection
 
 @section('js')
@@ -43,13 +41,14 @@
                     location.reload(true);
                 } else if (resp == 'WAIT') {
                     //console.log('WAIT');
-                    setTimeout('newGrades()', 5000);
+                    setTimeout('newGrades()', 10000);
                 } else if (resp == 'SET') {
                     //console.log('SET');
-                    setTimeout('newGrades()', 5000);
+                    setTimeout('newGrades()', 10000);
                 }
             });
         }
+        setTimeout('newGrades()', 10000);
 
         function goster(id) {
             $("#contentLoad").html('Veri alınıyor...');
@@ -73,7 +72,28 @@
                 }
             });
         }
+        @if (isset($visaFileDetail))
+            @if (session('userTypeId') == 1)
+                function asama() {
+                    $("#contentHead").html('Dosya Aşama Güncelleme');
+                    @php
+                        $asamalar = '<form action="vize/' . $visaFileDetail->id . '/asama-guncelle" method="post"><div class="form-group"><select name="visa_file_grades_id" class="form-control">';
+                        foreach ($visaFileGrades as $visaFileGrade) {
+                            if ($visaFileGrade->id == $visaFileDetail->visa_file_grades_id) {
+                                $asamalar .= '<option selected value="' . $visaFileGrade->id . '">' . $visaFileGrade->name . '</option>';
+                            } else {
+                                $asamalar .= '<option value="' . $visaFileGrade->id . '">' . $visaFileGrade->name . '</option>';
+                            }
+                        }
+                        $asamalar .= '</select>';
+                        $asamalar .= '<input type="hidden" name="_token" value="' . csrf_token() . '" /></div>';
+                        $asamalar .= '<button type="submit" class="btn btn-danger text-white mt-2">Güncelle</button></form>';
+                    @endphp
 
+                    $("#contentLoad").html('{!! html_entity_decode($asamalar) !!}');
+                }
+            @endif
+        @endif
         function subVisaTypes(id) {
             $.ajax({
                 type: 'POST',
@@ -102,6 +122,5 @@
                 }
             });
         }
-        newGrades();
     </script>
 @endsection

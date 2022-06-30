@@ -19,6 +19,7 @@ class IndexController extends Controller
         }
 
         $visaTypes = DB::table('visa_types')->get();
+        $visaFileGrades = DB::table('visa_file_grades')->where('active', '=', 1)->get();
         $language = DB::table('language')->get();
 
         $visaFileDetail = DB::table('visa_files')
@@ -82,6 +83,7 @@ class IndexController extends Controller
 
         return view('customer.visa.index')->with([
             'baseCustomerDetails' => $baseCustomerDetails,
+            'visaFileGrades' => $visaFileGrades,
             'visaTypes' => $visaTypes,
             'language' => $language,
             'visaFileDetail' => $visaFileDetail,

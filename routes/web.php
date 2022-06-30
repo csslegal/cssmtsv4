@@ -42,6 +42,7 @@ use App\Http\Controllers\Customer\EditRequestController as CustomerEditRequestCo
 use App\Http\Controllers\Customer\LogsController as CustomerLogsController;
 use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
 use App\Http\Controllers\Customer\Visa\IndexController as VisaIndexController;
+use App\Http\Controllers\Customer\Visa\GradesUpdateController as VisaGradesUpdateController;
 use App\Http\Controllers\Customer\Visa\InformationEmailController as VisaInformationEmailController;
 use App\Http\Controllers\Customer\Visa\Grades\FileOpenController as VisaFileOpenController;
 use App\Http\Controllers\Customer\Visa\Grades\ReceivedPaymentsController as VisaReceivedPaymentsController;
@@ -112,6 +113,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::group(['prefix' => '{visa_file_id}', 'middleware' => 'gradesCheck'], function () {
 
                 /***Dosya aşamalarından bağımsız bölümler */
+                Route::resource('asama-guncelle', VisaGradesUpdateController::class);
                 Route::resource('odeme', VisaPaymentsController::class);
                 Route::resource('fatura', VisaInvoicesController::class);
                 Route::resource('arsive-tasima', VisaArchiveTransportController::class);
