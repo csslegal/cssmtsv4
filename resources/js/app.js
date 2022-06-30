@@ -11,12 +11,19 @@ import AirDatepicker from 'air-datepicker';
 
 new AirDatepicker('.datepicker', {
     buttons: ['today', 'clear'],
+    isMobile: true,
+    autoClose: true,
 })
 new AirDatepicker('.datepicker1', {
     buttons: ['today', 'clear'],
+    isMobile: true,
+    autoClose: true,
+
 })
 new AirDatepicker('.datepicker2', {
     buttons: ['today', 'clear'],
+    isMobile: true,
+    autoClose: true,
 })
 
 // Core - these two are required :-)
