@@ -1,11 +1,12 @@
 @extends('sablon.genel')
 
-@section('title') Dosya Teslimatı @endsection
+@section('title')
+    Dosya Teslimatı
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -24,9 +25,11 @@
                 <div class="mb-3">
                     <label>Teslim Edilme Şekli </label>
                     <select name="teslimat_sekli" onchange="delivery()" id="teslimat_sekli" class="form-control">
-                        <option {{ old('teslimat_sekli') == 1 ? ' selected ' : '' }} value="1">Elden kimlik ile</option>
+                        <option {{ old('teslimat_sekli') == 1 ? ' selected ' : '' }} value="1">Elden kimlik ile
+                        </option>
                         <option {{ old('teslimat_sekli') == 2 ? ' selected ' : '' }} value="2">Kargo ile</option>
-                        <option {{ old('teslimat_sekli') == 3 ? ' selected ' : '' }} value="3">Başvuru yenileme</option>
+                        <option {{ old('teslimat_sekli') == 3 ? ' selected ' : '' }} value="3">Başvuru yenileme
+                        </option>
                     </select>
                     @error('teslimat_sekli')
                         <div class="alert alert-danger">{{ $message }}</div>

@@ -149,7 +149,7 @@ class DocumentListEmailSendController extends Controller
                 'content' => 'E-mail gönderilmesi aktif değil. Sonraki aşamaya geçildi.',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
-            $request->session()->flash('mesajInfo', 'Email gönderimi aktif değil. Sonraki dosya aşamasına geçildi.');
+            $request->session()->flash('mesajInfo', 'Email gönderimi aktif değil. Sonraki dosya aşamasına geçildi');
             return redirect('/musteri/' . $id . '/vize');
         }
     }

@@ -60,7 +60,7 @@ class InformationEmailController extends Controller
                 return redirect('/musteri/' . $id . '/vize#email');
             }
         } else {
-            $request->session()->flash('mesajInfo', 'Email gönderimi aktif değil.');
+            $request->session()->flash('mesajInfo', 'E-posta gönderimi aktif değil');
             return redirect('/musteri/' . $id . '/vize');
         }
     }

@@ -1,9 +1,10 @@
 @extends('sablon.genel')
 
-@section('title') Red Sonucu Tercümesi @endsection
+@section('title')
+    Red Sonucu Tercümesi
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
         <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">

@@ -49,7 +49,7 @@
 @section('js')
     <script>
         function duyuruGoster(id) {
-            $("#contentLoad").html('Veri alınıyor...');
+            $("#contentLoad").html('İçerik alınıyor...');
             $.ajax({
                 type: 'POST',
                 url: "/kullanici/ajax/duyuru",

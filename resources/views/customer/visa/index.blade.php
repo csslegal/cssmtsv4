@@ -51,7 +51,7 @@
         setTimeout('newGrades()', 10000);
 
         function goster(id) {
-            $("#contentLoad").html('Veri alınıyor...');
+            $("#contentLoad").html('İçerik alınıyor...');
             $("#contentHead").html('Dosya İşlem Detayları');
             $.ajax({
                 type: 'POST',
@@ -62,7 +62,7 @@
                 },
                 success: function(data, status, xhr) {
                     if (data['content'] == '') {
-                        $("#contentLoad").html('Veri girişi yapılmadı');
+                        $("#contentLoad").html('İçerik girişi yapılmadı');
                     } else {
                         $("#contentLoad").html(data['content']);
                     }
@@ -118,7 +118,7 @@
                     }
                 },
                 error: function(response, status, xhr) {
-                    alert('Veri alınırken hata oluştu. Hata: ' + xhr);
+                    alert('İçerik alınırken hata oluştu. Hata: ' + xhr);
                 }
             });
         }

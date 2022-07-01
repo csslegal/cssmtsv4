@@ -178,32 +178,32 @@
                                 </div>
                             </div>
                             <!--<div class="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div class="card border-danger mb-2">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Makbuzlar</h5>
-                                        <p>Makbuz detayları</p>
-                                        <button class="btn btn-primary btn-sm float-end text-white"
-                                            onclick="contentLoad('arsiv-makbuz','{{ $visaArchive->id }}')"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                            <i class="bi bi-image"></i> Göster
-                                        </button>
+                                    <div class="card border-danger mb-2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Makbuzlar</h5>
+                                            <p>Makbuz detayları</p>
+                                            <button class="btn btn-primary btn-sm float-end text-white"
+                                                onclick="contentLoad('arsiv-makbuz','{{ $visaArchive->id }}')"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                                <i class="bi bi-image"></i> Göster
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-6 col-6">
-                                <div class="card border-danger mb-2">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Faturalar</h5>
-                                        <p>Fatura detayları</p>
-                                        <button class="btn btn-primary btn-sm float-end text-white"
-                                            onclick="contentLoad('arsiv-fatura','{{ $visaArchive->id }}')"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                            <i class="bi bi-image"></i> Göster
-                                        </button>
+                                <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+                                    <div class="card border-danger mb-2">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Faturalar</h5>
+                                            <p>Fatura detayları</p>
+                                            <button class="btn btn-primary btn-sm float-end text-white"
+                                                onclick="contentLoad('arsiv-fatura','{{ $visaArchive->id }}')"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                                <i class="bi bi-image"></i> Göster
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        -->
+                            -->
                         </div>
                     </div>
                 </div>
@@ -242,7 +242,7 @@
 @section('js')
     <script>
         function goster(id) {
-            $("#contentLoad1").html('Veri alınıyor...');
+            $("#contentLoad1").html('İçerik alınıyor...');
             $("#contentHead1").html('Dosya İşlem Detayları');
             $.ajax({
                 type: 'POST',
@@ -253,7 +253,7 @@
                 },
                 success: function(data, status, xhr) {
                     if (data['content'] == '') {
-                        $("#contentLoad1").html('Veri girişi yapılmadı');
+                        $("#contentLoad1").html('İçerik girişi yapılmadı');
                     } else {
                         $("#contentLoad1").html(data['content']);
                     }

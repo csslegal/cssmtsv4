@@ -85,7 +85,7 @@
 @section('js')
     <script>
         function goster(name, id) {
-            $("#icerikYükle").html('Veri alınıyor...');
+            $("#icerikYükle").html('İçerik alınıyor...');
             $("#usersTypeName").html(name);
             $.ajax({
                 type: 'POST',

@@ -43,7 +43,7 @@ class WebPanelAuthController extends Controller
             'panels' => 'required',
         ]);
         if (DB::table('web_panel_auth')->where('user_id', '=', $request->input('kullanici'))->count() > 0) {
-            $request->session()->flash('mesajDanger', 'Bu kullanıcı daha önceden kaydedildi.');
+            $request->session()->flash('mesajDanger', 'Bu kullanıcı daha önceden kaydedildi');
             return redirect('yonetim/web/panel-auth');
         } else {
             if ($kayitId = DB::table('web_panel_auth')->insertGetId([

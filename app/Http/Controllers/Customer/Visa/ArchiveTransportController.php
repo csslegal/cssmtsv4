@@ -43,7 +43,7 @@ class ArchiveTransportController extends Controller
             $request->session()->flash('mesajSuccess', 'İşlem başarıyla yapıldı');
             return redirect('/musteri/' . $id . '/vize');
         } else {
-            $request->session()->flash('mesajDanger', 'Vize dosyası ID alınırken hata oluştu.');
+            $request->session()->flash('mesajDanger', 'Vize dosyası ID alınırken hata oluştu');
             return redirect('/musteri/' . $id . '/vize');
         }
     }

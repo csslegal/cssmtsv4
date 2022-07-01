@@ -1,11 +1,12 @@
 @extends('sablon.genel')
 
-@section('title') Tercüme Tamamlama @endsection
+@section('title')
+    Tercüme Tamamlama
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -23,8 +24,8 @@
                 @csrf
                 <div class="mb-3">
                     <label>Orjinal Sayfa Sayısı</label>
-                    <input type="text" name="sayfa" autocomplete="off" class="form-control" placeholder="Sayfa sayısı girin"
-                        value="{{ old('sayfa') }}" />
+                    <input type="text" name="sayfa" autocomplete="off" class="form-control"
+                        placeholder="Sayfa sayısı girin" value="{{ old('sayfa') }}" />
                     @error('sayfa')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -50,8 +51,8 @@
 
                 <div class="mb-3">
                     <label>Tercüme Sayfa Sayısı</label>
-                    <input type="text" name="tercume-sayfa" autocomplete="off" class="form-control" placeholder="Sayfa sayısı girin"
-                        value="{{ old('tercume-sayfa') }}" />
+                    <input type="text" name="tercume-sayfa" autocomplete="off" class="form-control"
+                        placeholder="Sayfa sayısı girin" value="{{ old('tercume-sayfa') }}" />
                     @error('tercume-sayfa')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

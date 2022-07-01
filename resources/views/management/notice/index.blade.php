@@ -72,7 +72,7 @@
 @section('js')
     <script>
         function goster(id) {
-            $("#contentLoad").html('Veri alınıyor...');
+            $("#contentLoad").html('İçerik alınıyor...');
             $.ajax({
                 type: 'POST',
                 url: "/yonetim/ajax/duyuru",

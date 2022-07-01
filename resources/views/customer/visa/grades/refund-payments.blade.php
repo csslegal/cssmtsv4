@@ -1,11 +1,12 @@
 @extends('sablon.genel')
 
-@section('title') İade Bilgileri @endsection
+@section('title')
+    İade Bilgileri
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -147,7 +148,8 @@
                                 <form method="POST" action="iade-bilgileri/{{ $refundPayment->id }}">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
-                                    <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Sil">
+                                    <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right"
+                                        title="Sil">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
                                 </form>
@@ -170,7 +172,8 @@
                         @foreach ($refundPaymentTypes->slice(0, 5) as $refundPaymentType)
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" name="iade_tipleri[]"
-                                    value="{{ $refundPaymentType->name }}" @if (is_array(old('iade_tipleri')) && in_array($refundPaymentType->name, old('iade_tipleri'))) checked @endif>
+                                    value="{{ $refundPaymentType->name }}"
+                                    @if (is_array(old('iade_tipleri')) && in_array($refundPaymentType->name, old('iade_tipleri'))) checked @endif>
                                 {{ $refundPaymentType->name }}
                             </div>
                         @endforeach
@@ -179,7 +182,8 @@
                         @foreach ($refundPaymentTypes->slice(5, 5) as $refundPaymentType)
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" name="iade_tipleri[]"
-                                    value="{{ $refundPaymentType->name }}" @if (is_array(old('iade_tipleri')) && in_array($refundPaymentType->name, old('iade_tipleri'))) checked @endif>
+                                    value="{{ $refundPaymentType->name }}"
+                                    @if (is_array(old('iade_tipleri')) && in_array($refundPaymentType->name, old('iade_tipleri'))) checked @endif>
                                 {{ $refundPaymentType->name }}
                             </div>
                         @endforeach
@@ -188,7 +192,8 @@
                         @foreach ($refundPaymentTypes->slice(10, 5) as $refundPaymentType)
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" name="iade_tipleri[]"
-                                    value="{{ $refundPaymentType->name }}" @if (is_array(old('iade_tipleri')) && in_array($refundPaymentType->name, old('iade_tipleri'))) checked @endif>
+                                    value="{{ $refundPaymentType->name }}"
+                                    @if (is_array(old('iade_tipleri')) && in_array($refundPaymentType->name, old('iade_tipleri'))) checked @endif>
                                 {{ $refundPaymentType->name }}
                             </div>
                         @endforeach
@@ -236,8 +241,8 @@
                         <label class="form-label"> İade Miktar (Euro)</label>
                         <div class="row mb-3">
                             <div class="col-md-8 col-sm-9 ">
-                                <input type="text" class="form-control" name="iade_euro" value="{{ old('iade_euro') }}"
-                                    autocomplete="off" placeholder="İade miktarı">
+                                <input type="text" class="form-control" name="iade_euro"
+                                    value="{{ old('iade_euro') }}" autocomplete="off" placeholder="İade miktarı">
                             </div>
                             <div class="col-md-4 col-sm-3">
                                 <input type="text" class="form-control" name="euro_kurus"
@@ -269,12 +274,12 @@
                 <label class="form-label">İade (TL) Toplam Miktar</label>
                 <div class="row mb-3">
                     <div class="col-md-8 col-sm-9">
-                        <input type="text" class="form-control" name="iade_toplam" value="{{ old('iade_toplam') }}"
-                            autocomplete="off" placeholder="Toplam yapılan iade">
+                        <input type="text" class="form-control" name="iade_toplam"
+                            value="{{ old('iade_toplam') }}" autocomplete="off" placeholder="Toplam yapılan iade">
                     </div>
                     <div class="col-md-4 col-sm-3">
-                        <input type="text" class="form-control" name="toplam_kurus" value="{{ old('toplam_kurus') }}"
-                            autocomplete="off" placeholder="Kuruş">
+                        <input type="text" class="form-control" name="toplam_kurus"
+                            value="{{ old('toplam_kurus') }}" autocomplete="off" placeholder="Kuruş">
                     </div>
                     <div class="col-12">
                         @error('iade_toplam')

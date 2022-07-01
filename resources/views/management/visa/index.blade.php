@@ -126,7 +126,7 @@
                 },
                 success: function(data, status, xhr) {
                     if (data['content']==='') {
-                        $("#contentLoad").html('Veri bulunamadı.');
+                        $("#contentLoad").html('İçerik bulunamadı');
 
                     } else {
 

@@ -1,5 +1,5 @@
 {
-    "emptyTable": "Tabloda herhangi bir veri mevcut değil",
+    "emptyTable": "Tabloda herhangi bir içerik mevcut değil",
     "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
     "infoEmpty": "Kayıt yok",
     "infoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
@@ -107,7 +107,7 @@
                 "without": "Hariç"
             }
         },
-        "data": "Veri",
+        "data": "İçerik",
         "deleteTitle": "Filtreleme kuralını silin",
         "leftTitle": "Kriteri dışarı çıkart",
         "logicAnd": "ve",

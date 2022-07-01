@@ -68,7 +68,7 @@ class SearchController extends Controller
             }
         } else {
             $request->session()
-                ->flash('mesajInfo', 'Sorgulama için yeterli veri giriniz. Girilen: <span class="fw-bold">' . $arama . '</span>');
+                ->flash('mesajInfo', 'Sorgulama için yeterli içerik giriniz. Girilen: <span class="fw-bold">' . $arama . '</span>');
             return view('customer.search')->with([
                 'arama' => $arama
             ]);

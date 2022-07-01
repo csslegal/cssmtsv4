@@ -1,11 +1,12 @@
 @extends('sablon.genel')
 
-@section('title') Randevu Bilgileri Kaydı @endsection
+@section('title')
+    Randevu Bilgileri Kaydı
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -23,8 +24,8 @@
                 @csrf
                 <div class="mb-3">
                     <label>GWF Numarası</label>
-                    <input type="text" name="gwf" autocomplete="off" class="form-control" placeholder="GWF numarası girin"
-                        value="{{ old('gwf') }}" />
+                    <input type="text" name="gwf" autocomplete="off" class="form-control"
+                        placeholder="GWF numarası girin" value="{{ old('gwf') }}" />
                     @error('gwf')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

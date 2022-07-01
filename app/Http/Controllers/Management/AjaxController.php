@@ -90,7 +90,7 @@ class AjaxController extends Controller
 
 
             if ($kayitlar->count() == 0) {
-                $sonuc = '<div class="text text-danger">Veri kaydı bulunamadı</div>';
+                $sonuc = '<div class="text text-danger">İçerik kaydı bulunamadı</div>';
             } else {
                 $sonuc = "<div class='text text-primary'>Panel Listesi</div><ol>";
                 foreach ($kayitlar as  $kayit) {

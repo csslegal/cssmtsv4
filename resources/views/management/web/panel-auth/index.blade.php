@@ -90,7 +90,7 @@
 @section('js')
     <script>
         function goster(id) {
-            $("#icerikYükle").html('Veri alınıyor...');
+            $("#icerikYükle").html('İçerik alınıyor...');
             $.ajax({
                 type: 'POST',
                 url: "/yonetim/ajax/panel-list",

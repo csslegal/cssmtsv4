@@ -65,7 +65,7 @@
                                     </td>
                                     <td class="text-center">
                                         @if ($customerDetail->visa_file_id == null)
-                                            <span class="text-danger"> Veri bulunamadı</span>
+                                            <span class="text-danger"> İçerik bulunamadı</span>
                                         @else
                                             <a class="text-decoration-none"
                                                 href="/musteri/{{ $customerDetail->id }}/vize">{{ $customerDetail->visa_file_id }}</a>
@@ -77,12 +77,12 @@
                                         @elseif ($customerDetail->active == '0')
                                             <span class="text-info">Arşiv Dosya</span>
                                         @elseif ($customerDetail->active == null)
-                                            <span class="text-danger">Veri bulunmadı</span>
+                                            <span class="text-danger">İçerik bulunmadı</span>
                                         @endif
                                     </td>
                                     <td class="text-center">
                                         @if ($customerDetail->visa_file_id == null)
-                                            <span class="text-danger"> Veri bulunamadı</span>
+                                            <span class="text-danger"> İçerik bulunamadı</span>
                                         @else
                                             <a class="text-decoration-none"
                                                 href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->user_name }}</a>
