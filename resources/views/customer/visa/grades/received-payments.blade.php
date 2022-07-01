@@ -1,11 +1,12 @@
 @extends('sablon.genel')
 
-@section('title') Alınan Ödemeler @endsection
+@section('title')
+    Alınan Ödemeler
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -27,7 +28,8 @@
                         @foreach ($receivedPaymentTypes->slice(0, 5) as $receivedPaymentType)
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" name="odeme_tipleri[]"
-                                    value="{{ $receivedPaymentType->name }}" @if (is_array(old('odeme_tipleri')) && in_array($receivedPaymentType->name, old('odeme_tipleri'))) checked @endif>
+                                    value="{{ $receivedPaymentType->name }}"
+                                    @if (is_array(old('odeme_tipleri')) && in_array($receivedPaymentType->name, old('odeme_tipleri'))) checked @endif>
                                 {{ $receivedPaymentType->name }}
                             </div>
                         @endforeach
@@ -36,7 +38,8 @@
                         @foreach ($receivedPaymentTypes->slice(5, 5) as $receivedPaymentType)
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" name="odeme_tipleri[]"
-                                    value="{{ $receivedPaymentType->name }}" @if (is_array(old('odeme_tipleri')) && in_array($receivedPaymentType->name, old('odeme_tipleri'))) checked @endif>
+                                    value="{{ $receivedPaymentType->name }}"
+                                    @if (is_array(old('odeme_tipleri')) && in_array($receivedPaymentType->name, old('odeme_tipleri'))) checked @endif>
                                 {{ $receivedPaymentType->name }}
                             </div>
                         @endforeach
@@ -45,7 +48,8 @@
                         @foreach ($receivedPaymentTypes->slice(10, 5) as $receivedPaymentType)
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" name="odeme_tipleri[]"
-                                    value="{{ $receivedPaymentType->name }}" @if (is_array(old('odeme_tipleri')) && in_array($receivedPaymentType->name, old('odeme_tipleri'))) checked @endif>
+                                    value="{{ $receivedPaymentType->name }}"
+                                    @if (is_array(old('odeme_tipleri')) && in_array($receivedPaymentType->name, old('odeme_tipleri'))) checked @endif>
                                 {{ $receivedPaymentType->name }}
                             </div>
                         @endforeach
@@ -59,8 +63,8 @@
                         <label class="form-label"> Alınan Miktar (TL)</label>
                         <div class="row mb-3">
                             <div class="col-md-8 col-sm-9 ">
-                                <input type="text" class="form-control" name="alinan_tl" value="{{ old('alinan_tl') }}"
-                                    autocomplete="off" placeholder="Ödeme miktarı">
+                                <input type="text" class="form-control" name="alinan_tl"
+                                    value="{{ old('alinan_tl') }}" autocomplete="off" placeholder="Ödeme miktarı">
                             </div>
                             <div class="col-md-4 col-sm-3">
                                 <input type="text" class="form-control" name="tl_kurus" value="{{ old('tl_kurus') }}"
@@ -124,12 +128,12 @@
                 <label class="form-label">Alınan (TL) Toplam Miktar</label>
                 <div class="row mb-3">
                     <div class="col-md-8 col-sm-9">
-                        <input type="text" class="form-control" name="alinan_toplam" value="{{ old('alinan_toplam') }}"
-                            autocomplete="off" placeholder="Toplam alınan ödeme">
+                        <input type="text" class="form-control" name="alinan_toplam"
+                            value="{{ old('alinan_toplam') }}" autocomplete="off" placeholder="Toplam alınan ödeme">
                     </div>
                     <div class="col-md-4 col-sm-3">
-                        <input type="text" class="form-control" name="toplam_kurus" value="{{ old('toplam_kurus') }}"
-                            autocomplete="off" placeholder="Kuruş">
+                        <input type="text" class="form-control" name="toplam_kurus"
+                            value="{{ old('toplam_kurus') }}" autocomplete="off" placeholder="Kuruş">
                     </div>
                     @error('alinan_toplam')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -139,25 +143,15 @@
                 <div class="mb-3">
                     <label class="form-label">Ödeme Şekli</label>
                     <select name="odeme_sekli" class=" form-control">
-                        <option {{ old('odeme_sekli') == '' ? 'selected' : '' }} value="">Seçim yapınız</option>
-                        <option {{ old('odeme_sekli') == 'NAKİT' ? 'selected' : '' }} value="NAKİT">NAKİT</option>
-                        <option {{ old('odeme_sekli') == 'EFT' ? 'selected' : '' }} value="EFT">EFT</option>
-                        <option {{ old('odeme_sekli') == 'KREDİ KARTI' ? 'selected' : '' }} value="KREDİ KARTI">
-                            KREDİ KARTI
-                        </option>
-                        <option {{ old('odeme_sekli') == 'MAİL ORDER' ? 'selected' : '' }} value="MAİL ORDER">
-                            MAİL ORDER
-                        </option>
-                        <option {{ old('odeme_sekli') == 'KARGO NAKİT' ? 'selected' : '' }} value="KARGO NAKİT">
-                            KARGO NAKİT
-                        </option>
-                        <option {{ old('odeme_sekli') == 'PTT' ? 'selected' : '' }} value="PTT">PTT</option>
-                        <option {{ old('odeme_sekli') == 'MONEY GRAM' ? 'selected' : '' }} value="MONEY GRAM">
-                            MONEY GRAM
-                        </option>
-                        <option {{ old('odeme_sekli') == 'WESTERN UNİON' ? 'selected' : '' }} value="WESTERN UNİON">
-                            WESTERN UNİON
-                        </option>
+                        <option value="">Seçim yapınız</option>
+                        <option value="NAKİT">NAKİT</option>
+                        <option selected value="EFT">EFT</option>
+                        <option value="KREDİ KARTI">KREDİ KARTI</option>
+                        <option value="MAİL ORDER">MAİL ORDER</option>
+                        <option value="KARGO NAKİT">KARGO NAKİT</option>
+                        <option value="PTT">PTT</option>
+                        <option value="MONEY GRAM">MONEY GRAM</option>
+                        <option value="WESTERN UNİON">WESTERN UNİON</option>
                     </select>
                     @error('odeme_sekli')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -227,7 +221,8 @@
                                 <form method="POST" action="alinan-odeme/{{ $receivedPayment->id }}">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
-                                    <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Sil">
+                                    <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right"
+                                        title="Sil">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
                                 </form>

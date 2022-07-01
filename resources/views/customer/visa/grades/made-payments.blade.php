@@ -139,25 +139,15 @@
                 <div class="mb-3">
                     <label class="form-label">Ödeme Şekli</label>
                     <select name="odeme_sekli" class=" form-control">
-                        <option {{ old('odeme_sekli') == '' ? 'selected' : '' }} value="">Seçim yapınız</option>
-                        <option {{ old('odeme_sekli') == 'NAKİT' ? 'selected' : '' }} value="NAKİT">NAKİT</option>
-                        <option {{ old('odeme_sekli') == 'EFT' ? 'selected' : '' }} value="EFT">EFT</option>
-                        <option {{ old('odeme_sekli') == 'KREDİ KARTI' ? 'selected' : '' }} value="KREDİ KARTI">
-                            KREDİ KARTI
-                        </option>
-                        <option {{ old('odeme_sekli') == 'MAİL ORDER' ? 'selected' : '' }} value="MAİL ORDER">
-                            MAİL ORDER
-                        </option>
-                        <option {{ old('odeme_sekli') == 'KARGO NAKİT' ? 'selected' : '' }} value="KARGO NAKİT">
-                            KARGO NAKİT
-                        </option>
-                        <option {{ old('odeme_sekli') == 'PTT' ? 'selected' : '' }} value="PTT">PTT</option>
-                        <option {{ old('odeme_sekli') == 'MONEY GRAM' ? 'selected' : '' }} value="MONEY GRAM">
-                            MONEY GRAM
-                        </option>
-                        <option {{ old('odeme_sekli') == 'WESTERN UNİON' ? 'selected' : '' }} value="WESTERN UNİON">
-                            WESTERN UNİON
-                        </option>
+                        <option value="">Seçim yapınız</option>
+                        <option value="NAKİT">NAKİT</option>
+                        <option value="EFT">EFT</option>
+                        <option selected value="KREDİ KARTI">KREDİ KARTI</option>
+                        <option value="MAİL ORDER">MAİL ORDER</option>
+                        <option value="KARGO NAKİT">KARGO NAKİT</option>
+                        <option value="PTT">PTT</option>
+                        <option value="MONEY GRAM">MONEY GRAM</option>
+                        <option value="WESTERN UNİON">WESTERN UNİON</option>
                     </select>
                     @error('odeme_sekli')
                         <div class="alert alert-danger">{{ $message }}</div>
