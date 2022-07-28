@@ -12,6 +12,8 @@ class RefusalTranslationController extends Controller
 {
     public function index($id, $visa_file_id)
     {
+        $refusalTranslation = DB::table('visa_refusal_translation')
+        ->where('visa_file_id', '=', $visa_file_id)->first();
         $baseCustomerDetails = DB::table('customers')
             ->select([
                 'customers.id AS id',
@@ -22,9 +24,9 @@ class RefusalTranslationController extends Controller
             ->where('customers.id', '=', $id)->first();
 
         return view('customer.visa.grades.refusal-translation')
-            ->with([
-                'baseCustomerDetails' => $baseCustomerDetails,
-            ]);
+            ->with(['baseCustomerDetails' => $baseCustomerDetails,
+            'refusalTranslation' => $refusalTranslation,
+        ]);
     }
 
     public function store(Request $request, $id, $visa_file_id)
