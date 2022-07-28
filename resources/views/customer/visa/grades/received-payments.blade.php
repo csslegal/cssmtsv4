@@ -27,7 +27,7 @@
                     <div class="col-md-4 ">
                         @foreach ($receivedPaymentTypes->slice(0, 5) as $receivedPaymentType)
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="odeme_tipleri[]"
+                                <input type="checkbox" class="form-check-input" name="odeme_tipleri[]" tabindex="1"
                                     value="{{ $receivedPaymentType->name }}"
                                     @if (is_array(old('odeme_tipleri')) && in_array($receivedPaymentType->name, old('odeme_tipleri'))) checked @endif>
                                 {{ $receivedPaymentType->name }}
@@ -37,7 +37,7 @@
                     <div class="col-md-4">
                         @foreach ($receivedPaymentTypes->slice(5, 5) as $receivedPaymentType)
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="odeme_tipleri[]"
+                                <input type="checkbox" class="form-check-input" name="odeme_tipleri[]" tabindex="1"
                                     value="{{ $receivedPaymentType->name }}"
                                     @if (is_array(old('odeme_tipleri')) && in_array($receivedPaymentType->name, old('odeme_tipleri'))) checked @endif>
                                 {{ $receivedPaymentType->name }}
@@ -47,7 +47,7 @@
                     <div class="col-md-4">
                         @foreach ($receivedPaymentTypes->slice(10, 5) as $receivedPaymentType)
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="odeme_tipleri[]"
+                                <input type="checkbox" class="form-check-input" name="odeme_tipleri[]" tabindex="1"
                                     value="{{ $receivedPaymentType->name }}"
                                     @if (is_array(old('odeme_tipleri')) && in_array($receivedPaymentType->name, old('odeme_tipleri'))) checked @endif>
                                 {{ $receivedPaymentType->name }}
@@ -55,7 +55,9 @@
                         @endforeach
                     </div>
                     @error('odeme_tipleri')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        </div>
                     @enderror
                 </div>
                 <div class="row mb-3">
@@ -63,8 +65,8 @@
                         <label class="form-label"> Alınan Miktar (TL)</label>
                         <div class="row mb-3">
                             <div class="col-md-8 col-sm-9 ">
-                                <input type="text" class="form-control" name="alinan_tl"
-                                    value="{{ old('alinan_tl') }}" autocomplete="off" placeholder="Ödeme miktarı">
+                                <input type="text" class="form-control" name="alinan_tl" value="{{ old('alinan_tl') }}"
+                                    autocomplete="off" placeholder="Ödeme miktarı" tabindex="2">
                             </div>
                             <div class="col-md-4 col-sm-3">
                                 <input type="text" class="form-control" name="tl_kurus" value="{{ old('tl_kurus') }}"
@@ -80,7 +82,8 @@
                         <div class="row mb-3">
                             <div class="col-md-8 col-sm-9 ">
                                 <input type="text" class="form-control" name="alinan_pound"
-                                    value="{{ old('alinan_pound') }}" autocomplete="off" placeholder="Ödeme miktarı">
+                                    value="{{ old('alinan_pound') }}" autocomplete="off" placeholder="Ödeme miktarı"
+                                    tabindex="2">
                             </div>
                             <div class="col-md-4 col-sm-3">
                                 <input type="text" class="form-control" name="pound_kurus"
@@ -96,7 +99,8 @@
                         <div class="row mb-3">
                             <div class="col-md-8 col-sm-9 ">
                                 <input type="text" class="form-control" name="alinan_euro"
-                                    value="{{ old('alinan_euro') }}" autocomplete="off" placeholder="Ödeme miktarı">
+                                    value="{{ old('alinan_euro') }}" autocomplete="off" placeholder="Ödeme miktarı"
+                                    tabindex="2">
                             </div>
                             <div class="col-md-4 col-sm-3">
                                 <input type="text" class="form-control" name="euro_kurus"
@@ -112,7 +116,8 @@
                         <div class="row mb-3">
                             <div class="col-md-8 col-sm-9">
                                 <input type="text" class="form-control" name="alinan_dolar"
-                                    value="{{ old('alinan_dolar') }}" autocomplete="off" placeholder="Ödeme miktarı">
+                                    value="{{ old('alinan_dolar') }}" autocomplete="off" placeholder="Ödeme miktarı"
+                                    tabindex="2">
                             </div>
                             <div class="col-md-4 col-sm-3">
                                 <input type="text" class="form-control" name="dolar_kurus"
@@ -129,20 +134,24 @@
                 <div class="row mb-3">
                     <div class="col-md-8 col-sm-9">
                         <input type="text" class="form-control" name="alinan_toplam"
-                            value="{{ old('alinan_toplam') }}" autocomplete="off" placeholder="Toplam alınan ödeme">
+                            value="{{ old('alinan_toplam') }}" autocomplete="off" placeholder="Toplam alınan ödeme"
+                            tabindex="3">
                     </div>
                     <div class="col-md-4 col-sm-3">
                         <input type="text" class="form-control" name="toplam_kurus"
                             value="{{ old('toplam_kurus') }}" autocomplete="off" placeholder="Kuruş">
                     </div>
                     @error('alinan_toplam')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        </div>
                     @enderror
+
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Ödeme Şekli</label>
-                    <select name="odeme_sekli" class=" form-control">
+                    <select name="odeme_sekli" class=" form-control" tabindex="4">
                         <option value="">Seçim yapınız</option>
                         <option value="NAKİT">NAKİT</option>
                         <option selected value="EFT">EFT</option>
@@ -162,16 +171,19 @@
                     <label class="form-label">Ödeme Tarihi</label>
                     <input type="text" class="form-control datepicker" name="odeme_tarihi"
                         value="{{ old('odeme_tarihi') == '' ? '' : old('odeme_tarihi') }}" autocomplete="off"
-                        placeholder="Ödeme alınma tarihi" />
+                        placeholder="Ödeme alınma tarihi" tabindex="5" />
                     @error('odeme_tarihi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Ödeme Kaydet</button>
+                <button type="submit" class="btn btn-primary confirm" data-content="Devam edilsin mi?"
+                    tabindex="6">Ödeme Kaydet</button>
+
                 @if (count($receivedPayments) > 0)
                     <a href="/musteri/{{ $baseCustomerDetails->id }}/vize/{{ $baseCustomerDetails->visa_file_id }}/alinan-odeme-tamamla"
-                        class="btn btn-danger text-white">Ödemeleri Tamamla</a>
+                        class="btn btn-danger text-white confirm" data-content="Devam edilsin mi?"
+                        tabindex="7">Ödemeleri Tamamla</a>
                 @endif
             </form>
         </div>
