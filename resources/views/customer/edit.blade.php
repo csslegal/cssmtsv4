@@ -28,7 +28,7 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Müşteri Adı</label>
                         <input class="form-control" name="name" id="name" autocomplete="off" type="text"
-                            value="{{ $baseCustomerDetails != '' ? $baseCustomerDetails->name : '' }}">
+                            value="{{ $baseCustomerDetails->name != '' ? $baseCustomerDetails->name : '' }}">
                         @error('name')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
