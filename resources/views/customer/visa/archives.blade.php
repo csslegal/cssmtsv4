@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
         <ol id="breadcrumb" class="breadcrumb p-2 ">
             <li class="breadcrumb-item">
@@ -151,59 +150,36 @@
                         <hr>
 
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                <div class="card border-danger mb-2">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Loglar</h5>
-                                        <p>Dosya Logları</p>
-                                        <button class="btn btn-primary btn-sm float-end text-white"
-                                            onclick="contentLoad('arsiv-log','{{ $visaArchive->id }}')"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                            <i class="bi bi-image"></i> Göster
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                <div class="card border-danger mb-2">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Ödemeler</h5>
-                                        <p>Ödeme detayları</p>
-                                        <button class="btn btn-primary btn-sm float-end text-white"
-                                            onclick="contentLoad('arsiv-odeme','{{ $visaArchive->id }}')"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                            <i class="bi bi-image"></i> Göster
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--<div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                            @if (session('userTypeId') == 1 || session('userTypeId') == 2)
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                     <div class="card border-danger mb-2">
                                         <div class="card-body">
-                                            <h5 class="card-title">Makbuzlar</h5>
-                                            <p>Makbuz detayları</p>
+                                            <h5 class="card-title">Loglar</h5>
+                                            <p>Dosya Logları</p>
                                             <button class="btn btn-primary btn-sm float-end text-white"
-                                                onclick="contentLoad('arsiv-makbuz','{{ $visaArchive->id }}')"
+                                                onclick="contentLoad('arsiv-log','{{ $visaArchive->id }}')"
                                                 data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
                                                 <i class="bi bi-image"></i> Göster
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-6">
+                            @endif
+                            @if (session('userTypeId') == 1 || session('userTypeId') == 2 || session('userTypeId') == 6)
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                     <div class="card border-danger mb-2">
                                         <div class="card-body">
-                                            <h5 class="card-title">Faturalar</h5>
-                                            <p>Fatura detayları</p>
+                                            <h5 class="card-title">Ödemeler</h5>
+                                            <p>Ödeme detayları</p>
                                             <button class="btn btn-primary btn-sm float-end text-white"
-                                                onclick="contentLoad('arsiv-fatura','{{ $visaArchive->id }}')"
+                                                onclick="contentLoad('arsiv-odeme','{{ $visaArchive->id }}')"
                                                 data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
                                                 <i class="bi bi-image"></i> Göster
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                            -->
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -237,7 +213,6 @@
             </div>
         </div>
     @endif
-
 @endsection
 @section('js')
     <script>
