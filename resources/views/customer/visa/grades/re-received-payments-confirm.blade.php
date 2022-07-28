@@ -64,19 +64,15 @@
             <div class="btn-group" role="group" aria-label="Basic example">
                 <form method="POST" action="yeniden-alinan-odeme-onay/0">
                     {{ method_field('DELETE') }}
-                    {{ csrf_field() }}
-                    <button class="btn btn-danger text-white m-2" type="submit" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Ödemeleri iptal et">
-                        <i class="bi bi-x-lg"></i> Ödemeleri İptal Et
-                    </button>
+                    @csrf
+                    <button class="btn btn-danger text-white m-2 confirm" data-content="Devam edilsin mi?" type="submit">
+                        Ödemeleri İptal Et </button>
                 </form>
                 <form method="POST" action="yeniden-alinan-odeme-onay/1">
                     {{ method_field('PUT') }}
-                    {{ csrf_field() }}
-                    <button class="btn btn-success text-white m-2" type="submit" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Ödemeleri onayla">
-                        <i class="bi bi-check-lg"></i> Ödemeleri Onayla
-                    </button>
+                    @csrf
+                    <button class="btn btn-success text-white m-2" type="submit"
+                        onClick="this.form.submit(); this.disabled=true;"> Ödemeleri Onayla </button>
                 </form>
             </div>
         </div>

@@ -46,6 +46,7 @@ $('a.confirm').confirm({
         evet: {
             btnClass: 'btn-danger btn-sm text-white', // multiple classes.
             action: function () {
+                $.alert('İşlem devam ediyor.');
                 location.href = this.$target.attr('href');
             }
         },
@@ -63,6 +64,7 @@ $('form>button.confirm').confirm({
         evet: {
             btnClass: 'btn-danger btn-sm text-white', // multiple classes.
             action: function () {
+                $.alert('İşlem devam ediyor.');
                 $('form')[0].submit();
             }
         }

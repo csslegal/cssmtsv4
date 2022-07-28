@@ -21,7 +21,6 @@
         <div class="card-header bg-primary text-white">Randevu Bilgileri</div>
         <div class="card-body scroll">
             <form action="" method="POST">
-
                 <div class="mb-3">
                     <label>GWF Numarası</label>
                     <input type="text" disabled name="gwf" autocomplete="off" class="form-control"
@@ -69,9 +68,10 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-success text-white">Ödemesiz Aşamayı Tamamla</button>
-                <button type="submit" name="odemeli" value="odemeli" class="btn btn-danger text-white">Ödemeli Aşamayı
-                    Tamamla</button>
+                <button type="submit" class="btn btn-success text-white"
+                    onClick="this.form.submit(); this.disabled=true;">Ödemesiz Aşamayı Tamamla</button>
+                <button type="submit" name="odemeli" value="odemeli" class="btn btn-danger text-white"
+                    onClick="this.form.submit(); this.disabled=true;">Ödemeli Aşamayı Tamamla</button>
                 @csrf
             </form>
         </div>

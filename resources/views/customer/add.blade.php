@@ -82,7 +82,7 @@
                 </div>
                 <!-- {{ csrf_field() }} -->
                 @csrf
-                <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Kaydet</button>
+                <button class="w-100 mt-3 btn btn-danger text-white btn-lg confirm" data-content="Devam edilsin mi?" type="submit">Kaydet</button>
             </form>
         </div>
     </div>

@@ -87,7 +87,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm">Aşamayı Tamamla</button>
+                <button type="submit" class="btn btn-primary confirm" data-content="Devam edilsin mi?">Aşamayı Tamamla</button>
             </form>
         </div>
     </div>

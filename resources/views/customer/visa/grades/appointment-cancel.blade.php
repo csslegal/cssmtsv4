@@ -20,43 +20,50 @@
     <div class="card card-primary mb-3">
         <div class="card-header bg-primary text-white">Bütün İşlemler</div>
         <div class="card-body scroll">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 ">
+                    <div class="card border-success mb-2">
+                        <div class="card-body">
+                            <h5 class="card-title">Dosyayı Kapat</h5>
+                            <p>&nbsp;</p>
+                            <form action="" method="POST">
+                                @csrf
+                                <input type="hidden" name="kapat" value="kapat">
+                                <button type="submit" class="btn btn-success float-end text-white confirm"
+                                    data-title="Dikkat!" data-content="Devam edilsin mi?">Kapat</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 ">
+                    <div class="card border-info mb-2">
+                        <div class="card-body">
+                            <h5 class="card-title">Uzmana Gönder</h5>
+                            <p>&nbsp;</p>
+                            <form action="" method="POST">
+                                @csrf
+                                <input type="hidden" name="uzman" value="ertele">
+                                <button type="submit" class="btn btn-info float-end text-white"
+                                    onClick="this.form.submit(); this.disabled=true;">Gönder</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 ">
+                    <div class="card border-danger mb-2">
+                        <div class="card-body">
+                            <h5 class="card-title">Dosyayı Onayla</h5>
+                            <p>&nbsp;</p>
+                            <form action="" method="POST">
+                                @csrf
+                                <input type="hidden" name="onay" value="onay">
+                                <button type="submit" class="btn btn-danger float-end text-white"
+                                    onClick="this.form.submit(); this.disabled=true;">Onayla</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-            <form action="" method="POST">
-                @csrf
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6 ">
-                        <div class="card border-success mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Dosyayı Kapat</h5>
-                                <p>&nbsp;</p>
-                                <button type="submit" name="kapat" value="kapat"
-                                    class="confirm btn btn-success float-end text-white" data-title="Dikkat!"
-                                    data-content="Devam edilsin mi?">Kapat</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 ">
-                        <div class="card border-info mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Uzmana Gönder</h5>
-                                <p>&nbsp;</p>
-                                <button type="submit" class="btn btn-info float-end text-white confirm" name="uzman"
-                                    value="ertele" data-title="Dikkat!" data-content="Devam edilsin mi?">Gönder</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 ">
-                        <div class="card border-danger mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">Dosyayı Onayla</h5>
-                                <p>&nbsp;</p>
-                                <button name="onay" value="onay" type="submit"
-                                    class="btn btn-danger float-end text-white confirm" data-title="Dikkat!"
-                                    data-content="Devam edilsin mi?">Onayla</button>
-                            </div>
-                        </div>
-                    </div>
-            </form>
+            </div>
         </div>
-    </div>
-@endsection
+    @endsection

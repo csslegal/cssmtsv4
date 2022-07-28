@@ -65,18 +65,14 @@
                 <form method="POST" action="iade-bilgileri-onayi/0">
                     {{ method_field('DELETE') }}
                     {{ csrf_field() }}
-                    <button class="btn btn-danger text-white m-2" type="submit" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Ödemeleri iptal et">
-                        <i class="bi bi-x-lg"></i> İptal Et
-                    </button>
+                    <button class="btn btn-danger text-white m-2 confirm" data-content="Devam edilsin mi?" type="submit">
+                        İptal Et </button>
                 </form>
                 <form method="POST" action="iade-bilgileri-onayi/1">
                     {{ method_field('PUT') }}
                     {{ csrf_field() }}
-                    <button class="btn btn-success text-white m-2" type="submit" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Ödemeleri onayla">
-                        <i class="bi bi-check-lg"></i> Onayla
-                    </button>
+                    <button class="btn btn-success text-white m-2" type="submit"
+                        onClick="this.form.submit(); this.disabled=true;"> Onayla </button>
                 </form>
             </div>
         </div>

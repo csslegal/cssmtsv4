@@ -63,18 +63,16 @@
             </table>
             <div class="btn-group" role="group" aria-label="Basic example">
                 <form method="POST" action="">
-                    {{ csrf_field() }}
-                    <button class="btn btn-danger text-white m-2" type="submit" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Ödemeleri iptal et" name="reddet" value="reddet">
-                        <i class="bi bi-x-lg"></i> İptal Et
-                    </button>
+                    @csrf
+                    <input type="hidden" name="reddet" value="reddet">
+                    <button class="btn btn-danger text-white m-2 confirm" data-content="Devam edilsin mi?" type="submit">
+                        İptal Et </button>
                 </form>
                 <form method="POST" action="">
-                    {{ csrf_field() }}
-                    <button class="btn btn-success text-white m-2" type="submit" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Ödemeleri onayla" name="onayla" value="onayla">
-                        <i class="bi bi-check-lg"></i> Onayla
-                    </button>
+                    @csrf
+                    <input type="hidden" name="onayla" value="onayla">
+                    <button class="btn btn-success text-white m-2" type="submit"
+                        onClick="this.form.submit(); this.disabled=true;"> Onayla </button>
                 </form>
             </div>
         </div>
