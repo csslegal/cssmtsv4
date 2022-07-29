@@ -46,21 +46,6 @@ class VisaController extends Controller
             ->orderByDesc('email_logs.id')
             ->get();
 
-        $customerVisaLogs = DB::table('visa_file_logs')
-        ->select([
-            'visa_file_logs.id AS id',
-            'users.name AS u_name',
-            'customers.name AS c_name',
-            'visa_file_logs.subject AS subject',
-            'visa_file_logs.created_at AS created_at',
-        ])
-            ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
-            ->leftJoin('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
-            ->leftJoin('customers', 'customers.id', '=', 'visa_files.customer_id')
-            ->orderByDesc('visa_file_logs.id')
-            ->limit(100)
-            ->get();
-
         return view('management.visa.index')->with(
             [
                 'countVisaTypes' => $countVisaTypes,
@@ -72,7 +57,6 @@ class VisaController extends Controller
                 'countVisaEmailDocumentList' => $countVisaEmailDocumentList,
                 'customerNotes' => $customerNotes,
                 'customerEmailLogs' => $customerEmailLogs,
-                'customerVisaLogs' => $customerVisaLogs,
             ]
         );
     }
