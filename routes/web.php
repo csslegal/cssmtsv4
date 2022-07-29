@@ -221,6 +221,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::post('panel-list', [ManagementAjaxController::class, 'post_panel_list']);
 
             Route::get('customers', [ManagementAjaxController::class, 'get_customers_list']);
+            Route::get('visa-logs', [ManagementAjaxController::class, 'get_visa_logs_list']);
         });
 
         /**Yonetim vize işlemleri*/

@@ -76,6 +76,7 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
+
     public function post_panel_list(Request $request)
     {
         if (is_numeric($request->input('id'))) {
@@ -124,20 +125,15 @@ class AjaxController extends Controller
 
         // Total records
         $totalRecords = DB::table('customers')->count();
-        $totalRecordswithFilter =
-            DB::table('customers')->select('count(*) as allcount')->where('name', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = DB::table('customers')->select('count(*) as allcount')
+            ->where('name', 'like', '%' . $searchValue . '%')->count();
 
         // Fetch records
         $records = DB::table('customers')->orderBy($columnName, $columnSortOrder)
             ->where('customers.name', 'like', '%' . $searchValue . '%')
-            ->select('customers.*')
-            ->skip($start)
-            ->take($rowperpage)
-            ->get();
+        ->select('customers.*')->skip($start)->take($rowperpage)->get();
 
         $data_arr = array();
-
-
 
         foreach ($records as $record) {
             $id = $record->id;
@@ -164,17 +160,100 @@ class AjaxController extends Controller
 
         echo json_encode($response);
         exit;
+    }
 
-        /***$kayitlar = DB::table('customers')->select([
+    public function get_visa_logs_list(Request $request)
+    {
+
+        ## Read value
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // Rows display per page
+
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $search_arr['value']; // Search value
+
+        // Total records
+        $totalRecords = DB::table('visa_file_logs')
+        ->select([
             'customers.id AS id',
+            'visa_file_logs.visa_file_id AS visa_file_id',
             'customers.name AS name',
-            'customers.tcno AS tcno',
-            'customers.email AS email',
-            'customers.telefon AS telefon',
-            'customers.adres AS adres',
-            'customers.created_at AS created_at',
             'users.name AS u_name',
-        ])->leftJoin('users', 'users.id', '=', 'customers.user_id')->orderByDesc('id')->limit(10)->get();**/
+            'visa_file_logs.subject AS subject',
+            'visa_file_logs.created_at AS created_at',
+        ])
+            ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
+            ->leftJoin('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
+            ->leftJoin('customers', 'customers.id', '=', 'visa_files.customer_id')
+            ->count();
+
+        $totalRecordswithFilter = DB::table('visa_file_logs')
+        ->select('count(*) as allcount')
+        ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
+        ->leftJoin('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
+        ->leftJoin('customers', 'customers.id', '=', 'visa_files.customer_id')
+        ->where('customers.name', 'like', '%' . $searchValue . '%')
+            ->count();
+
+        // Fetch records
+        $records = DB::table('visa_file_logs')->select([
+            'customers.id AS id',
+            'visa_file_logs.visa_file_id AS visa_file_id',
+            'customers.name AS name',
+            'users.name AS u_name',
+            'visa_file_logs.subject AS subject',
+            'visa_file_logs.created_at AS created_at',
+        ])
+        ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
+        ->leftJoin('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
+        ->leftJoin(
+            'customers',
+            'customers.id',
+            '=',
+            'visa_files.customer_id'
+        )
+        ->orderBy($columnName, $columnSortOrder)
+
+        ->where('customers.name', 'like', '%' . $searchValue . '%')
+        ->skip($start)->take($rowperpage)->get();
+
+        $data_arr = array();
+
+        foreach ($records as $record) {
+            $id = $record->id;
+            $visa_file_id = $record->visa_file_id;
+            $name = $record->name;
+            $u_name = $record->u_name;
+            $subject = $record->subject;
+            $created_at = $record->created_at;
+
+            $data_arr[] = array(
+                "id" => $id,
+                "visa_file_id" => $visa_file_id,
+                "name" => $name,
+                "u_name" => $u_name,
+                "subject" => $subject,
+                "created_at" => $created_at,
+            );
+        }
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordswithFilter,
+            "aaData" => $data_arr
+        );
+
+        echo json_encode($response);
+        exit;
     }
 
     public function post_evrak_emaili_cek(Request $request)

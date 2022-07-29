@@ -13,7 +13,7 @@
             <a class="float-end text-white" href="/yonetim/customers/create">Dosya Yükle</a>
         </div>
         <div class="card-body scroll">
-            <table id="dtaTable" class="table table-striped table-bordered display table-light " style="width:100%">
+            <table id="dtCustomersTable" class="table table-striped table-bordered display table-light " style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>

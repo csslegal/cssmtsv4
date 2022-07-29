@@ -127,9 +127,7 @@
                 success: function(data, status, xhr) {
                     if (data['content']==='') {
                         $("#contentLoad").html('İçerik bulunamadı');
-
                     } else {
-
                         $("#contentLoad").html(data['content']);
                     }
                 },

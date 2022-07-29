@@ -19,7 +19,7 @@ $('#dataTable').DataTable({
     language: { url: '/dataTables.tr.json' },
 });
 
-$('#dtaTable').DataTable({
+$('#dtCustomersTable').DataTable({
     processing: true,
     serverSide: true,
     ajax: "/yonetim/ajax/customers",
@@ -30,6 +30,29 @@ $('#dtaTable').DataTable({
         { data: 'telefon' },
         { data: 'email' },
         { data: 'adres' },
+
+    ]
+});
+$('#dtVisaLogsTable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: "/yonetim/ajax/visa-logs",
+    language: { url: '/dataTables.tr.json' },
+    columns: [
+        { data: 'id' },
+        { data: 'created_at' },
+        { data: 'name' },
+        { data: 'subject' },
+        { data: 'u_name' },
+
+
+    ], columnDefs: [
+        {
+            render: function (data, type, row) {
+                return '<a href="/musteri/' + data + '/vize">' + data + '</a>';
+            },
+            targets: 0,
+        }
 
     ]
 });
