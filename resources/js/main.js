@@ -36,7 +36,10 @@ $('#dtCustomersTable').DataTable({
 $('#dtVisaLogsTable').DataTable({
     processing: true,
     serverSide: true,
+
     ajax: "/yonetim/ajax/visa-logs",
+    "order": [[0, 'desc'],],
+    "columnDefs": [{ "type": "num", "targets": 0 }],
     language: { url: '/dataTables.tr.json' },
     columns: [
         { data: 'id' },
@@ -44,16 +47,12 @@ $('#dtVisaLogsTable').DataTable({
         { data: 'name' },
         { data: 'subject' },
         { data: 'u_name' },
-
-
     ], columnDefs: [
         {
-            render: function (data, type, row) {
+            render: function (data) {
                 return '<a href="/musteri/' + data + '/vize">' + data + '</a>';
             },
-            targets: 0,
         }
-
     ]
 });
 

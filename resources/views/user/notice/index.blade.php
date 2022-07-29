@@ -1,6 +1,8 @@
 @extends('sablon.genel')
 
-@section('title') Duyurular - Kullanıcı Oturum @endsection
+@section('title')
+    Duyurular - Kullanıcı Oturum
+@endsection
 
 @section('content')
     <nav aria-label="breadcrumb">
@@ -13,28 +15,25 @@
         <div class="card-header bg-primary text-white fw-bold">Duyurular</div>
         <div class="card-body scroll">
 
-            <table id="dataTableDilOkulu" class=" table table-striped table-bordered display table-light" style="width:100%">
+            <table id="dataTableDilOkulu" class=" table table-striped table-bordered display table-light"
+                style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Duyuru Yapan</th>
-                        <th>E. Tarih</th>
                         <th>G. Tarih</th>
                         <th>İşlem</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($notices as $duyuru)
+                    @foreach ($notices as $notice)
                         <tr>
-                            <td>{{ $duyuru->d_id }}</td>
-                            <td>{{ $duyuru->u_name }}</td>
-                            <td>{{ $duyuru->d_tarih }}</td>
-                            <td>{{ $duyuru->d_u_tarih }}</td>
+                            <td>{{ $notice->id }}</td>
+                            <td>{{ $notice->name }}</td>
+                            <td>{{ $notice->updated_at }}</td>
                             <td>
-                                <button class="border btn" onclick="duyuruGoster({{ $duyuru->d_id }})"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                    <i class="bi bi-image"></i> Göster
-                                </button>
+                                <button class="border btn" onclick="noticeShow({{ $notice->id }})"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster"> Göster </button>
                             </td>
                         </tr>
                     @endforeach
@@ -48,7 +47,7 @@
 @endsection
 @section('js')
     <script>
-        function duyuruGoster(id) {
+        function noticeShow(id) {
             $("#contentLoad").html('İçerik alınıyor...');
             $.ajax({
                 type: 'POST',

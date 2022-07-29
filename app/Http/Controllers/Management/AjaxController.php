@@ -182,25 +182,26 @@ class AjaxController extends Controller
 
         // Total records
         $totalRecords = DB::table('visa_file_logs')
-        ->select([
-            'customers.id AS id',
-            'visa_file_logs.visa_file_id AS visa_file_id',
-            'customers.name AS name',
-            'users.name AS u_name',
-            'visa_file_logs.subject AS subject',
-            'visa_file_logs.created_at AS created_at',
-        ])
+            ->select([
+                'customers.id AS id',
+                'visa_file_logs.visa_file_id AS visa_file_id',
+                'customers.name AS name',
+                'users.name AS u_name',
+                'visa_file_logs.subject AS subject',
+                'visa_file_logs.created_at AS created_at',
+            ])
             ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
             ->leftJoin('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
             ->leftJoin('customers', 'customers.id', '=', 'visa_files.customer_id')
             ->count();
 
         $totalRecordswithFilter = DB::table('visa_file_logs')
-        ->select('count(*) as allcount')
-        ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
-        ->leftJoin('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
-        ->leftJoin('customers', 'customers.id', '=', 'visa_files.customer_id')
-        ->where('customers.name', 'like', '%' . $searchValue . '%')
+            ->select('count(*) as allcount')
+            ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
+            ->leftJoin('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
+            ->leftJoin('customers', 'customers.id', '=', 'visa_files.customer_id')
+            ->where('customers.name', 'like', '%' . $searchValue . '%')
+            ->orWhere('customers.id', 'like', '%' . $searchValue . '%')
             ->count();
 
         // Fetch records
@@ -212,17 +213,13 @@ class AjaxController extends Controller
             'visa_file_logs.subject AS subject',
             'visa_file_logs.created_at AS created_at',
         ])
-        ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
-        ->leftJoin('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
-        ->leftJoin(
-            'customers',
-            'customers.id',
-            '=',
-            'visa_files.customer_id'
-        )
-        ->orderBy($columnName, $columnSortOrder)
+            ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
+            ->leftJoin('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
+            ->leftJoin('customers', 'customers.id', '=', 'visa_files.customer_id')
+            ->orderBy($columnName, $columnSortOrder)
 
-        ->where('customers.name', 'like', '%' . $searchValue . '%')
+            ->where('customers.name', 'like', '%' . $searchValue . '%')
+            ->orWhere('customers.id', 'like', '%' . $searchValue . '%')
         ->skip($start)->take($rowperpage)->get();
 
         $data_arr = array();
@@ -261,8 +258,7 @@ class AjaxController extends Controller
         if (is_numeric($request->input('id'))) {
             return DB::table('visa_emails_document_list')
                 ->select(['content'])
-                ->where('id', '=', $request->input('id'))
-                ->first();
+                ->where('id', '=', $request->input('id'))->first();
         } else {
             echo 'Hatalı istek yapıldı';
         }

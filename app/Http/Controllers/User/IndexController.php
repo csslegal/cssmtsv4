@@ -33,6 +33,7 @@ class IndexController extends Controller
             ->where('visa_files.active', '=', 1);
 
         $webResults = DB::table('web_panel_auth')->where('user_id', '=', $request->session()->get('userId'))->get();
+
         if ($webResults->count() > 0) {
             //dd(date("Y-m-d", strtotime($webResults->start_time)) . " " . date("Y-m-d", time()));
             //suanki time başlangıctan buyuk sondan kucuk olamalı ki erişim izni olsun
@@ -45,12 +46,14 @@ class IndexController extends Controller
             ->leftJoin('access', 'access.id', '=', 'users_access.access_id')
             ->where('user_id', '=', $request->session()->get('userId'))
             ->pluck('access.id')->toArray();
+
         switch ($request->session()->get('userTypeId')) {
             case 2: //danisman
                 $visaCustomers = $visaCustomersUsers
                     //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
-                return view('user.danisman.index')->with([
+
+                return view('user.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
@@ -64,7 +67,7 @@ class IndexController extends Controller
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_PUTOFF_GRADES_ID'))
                     ->get();
 
-                return view('user.uzman.index')->with([
+                return view('user.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
@@ -77,7 +80,8 @@ class IndexController extends Controller
                     //->where('visa_files.translator_id', '=', $request->session()->get('userId'))
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATION_GRADES_ID'))
                     ->get();
-                return view('user.tercuman.index')->with([
+
+                return view('user.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
@@ -92,7 +96,8 @@ class IndexController extends Controller
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_RE_PAYMENT_CONFIRM_GRADES_ID'))
                     ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'))
                     ->get();
-                return view('user.muhasebe.index')->with([
+
+                return view('user.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
@@ -103,7 +108,7 @@ class IndexController extends Controller
                 $visaCustomers = $visaCustomersUsers
                     //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
-                return view('user.engineer.index')->with([
+                return view('user.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
@@ -114,7 +119,7 @@ class IndexController extends Controller
                 $visaCustomers = $visaCustomersUsers
                     //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
-                return view('user.writer.index')->with([
+                return view('user.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
@@ -125,7 +130,7 @@ class IndexController extends Controller
                 $visaCustomers = $visaCustomersUsers
                     //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
-                return view('user.graphic.index')->with([
+                return view('user.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
@@ -136,7 +141,7 @@ class IndexController extends Controller
                 $visaCustomers = $visaCustomersUsers
                     //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
-                return view('user.editor.index')->with([
+                return view('user.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
@@ -147,7 +152,7 @@ class IndexController extends Controller
                 $visaCustomers = $visaCustomersUsers
                     //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
-                return view('user.sosyal.index')->with([
+                return view('user.index')->with([
                     'userAccesses' => $userAccesses,
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
@@ -183,12 +188,10 @@ class IndexController extends Controller
             ->rightJoin('access AS e', 'e.id', '=', 'ue.access_id')
             ->where('u.id', '=', $request->session()->get('userId'))
             ->get();
-        return view('user.profil')->with(
-            [
-                'kullaniciBilgileri' => $kullaniciBilgileri,
-                'erisimIzinleri' => $erisimIzinleri
-            ]
-        );
+        return view('user.profil')->with([
+            'kullaniciBilgileri' => $kullaniciBilgileri,
+            'erisimIzinleri' => $erisimIzinleri
+        ]);
     }
 
     public function post_profil(Request $request)
@@ -205,10 +208,7 @@ class IndexController extends Controller
         ]);
 
         if ($password == $rePassword) {
-            if (DB::update(
-                'update users set password = ? where id = ?',
-                [$password, $request->session()->get('userId')]
-            )) {
+            if (DB::update('update users set password = ? where id = ?', [$password, $request->session()->get('userId')])) {
                 $request->session()->flash('mesajSuccess', 'Şifreniz başarıyla değiştirildi');
                 return redirect('kullanici/profil');
             } else {
@@ -223,20 +223,20 @@ class IndexController extends Controller
 
     public function get_duyuru(Request $request)
     {
-        $duyuruBilgileri = DB::table('notice AS d')
-            ->select(
-                'd.id AS d_id',
-                'u.name AS u_name',
-                'd.active AS d_active',
-                'd.created_at AS d_tarih',
-                'd.updated_at AS d_u_tarih'
-            )
-            ->Join('users AS u', 'u.id', '=', 'd.user_id')
-            ->where('d.active', '=', 1)
+        $notices = DB::table('notice')
+        ->select([
+            'notice.id AS id',
+            'users.name AS name',
+            'notice.active AS active',
+            'notice.created_at AS created_at',
+            'notice.updated_at AS updated_at'
+        ])
+            ->Join('users', 'users.id', '=', 'notice.user_id')
+            ->where('notice.active', '=', 1)
             ->get();
-        return view('user.notice.index')->with(
-            ['notices' => $duyuruBilgileri]
-        );
-    }
 
+        return view('user.notice.index')->with([
+            'notices' => $notices
+        ]);
+    }
 }
