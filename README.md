@@ -2,7 +2,7 @@ Web site: https://csslegal.com
 
 Keyword: Müşteri Takip Sistemi
 
-Vize Aşamaları
+ID ve Vize Aşamaları
 
 7 Dosya açma işlemi
 8 Alınan ödeme kayıt işlemi
