@@ -38,8 +38,8 @@ $('#dtVisaLogsTable').DataTable({
     serverSide: true,
 
     ajax: "/yonetim/ajax/visa-logs",
-    "order": [[0, 'desc'],],
-    "columnDefs": [{ "type": "num", "targets": 0 }],
+    "order": [[1, 'desc'],],
+    "columnDefs": [{ "type": "num", "targets": 1 }],
     language: { url: '/dataTables.tr.json' },
     columns: [
         { data: 'id' },
