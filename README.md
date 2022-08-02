@@ -4,13 +4,33 @@ Keyword: Müşteri Takip Sistemi
 
 Vize Aşamaları
 
-Dosya açma işlemi
-Alınan ödeme kayıt işlemi
-Alınan ödeme onayı işlemi
-Evrak listesi gönderme işlemi
-
+7 Dosya açma işlemi
+8 Alınan ödeme kayıt işlemi
+9 Alınan ödeme onayı işlemi
+15 Evrak listesi gönderme işlemi
+16 Evrak hazırlama işlemi
+18 Tercüman atama işlemi
+19 Tercüme tamamlama işlemi
+20 Uzman atama işlemi
+21 Form bilgileri işlemi
+22 Yapılan ödeme kayıt işlemi
+23 Parmak izi işlemi
+24 Fatura kayıt işlemi
+25 Başvuru sonuç işlemi
+26 Teslimat bilgileri işlemi
+27 Dosya kapandı (Arşiv)
+29 Red kararı tercümesi işlemi
+30 Randevu erteleme işlemi	
+31 Yeniden alınan ödeme kayıt işlemi
+32 Yeniden alınan ödeme onay işlemi
+33 Randevu iptal işlemi
+34 Dosya kapatma işlemi
+35 Dosya kapatma onayı işlemi
+36 İade bilgileri işlemi
+37 İade bilgileri onayı işlemi
 
 Olan Kısımlar
+
 Duyurular kısmı mevcut
 Hoş geldiniz kısmı mevcut
 Diller kısmı mevcut
