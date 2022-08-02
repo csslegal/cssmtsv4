@@ -1,6 +1,8 @@
 @extends('sablon.genel')
 
-@section('title') Müşteri Sorgula @endsection
+@section('title')
+    Müşteri Sorgula
+@endsection
 
 @section('content')
 
@@ -48,44 +50,32 @@
                             @foreach ($customerDetails as $customerDetail)
                                 <tr>
                                     <td class="text-center">
-                                        <a class="text-decoration-none"
-                                            href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->id }}</a>
+                                        <a href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->id }}</a>
                                     </td>
-                                    <td class="text-center">
-                                        <a class="text-decoration-none"
-                                            href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->name }}</a>
-                                    </td>
-                                    <td class="text-center">
-                                        <a class="text-decoration-none"
-                                            href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->telefon }}</a>
-                                    </td>
-                                    <td class="text-center">
-                                        <a class="text-decoration-none"
-                                            href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->email }}</a>
-                                    </td>
+                                    <td class="text-center">{{ $customerDetail->name }}</td>
+                                    <td class="text-center">{{ $customerDetail->telefon }}</td>
+                                    <td class="text-center">{{ $customerDetail->email }}</td>
                                     <td class="text-center">
                                         @if ($customerDetail->visa_file_id == null)
-                                            <span class="text-danger"> İçerik bulunamadı</span>
+                                            <span>Kayıt bulunamadı</span>
                                         @else
-                                            <a class="text-decoration-none"
-                                                href="/musteri/{{ $customerDetail->id }}/vize">{{ $customerDetail->visa_file_id }}</a>
+                                            {{ $customerDetail->visa_file_id }}
                                         @endif
                                     </td>
                                     <td class="text-center">
                                         @if ($customerDetail->active == '1')
-                                            <span class="text-success">Cari Dosya</span>
+                                            <span>Cari Dosya</span>
                                         @elseif ($customerDetail->active == '0')
-                                            <span class="text-info">Arşiv Dosya</span>
+                                            <span>Arşiv Dosya</span>
                                         @elseif ($customerDetail->active == null)
-                                            <span class="text-danger">İçerik bulunmadı</span>
+                                            <span>Kayıt bulunamadı</span>
                                         @endif
                                     </td>
                                     <td class="text-center">
                                         @if ($customerDetail->visa_file_id == null)
-                                            <span class="text-danger"> İçerik bulunamadı</span>
+                                            <span>Kayıt bulunamadı</span>
                                         @else
-                                            <a class="text-decoration-none"
-                                                href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->user_name }}</a>
+                                            {{ $customerDetail->user_name }}
                                         @endif
                                     </td>
                                 </tr>
