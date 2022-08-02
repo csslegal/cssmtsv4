@@ -2,32 +2,32 @@ Web site: https://csslegal.com
 
 Keyword: Müşteri Takip Sistemi
 
-ID ve Vize Aşamaları
+ID & Vize Aşamaları & URL
 
-7 Dosya açma işlemi
-8 Alınan ödeme kayıt işlemi
-9 Alınan ödeme onayı işlemi
-15 Evrak listesi gönderme işlemi
-16 Evrak hazırlama işlemi
-18 Tercüman atama işlemi
-19 Tercüme tamamlama işlemi
-20 Uzman atama işlemi
-21 Form bilgileri işlemi
-22 Yapılan ödeme kayıt işlemi
-23 Parmak izi işlemi
-24 Fatura kayıt işlemi
-25 Başvuru sonuç işlemi
-26 Teslimat bilgileri işlemi
-27 Dosya kapandı (Arşiv)
-29 Red kararı tercümesi işlemi
-30 Randevu erteleme işlemi	
-31 Yeniden alınan ödeme kayıt işlemi
-32 Yeniden alınan ödeme onay işlemi
-33 Randevu iptal işlemi
-34 Dosya kapatma işlemi
-35 Dosya kapatma onayı işlemi
-36 İade bilgileri işlemi
-37 İade bilgileri onayı işlemi
+7 Dosya açma işlemi dosya-ac
+8 Alınan ödeme kayıt işlemi alinan-odeme
+9 Alınan ödeme onayı işlemi alinan-odeme-onay
+15 Evrak listesi gönderme işlemi evrak-listesi
+16 Evrak hazırlama işlemi evrak-hazirlama	
+18 Tercüman atama işlemi tercuman-yetkilendir
+19 Tercüme tamamlama işlemi tercume-tamamlama
+20 Uzman atama işlemi uzman-yetkilendir
+21 Form bilgileri işlemi form-bilgileri
+22 Yapılan ödeme kayıt işlemi yapilan-odeme
+23 Parmak izi işlemi parmak-izi
+24 Fatura kayıt işlemi fatura-kayit
+25 Başvuru sonuç işlemi basvuru-sonuc
+26 Teslimat bilgileri işlemi teslimat-bilgisi
+27 Dosya kapandı (Arşiv) dosya-kapandi
+29 Red kararı tercümesi işlemi red-tercume
+30 Randevu erteleme işlemi randevu-erteleme
+31 Yeniden alınan ödeme kayıt işlemi yeniden-alinan-odeme
+32 Yeniden alınan ödeme onay işlemi yeniden-alinan-odeme-onay
+33 Randevu iptal işlemi randevu-iptali
+34 Dosya kapatma işlemi kapatma
+35 Dosya kapatma onayı işlemi kapatma-onayi
+36 İade bilgileri işlemi iade-bilgileri
+37 İade bilgileri onayı işlemi iade-bilgileri-onayi
 
 Olan Kısımlar
 
