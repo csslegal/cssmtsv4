@@ -25,7 +25,8 @@
                 <div class="mb-3">
                     <label>Sayfa Sayısı</label>
                     <input type="text" name="sayfa_sayisi" autocomplete="off" class="form-control"
-                        placeholder="Sayfa sayısı girin" value="{{ $refusalTranslation->page_count != '' ? $refusalTranslation->page_count : '' }}" />
+                        placeholder="Sayfa sayısı girin"
+                        value="{{ $refusalTranslation != null ? $refusalTranslation->page_count : '' }}" />
                     @error('sayfa_sayisi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -33,7 +34,8 @@
                 <div class="mb-3">
                     <label>Tercüme Sayfa Sayısı</label>
                     <input type="text" name="tercume_sayfa_sayisi" autocomplete="off" class="form-control"
-                        placeholder="Tercüme sayfa sayısı girin" value="{{ $refusalTranslation->translate_page_count != '' ? $refusalTranslation->translate_page_count : '' }}" />
+                        placeholder="Tercüme sayfa sayısı girin"
+                        value="{{ $refusalTranslation != null ? $refusalTranslation->translate_page_count : '' }}" />
                     @error('tercume_sayfa_sayisi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -41,7 +43,8 @@
                 <div class="mb-3">
                     <label>Tercüme Kelime Sayısı</label>
                     <input type="text" name="tercume_kelime_sayisi" autocomplete="off" class="form-control"
-                        placeholder="Tercüme kelime sayısı girin" value="{{ $refusalTranslation->translate_word_count != '' ? $refusalTranslation->translate_word_count : ''  }}" />
+                        placeholder="Tercüme kelime sayısı girin"
+                        value="{{ $refusalTranslation != null ? $refusalTranslation->translate_word_count : '' }}" />
                     @error('tercume_kelime_sayisi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -49,7 +52,8 @@
                 <div class="mb-3">
                     <label>Tercüme Karakter Sayısı</label>
                     <input type="text" name="tercume_karakter_sayisi" autocomplete="off" class="form-control"
-                        placeholder="Tercüme karakter sayısı girin" value="{{ $refusalTranslation->translate_character_count != '' ? $refusalTranslation->translate_character_count : ''  }}" />
+                        placeholder="Tercüme karakter sayısı girin"
+                        value="{{ $refusalTranslation != null ? $refusalTranslation->translate_character_count : '' }}" />
                     @error('tercume_karakter_sayisi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

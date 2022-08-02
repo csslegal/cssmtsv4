@@ -14,8 +14,7 @@ class RefusalTranslationController extends Controller
     {
         $refusalTranslation = DB::table('visa_refusal_translation')
         ->where('visa_file_id', '=', $visa_file_id)->first();
-        $baseCustomerDetails = DB::table('customers')
-            ->select([
+        $baseCustomerDetails = DB::table('customers')->select([
                 'customers.id AS id',
                 'visa_files.id AS visa_file_id',
             ])
@@ -23,8 +22,8 @@ class RefusalTranslationController extends Controller
             ->where('visa_files.active', '=', 1)
             ->where('customers.id', '=', $id)->first();
 
-        return view('customer.visa.grades.refusal-translation')
-            ->with(['baseCustomerDetails' => $baseCustomerDetails,
+        return view('customer.visa.grades.refusal-translation')->with([
+            'baseCustomerDetails' => $baseCustomerDetails,
             'refusalTranslation' => $refusalTranslation,
         ]);
     }
