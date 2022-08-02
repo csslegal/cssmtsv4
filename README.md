@@ -2,6 +2,20 @@ Web site: https://csslegal.com
 
 Keyword: Müşteri Takip Sistemi
 
+Vize Aşamaları
+
+Dosya açma işlemi
+Alınan ödeme kayıt işlemi
+Alınan ödeme onayı işlemi
+Evrak listesi gönderme işlemi
+
+
+Olan Kısımlar
+Duyurular kısmı mevcut
+Hoş geldiniz kısmı mevcut
+Diller kısmı mevcut
+
+
 Gerekli Olan NPM Kütüphaneleri
 
 "@popperjs/core": 2.9.3
