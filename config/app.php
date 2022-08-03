@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'CSS MTS V3'),
+    'name' => env('APP_NAME', 'CSS Legal - Müşteri Takip Sistemi'),
 
     /**
      * saniyede bir sayfa yenilemesi yapılacak
@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://cssmtsv4.test:8080'),
+    'url' => env('APP_URL', 'http://mts.test:8080'),
 
     'asset_url' => env('ASSET_URL', null),
 
