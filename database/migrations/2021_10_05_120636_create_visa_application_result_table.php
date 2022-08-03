@@ -22,9 +22,13 @@ class CreateVisaApplicationResultTable extends Migration
             $table->integer('user_id');
 
             $table->string('visa_result')->nullable();
-            $table->string('visa_date')->nullable();
+            $table->string('visa_start_date')->nullable();                      //vize başlangıc tarihi
+            $table->string('visa_end_date')->nullable();                        //vize bitiş tarihi
+            $table->string('visa_delivery_accepted_date')->nullable();          //vize teslim alınma tarihi
+
             $table->string('visa_refusal_reason')->nullable();
-            $table->string('visa_refusal_date')->nullable();
+            $table->string('visa_refusal_date')->nullable();                    //red verildiği tarih
+            $table->string('visa_refusal_delivery_accepted_date')->nullable();  //red teslim alınma tarihi
 
             $table->string('visa_file_close_date')->nullable();
             $table->timestamps();

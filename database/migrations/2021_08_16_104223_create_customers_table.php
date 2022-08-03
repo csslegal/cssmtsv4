@@ -16,16 +16,15 @@ class CreateCustomersTable extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('application_office_id')->nullable();
-            $table->integer('appointment_office_id')->nullable();
             $table->bigInteger('user_id')->nullable();
-            $table->string('tcno')->nullable();
+            $table->string('tc_number')->nullable();
             $table->string('name');
             $table->string('email');
-            $table->string('telefon');
-            $table->string('adres')->nullable();
-            $table->string('pasaport')->nullable();
-            $table->string('pasaport_tarihi', 20)->nullable();
-            $table->integer('bilgilendirme_onayi')->default(1);
+            $table->string('phone');
+            $table->string('address')->nullable();
+            $table->string('passport')->nullable();
+            $table->string('passport_date', 20)->nullable();
+            $table->integer('information_confirm')->default(1);
 
             $table->timestamps();
         });

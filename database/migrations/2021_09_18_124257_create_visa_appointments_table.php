@@ -19,6 +19,7 @@ class CreateVisaAppointmentsTable extends Migration
             $table->unsignedBigInteger('visa_file_id');
             $table->foreign('visa_file_id')->references('id')->on('visa_files')->onDelete('cascade');
 
+            $table->integer('appointment_office_id')->nullable();//randevu ofisi
             $table->integer('user_id');
             $table->string('gwf');
             $table->string('name'); //hesap
