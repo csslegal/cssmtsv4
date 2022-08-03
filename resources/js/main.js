@@ -27,9 +27,9 @@ $('#dtCustomersTable').DataTable({
     columns: [
         { data: 'id' },
         { data: 'name' },
-        { data: 'telefon' },
+        { data: 'phone' },
         { data: 'email' },
-        { data: 'adres' },
+        { data: 'address' },
 
     ]
 });
