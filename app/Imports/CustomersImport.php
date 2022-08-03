@@ -14,17 +14,17 @@ class CustomersImport implements ToCollection
         foreach ($rows as $row) {
 
             if (
-                DB::table('customers')->where('tcno', '=', $row[1])->count() == 0
-                || (Customers::where('name', '=', $row[0])->where('telefon', '=', $row[3])->count() == 0
+                DB::table('customers')->where('tc_number', '=', $row[1])->count() == 0
+                || (Customers::where('name', '=', $row[0])->where('phone', '=', $row[3])->count() == 0
                     &&  Customers::where('name', '=', $row[0])->where('email', '=', $row[4])->count() == 0
                 )
             ) {
 
                 Customers::create([
                     'name' => $row[0],
-                    'tcno' => $row[1],
-                    'adres' => $row[2],
-                    'telefon' => $row[3],
+                    'tc_number' => $row[1],
+                    'address' => $row[2],
+                    'phone' => $row[3],
                     'email' => $row[4],
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
