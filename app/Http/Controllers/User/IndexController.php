@@ -19,15 +19,14 @@ class IndexController extends Controller
                 'visa_files.status AS status',
                 'visa_file_grades.name AS visa_file_grades_name',
                 'visa_validity.name AS visa_validity_name',
-                'visa_types.name AS visa_type_name',
-                'visa_sub_types.name AS visa_sub_type_name',
+            'visa_types.name AS visa_type_name',
                 'users.name AS u_name',
             ])
             ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
             ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-            ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-            ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+
+            ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_files.visa_type_id')
             ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
 
             ->where('visa_files.active', '=', 1);
@@ -166,31 +165,34 @@ class IndexController extends Controller
 
     public function get_profil(Request $request)
     {
-        $kullaniciBilgileri = DB::table('users AS u')
-            ->select(
-                'u.name AS u_name',
-                'u.email AS u_email',
-                'u.active AS u_active',
-                'ut.name AS ut_name',
-                'bo.name AS bo_name',
-                'um.giris',
-                'um.cikis'
-            )
-            ->Join('users_type AS ut', 'ut.id', '=', 'u.user_type_id')
-            ->Join('application_offices AS bo', 'bo.id', '=', 'u.application_office_id')
-            ->Join('users_mesai AS um', 'um.user_id', '=', 'u.id')
-            ->where('u.id', '=', $request->session()->get('userId'))
-            ->first();
+        $userInformations = DB::table('users')
+        ->select([
+            'users.name',
+            'users.email',
+            'users.active',
+            'users_mesai.giris',
+            'users_mesai.cikis',
+            'users_type.name AS ut_name',
+        ])
+            ->leftJoin('users_type', 'users_type.id', '=', 'users.user_type_id')
+            ->leftJoin('users_mesai', 'users_mesai.user_id', '=', 'users.id')
+            ->where('users.id', '=', $request->session()->get('userId'))->first();
 
-        $erisimIzinleri = DB::table('users AS u')
-            ->select('e.name AS name')
-            ->rightJoin('users_access AS ue', 'u.id', '=', 'ue.user_id')
-            ->rightJoin('access AS e', 'e.id', '=', 'ue.access_id')
-            ->where('u.id', '=', $request->session()->get('userId'))
-            ->get();
-        return view('user.profil')->with([
-            'kullaniciBilgileri' => $kullaniciBilgileri,
-            'erisimIzinleri' => $erisimIzinleri
+        $userAccesses = DB::table('users')
+        ->select(['access.name AS name'])
+        ->rightJoin('users_access', 'users.id', '=', 'users_access.user_id')
+        ->rightJoin('access', 'access.id', '=', 'users_access.access_id')
+        ->where('users.id', '=', $request->session()->get('userId'))->get();
+
+        $userOffices = DB::table('users')
+        ->select(['application_offices.name AS name'])
+        ->rightJoin('users_application_offices', 'users.id', '=', 'users_application_offices.user_id')
+        ->rightJoin('application_offices', 'application_offices.id', '=', 'users_application_offices.application_office_id')
+        ->where('users.id', '=', $request->session()->get('userId'))->get();
+
+        return view('user.profil')->with(['userInformations' => $userInformations,
+            'userAccesses' => $userAccesses,
+            'userOffices' => $userOffices,
         ]);
     }
 
@@ -219,24 +221,5 @@ class IndexController extends Controller
             $request->session()->flash('mesajInfo', 'Girilen şifreler aynı değil');
             return redirect('kullanici/profil');
         }
-    }
-
-    public function get_duyuru(Request $request)
-    {
-        $notices = DB::table('notice')
-        ->select([
-            'notice.id AS id',
-            'users.name AS name',
-            'notice.active AS active',
-            'notice.created_at AS created_at',
-            'notice.updated_at AS updated_at'
-        ])
-            ->Join('users', 'users.id', '=', 'notice.user_id')
-            ->where('notice.active', '=', 1)
-            ->get();
-
-        return view('user.notice.index')->with([
-            'notices' => $notices
-        ]);
     }
 }

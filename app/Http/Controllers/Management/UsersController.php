@@ -15,22 +15,20 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $kayitlar = DB::table('users AS u')
-            ->select(
-                'u.id AS u_id',
-                'u.name AS u_name',
-                'u.active AS u_active',
-                'u.unlimited AS u_unlimited',
-                'u.created_at AS u_created_at',
-                'u.updated_at AS u_updated_at',
-                'ut.name AS ut_name',
-                'um.giris AS um_giris',
-                'um.cikis AS um_cikis',
-                'bo.name AS bo_name',
-            )
-            ->leftJoin('users_type AS ut', 'ut.id', '=', 'u.user_type_id')
-            ->leftJoin('users_mesai AS um', 'um.user_id', '=', 'u.id')
-            ->leftJoin('application_offices AS bo', 'bo.id', '=', 'u.application_office_id')
+        $kayitlar = DB::table('users')
+        ->select([
+            'users.id AS id',
+            'users.name AS name',
+            'users.active AS active',
+            'users.unlimited AS unlimited',
+            'users.created_at AS created_at',
+            'users.updated_at AS updated_at',
+            'users_type.name AS ut_name',
+            'users_mesai.giris AS giris',
+            'users_mesai.cikis AS cikis',
+        ])
+            ->leftJoin('users_type', 'users_type.id', '=', 'users.user_type_id')
+            ->leftJoin('users_mesai', 'users_mesai.user_id', '=', 'users.id')
             ->get();
 
         return view('management.users.index')->with(['kayitlar' => $kayitlar]);
@@ -66,19 +64,20 @@ class UsersController extends Controller
         $password = $request->input('password');
         $email = $request->input('email');
         $tip = $request->input('tip');
-        $ofisId = $request->input('ofis');
-        $mesaiGiris = $request->input('mesaiGiris');
-        $mesaiCikis = $request->input('mesaiCikis');
-        $userAccesses = $request->input('userAccess');
+
+        $giris = $request->input('giris');
+        $cikis = $request->input('cikis');
+
+        $accesses = $request->input('erisimler');
+        $offices = $request->input('ofisler');
 
         $request->validate([
             'name' => 'required|max:50|min:3',
             'email' => 'required|unique:users,email|email|max:50|min:3',
             'password' => 'required|max:50|min:8',
-            'mesaiGiris' => 'required',
-            'mesaiCikis' => 'required',
             'tip' => 'required|numeric',
-            'ofis' => 'required|numeric'
+            'giris' => 'required',
+            'cikis' => 'required',
         ]);
 
         if ($sorguInsertID = DB::table('users')->insertGetId([
@@ -86,34 +85,41 @@ class UsersController extends Controller
             'email' => $email,
             'password' => base64_encode($password),
             'user_type_id' => $tip,
-            'application_office_id' => $ofisId,
             "created_at" =>  date('Y-m-d H:i:s'),
             "updated_at" => date('Y-m-d H:i:s'),
         ])) {
-            DB::table('users_mesai')->insert([
-                'giris' => $mesaiGiris,
-                'cikis' => $mesaiCikis,
+            DB::table('users_mesai')->insert(['giris' => $giris,
+                'cikis' => $cikis,
                 'user_id' => $sorguInsertID,
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
             ]);
 
-            if (count((array)$userAccesses) > 0) {
-
+            if (count((array)$accesses) > 0) {
                 $arrayUserAccesses = array();
-                foreach ($userAccesses as $userAccess) {
-                    $arrayUserAccesses = array_merge(
-                        $arrayUserAccesses,
-                        array([
-                            'user_id' => $sorguInsertID,
-                            'access_id' => $userAccess,
-                            "created_at" =>  date('Y-m-d H:i:s'),
-                            "updated_at" => date('Y-m-d H:i:s'),
-                        ])
-                    );
+                foreach ($accesses as $access) {
+                    $arrayUserAccesses = array_merge($arrayUserAccesses, array([
+                        'user_id' => $sorguInsertID,
+                        'access_id' => $access,
+                        "created_at" =>  date('Y-m-d H:i:s'),
+                        "updated_at" => date('Y-m-d H:i:s'),
+                    ]));
                 }
                 DB::table('users_access')->insert($arrayUserAccesses);
             }
+            if (count((array)$offices) > 0) {
+                $arrayUserOffices = array();
+                foreach ($offices as $office) {
+                    $arrayUserOffices = array_merge($arrayUserOffices, array([
+                        'user_id' => $sorguInsertID,
+                        'application_office_id' => $office,
+                        "created_at" =>  date('Y-m-d H:i:s'),
+                        "updated_at" => date('Y-m-d H:i:s'),
+                    ]));
+                }
+                DB::table('users_application_offices')->insert($arrayUserOffices);
+            }
+
             $request->session()->flash('mesajSuccess', 'Başarıyla kaydedildi');
             return redirect('yonetim/users');
         } else {
@@ -145,12 +151,9 @@ class UsersController extends Controller
         $usersTypes = DB::table('users_type')->get();
         $applicationOffices = DB::table('application_offices')->get();
         $userAccesses = DB::table('access')->get();
-        $accessId = DB::table('users_access')
-            ->select('access_id')
-            ->where('user_id', '=', $id)
-            ->get()->pluck('access_id')->toArray();
-
-        //dd($accessId);
+        $userMesai = DB::table('users_mesai')->where('user_id', '=', $id)->first();
+        $accessId = DB::table('users_access')->select('access_id')->where('user_id', '=', $id)->get()->pluck('access_id')->toArray();
+        $oficesId = DB::table('users_application_offices')->select('application_office_id')->where('user_id', '=', $id)->get()->pluck('application_office_id')->toArray();
 
         $kayit = DB::table('users')->where('id', '=', $id)->first();
 
@@ -159,7 +162,9 @@ class UsersController extends Controller
             'usersTypes' => $usersTypes,
             'applicationOffices' => $applicationOffices,
             'userAccesses' => $userAccesses,
+            'userMesai' => $userMesai,
             'accessId' => $accessId,
+            'oficesId' => $oficesId,
         ]);
     }
 
@@ -176,20 +181,23 @@ class UsersController extends Controller
         $password = $request->input('password');
         $email = $request->input('email');
         $tip = $request->input('tip');
+
         $active = $request->input('durum');
         $unlimited = $request->input('kisitli');
-        $ofisId = $request->input('ofis');
-        $mesaiGiris = $request->input('mesaiGiris');
-        $mesaiCikis = $request->input('mesaiCikis');
-        $userAccesses = $request->input('userAccess');
+
+        $giris = $request->input('giris');
+        $cikis = $request->input('cikis');
+
+        $accesses = $request->input('erisimler');
+        $offices = $request->input('ofisler');
+
         $request->validate([
             'name' => 'required|max:50|min:3',
             'email' => 'required|email|max:50|min:3',
             'password' => 'required|max:50|min:8',
-            'mesaiGiris' => 'required',
-            'mesaiCikis' => 'required',
             'tip' => 'required|numeric',
-            'ofis' => 'required|numeric',
+            'giris' => 'required',
+            'cikis' => 'required',
             'durum' => 'required|numeric',
             'kisitli' => 'required|numeric'
         ]);
@@ -201,36 +209,40 @@ class UsersController extends Controller
             'unlimited' => $unlimited,
             'password' => base64_encode($password),
             'user_type_id' => $tip,
-            'application_office_id' => $ofisId,
             "updated_at" => date('Y-m-d H:i:s'),
         ])) {
-
             DB::table('users_mesai')->where('user_id', '=', $id)->delete();
-            DB::table('users_mesai')->insert([
-                'giris' => $mesaiGiris,
-                'cikis' => $mesaiCikis,
+            DB::table('users_mesai')->insert(['giris' => $giris,
+                'cikis' => $cikis,
                 'user_id' => $id,
                 "updated_at" => date('Y-m-d H:i:s'),
             ]);
 
-            if (count((array)$userAccesses) > 0) {
-
+            if (count((array)$accesses) > 0) {
                 DB::table('users_access')->where('user_id', '=', $id)->delete();
                 $arrayUserAccesses = array();
-                foreach ($userAccesses as $userAccess) {
-                    $arrayUserAccesses = array_merge(
-                        $arrayUserAccesses,
-                        array([
-                            'user_id' =>  $id,
-                            'access_id' => $userAccess,
-                            "created_at" =>  date('Y-m-d H:i:s'),
-                            "updated_at" => date('Y-m-d H:i:s'),
-                        ])
-                    );
+                foreach ($accesses as $access) {
+                    $arrayUserAccesses = array_merge($arrayUserAccesses, array([
+                        'user_id' =>  $id,
+                        'access_id' => $access,
+                        "created_at" =>  date('Y-m-d H:i:s'),
+                        "updated_at" => date('Y-m-d H:i:s'),
+                    ]));
                 }
                 DB::table('users_access')->insert($arrayUserAccesses);
-            } else {
-                DB::table('users_access')->where('user_id', '=', $id)->delete();
+            }
+            if (count((array)$offices) > 0) {
+                DB::table('users_application_offices')->where('user_id', '=', $id)->delete();
+                $arrayUserOffices = array();
+                foreach ($offices as $office) {
+                    $arrayUserOffices = array_merge($arrayUserOffices, array([
+                        'user_id' =>  $id,
+                        'application_office_id' => $office,
+                        "created_at" =>  date('Y-m-d H:i:s'),
+                        "updated_at" => date('Y-m-d H:i:s'),
+                    ]));
+                }
+                DB::table('users_application_offices')->insert($arrayUserOffices);
             }
             $request->session()->flash('mesajSuccess', 'Başarıyla kaydedildi');
             return redirect('yonetim/users');
@@ -249,13 +261,10 @@ class UsersController extends Controller
     public function destroy($id, Request $request)
     {
         if (is_numeric($id)) {
-            if (DB::table('users')->where('id', '=', $id)->delete()) {
-                $request->session()->flash('mesajSuccess', 'Başarıyla silindi');
-                return redirect('yonetim/users');
-            } else {
-                $request->session()->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
-                return redirect('yonetim/users');
-            }
+            DB::table('users')->where('id', '=', $id)->delete();
+
+            $request->session()->flash('mesajSuccess', 'Başarıyla silindi');
+            return redirect('yonetim/users');
         } else {
             $request->session()->flash('mesajDanger', 'ID alınırken sorun oluştu');
             return redirect('yonetim/users');

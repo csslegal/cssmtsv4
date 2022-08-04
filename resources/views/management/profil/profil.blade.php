@@ -15,31 +15,47 @@
                 <div class="col-md-6 col-sm-12">
                     <span class="fw-bold text-primary">Kullanıcı Detayları</span>
                     <ul>
-                        <li>Adınız: {{ $yonetimBilgileri->name }}</li>
-                        <li>E-mail Adresiniz: {{ $yonetimBilgileri->email }}</li>
-                        <li>Çalışma Ofisi: {{ $yonetimBilgileri->bo_name }}</li>
-                        <li>Yetki Seviyesi: {{ $yonetimBilgileri->ut_name }}</li>
-                        <li>Mesai Saatleri: {{ $yonetimBilgileri->giris }} - {{ $yonetimBilgileri->cikis }}</li>
+                        <li>Adınız: {{ $managementInformations->name }}</li>
+                        <li>E-mail Adresiniz: {{ $managementInformations->email }}</li>
+                        <li>Yetki Seviyesi: {{ $managementInformations->ut_name }}</li>
+                        <li>Mesai Saatleri: {{ $managementInformations->giris }} - {{ $managementInformations->cikis }}</li>
                     </ul>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <span class="fw-bold text-primary">Sistem Erişim İzinleri</span>
-                    <ol>
-                        @if (count($erisimIzinleri) > 0)
-                            @foreach ($erisimIzinleri as $erisimIzin)
-                                <li>{{ $erisimIzin->name }}</li>
-                            @endforeach
-                        @else
-                            <li>Yok</li>
-                        @endif
-                    </ol>
-
                     <hr>
                     <span class="fw-bold text-primary">Sistem Teması</span>
                     <select class="form-control" onchange="themeChange()">
-                        <option @if (session('theme') == 'light') selected @endif>Light @if (session('theme') == 'light') teması aktif @endif</option>
-                        <option @if (session('theme') == 'dark') selected @endif>Dark @if (session('theme') == 'dark') teması aktif @endif</option>
+                        <option @if (session('theme') == 'light') selected @endif>Light @if (session('theme') == 'light')
+                                teması aktif
+                            @endif
+                        </option>
+                        <option @if (session('theme') == 'dark') selected @endif>Dark @if (session('theme') == 'dark')
+                                teması aktif
+                            @endif
+                        </option>
                     </select>
+                    <hr>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <span class="fw-bold text-primary">Yetkiler</span>
+                    @if (count($userAccesses) > 0)
+                        <ol>
+                            @foreach ($userAccesses as $userAccess)
+                                <li>{{ $userAccess->name }}</li>
+                            @endforeach
+                        </ol>
+                    @else
+                        </br> Yok
+                    @endif
+                    <hr>
+                    <span class="fw-bold text-primary">Çalışma Ofisleri</span>
+                    @if (count($userOffices) > 0)
+                        <ol>
+                            @foreach ($userOffices as $userOffice)
+                                <li>{{ $userOffice->name }}</li>
+                            @endforeach
+                        </ol>
+                    @else
+                        </br> Yok
+                    @endif
                 </div>
             </div>
         </div>

@@ -18,40 +18,49 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Kullanıcı Adı</th>
+                        <th>Adı</th>
+                        <th>Kullanıcı Tipi</th>
+                        <th>Mesai Saati</th>
                         <th>Hesap Durumu</th>
                         <th>Giriş Durumu</th>
-                        <th>Kullanıcı Tipi</th>
-                        <th>Mesai Ofisi</th>
-                        <th>Mesai Saati</th>
+
                         <th>İşlem</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($kayitlar as $kayit)
                         <tr>
-                            <td>{{ $kayit->u_id }}</td>
-                            <td>{{ $kayit->u_name }}</td>
-
-                            <td>@if ($kayit->u_active) Normal @else <span class="text-danger fw-bold">Pasif</span> @endif</td>
-                            <td>@if ($kayit->u_unlimited) Kısıtlamasız @else <span class="text-danger fw-bold">Kısıtlamalı</span> @endif</td>
-
+                            <td>{{ $kayit->id }}</td>
+                            <td>{{ $kayit->name }}</td>
                             <td>{{ $kayit->ut_name }}</td>
-                            <td>{{ $kayit->bo_name }}</td>
-                            <td>{{ $kayit->um_giris }} - {{ $kayit->um_cikis }}</td>
+                            <td>{{ $kayit->giris }} - {{ $kayit->cikis }}</td>
+                            <td>
+                                @if ($kayit->active)
+                                    Normal
+                                @else
+                                    <span class="text-danger fw-bold">Pasif</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($kayit->unlimited)
+                                    Kısıtlamasız
+                                @else
+                                    <span class="text-danger fw-bold">Kısıtlamalı</span>
+                                @endif
+                            </td>
 
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <!--<button onclick="goster({{ $kayit->u_id }})" class="text-success"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                                    <i class="bi bi-image"></i>
-                                                </button>-->
-                                    <a href="/yonetim/users/{{ $kayit->u_id }}/edit">
+                                    <!--<button onclick="goster({{ $kayit->id }})" class="text-success"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                                        <i class="bi bi-image"></i>
+                                                    </button>-->
+                                    <a href="/yonetim/users/{{ $kayit->id }}/edit">
                                         <button data-bs-toggle="tooltip" data-bs-placement="top" title="Düzenle">
                                             <i class="bi bi-pencil-square "></i>
                                         </button>
                                     </a>
-                                    <form action="/yonetim/users/{{ $kayit->u_id }}" method="post">
+                                    <form action="/yonetim/users/{{ $kayit->id }}" method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right"

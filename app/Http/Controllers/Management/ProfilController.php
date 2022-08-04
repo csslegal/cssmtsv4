@@ -12,28 +12,41 @@ class ProfilController extends Controller
 
     public function index(Request $request)
     {
-        $yonetimBilgileri = DB::table('users AS u')
-            ->select('u.name', 'u.email', 'u.active', 'ut.name AS ut_name', 'bo.name AS bo_name', 'um.giris', 'um.cikis')
-            ->leftJoin('users_type AS ut', 'ut.id', '=', 'u.user_type_id')
-            ->leftJoin('users_mesai AS um', 'um.user_id', '=', 'u.id')
-            ->leftJoin('application_offices AS bo', 'bo.id', '=', 'u.application_office_id')
-            ->where('u.id', '=', $request->session()->get('userId'))->first();
+        $managementInformations = DB::table('users')
+        ->select([
+            'users.name',
+            'users.email',
+            'users.active',
+            'users_mesai.giris',
+            'users_mesai.cikis',
+            'users_type.name AS ut_name',
+        ])
+            ->leftJoin('users_type', 'users_type.id', '=', 'users.user_type_id')
+            ->leftJoin('users_mesai', 'users_mesai.user_id', '=', 'users.id')
+            ->where('users.id', '=', $request->session()->get('userId'))->first();
 
-        $erisimIzinleri = DB::table('users AS u')
-            ->select('e.name AS name')
-            ->rightJoin('users_access AS ue', 'u.id', '=', 'ue.user_id')
-            ->rightJoin('access AS e', 'e.id', '=', 'ue.access_id')
-            ->where('u.id', '=', $request->session()->get('userId'))->get();
+        $userAccesses = DB::table('users')
+        ->select(['access.name AS name'])
+        ->rightJoin('users_access', 'users.id', '=', 'users_access.user_id')
+        ->rightJoin('access', 'access.id', '=', 'users_access.access_id')
+        ->where('users.id', '=', $request->session()->get('userId'))->get();
 
-        return view('management.profil.profil')->with([
-            'yonetimBilgileri' => $yonetimBilgileri,
-            'erisimIzinleri' => $erisimIzinleri
+        $userOffices = DB::table('users')
+            ->select(['application_offices.name AS name'])
+            ->rightJoin('users_application_offices', 'users.id', '=', 'users_application_offices.user_id')
+            ->rightJoin('application_offices', 'application_offices.id', '=', 'users_application_offices.application_office_id')
+            ->where('users.id', '=', $request->session()->get('userId'))->get();
+
+        return view('management.profil.profil')->with(['managementInformations' => $managementInformations,
+            'userAccesses' => $userAccesses,
+            'userOffices' => $userOffices,
         ]);
     }
 
     public function store(Request $request)
     {
         $inputKontrol = new InputKontrol();
+
         $password = base64_encode($inputKontrol->kontrol($request->input('password')));
         $rePassword = base64_encode($inputKontrol->kontrol($request->input('rePassword')));
         $request->validate(['password' => 'required|max:10', 'rePassword' => 'required|max:10',]);
