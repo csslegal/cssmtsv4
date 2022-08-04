@@ -25,19 +25,23 @@
             width: 20em;
             margin: 0 auto !important;
         }
-
     </style>
     @yield('css')
 </head>
 
 <body class="light bg-light" onload="is_loaded();">
+
     @include('include.preload')
+
     <div class="container">
         <div class="row">
             <div class="col">
+
                 @include('include.nav-top')
                 @include('include.toast')
+
                 @yield('content')
+
             </div>
         </div>
     </div>
@@ -53,14 +57,14 @@
             @if (session('theme') == 'dark')
 
                 $([".light [class*='-light']", ".dark [class*='-dark']"]).each((i, ele) => {
-                $(ele).removeClass('bg-light').addClass('bg-dark');
-                $(ele).removeClass('text-light').addClass('text-dark');
-                $(ele).removeClass('navbar-dark').addClass('navbar-light');
+                    $(ele).removeClass('bg-light').addClass('bg-dark');
+                    $(ele).removeClass('text-light').addClass('text-dark');
+                    $(ele).removeClass('navbar-dark').addClass('navbar-light');
                 });
                 $('body').removeClass('bg-light').addClass('bg-dark');
                 $('#breadcrumb').addClass('bg-light');
-                $('#navbar').removeClass('navbar-dark').addClass('navbar-light');
-                $('#navbar').removeClass('bg-dark').addClass('bg-light');
+                $('#nav-top').removeClass('navbar-dark').addClass('navbar-light');
+                $('#nav-top').removeClass('bg-dark').addClass('bg-light');
             @endif
         });
 
