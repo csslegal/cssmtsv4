@@ -22,8 +22,6 @@ class IndexController extends Controller
             'countApplicationOffice' => DB::table('application_offices')->get()->count(),
             'countCustomer' => DB::table('customers')->get()->count(),
             'countAppointmentOffice' => DB::table('appointment_offices')->get()->count(),
-            'countNotice' => DB::table('notice')->where('active', '=', '1')->get()->count(),
-            'countLanguage' => DB::table('language')->get()->count(),
             'userAccesses' => $userAccesses,
 
         ]);

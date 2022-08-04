@@ -64,9 +64,9 @@ class AjaxController extends Controller
     public function post_telefon_kontrol(Request $request)
     {
         echo DB::table('customers')
-            ->select('telefon')
-            ->where('telefon', '=', mb_convert_case(
-                mb_strtolower($request->get('telefon')),
+            ->select('phone')
+            ->where('phone', '=', mb_convert_case(
+                mb_strtolower($request->get('phone')),
                 MB_CASE_TITLE,
                 "UTF-8"
             ))
@@ -141,15 +141,6 @@ class AjaxController extends Controller
             $request->session()
                 ->flash('mesajDanger', 'Hatalı istek yapıldı');
         }
-    }
-
-    public function post_visa_sub_type(Request $request)
-    {
-        $getVisaTypes = DB::table('visa_sub_types')
-            ->where('visa_type_id', '=', $request->input('id'))
-            ->get();
-
-        return ($getVisaTypes);
     }
 
     public function post_visa_file_log_content(Request $request)

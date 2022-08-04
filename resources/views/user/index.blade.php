@@ -10,8 +10,7 @@
         </ol>
     </nav>
 
-    @include('user.hosgeldin')
-
     @include('include.user.visa.customer-files-table')
     @include('include.user.web.web-panels-table')
+
 @endsection

@@ -15,8 +15,6 @@
             <!-- vize dosyaları logları-->
             @include('include.management.visa.logs')
 
-            <!--@include('include.management.visa.send-email-logs')-->
-
             <!-- Modal -->
             @include('include.management.content-load')
 
@@ -54,17 +52,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Alt Vize Tipleri</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countVisaSubTypes }} alt vize tipi sistemde
-                                        kayıtlı.
-                                    </p>
-                                    <a href="/yonetim/vize/alt-vize-tipi" class="btn btn-primary float-end">Git</a>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card mb-2">
                                 <div class="card-body">
@@ -73,28 +61,6 @@
                                         kayıtlı.
                                     </p>
                                     <a href="/yonetim/vize/vize-suresi" class="btn btn-primary float-end">Git</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Bilgi E-mailleri</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countVisaEmailInformationList }} bilgi
-                                        e-maili sistemde
-                                        kayıtlı. </p>
-                                    <a href="/yonetim/vize/bilgi-emaili" class="btn btn-primary float-end">Git</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card  mb-2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Evrak Listesi Emailleri</h5>
-                                    <p class="card-text fw-bold"> Toplam {{ $countVisaEmailDocumentList }} evrak listesi
-                                        sistemde
-                                        kayıtlı. </p>
-                                    <a href="/yonetim/vize/evrak-emaili" class="btn btn-primary float-end">Git</a>
                                 </div>
                             </div>
                         </div>

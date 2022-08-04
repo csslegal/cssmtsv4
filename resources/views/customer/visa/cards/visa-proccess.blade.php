@@ -9,36 +9,13 @@
                         <div class="card-body">
                             <h5 class="card-title fw-bold">Cari Dosya Aç</h5>
                             <p>&nbsp;</p>
-                            <a class="btn btn-primary btn-sm float-end" href="vize/dosya-ac"> İşleme Git</a>
+                            <a class="btn btn-primary btn-sm float-end" href="vize/dosya-acma"> İşleme Git</a>
                         </div>
                     </div>
                 </div>
             @endif
             @if (isset($visaFileDetail))
-                @if (session('userTypeId') == 1 || session('userTypeId') == 2 || session('userTypeId') == 6)
-                    <div class="col-lg-4 col-md-6 col-sm-6 ">
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Ödemeler</h5>
-                                <p>Cari dosya ödeme detayları</p>
-                                <a class="btn btn-primary btn-sm float-end"
-                                    href="vize/{{ $visaFileDetail->id }}/odeme">İşleme Git</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!--
-                    <div class="col-lg-4 col-md-6 col-sm-6 ">
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Faturalar</h5>
-                                <p>Cari dosya fatura detayları</p>
-                                <a class="btn btn-primary btn-sm text-white float-end"
-                                    href="vize/{{ $visaFileDetail->id }}/fatura">İşleme Git</a>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-                @endif
+
                 @if (!$visaFileGradesPermitted['fileCloseRequestGradeIds'] && $visaFileGradesPermitted['fileCloseRequestGrade'])
                     <div class="col-lg-4 col-md-6 col-sm-6 ">
                         <div class="card mb-2">
@@ -66,7 +43,6 @@
                     </div>
                 @endif
             @endif
-
             <div class="col-lg-4 col-md-6 col-sm-6 ">
                 <div class="card mb-2">
                     <div class="card-body">

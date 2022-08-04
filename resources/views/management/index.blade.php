@@ -58,24 +58,7 @@
                 <div class="card-header text-white bg-primary mb-3">Genel İşlemler</div>
                 <div class="card-body ">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Diller</h5>
-                                    <p class="card-text">Sistemde {{ $countLanguage }} kayıt var.</p>
-                                    <a href="yonetim/language" class="btn btn-primary float-end">Git</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Duyurular</h5>
-                                    <p class="card-text">Sistemde {{ $countNotice }} kayıt var.</p>
-                                    <a href="yonetim/duyuru" class="btn btn-primary float-end">Git</a>
-                                </div>
-                            </div>
-                        </div>
+                     
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card mb-2">
                                 <div class="card-body">
