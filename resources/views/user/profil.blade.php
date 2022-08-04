@@ -1,6 +1,8 @@
 @extends('sablon.genel')
 
-@section('title') Profil - Kullanıcı Oturum @endsection
+@section('title')
+    Profil - Kullanıcı Oturum
+@endsection
 
 @section('content')
     <nav aria-label="breadcrumb">
@@ -10,66 +12,98 @@
         </ol>
     </nav>
 
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white fw-bold">Profilim</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6 col-sm-12">
-                    <ul>
-                        <li>Adınız: {{ $kullaniciBilgileri->u_name }} </li>
-                        <li>E-mail Adresiniz: {{ $kullaniciBilgileri->u_email }} </li>
-                        <li>Çalışma Ofisi: {{ $kullaniciBilgileri->bo_name }} </li>
-                        <li>Yetki Seviyesi: {{ $kullaniciBilgileri->ut_name }} </li>
-                        <li>Mesai Saatleri: {{ $kullaniciBilgileri->giris }} - {{ $kullaniciBilgileri->cikis }} </li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <span class="fw-bold text-primary">Sistem Erişim İzinleri</span>
-                    <ul>
-                        @if (count($erisimIzinleri) > 0)
-                            @foreach ($erisimIzinleri as $erisimIzin)
-                                <li>{{ $erisimIzin->name }}</li>
-                            @endforeach
+    @if ($userInformations != null)
+        <div class="card card-primary mb-3">
+            <div class="card-header bg-primary text-white fw-bold">Profilim</div>
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-md-6 col-sm-12">
+                        <span class="fw-bold text-primary">Kullanıcı Detayları</span>
+                        <ul>
+                            <li>Adınız: {{ $userInformations->name }}</li>
+                            <li>E-mail Adresiniz: {{ $userInformations->email }}</li>
+                            <li>Yetki Seviyesi: {{ $userInformations->ut_name }}</li>
+                            <li>Mesai Saatleri: {{ $userInformations->giris }} - {{ $userInformations->cikis }}</li>
+                        </ul>
+                        <hr>
+                        <span class="fw-bold text-primary">Sistem Teması</span>
+                        <select class="form-control" onchange="themeChange()">
+                            <option @if (session('theme') == 'light') selected @endif>Light @if (session('theme') == 'light')
+                                    teması aktif
+                                @endif
+                            </option>
+                            <option @if (session('theme') == 'dark') selected @endif>Dark @if (session('theme') == 'dark')
+                                    teması aktif
+                                @endif
+                            </option>
+                        </select>
+                        <hr>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <span class="fw-bold text-primary">Yetkiler</span>
+                        @if (count($userAccesses) > 0)
+                            <ol>
+                                @foreach ($userAccesses as $userAccess)
+                                    <li>{{ $userAccess->name }}</li>
+                                @endforeach
+                            </ol>
                         @else
-                            <li>Yok</li>
+                            </br> Yok
                         @endif
-                    </ul>
-                    <hr>
-                    <span class="fw-bold text-primary">Sistem Teması</span>
-                    <select class="form-control" onchange="themeChange()">
-                        <option @if (session('theme') == 'light') selected @endif>Light @if (session('theme') == 'light') teması aktif @endif</option>
-                        <option @if (session('theme') == 'dark') selected @endif>Dark @if (session('theme') == 'dark') teması aktif @endif</option>
-                    </select>
+                        <hr>
+                        <span class="fw-bold text-primary">Çalışma Ofisleri</span>
+                        @if (count($userOffices) > 0)
+                            <ol>
+                                @foreach ($userOffices as $userOffice)
+                                    <li>{{ $userOffice->name }}</li>
+                                @endforeach
+                            </ol>
+                        @else
+                            </br> Yok
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="card card-primary">
-        <div class="card-header bg-primary text-white fw-bold">Şifre Güncelleme</div>
-        <div class="card-body">
-            <form method="POST" action="/kullanici/profil">
-                @csrf
-                <div class="row g-3">
-                    <div class="col-12">
-                        <label class="form-label">Şifre</label>
-                        <input type="password" value="{{ old('password') }}" name="password" class="form-control">
-                        @error('password')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+        <div class="card card-primary">
+            <div class="card-header bg-primary text-white fw-bold">Şifre Güncelleme</div>
+            <div class="card-body">
+                <form method="POST" action="/kullanici/profil">
+                    @csrf
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label">Şifre</label>
+                            <input type="password" value="{{ old('password') }}" name="password" class="form-control">
+                            @error('password')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Tekrar Şifre</label>
+                            <input type="password" value="{{ old('rePassword') }}" name="rePassword" class="form-control">
+                            @error('rePassword')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="col-12">
-                        <label class="form-label">Tekrar Şifre</label>
-                        <input type="password" value="{{ old('rePassword') }}" name="rePassword" class="form-control">
-                        @error('rePassword')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Güncelle</button>
-            </form>
+                    <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Güncelle</button>
+                </form>
+            </div>
         </div>
-    </div>
+    @else
+        <div class="row g-3">
+            <div class="col-md-12">
+
+                <div class="alert alert-danger">
+                    Hesabınız bulunamadı! Sistem yöneticisi ile iletişime geçiniz.(Otomatik çıkış yapılıyor...)
+                    <meta http-equiv="refresh" content="10;url=/cikis" />
+                </div>
+
+            </div>
+        </div>
+    @endif
 @endsection
 
 @section('js')
