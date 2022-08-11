@@ -90,7 +90,8 @@ class VisaController extends Controller
             ->leftJoin('users AS expert_users', 'expert_users.id', '=', 'visa_files.expert_id')
 
             ->where('visa_files.active', '=', 1)
-            ->where('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_GRADES_ID'))
+            ->where('visa_files.visa_file_grades_id', '=', env('VISA_CONTROL_WAIT_GRADES_ID'))
+            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPLICATION_WAIT_GRADES_ID'))
             ->get();
         return view('management.visa.users.uzman')->with(
             [
@@ -122,13 +123,11 @@ class VisaController extends Controller
             ->leftJoin('users AS translator_users', 'translator_users.id', '=', 'visa_files.translator_id')
 
             ->where('visa_files.active', '=', 1)
-            ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATION_GRADES_ID'))
+            ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATIONS_WAIT_GRADES_ID'))
             ->get();
-        return view('management.visa.users.tercuman')->with(
-            [
-                'visaCustomers' => $visaCustomers,
-            ]
-        );
+        return view('management.visa.users.tercuman')->with([
+            'visaCustomers' => $visaCustomers,
+        ]);
     }
 
     public function get_muhasebe(Request $request)
@@ -152,16 +151,14 @@ class VisaController extends Controller
             ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
             ->where('visa_files.active', '=', 1)
 
-            ->where('visa_files.visa_file_grades_id', '=', env('VISA_PAYMENT_CONFIRM_GRADES_ID'))
-            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_MADE_PAYMENT_GRADES_ID'))
-            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_INVOICE_SAVE_GRADES_ID'))
-            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_RE_PAYMENT_CONFIRM_GRADES_ID'))
-            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'))
+            ->where('visa_files.visa_file_grades_id', '=', env('VISA_FILE_OPEN_CONFIRM_GRADES_ID'))
+            // ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_MADE_PAYMENT_GRADES_ID'))
+            // ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_INVOICE_SAVE_GRADES_ID'))
+            // ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_RE_PAYMENT_CONFIRM_GRADES_ID'))
+            // ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'))
             ->get();
-        return view('management.visa.users.muhasebe')->with(
-            [
-                'visaCustomers' => $visaCustomers,
-            ]
-        );
+        return view('management.visa.users.muhasebe')->with([
+            'visaCustomers' => $visaCustomers,
+        ]);
     }
 }
