@@ -14,6 +14,7 @@ class IndexController extends Controller
         $visaCustomersUsers = DB::table('customers')
             ->select([
                 'customers.id AS id',
+            'customers.application_office_id AS application_office_id',
                 'customers.name AS name',
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
@@ -48,7 +49,11 @@ class IndexController extends Controller
 
         switch ($request->session()->get('userTypeId')) {
             case 2: //danisman
+
+                $userApplicationOfficeIds = DB::table('users_application_offices')->select('application_office_id')->where('user_id', '=', $request->session()->get('userId'))->pluck('application_office_id')->toArray();
                 $visaCustomers = $visaCustomersUsers
+                    ->whereIn('customers.application_office_id', $userApplicationOfficeIds)
+                    ->orWhere('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
 
@@ -62,8 +67,8 @@ class IndexController extends Controller
             case 3: //uzman
                 $visaCustomers = $visaCustomersUsers
                     //->where('visa_files.expert_id', '=', $request->session()->get('userId'))
-                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPOINTMENT_PUTOFF_GRADES_ID'))
+                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_CONTROL_WAIT_GRADES_ID'))
+                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPLICATION_WAIT_GRADES_ID'))
                     ->get();
 
                 return view('user.index')->with([
@@ -77,7 +82,7 @@ class IndexController extends Controller
             case 5: //tercuman
                 $visaCustomers = $visaCustomersUsers
                     //->where('visa_files.translator_id', '=', $request->session()->get('userId'))
-                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATION_GRADES_ID'))
+                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_TRANSLATIONS_WAIT_GRADES_ID'))
                     ->get();
 
                 return view('user.index')->with([
@@ -89,11 +94,11 @@ class IndexController extends Controller
                 break;
             case 6: //muhasebe
                 $visaCustomers = $visaCustomersUsers
-                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_PAYMENT_CONFIRM_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_MADE_PAYMENT_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_INVOICE_SAVE_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_RE_PAYMENT_CONFIRM_GRADES_ID'))
-                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'))
+                    ->where('visa_files.visa_file_grades_id', '=', env('VISA_FILE_OPEN_CONFIRM_GRADES_ID'))
+                    //->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_MADE_PAYMENT_GRADES_ID'))
+                    //->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_INVOICE_SAVE_GRADES_ID'))
+                    //->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_RE_PAYMENT_CONFIRM_GRADES_ID'))
+                    //->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'))
                     ->get();
 
                 return view('user.index')->with([
@@ -166,31 +171,32 @@ class IndexController extends Controller
     public function get_profil(Request $request)
     {
         $userInformations = DB::table('users')
-        ->select([
-            'users.name',
-            'users.email',
-            'users.active',
-            'users_mesai.giris',
-            'users_mesai.cikis',
-            'users_type.name AS ut_name',
-        ])
+            ->select([
+                'users.name',
+                'users.email',
+                'users.active',
+                'users_mesai.giris',
+                'users_mesai.cikis',
+                'users_type.name AS ut_name',
+            ])
             ->leftJoin('users_type', 'users_type.id', '=', 'users.user_type_id')
             ->leftJoin('users_mesai', 'users_mesai.user_id', '=', 'users.id')
             ->where('users.id', '=', $request->session()->get('userId'))->first();
 
         $userAccesses = DB::table('users')
-        ->select(['access.name AS name'])
-        ->rightJoin('users_access', 'users.id', '=', 'users_access.user_id')
-        ->rightJoin('access', 'access.id', '=', 'users_access.access_id')
-        ->where('users.id', '=', $request->session()->get('userId'))->get();
+            ->select(['access.name AS name'])
+            ->rightJoin('users_access', 'users.id', '=', 'users_access.user_id')
+            ->rightJoin('access', 'access.id', '=', 'users_access.access_id')
+            ->where('users.id', '=', $request->session()->get('userId'))->get();
 
         $userOffices = DB::table('users')
-        ->select(['application_offices.name AS name'])
-        ->rightJoin('users_application_offices', 'users.id', '=', 'users_application_offices.user_id')
-        ->rightJoin('application_offices', 'application_offices.id', '=', 'users_application_offices.application_office_id')
-        ->where('users.id', '=', $request->session()->get('userId'))->get();
+            ->select(['application_offices.name AS name'])
+            ->rightJoin('users_application_offices', 'users.id', '=', 'users_application_offices.user_id')
+            ->rightJoin('application_offices', 'application_offices.id', '=', 'users_application_offices.application_office_id')
+            ->where('users.id', '=', $request->session()->get('userId'))->get();
 
-        return view('user.profil')->with(['userInformations' => $userInformations,
+        return view('user.profil')->with([
+            'userInformations' => $userInformations,
             'userAccesses' => $userAccesses,
             'userOffices' => $userOffices,
         ]);
