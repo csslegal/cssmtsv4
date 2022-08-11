@@ -62,7 +62,7 @@ class AjaxController extends Controller
                 ->where('user_type_id', '=', $request->input('id'))
                 ->get();
             if ($kayitlar->count() == 0) {
-                $sonuc = '<div class="text text-danger">Dosya aşamaları erişimi verilmedi</div>';
+                $sonuc = '<div class="text text-dark">Dosya aşamaları erişimi verilmedi</div>';
             } else {
                 $sonuc = "<ul>";
                 foreach ($kayitlar as  $kayit) {
@@ -91,9 +91,9 @@ class AjaxController extends Controller
 
 
             if ($kayitlar->count() == 0) {
-                $sonuc = '<div class="text text-danger">İçerik kaydı bulunamadı</div>';
+                $sonuc = '<div class="text text-dark">İçerik kaydı bulunamadı</div>';
             } else {
-                $sonuc = "<div class='text text-primary'>Panel Listesi</div><ol>";
+                $sonuc = "<div class='text text-dark'>Panel Listesi</div><ol>";
                 foreach ($kayitlar as  $kayit) {
                     $sonuc .= "<li> " . $kayit->g_name . ' - ' . $kayit->name . "</li>";
                 }
@@ -138,16 +138,16 @@ class AjaxController extends Controller
         foreach ($records as $record) {
             $id = $record->id;
             $name = $record->name;
-            $telefon = $record->telefon;
+            $phone = $record->phone;
             $email = $record->email;
-            $adres = $record->adres;
+            $address = $record->address;
 
             $data_arr[] = array(
                 "id" => $id,
                 "name" => $name,
-                "telefon" => $telefon,
+                "phone" => $phone,
                 "email" => $email,
-                "adres" => $adres,
+                "address" => $address,
             );
         }
 

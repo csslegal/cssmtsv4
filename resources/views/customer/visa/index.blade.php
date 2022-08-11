@@ -72,55 +72,25 @@
                 }
             });
         }
-        @if (isset($visaFileDetail))
-            @if (session('userTypeId') == 1)
-                function asama() {
-                    $("#contentHead").html('Dosya Aşama Güncelleme');
-                    @php
-                        $asamalar = '<form action="vize/' . $visaFileDetail->id . '/asama-guncelle" method="post"><div class="form-group"><select name="visa_file_grades_id" class="form-control">';
-                        foreach ($visaFileGrades as $visaFileGrade) {
-                            if ($visaFileGrade->id == $visaFileDetail->visa_file_grades_id) {
-                                $asamalar .= '<option selected value="' . $visaFileGrade->id . '">' . $visaFileGrade->name . '</option>';
-                            } else {
-                                $asamalar .= '<option value="' . $visaFileGrade->id . '">' . $visaFileGrade->name . '</option>';
-                            }
+        @if (isset($visaFileDetail) && session('userTypeId') == 1)
+            function asama() {
+                $("#contentHead").html('Dosya Aşama Güncelleme');
+                @php
+                    $asamalar = '<form action="vize/' . $visaFileDetail->id . '/asama-guncelle" method="post"><div class="form-group"><select name="visa_file_grades_id" class="form-control">';
+                    foreach ($visaFileGrades as $visaFileGrade) {
+                        if ($visaFileGrade->id == $visaFileDetail->visa_file_grades_id) {
+                            $asamalar .= '<option selected value="' . $visaFileGrade->id . '">' . $visaFileGrade->name . '</option>';
+                        } else {
+                            $asamalar .= '<option value="' . $visaFileGrade->id . '">' . $visaFileGrade->name . '</option>';
                         }
-                        $asamalar .= '</select>';
-                        $asamalar .= '<input type="hidden" name="_token" value="' . csrf_token() . '" /></div>';
-                        $asamalar .= '<button type="submit" class="btn btn-danger text-white mt-2">Güncelle</button></form>';
-                    @endphp
-
-                    $("#contentLoad").html('{!! html_entity_decode($asamalar) !!}');
-                }
-            @endif
-        @endif
-        function subVisaTypes(id) {
-            $.ajax({
-                type: 'POST',
-                url: "/musteri/ajax/alt-vize-tipi",
-                data: {
-                    'id': id,
-                    "_token": "{{ csrf_token() }}",
-                },
-                success: function(data) {
-                    if (data.length != 0) {
-
-                        $('#visaSubType').find('option').remove();
-                        $('#visaSubType').append('<option value="">Seçim yapınız</option>');
-
-                        for (var i = 0; i < data.length; i++) {
-                            $('#visaSubType').append('<option value="' + data[i]['id'] + '">' +
-                                data[i]['name'] + '</option>');
-                        }
-                    } else {
-                        $('#visaSubType').find('option').remove();
-                        $('#visaSubType').append('<option value="">Farklı vize tipi seçiniz</option>');
                     }
-                },
-                error: function(response, status, xhr) {
-                    alert('İçerik alınırken hata oluştu. Hata: ' + xhr);
-                }
-            });
-        }
+                    $asamalar .= '</select>';
+                    $asamalar .= '<input type="hidden" name="_token" value="' . csrf_token() . '" /></div>';
+                    $asamalar .= '<button type="submit" class="btn btn-dark text-white mt-2">Güncelle</button></form>';
+                @endphp
+
+                $("#contentLoad").html('{!! html_entity_decode($asamalar) !!}');
+            }
+        @endif
     </script>
 @endsection

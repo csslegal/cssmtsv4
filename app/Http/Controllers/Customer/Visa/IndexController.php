@@ -20,7 +20,6 @@ class IndexController extends Controller
 
         $visaTypes = DB::table('visa_types')->get();
         $visaFileGrades = DB::table('visa_file_grades')->where('active', '=', 1)->get();
-        $language = DB::table('language')->get();
 
         $visaFileDetail = DB::table('visa_files')
             ->select([
@@ -31,8 +30,7 @@ class IndexController extends Controller
                 'visa_files.created_at AS created_at',
                 'visa_file_grades.url AS url',
                 'visa_file_grades.name AS grades_name',
-                'visa_types.name AS visa_type_name',
-                'visa_sub_types.name AS visa_sub_type_name',
+            'visa_types.name AS visa_type_name',
                 'visa_validity.name AS visa_validity_name',
                 'visa_appointments.gwf AS visa_appointments_gwf',
                 'visa_appointments.name AS visa_appointments_name',
@@ -40,6 +38,7 @@ class IndexController extends Controller
                 'visa_appointments.date AS visa_appointments_date',
                 'visa_appointments.time AS visa_appointments_time',
                 'visa_appointments.created_at AS visa_appointments_created_at',
+
                 'user_advisor.name AS advisor_name',
                 'user_translator.name AS translator_name',
                 'user_expert.name AS expert_name',
@@ -47,11 +46,13 @@ class IndexController extends Controller
             ->leftJoin('users AS user_advisor', 'user_advisor.id', '=', 'visa_files.advisor_id')
             ->leftJoin('users AS user_translator', 'user_translator.id', '=', 'visa_files.translator_id')
             ->leftJoin('users AS user_expert', 'user_expert.id', '=', 'visa_files.expert_id')
-            ->leftJoin('visa_sub_types', 'visa_sub_types.id', '=', 'visa_files.visa_sub_type_id')
-            ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_sub_types.visa_type_id')
+
+            ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_files.visa_type_id')
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
             ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
+
             ->leftJoin('visa_appointments', 'visa_appointments.visa_file_id', '=', 'visa_files.id')
+
             ->where('visa_files.customer_id', '=', $id)
             ->where('visa_files.active', '=', 1)
             ->first();
@@ -85,7 +86,6 @@ class IndexController extends Controller
             'baseCustomerDetails' => $baseCustomerDetails,
             'visaFileGrades' => $visaFileGrades,
             'visaTypes' => $visaTypes,
-            'language' => $language,
             'visaFileDetail' => $visaFileDetail,
             'visaFileGradesLogs' => $visaFileGradesLogs,
             'visaFileGradesPermitted' => [
