@@ -30,48 +30,32 @@ class SearchController extends Controller
         $inputKontrol = new InputKontrol();
         $arama = $inputKontrol->kontrol($request->get('arama'));
 
-        if (strlen($arama) >= 3) {
 
-            $customerDetails = DB::table('customers')
-                ->select([
-                    "customers.id",
-                    "customers.name",
-                    "customers.telefon",
-                    "customers.email",
-                    "customers.tcno",
-                    "users.name AS user_name",
-                    "visa_files.active",
-                    "visa_files.id AS visa_file_id",
-                ])
-                ->where(function ($query) use ($arama) {
-                    $query->orWhere('customers.name', 'LIKE', '%' . $arama . '%');
-                    $query->orWhere('customers.email', 'LIKE', '%' . $arama . '%');
-                    $query->orWhere('customers.telefon', 'LIKE', '%' . $arama . '%');
-                    $query->orWhere('customers.tcno', 'LIKE', '%' . $arama . '%');
-                })
-                ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
-                ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-                ->orWhere('visa_files.id', 'LIKE', '%' . $arama . '%')
-                ->orWhere('customers.pasaport', 'LIKE', '%' . $arama . '%')->get();
+        $customerDetails = DB::table('customers')
+        ->select([
+            "customers.id",
+            "customers.name",
+            "customers.phone",
+            "customers.email",
+                "customers.tc_number",
+                "users.name AS user_name",
+                "visa_files.active",
+                "visa_files.id AS visa_file_id",
+            ])
+            ->where(function ($query) use ($arama) {
+                $query->orWhere('customers.name', 'LIKE', '%' . $arama . '%');
+                $query->orWhere('customers.email', 'LIKE', '%' . $arama . '%');
+                $query->orWhere('customers.phone', 'LIKE', '%' . $arama . '%');
+                $query->orWhere('customers.tc_number', 'LIKE', '%' . $arama . '%');
+            })
+            ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
+            ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
+            ->orWhere('visa_files.id', 'LIKE', '%' . $arama . '%')
+            ->orWhere('customers.passport', 'LIKE', '%' . $arama . '%')->get();
 
-            //dd($customerDetails);
-
-            if ($customerDetails->count() > 0) {
-                return view('customer.search')->with([
-                    'customerDetails' => $customerDetails,
-                    'arama' => $arama
-                ]);
-            } else {
-                $request->session()
-                    ->flash('mesajDanger', 'Farklı bilgiyle tekrar deneyiniz veya <a class="text-white" href="/musteri/create">bu linkten</a> yeni müşteri kaydı yapınız!');
-                return view('customer.search')->with(['arama' => $arama]);
-            }
-        } else {
-            $request->session()
-                ->flash('mesajInfo', 'Sorgulama için yeterli içerik giriniz. Girilen: <span class="fw-bold">' . $arama . '</span>');
-            return view('customer.search')->with([
-                'arama' => $arama
-            ]);
-        }
+        return view('customer.search')->with([
+            'customerDetails' => $customerDetails,
+            'arama' => $arama
+        ]);
     }
 }
