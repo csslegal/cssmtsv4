@@ -48,27 +48,27 @@ class VisaFileGradesController extends Controller
             'name' => 'required|max:100min:3',
             'url' => 'required|unique:visa_file_grades,url|max:100min:3',
         ]);
-        if ($kayitId = DB::table('visa_file_grades')->insertGetId(
-            [
+
+        $kayitId = DB::table('visa_file_grades')
+        ->insertGetId([
                 'name' => $name,
                 'url' => $url,
                 "created_at" =>  date('Y-m-d H:i:s'),
                 "updated_at" => date('Y-m-d H:i:s'),
-            ]
-        )) {
-            DB::table('visa_file_grades')
-                ->where('id', '=', $kayitId)
-                ->update(['orderby' => $kayitId]);
+        ]);
+
+        if ($kayitId != null) {
+
+            DB::table('visa_file_grades')->where('id', '=', $kayitId)->update(['orderby' => $kayitId]);
+
             if ($env != "") {
                 $envSet = new EnvSettings();
                 $envSet->setEnvironmentValue($env, $kayitId);
             }
-            $request->session()
-                ->flash('mesajSuccess', 'Başarıyla kaydedildi');
+            $request->session()->flash('mesajSuccess', 'Başarıyla kaydedildi');
             return redirect('yonetim/vize/dosya-asama');
         } else {
-            $request->session()
-                ->flash('mesajDanger', 'Kayıt sıralasında sorun oluştu');
+            $request->session()->flash('mesajDanger', 'Kayıt sıralasında sorun oluştu');
             return redirect('yonetim/vize/dosya-asama');
         }
     }
@@ -111,26 +111,22 @@ class VisaFileGradesController extends Controller
         ]);
 
         if (is_numeric($id)) {
-            if (DB::table('visa_file_grades')->where('id', '=', $id)
-                ->update([
-                    'name' => $request->input('name'),
-                    'active' => $request->input('aktif'),
-                    "updated_at" => date('Y-m-d H:i:s')
-                ])
-            ) {
-                if ($request->input('env') != "") {
-                    $envSet = new EnvSettings();
-                    $envSet->setEnvironmentValue($request->input('env'), $id);
-                }
-                $request->session()->flash('mesajSuccess', 'Başarıyla güncellendi');
-                return redirect('yonetim/vize/dosya-asama');
-            } else {
-                $request->session()->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
-                return redirect('yonetim/vize/dosya-asama');
+
+            DB::table('visa_file_grades')->where('id', '=', $id)->update([
+                'name' => $request->input('name'),
+                'active' => $request->input('aktif'),
+                "updated_at" => date('Y-m-d H:i:s')
+            ]);
+
+            if ($request->input('env') != "") {
+                $envSet = new EnvSettings();
+                $envSet->setEnvironmentValue($request->input('env'), $id);
             }
+
+            $request->session()->flash('mesajSuccess', 'Başarıyla güncellendi');
+            return redirect('yonetim/vize/dosya-asama');
         } else {
-            $request->session()
-                ->flash('mesajDanger', 'ID alınırken sorun oluştu');
+            $request->session()->flash('mesajDanger', 'Güncelleme sıralasında sorun oluştu');
             return redirect('yonetim/vize/dosya-asama');
         }
     }
@@ -144,23 +140,16 @@ class VisaFileGradesController extends Controller
     public function destroy($id, Request $request)
     {
         if (is_numeric($id)) {
-            if (
-                DB::table('visa_file_grades')
-                ->where('id', '=', $id)
-                ->delete()
-            ) {
-                $request->session()
-                    ->flash('mesajSuccess', 'Başarıyla silindi');
-                return redirect('yonetim/vize/dosya-asama');
-            } else {
-                $request->session()
-                    ->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
-                return redirect('yonetim/vize/dosya-asama');
-            }
-        } else {
-            $request->session()
-                ->flash('mesajDanger', 'ID alınırken sorun oluştu');
+
+            DB::table('visa_file_grades')->where('id', '=', $id)->delete();
+
+            $request->session()->flash('mesajSuccess', 'Başarıyla silindi');
             return redirect('yonetim/vize/dosya-asama');
+        } else {
+
+            $request->session()->flash('mesajDanger', 'ID alınırken sorun oluştu');
+            return redirect('yonetim/vize/dosya-asama');
+
         }
     }
 }
