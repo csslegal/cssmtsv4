@@ -14,7 +14,7 @@ class IndexController extends Controller
         $visaCustomersUsers = DB::table('customers')
             ->select([
                 'customers.id AS id',
-            'customers.application_office_id AS application_office_id',
+            'application_offices.name AS application_office_name',
                 'customers.name AS name',
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
@@ -26,7 +26,7 @@ class IndexController extends Controller
             ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
             ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-
+            ->leftJoin('application_offices', 'application_offices.id', '=', 'customers.application_office_id')
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_files.visa_type_id')
             ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
 
