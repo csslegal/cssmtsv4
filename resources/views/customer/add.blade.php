@@ -15,8 +15,8 @@
             <li class="breadcrumb-item active">Müşteri Kayıt</li>
         </ol>
     </nav>
-    <div class="card card-primary">
-        <div class="card-header bg-primary text-white">Müşteri Kayıt</div>
+    <div class="card card-dark">
+        <div class="card-header bg-dark text-white">Müşteri Kayıt</div>
         <div class="card-body scroll">
             <form method="post" action="/musteri">
                 <div class="mb-3">
@@ -28,10 +28,10 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="telefon" class="form-label">Müşteri Telefon</label>
-                    <input id="telefon" autocomplete="off" type="text" class="form-control" name="telefon"
-                        value="{{ old('telefon') }}">
-                    @error('telefon')
+                    <label for="phone" class="form-label">Müşteri Telefon</label>
+                    <input id="phone" autocomplete="off" type="text" class="form-control" name="phone"
+                        value="{{ old('phone') }}">
+                    @error('phone')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -48,13 +48,13 @@
                     <textarea id="editor200" name="not" class="form-control wysiwyg">{!! old('not') !!}</textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="adres" class="form-label">Müşteri Adresi</label>
-                    <input autocomplete="off" type="text" class="form-control" name="adres" value="{{ old('adres') }}">
+                    <label for="" class="form-label">Müşteri Açık Adresi</label>
+                    <input autocomplete="off" type="text" class="form-control" name="address" value="{{ old('address') }}">
                 </div>
                 <div class="mb-3">
-                    <label for="adres" class="form-label">Müşteri T.C. Numarası</label>
-                    <input type="text" class="form-control" name="tcno" value="{{ old('tcno') }}">
-                    @error('tcno')
+                    <label for="" class="form-label">Müşteri T.C. Numarası</label>
+                    <input type="text" class="form-control" name="tc_number" value="{{ old('tc_number') }}">
+                    @error('tc_number')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -62,27 +62,17 @@
                     <label class="form-label">Başvuru Ofisi</label>
                     <select class="form-select" name="basvuru_ofis">
                         <option value="">Lütfen başvuru ofisini seçin</option>
-                        @foreach ($basvuruOfisleri as $basvuruOfisi)
-                            <option {{ old('basvuru_ofis') == $basvuruOfisi->id ? 'selected' : '' }}
-                                value="{{ $basvuruOfisi->id }}">{{ $basvuruOfisi->name }}
+                        @foreach ($applicationOffices as $applicationOffice)
+                            <option {{ old('basvuru_ofis') == $applicationOffice->id ? 'selected' : '' }}
+                                value="{{ $applicationOffice->id }}">{{ $applicationOffice->name }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Randevu Ofisi</label>
-                    <select class="form-select" name="randevu_ofis">
-                        <option value="">Randevu ofisini seçiniz</option>
-                        @foreach ($randevuOfisleri as $randevuOfisi)
-                            <option {{ old('randevu_ofis') == $randevuOfisi->id ? 'selected' : '' }}
-                                value="{{ $randevuOfisi->id }}">{{ $randevuOfisi->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+
                 <!-- {{ csrf_field() }} -->
                 @csrf
-                <button class="w-100 mt-3 btn btn-danger text-white btn-lg confirm" data-content="Devam edilsin mi?" type="submit">Kaydet</button>
+                <button class="w-100 mt-3 btn btn-dark text-white btn-lg confirm" data-content="Devam edilsin mi?" type="submit">Kaydet</button>
             </form>
         </div>
     </div>
@@ -107,19 +97,19 @@
             });
         });
 
-        $('#telefon').change(function() {
+        $('#phone').change(function() {
             $.ajax({
-                url: "/musteri/ajax/telefon-kontrol",
+                url: "/musteri/ajax/phone-kontrol",
                 type: 'POST',
                 data: {
-                    telefon: $("#telefon").val(),
+                    phone: $("#phone").val(),
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(sonuc) {
                     if (sonuc) {
-                        $("#telefon").addClass(["border border-danger"]);
+                        $("#phone").addClass(["border border-danger"]);
                     } else {
-                        $("#telefon").addClass(["border border-success"]);
+                        $("#phone").addClass(["border border-success"]);
                     }
                 }
             });

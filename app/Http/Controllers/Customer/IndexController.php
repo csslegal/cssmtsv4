@@ -16,89 +16,80 @@ class IndexController extends Controller
 
     public function create()
     {
-        $randevuOfisleri = DB::table('appointment_offices')->get();
-        $basvuruOfisleri = DB::table('application_offices')->get();
+        $applicationOffices = DB::table('application_offices')->get();
 
         return view("customer.add")->with([
-            'basvuruOfisleri' => $basvuruOfisleri,
-            'randevuOfisleri' => $randevuOfisleri
+            'applicationOffices' => $applicationOffices,
         ]);
     }
 
     public function store(Request $request)
     {
-        $pasaport = null;
-        $pasaport_tarihi = null;
-        $basvuru_ofis = null;
-        $randevu_ofis = null;
-        $tcno = null;
-        $adres = null;
-        $pasaport = null;
-        $not = null;
+        $passport = null;
+        $passport_date = null;
+        $application_office = null;
+        $tc_number = null;
+        $address = null;
+        $note = null;
 
         $validatorStringArray = array(
             'name' => 'required|string|min:3',
-            'telefon' => 'required|numeric|min:7',
+            'phone' => 'required|numeric|min:7',
             'email' => 'required|min:3|email',
         );
         if ($request->get('not') != "") {
             $validatorStringArray = array_merge($validatorStringArray, array('content' => 'string|min:3'));
-            $not = $request->get('not');
+            $note = $request->get('not');
         }
-        if ($request->get('adres') != "") {
-            $validatorStringArray = array_merge($validatorStringArray, array('adres' => 'string|min:3'));
-            $adres = $request->get('adres');
+        if ($request->get('address') != "") {
+            $validatorStringArray = array_merge($validatorStringArray, array('address' => 'string|min:3'));
+            $address = $request->get('address');
         }
-        if ($request->get('tcno') != "") {
-            $validatorStringArray = array_merge($validatorStringArray, array('tcno' => 'min:10|unique:customers|numeric'));
-            $tcno = $request->get('tcno');
+        if ($request->get('tc_number') != "") {
+            $validatorStringArray = array_merge($validatorStringArray, array('tc_number' => 'min:10|unique:customers|numeric'));
+            $tc_number = $request->get('tc_number');
         }
         $request->validate($validatorStringArray);
 
-        $customerVarmiCount = DB::table('customers')->where('name', '=', $request->get('name'))->where('telefon', '=', $request->get('telefon'))->get()->count();
+        $customerVarmiCount = DB::table('customers')
+        ->where('name', '=', $request->get('name'))
+            ->where('phone', '=', $request->get('phone'))
+            ->get()->count();
         if ($customerVarmiCount == 0) {
+
             $name = mb_convert_case(mb_strtolower($request->get('name')), MB_CASE_TITLE, "UTF-8");
-            $telefon = $request->get('telefon');
+            $phone = $request->get('phone');
             $email = $request->get('email');
+
             $user_id = $request->session()->get('userId');
 
             if ($request->get('basvuru_ofis') != "") {
-                $basvuru_ofis = $request->get('basvuru_ofis');
+                $application_office = $request->get('basvuru_ofis');
             }
-            if ($request->get('randevu_ofis') != "") {
-                $randevu_ofis = $request->get('randevu_ofis');
-            }
-            if ($customer_id = DB::table('customers')
-                ->insertGetId([
-                    'name' => $name,
-                    'telefon' => $telefon,
-                    'email' => $email,
+            $customer_id = DB::table('customers')->insertGetId([
+                'name' => $name,
+                'phone' => $phone,
+                'email' => $email,
+                'user_id' => $user_id,
+                'application_office_id' => $application_office,
+                'tc_number' => $tc_number,
+                'address' => $address,
+                'passport' => $passport,
+                'passport_date' => $passport_date,
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+
+            if ($note != "") {
+                $customerNoteId = DB::table('customer_notes')->insertGetId([
                     'user_id' => $user_id,
-                    'application_office_id' => $basvuru_ofis,
-                    'appointment_office_id' => $randevu_ofis,
-                    'tcno' => $tcno,
-                    'adres' => $adres,
-                    'pasaport' => $pasaport,
-                    'pasaport_tarihi' => $pasaport_tarihi,
-                    'created_at' => date('Y-m-d H:i:s')
-                ])
-            ) {
-                if ($not != "") {
-                    $customerNoteId = DB::table('customer_notes')
-                        ->insertGetId([
-                            'user_id' => $user_id,
-                            'customer_id' => $customer_id,
-                            'content' => $not,
-                            'created_at' => date('Y-m-d H:i:s'),
-                        ]);
-                    DB::table('customer_notes')->where(['id' => $customerNoteId])->update(['orderby' => $customerNoteId]);
-                }
-                $request->session()->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
-                return redirect('/musteri/sorgula');
-            } else {
-                $request->session()->flash('mesajDanger', 'Kayıt sırasında sorun oluştu');
-                return redirect('/musteri/sorgula');
+                    'customer_id' => $customer_id,
+                    'content' => $note,
+                    'created_at' => date('Y-m-d H:i:s'),
+                ]);
+                DB::table('customer_notes')->where(['id' => $customerNoteId])->update(['orderby' => $customerNoteId]);
             }
+            $request->session()->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
+            return redirect('/musteri/sorgula');
         } else {
             $request->session()->flash('mesajInfo', 'Müşteri kaydı mevcut. Arama yapınız');
             return redirect('/musteri/sorgula');
@@ -112,17 +103,15 @@ class IndexController extends Controller
             ->select([
                 'customers.id AS id',
                 'customers.name AS name',
-                'customers.telefon AS telefon',
+            'customers.phone AS phone',
                 'customers.email AS email',
-                'customers.tcno AS tcno',
-                'customers.adres AS adres',
-                'customers.pasaport AS pasaport',
-                'customers.pasaport_tarihi AS pasaport_tarihi',
-                'application_offices.name AS application_name',
-                'appointment_offices.name AS appointment_name',
+            'customers.tc_number AS tc_number',
+            'customers.address AS address',
+            'customers.passport AS passport',
+            'customers.passport_date AS passport_date',
+            'application_offices.name AS application_name',
             ])
-            ->leftJoin('application_offices', 'application_offices.id', '=', 'customers.application_office_id')
-            ->leftJoin('appointment_offices', 'appointment_offices.id', '=', 'customers.appointment_office_id');
+            ->leftJoin('application_offices', 'application_offices.id', '=', 'customers.application_office_id');
 
         if (is_numeric($id) && $baseCustomerDetails->where('customers.id', '=', $id)->get()->count() > 0) {
 
@@ -143,26 +132,13 @@ class IndexController extends Controller
                 ->join("users", "users.id", "=", "customer_notes.user_id")
                 ->where("customer_notes.customer_id", "=", $id)->get();
 
-            $customerEmailLogs = DB::table('email_logs')
-                ->select([
-                    'email_logs.id AS id',
-                    'users.name AS u_name',
-                    'access.name AS a_name',
-                    'email_logs.subject AS subject',
-                    'email_logs.created_at AS created_at',
-                ])
-                ->leftJoin('users', 'users.id', '=', 'email_logs.user_id')
-                ->leftJoin('access', 'access.id', '=', 'email_logs.access_id')
-                ->where('email_logs.customer_id', '=', $id)->get();
-
-            $visaFileGradesDescLog = DB::table('visa_file_logs')
-                ->select([
-                    'visa_file_logs.id AS id',
-                    'visa_file_logs.subject AS subject',
-                    'visa_file_logs.created_at AS created_at',
-                    'users.name AS user_name',
-                    'visa_files.id AS visa_file_id',
-                ])
+            $visaFileGradesDescLog = DB::table('visa_file_logs')->select([
+                'visa_file_logs.id AS id',
+                'visa_file_logs.subject AS subject',
+                'visa_file_logs.created_at AS created_at',
+                'users.name AS user_name',
+                'visa_files.id AS visa_file_id',
+            ])
                 ->join('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
                 ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
                 ->where('visa_files.customer_id', '=', $id)
@@ -174,7 +150,6 @@ class IndexController extends Controller
                 'baseCustomerDetails' => $baseCustomerDetails,
                 'customerNotes' => $customerNotes,
                 'userAccesses' => $userAccesses,
-                'customerEmailLogs' => $customerEmailLogs,
                 'visaFileGradesDescLog' => $visaFileGradesDescLog,
             ]);
         } else {
@@ -186,13 +161,11 @@ class IndexController extends Controller
     public function edit($id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
-        $randevuOfisleri = DB::table('appointment_offices')->get();
-        $basvuruOfisleri = DB::table('application_offices')->get();
+        $applicationOffices = DB::table('application_offices')->get();
 
         return view('customer.edit')->with([
             'baseCustomerDetails' => $baseCustomerDetails,
-            'randevuOfisleri' => $randevuOfisleri,
-            'basvuruOfisleri' => $basvuruOfisleri,
+            'applicationOffices' => $applicationOffices,
         ]);
     }
 
@@ -205,7 +178,7 @@ class IndexController extends Controller
         $currentCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
 
         $validatorStringArray = array_merge($validatorStringArray, array('name' => 'required|string|min:3',));
-        $validatorStringArray = array_merge($validatorStringArray, array('telefon' => 'required|numeric|min:7'));
+        $validatorStringArray = array_merge($validatorStringArray, array('phone' => 'required|numeric|min:7'));
         $validatorStringArray = array_merge($validatorStringArray, array('email' => 'required|min:3|email'));
 
         if ($currentCustomerDetails->name != mb_convert_case(mb_strtolower($request->get('name')), MB_CASE_TITLE, "UTF-8")) {
@@ -219,12 +192,12 @@ class IndexController extends Controller
                 'created_at' => date('Y-m-d H:i:s'),
             ));
         }
-        if ($currentCustomerDetails->telefon != $request->get('telefon')) {
-            $updateArray = array_merge($updateArray, array('telefon' => $request->get('telefon')));
+        if ($currentCustomerDetails->phone != $request->get('phone')) {
+            $updateArray = array_merge($updateArray, array('phone' => $request->get('phone')));
             array_push($logsArray, array(
                 'operation_name' => 'Müşteri telefon güncelleme',
-                'before' => $currentCustomerDetails->telefon,
-                'after' => $request->get('telefon'),
+                'before' => $currentCustomerDetails->phone,
+                'after' => $request->get('phone'),
                 'customer_id' => $id,
                 'user_id' => $request->session()->get('userId'),
                 'created_at' => date('Y-m-d H:i:s'),
@@ -241,23 +214,23 @@ class IndexController extends Controller
                 'created_at' => date('Y-m-d H:i:s'),
             ));
         }
-        if ($currentCustomerDetails->adres != $request->get('adres')) {
-            $updateArray = array_merge($updateArray, array('adres' => $request->get('adres')));
+        if ($currentCustomerDetails->address != $request->get('address')) {
+            $updateArray = array_merge($updateArray, array('address' => $request->get('address')));
             array_push($logsArray, array(
                 'operation_name' => 'Müşteri adresi güncelleme',
-                'before' => $currentCustomerDetails->adres,
-                'after' => $request->get('adres'),
+                'before' => $currentCustomerDetails->address,
+                'after' => $request->get('address'),
                 'customer_id' => $id,
                 'user_id' => $request->session()->get('userId'),
                 'created_at' => date('Y-m-d H:i:s'),
             ));
         }
-        if ($currentCustomerDetails->tcno != $request->get('tcno')) {
-            $updateArray = array_merge($updateArray, array('tcno' => $request->get('tcno')));
+        if ($currentCustomerDetails->tc_number != $request->get('tc_number')) {
+            $updateArray = array_merge($updateArray, array('tc_number' => $request->get('tc_number')));
             array_push($logsArray, array(
                 'operation_name' => 'Müşteri kimlik no güncelleme',
-                'before' => $currentCustomerDetails->tcno,
-                'after' => $request->get('tcno'),
+                'before' => $currentCustomerDetails->tc_number,
+                'after' => $request->get('tc_number'),
                 'customer_id' => $id,
                 'user_id' => $request->session()->get('userId'),
                 'created_at' => date('Y-m-d H:i:s'),
@@ -277,52 +250,38 @@ class IndexController extends Controller
                 'created_at' => date('Y-m-d H:i:s'),
             ));
         }
-        if ($currentCustomerDetails->appointment_office_id != $request->get('randevu_ofis')) {
-            $updateArray = array_merge($updateArray, array('appointment_office_id' => $request->get('randevu_ofis')));
 
-            $beforeAppointmentOffice = DB::table('appointment_offices')->select('name')->where('id', '=', $currentCustomerDetails->appointment_office_id)->first();
-            $afterAppointmentOffice = DB::table('appointment_offices')->select('name')->where('id', '=', $request->get('randevu_ofis'))->first();
-
-            array_push($logsArray, array(
-                'operation_name' => 'Müşteri randevu ofisi güncelleme',
-                'before' => isset($beforeAppointmentOffice->name) ? $beforeAppointmentOffice->name : null,
-                'after' => isset($afterAppointmentOffice->name) ? $afterAppointmentOffice->name : null,
-                'customer_id' => $id,
-                'user_id' => $request->session()->get('userId'),
-                'created_at' => date('Y-m-d H:i:s'),
-            ));
-        }
-        if ($currentCustomerDetails->pasaport != $request->get('pasaport')) {
-            $updateArray = array_merge($updateArray, array('pasaport' => $request->get('pasaport')));
+        if ($currentCustomerDetails->passport != $request->get('passport')) {
+            $updateArray = array_merge($updateArray, array('passport' => $request->get('passport')));
             array_push($logsArray, array(
                 'operation_name' => 'Müşteri pasaportu güncelleme',
-                'before' => $currentCustomerDetails->pasaport,
-                'after' => $request->get('pasaport'),
+                'before' => $currentCustomerDetails->passport,
+                'after' => $request->get('passport'),
                 'customer_id' => $id,
                 'user_id' => $request->session()->get('userId'),
                 'created_at' => date('Y-m-d H:i:s'),
             ));
         }
-        if ($currentCustomerDetails->pasaport_tarihi != $request->get('pasaport_tarihi')) {
-            $updateArray = array_merge($updateArray, array('pasaport_tarihi' => $request->get('pasaport_tarihi')));
+        if ($currentCustomerDetails->passport_date != $request->get('passport_date')) {
+            $updateArray = array_merge($updateArray, array('passport_date' => $request->get('passport_date')));
             array_push($logsArray, array(
                 'operation_name' => 'Müşteri pasaport tarihi güncelleme',
-                'before' => $currentCustomerDetails->pasaport_tarihi,
-                'after' => $request->get('pasaport_tarihi'),
+                'before' => $currentCustomerDetails->passport_date,
+                'after' => $request->get('passport_date'),
                 'customer_id' => $id,
                 'user_id' => $request->session()->get('userId'),
                 'created_at' => date('Y-m-d H:i:s'),
             ));
         }
 
-        $bilgilendirmeEmailOnayi = $request->get('email-onay') != null ? 1 : 0;
+        $informationConfirm = $request->get('email-onay') != null ? 1 : 0;
 
-        if ($currentCustomerDetails->bilgilendirme_onayi != $bilgilendirmeEmailOnayi) {
-            $updateArray = array_merge($updateArray, array('bilgilendirme_onayi' => $bilgilendirmeEmailOnayi));
+        if ($currentCustomerDetails->information_confirm != $informationConfirm) {
+            $updateArray = array_merge($updateArray, array('information_confirm' => $informationConfirm));
             array_push($logsArray, array(
                 'operation_name' => 'Müşteri email onayı güncelleme',
-                'before' => $currentCustomerDetails->bilgilendirme_onayi == 1 ? 'Onaylı' : 'Onaysız',
-                'after' => $bilgilendirmeEmailOnayi == 1 ? 'Onaylı' : 'Onaysız',
+                'before' => $currentCustomerDetails->information_confirm == 1 ? 'Onaylı' : 'Onaysız',
+                'after' => $informationConfirm == 1 ? 'Onaylı' : 'Onaysız',
                 'customer_id' => $id,
                 'user_id' => $request->session()->get('userId'),
                 'created_at' => date('Y-m-d H:i:s'),
@@ -351,11 +310,8 @@ class IndexController extends Controller
 
     public function destroy($id, Request $request)
     {
-
         if (is_numeric($id)) {
-
             if (DB::table('customers')->where('id', '=', $id)->delete()) {
-
                 $request->session()->flash('mesajSuccess', 'Kayıt başarıyla silindi');
                 return redirect('/musteri/sorgula');
             } else {

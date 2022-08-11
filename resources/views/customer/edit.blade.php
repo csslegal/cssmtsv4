@@ -19,8 +19,8 @@
         </ol>
     </nav>
 
-    <div class="card card-primary">
-        <div class="card-header bg-primary text-white">Müşteri Düzenle</div>
+    <div class="card card-dark">
+        <div class="card-header bg-dark text-white">Müşteri Düzenle</div>
         <div class="card-body scroll">
             <form method="post" action="/musteri/{{ $baseCustomerDetails->id }}">
                 @method('PUT')
@@ -34,10 +34,10 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="telefon" class="form-label">Müşteri Telefon</label>
-                        <input class="form-control" name="telefon" autocomplete="off" type="text"
-                            value="{{ $baseCustomerDetails->telefon != '' ? $baseCustomerDetails->telefon : '' }}">
-                        @error('telefon')
+                        <label for="phone" class="form-label">Müşteri Telefon</label>
+                        <input class="form-control" name="phone" autocomplete="off" type="text"
+                            value="{{ $baseCustomerDetails->phone != '' ? $baseCustomerDetails->phone : '' }}">
+                        @error('phone')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
@@ -51,18 +51,18 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="adres" class="form-label">Müşteri Adresi</label>
-                    <input autocomplete="off" type="text" class="form-control" name="adres"
-                        value="{{ $baseCustomerDetails->adres != '' ? $baseCustomerDetails->adres : old('adres') }}">
-                    @error('adres')
+                    <label for="address" class="form-label">Müşteri Adresi</label>
+                    <input autocomplete="off" type="text" class="form-control" name="address"
+                        value="{{ $baseCustomerDetails->address != '' ? $baseCustomerDetails->address : old('address') }}">
+                    @error('address')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label for="adres" class="form-label">Müşteri T.C. Numarası</label>
-                    <input type="text" class="form-control" name="tcno"
-                        value="{{ $baseCustomerDetails->tcno != '' ? $baseCustomerDetails->tcno : old('tcno') }}">
-                    @error('tcno')
+                    <label class="form-label">Müşteri T.C. Numarası</label>
+                    <input type="text" class="form-control" name="tc_number"
+                        value="{{ $baseCustomerDetails->tc_number != '' ? $baseCustomerDetails->tc_number : old('tc_number') }}">
+                    @error('tc_number')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -70,46 +70,34 @@
                     <label class="form-label">Başvuru Ofisi</label>
                     <select class="form-select" name="basvuru_ofis">
                         <option value="">Lütfen başvuru ofisini seçin</option>
-                        @foreach ($basvuruOfisleri as $basvuruOfisi)
+                        @foreach ($applicationOffices as $applicationOffice)
                             <option
-                                {{ $baseCustomerDetails->application_office_id == $basvuruOfisi->id ? 'selected' : '' }}
-                                value="{{ $basvuruOfisi->id }}">{{ $basvuruOfisi->name }}
+                                {{ $baseCustomerDetails->application_office_id == $applicationOffice->id ? 'selected' : '' }}
+                                value="{{ $applicationOffice->id }}">{{ $applicationOffice->name }}
                             </option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Randevu Ofisi</label>
-                    <select class="form-select" name="randevu_ofis">
-                        <option value="">Randevu ofisini seçiniz</option>
-                        @foreach ($randevuOfisleri as $randevuOfisi)
-                            <option
-                                {{ $baseCustomerDetails->appointment_office_id == $randevuOfisi->id ? 'selected' : '' }}
-                                value="{{ $randevuOfisi->id }}">{{ $randevuOfisi->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="adres" class="form-label">Pasaport Numarası</label>
-                    <input type="text" name="pasaport" placeholder="Müşteri güncel pasaport numarası"
+                    <label for="" class="form-label">Pasaport Numarası</label>
+                    <input type="text" name="passport" placeholder="Müşteri güncel pasaport numarası"
                         class="form-control" autocomplete="off"
-                        value="{{ $baseCustomerDetails->pasaport != '' ? $baseCustomerDetails->pasaport : old('pasaport') }}">
+                        value="{{ $baseCustomerDetails->passport != '' ? $baseCustomerDetails->passport : old('passport') }}">
                 </div>
                 <div class="mb-3">
-                    <label for="adres" class="form-label ">Pasaport Tarihi</label>
-                    <input type="text" class="form-control datepicker" name="pasaport_tarihi" autocomplete="off"
+                    <label for="" class="form-label ">Pasaport Tarihi</label>
+                    <input type="text" class="form-control datepicker" name="passport_date" autocomplete="off"
                         placeholder="Müşteri güncel pasport tarihi"
-                        value="{{ $baseCustomerDetails->pasaport_tarihi != '' ? $baseCustomerDetails->pasaport_tarihi : old('pasaport_tarihi') }}">
+                        value="{{ $baseCustomerDetails->passport_date != '' ? $baseCustomerDetails->passport_date : old('passport_date') }}">
                 </div>
 
                 <div class="mb-3">
                     <label for="">E-mail gönderilsin mi?</label>&nbsp;
                     <input name="email-onay" type="checkbox"
-                        {{ $baseCustomerDetails->bilgilendirme_onayi == 1 ? 'checked' : '' }} />
+                        {{ $baseCustomerDetails->information_confirm == 1 ? 'checked' : '' }} />
                 </div>
                 @csrf
-                <button class="w-100 mt-3 btn btn-danger text-white " type="submit">Kaydet</button>
+                <button class="w-100 mt-3 btn btn-dark text-white " type="submit">Kaydet</button>
             </form>
         </div>
     </div>
