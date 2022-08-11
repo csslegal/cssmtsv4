@@ -19,7 +19,7 @@
             @include('include.management.content-load')
 
             <div class="card">
-                <div class="card-header text-white bg-primary mb-3">Genel Vize İşlemleri</div>
+                <div class="card-header text-white bg-dark mb-3">Genel Vize İşlemleri</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
@@ -28,7 +28,7 @@
                                     <h5 class="card-title">Dosya Aşamaları</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countFileGrades }} dosya aşaması sistemde
                                         kayıtlı. </p>
-                                    <a href="/yonetim/vize/dosya-asama" class="btn btn-primary float-end">Git</a>
+                                    <a href="/yonetim/vize/dosya-asama" class="btn btn-dark float-end">Git</a>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                                     <h5 class="card-title">Dosya Aşama Erişimleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaFileGradesUsersType }} kullanıcı
                                         tipi erişimleri sistemde kayıtlı. </p>
-                                    <a href="/yonetim/vize/dosya-asama-erisim" class="btn btn-primary float-end">Git</a>
+                                    <a href="/yonetim/vize/dosya-asama-erisim" class="btn btn-dark float-end">Git</a>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                     <h5 class="card-title">Vize Tipleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaTypes }} vize tipi sistemde kayıtlı.
                                     </p>
-                                    <a href="/yonetim/vize/vize-tipi" class="btn btn-primary float-end">Git</a>
+                                    <a href="/yonetim/vize/vize-tipi" class="btn btn-dark float-end">Git</a>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaValidity }} vize süresi sistemde
                                         kayıtlı.
                                     </p>
-                                    <a href="/yonetim/vize/vize-suresi" class="btn btn-primary float-end">Git</a>
+                                    <a href="/yonetim/vize/vize-suresi" class="btn btn-dark float-end">Git</a>
                                 </div>
                             </div>
                         </div>

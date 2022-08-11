@@ -1,7 +1,7 @@
 <div class="row">
     @if (in_array(1, $userAccesses))
         <div class="col-xl-6 col-lg-6">
-            <div class="card border-primary mb-3">
+            <div class="card border-dark mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Vize İşlemleri</h5>
                     <ul>
@@ -31,14 +31,14 @@
                             </span>
                         </li>
                     </ul>
-                    <a href="/musteri/{{ $baseCustomerDetails->id }}/vize" class="btn btn-primary float-end">Git</a>
+                    <a href="/musteri/{{ $baseCustomerDetails->id }}/vize" class="btn btn-dark float-end">Git</a>
                 </div>
             </div>
         </div>
     @endif
     @if (in_array(2, $userAccesses))
         <div class="col-xl-6 col-lg-6">
-            <div class="card border-primary mb-3">
+            <div class="card border-dark mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Harici Tercüme İşlemleri</h5>
                     <ul>
@@ -50,14 +50,14 @@
                             Başvuru ödeme alınması bekleniyor tamamlandı <br>{{ date('Y-m-d H:i:s') }}
                         </li>
                     </ul>
-                    <a href="/musteri/{{ $baseCustomerDetails->id }}/harici" class="btn btn-primary float-end">Git</a>
+                    <a href="/musteri/{{ $baseCustomerDetails->id }}/harici" class="btn btn-dark float-end">Git</a>
                 </div>
             </div>
         </div>
     @endif
     @if (in_array(3, $userAccesses))
         <div class="col-xl-6 col-lg-6">
-            <div class="card border-primary mb-3">
+            <div class="card border-dark mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Dil Okulu İşlemleri</h5>
                     <ul>
@@ -69,7 +69,7 @@
                             Başvuru ödeme alınması bekleniyor tamamlandı <br>{{ date('Y-m-d H:i:s') }}
                         </li>
                     </ul>
-                    <a href="/musteri/{{ $baseCustomerDetails->id }}/dilokulu" class="btn btn-primary float-end">Git</a>
+                    <a href="/musteri/{{ $baseCustomerDetails->id }}/dilokulu" class="btn btn-dark float-end">Git</a>
                 </div>
             </div>
         </div>

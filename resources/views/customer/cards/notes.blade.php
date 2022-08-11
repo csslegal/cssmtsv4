@@ -1,12 +1,12 @@
 @if (isset($customerNotes))
-    <div class="card card-primary mb-3" id="not">
-        <div class="card-header bg-primary text-white">Müşteri Notları
+    <div class="card card-dark mb-3" id="not">
+        <div class="card-header bg-dark text-white">Müşteri Notları
             <a data-bs-toggle="modal" data-bs-target="#exampleModalNot" class="float-end fw-bold text-white" href="#">Not
                 Ekle</a>
 
         </div>
         <div class="card-body scroll">
-            <table id="dataTable" class="table table-striped table-bordered display table-light" style="width:100%">
+            <table id="dataTable" class="table table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th class="text-center">ID</th>

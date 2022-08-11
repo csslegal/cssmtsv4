@@ -23,7 +23,7 @@
                         src="{{ asset('storage/logo.png') }}" alt="logo">
                 </div>
                 <div class="card border border-1 shadow-lg rounded-lg mt-3">
-                    <div class="card-header justify-content-center bg-primary text-white">
+                    <div class="card-header justify-content-center bg-dark text-white">
                         <h3 class="fw-light my-2">Kullanıcı Girişi</h3>
                     </div>
                     <div class="card-body">
@@ -51,7 +51,7 @@
 
                             <!-- Form Group (login box)-->
                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                                <button type="submit" class="btn btn-dark">Giriş Yap</button>
                             </div>
                         </form>
                     </div>

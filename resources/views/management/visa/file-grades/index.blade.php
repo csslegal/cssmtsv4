@@ -8,20 +8,19 @@
             <li class="breadcrumb-item active" aria-current="page">Dosya Aşamaları</li>
         </ol>
     </nav>
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">
             Dosya Aşamaları
             <a class="float-end text-white" href="/yonetim/vize/dosya-asama/create">Ekle</a>
         </div>
         <div class="card-body scroll">
-            <table id="dataTableVize" class="table table-striped table-bordered display table-light " style="width:100%">
+            <table id="dataTableVize" class="table table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Durumu</th>
                         <th>Adı</th>
                         <th>Url</th>
-                        <th>E. Tarih</th>
                         <th>G. Tarih</th>
                         <th class="text-center">Sırala</th>
                         <th class="text-center">İşlem</th>
@@ -34,7 +33,6 @@
                             <td>{{ $kayit->active == 1 ? 'Aktif' : 'Pasif' }}</td>
                             <td>{{ $kayit->name }}</td>
                             <td>{{ $kayit->url }}</td>
-                            <td>{{ $kayit->created_at }}</td>
                             <td>{{ $kayit->updated_at }}</td>
                             <td class="text-center">
                                 <div class="btn-group" role="group" aria-label="Basic example">

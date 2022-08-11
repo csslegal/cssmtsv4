@@ -13,13 +13,13 @@
     </nav>
 
     @if ($userInformations != null)
-        <div class="card card-primary mb-3">
-            <div class="card-header bg-primary text-white fw-bold">Profilim</div>
+        <div class="card card-dark mb-3">
+            <div class="card-header bg-dark text-white fw-bold">Profilim</div>
             <div class="card-body">
                 <div class="row">
 
                     <div class="col-md-6 col-sm-12">
-                        <span class="fw-bold text-primary">Kullanıcı Detayları</span>
+                        <span class="fw-bold text-dark">Kullanıcı Detayları</span>
                         <ul>
                             <li>Adınız: {{ $userInformations->name }}</li>
                             <li>E-mail Adresiniz: {{ $userInformations->email }}</li>
@@ -27,7 +27,7 @@
                             <li>Mesai Saatleri: {{ $userInformations->giris }} - {{ $userInformations->cikis }}</li>
                         </ul>
                         <hr>
-                        <span class="fw-bold text-primary">Sistem Teması</span>
+                        <span class="fw-bold text-dark">Sistem Teması</span>
                         <select class="form-control" onchange="themeChange()">
                             <option @if (session('theme') == 'light') selected @endif>Light @if (session('theme') == 'light')
                                     teması aktif
@@ -41,7 +41,7 @@
                         <hr>
                     </div>
                     <div class="col-md-6 col-sm-12">
-                        <span class="fw-bold text-primary">Yetkiler</span>
+                        <span class="fw-bold text-dark">Yetkiler</span>
                         @if (count($userAccesses) > 0)
                             <ol>
                                 @foreach ($userAccesses as $userAccess)
@@ -52,7 +52,7 @@
                             </br> Yok
                         @endif
                         <hr>
-                        <span class="fw-bold text-primary">Çalışma Ofisleri</span>
+                        <span class="fw-bold text-dark">Çalışma Ofisleri</span>
                         @if (count($userOffices) > 0)
                             <ol>
                                 @foreach ($userOffices as $userOffice)
@@ -67,8 +67,8 @@
             </div>
         </div>
 
-        <div class="card card-primary">
-            <div class="card-header bg-primary text-white fw-bold">Şifre Güncelleme</div>
+        <div class="card card-dark">
+            <div class="card-header bg-dark text-white fw-bold">Şifre Güncelleme</div>
             <div class="card-body">
                 <form method="POST" action="/kullanici/profil">
                     @csrf
@@ -77,18 +77,18 @@
                             <label class="form-label">Şifre</label>
                             <input type="password" value="{{ old('password') }}" name="password" class="form-control">
                             @error('password')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="alert alert-dark">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-12">
                             <label class="form-label">Tekrar Şifre</label>
                             <input type="password" value="{{ old('rePassword') }}" name="rePassword" class="form-control">
                             @error('rePassword')
-                                <div class="alert alert-danger">{{ $message }}</div>
+                                <div class="alert alert-dark">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
-                    <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Güncelle</button>
+                    <button class="w-100 mt-3 btn btn-dark text-white btn-lg" type="submit">Güncelle</button>
                 </form>
             </div>
         </div>
@@ -96,7 +96,7 @@
         <div class="row g-3">
             <div class="col-md-12">
 
-                <div class="alert alert-danger">
+                <div class="alert alert-dark">
                     Hesabınız bulunamadı! Sistem yöneticisi ile iletişime geçiniz.(Otomatik çıkış yapılıyor...)
                     <meta http-equiv="refresh" content="10;url=/cikis" />
                 </div>

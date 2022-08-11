@@ -7,13 +7,13 @@
             <li class="breadcrumb-item active" aria-current="page">Müşteri Bilgileri</li>
         </ol>
     </nav>
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">
             Müşteri Bilgileri
             <a class="float-end text-white" href="/yonetim/customers/create">Dosya Yükle</a>
         </div>
         <div class="card-body scroll">
-            <table id="dtCustomersTable" class="table table-striped table-bordered display table-light " style="width:100%">
+            <table id="dtCustomersTable" class="table table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>

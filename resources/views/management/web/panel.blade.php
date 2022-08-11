@@ -14,8 +14,8 @@
         </ol>
     </nav>
 
-    <div class="card card-primary ">
-        <div class="card-header bg-primary text-white fw-bold">Paneller</div>
+    <div class="card card-dark ">
+        <div class="card-header bg-dark text-white fw-bold">Paneller</div>
         <div class="card-body">
 
             @if (in_array(4, $userAccesses))
@@ -53,7 +53,7 @@
                                                         @php date_default_timezone_set('Europe/Istanbul'); @endphp type="hidden" name="s">
                                                     <input type="hidden" name="d" value="tr" />
                                                     <button type="submit"
-                                                        class="btn btn-primary text-white float-end">Panele
+                                                        class="btn btn-dark text-white float-end">Panele
                                                         git</button>
                                                 </form>
                                             </div>

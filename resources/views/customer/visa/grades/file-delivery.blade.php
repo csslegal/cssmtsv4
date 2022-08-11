@@ -17,10 +17,10 @@
             <li class="breadcrumb-item active">Dosya Teslimatı</li>
         </ol>
     </nav>
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">Dosya Teslim Et</div>
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">Dosya Teslim Et</div>
         <div class="card-body scroll">
-            <form action="teslimat-bilgisi" method="POST">
+            <form action="teslimat" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label>Teslim Edilme Şekli </label>
@@ -87,7 +87,8 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-primary confirm" data-content="Devam edilsin mi?">Aşamayı Tamamla</button>
+                <button type="submit" class="w-100 mt-2 btn btn-dark text-white btn-lg  confirm"
+                    data-content="Devam edilsin mi?">Aşamayı Tamamla</button>
             </form>
         </div>
     </div>

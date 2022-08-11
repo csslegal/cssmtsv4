@@ -8,12 +8,12 @@
             <li class="breadcrumb-item active" aria-current="page">Panel Yetkileri</li>
         </ol>
     </nav>
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">Panel Yetkileri
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">Panel Yetkileri
             <a class="float-end text-white" href="/yonetim/web/panel-auth/create">Ekle</a>
         </div>
         <div class="card-body scroll">
-            <table id="dataTable" class=" table table-striped table-bordered display table-light" style="width:100%">
+            <table id="dataTable" class=" table table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -33,7 +33,7 @@
                             <td>{{ $result->id }}</td>
                             <td>{{ $result->u_name }}</td>
                             <td class="text-center">
-                                <button onclick="goster({{ $result->id }})" class="text-primary" data-bs-toggle="modal"
+                                <button onclick="goster({{ $result->id }})" class="text-dark" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal" title="Göster">
                                     <i class="bi bi-image"></i>
                                 </button>

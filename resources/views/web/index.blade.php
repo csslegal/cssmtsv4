@@ -17,8 +17,8 @@
         </ol>
     </nav>
 
-    <div class="card card-primary ">
-        <div class="card-header bg-primary text-white fw-bold">Paneller</div>
+    <div class="card card-dark ">
+        <div class="card-header bg-dark text-white fw-bold">Paneller</div>
         <div class="card-body">
 
             @if (in_array(4, $userAccesses))
@@ -30,7 +30,7 @@
                             @if ($webPanels->where('group_id', '', $webGroup->id)->count() == 0)
                                 <div class="col-12 mb-3">
                                     <div class="card">
-                                        <div class="card-body text-danger fw-bold">Panel yetkileri bulunamadı! Yöneticiniz
+                                        <div class="card-body text-dark fw-bold">Panel yetkileri bulunamadı! Yöneticiniz
                                             ile görüşünüz.</div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                                         @php date_default_timezone_set('Europe/Istanbul'); @endphp type="hidden" name="s">
                                                     <input type="hidden" name="d" value="tr" />
                                                     <button type="submit"
-                                                        class="btn btn-primary text-white float-end">Panele git</button>
+                                                        class="btn btn-dark text-white float-end">Panele git</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -73,12 +73,12 @@
                         Panel yetkileri süresi aşımı oldu. Yöneticiniz ile görüşünüz.
                     </div>
                 @elseif ($panelsTimeAccess == 2)
-                    <div class="alert alert-danger">
+                    <div class="alert alert-dark">
                         Panel yetkileri kaydı yapılmadı! Yöneticiniz ile görüşünüz.
                     </div>
                 @endif
             @else
-                <div class="alert alert-danger">
+                <div class="alert alert-dark">
                     Kullanıcı erişimleri verilmedi! Yöneticiniz ile görüşünüz.
                 </div>
             @endif

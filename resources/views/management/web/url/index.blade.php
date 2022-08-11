@@ -8,11 +8,11 @@
             <li class="breadcrumb-item active" aria-current="page">Url Analizleri</li>
         </ol>
     </nav>
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">
             Url
             <div class="dropdown float-end text-white">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     İşlemler
                 </button>
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="card-body scroll">
-            <table id="dataTable" class="table table-striped table-bordered display table-light " style="width:100%">
+            <table id="dataTable" class="table table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -53,7 +53,7 @@
                             </td>
                             <td>
                                 <button onclick="detay({{ $kayit->id }})" data-bs-target="#exampleModal"
-                                    class="text-danger" data-bs-toggle="modal">
+                                    class="text-dark" data-bs-toggle="modal">
                                     <i class="bi bi-image"></i>
                                 </button>
                             </td>

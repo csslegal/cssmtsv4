@@ -8,8 +8,8 @@
             <li class="breadcrumb-item active" aria-current="page">Dosya Yükle</li>
         </ol>
     </nav>
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">Müşteri Bilgilerini Sisteme Yükle</div>
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">Müşteri Bilgilerini Sisteme Yükle</div>
         <div class="card-body">
             <form method="POST" action="/yonetim/customers" enctype="multipart/form-data">
                 @csrf
@@ -22,7 +22,7 @@
                         @enderror
                     </div>
                 </div>
-                <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Tamamla</button>
+                <button class="w-100 mt-3 btn btn-dark text-white btn-lg" type="submit">Tamamla</button>
             </form>
         </div>
     </div>

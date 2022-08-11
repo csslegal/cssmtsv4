@@ -17,8 +17,8 @@
             <li class="breadcrumb-item active">Tercüme Tamamlama</li>
         </ol>
     </nav>
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">Tercüme Tamamlama</div>
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">Tercüme Tamamlama</div>
         <div class="card-body scroll">
             <form action="" method="POST">
                 @csrf
@@ -46,9 +46,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-
                 <hr>
-
                 <div class="mb-3">
                     <label>Tercüme Sayfa Sayısı</label>
                     <input type="text" name="tercume-sayfa" autocomplete="off" class="form-control"
@@ -74,8 +72,7 @@
                     @enderror
                 </div>
 
-
-                <button type="submit" class="btn btn-danger text-white btn-block confirm" data-title="Dikkat!"
+                <button type="submit" class="w-100 mt-2 btn btn-dark text-white btn-lg confirm" data-title="Dikkat!"
                     data-content="Tercüme bilgileri kaydedilsin mı?">Aşamayı Tamamla</button>
             </form>
         </div>

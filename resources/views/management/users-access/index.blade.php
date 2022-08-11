@@ -7,13 +7,13 @@
             <li class="breadcrumb-item active" aria-current="page">Kullanıcı Erişimleri</li>
         </ol>
     </nav>
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">
             Kullanıcı Erişimleri
             <a class="float-end text-white" href="/yonetim/users-access/create">Ekle</a>
         </div>
         <div class="card-body scroll">
-            <table id="dataTable" class=" table table-striped table-bordered display table-light "
+            <table id="dataTable" class=" table table-striped table-bordered display "
                 style="width:100%">
                 <thead>
                     <tr>

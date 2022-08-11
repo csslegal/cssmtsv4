@@ -8,12 +8,12 @@
         </ol>
     </nav>
 
-    <div class="card card-primary mb-4">
-        <div class="card-header bg-primary text-white fw-bold">Profilim</div>
+    <div class="card card-dark mb-4">
+        <div class="card-header bg-dark text-white fw-bold">Profilim</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
-                    <span class="fw-bold text-primary">Kullanıcı Detayları</span>
+                    <span class="fw-bold text-dark">Kullanıcı Detayları</span>
                     <ul>
                         <li>Adınız: {{ $managementInformations->name }}</li>
                         <li>E-mail Adresiniz: {{ $managementInformations->email }}</li>
@@ -21,7 +21,7 @@
                         <li>Mesai Saatleri: {{ $managementInformations->giris }} - {{ $managementInformations->cikis }}</li>
                     </ul>
                     <hr>
-                    <span class="fw-bold text-primary">Sistem Teması</span>
+                    <span class="fw-bold text-dark">Sistem Teması</span>
                     <select class="form-control" onchange="themeChange()">
                         <option @if (session('theme') == 'light') selected @endif>Light @if (session('theme') == 'light')
                                 teması aktif
@@ -35,7 +35,7 @@
                     <hr>
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <span class="fw-bold text-primary">Yetkiler</span>
+                    <span class="fw-bold text-dark">Yetkiler</span>
                     @if (count($userAccesses) > 0)
                         <ol>
                             @foreach ($userAccesses as $userAccess)
@@ -46,7 +46,7 @@
                         </br> Yok
                     @endif
                     <hr>
-                    <span class="fw-bold text-primary">Çalışma Ofisleri</span>
+                    <span class="fw-bold text-dark">Çalışma Ofisleri</span>
                     @if (count($userOffices) > 0)
                         <ol>
                             @foreach ($userOffices as $userOffice)
@@ -61,8 +61,8 @@
         </div>
     </div>
 
-    <div class="card card-primary">
-        <div class="card-header bg-primary text-white fw-bold">Şifre Güncelleme</div>
+    <div class="card card-dark">
+        <div class="card-header bg-dark text-white fw-bold">Şifre Güncelleme</div>
         <div class="card-body">
             <form method="POST" action="/yonetim/profil">
                 @csrf
@@ -82,7 +82,7 @@
                         @enderror
                     </div>
                 </div>
-                <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Güncelle</button>
+                <button class="w-100 mt-3 btn btn-dark text-white btn-lg" type="submit">Güncelle</button>
             </form>
         </div>
     </div>

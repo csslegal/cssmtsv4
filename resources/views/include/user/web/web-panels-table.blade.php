@@ -1,8 +1,8 @@
 @if (in_array(4, $userAccesses))
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white fw-bold">Web Panelleri İşlemleri</div>
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white fw-bold">Web Panelleri İşlemleri</div>
         <div class="card-body scroll">
-            <table id="dataTable" class=" table table-striped table-bordered display table-light" style="width:100%">
+            <table id="dataTable" class=" table table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th class="text-center fw-bold">Yetki Seviyesi</th>

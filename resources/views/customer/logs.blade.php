@@ -17,10 +17,10 @@
             <li class="breadcrumb-item active">Müşteri Logları</li>
         </ol>
     </nav>
-    <div class="card card-primary">
-        <div class="card-header bg-primary text-white">Müşteri Logları</div>
+    <div class="card card-dark">
+        <div class="card-header bg-dark text-white">Müşteri Logları</div>
         <div class="card-body  scroll">
-            <table id="dataTable" class=" table table-striped table-bordered display table-light" style="width:100%">
+            <table id="dataTable" class=" table table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th class="text-center">#</th>
