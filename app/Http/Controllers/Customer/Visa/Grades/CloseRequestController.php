@@ -58,9 +58,7 @@ class CloseRequestController extends Controller
 
         if ($nextGrades != null) {
 
-            DB::table('visa_files')->where("id", "=", $visa_file_id)->update([
-                'visa_file_grades_id' => $nextGrades,
-            ]);
+            DB::table('visa_files')->where("id", "=", $visa_file_id)->update(['visa_file_grades_id' => $nextGrades,]);
 
             if ($request->session()->has($visa_file_id . '_grades_id')) {
                 $request->session()->forget($visa_file_id . '_grades_id');

@@ -18,29 +18,21 @@
             <li class="breadcrumb-item active">Cari Dosya Aç</li>
         </ol>
     </nav>
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">Cari Dosya Aç</div>
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">Cari Dosya Aç</div>
         <div class="card-body scroll">
             <form action="" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Vize Tipi</label>
-                    <select class="form-select" onchange="subVisaTypes($(this).val());">
+                    <select class="form-select" name="vize-tipi">
                         <option value="">Lütfen seçimi yapınız</option>
                         @foreach ($visaTypes as $visaType)
                             <option value="{{ $visaType->id }}">{{ $visaType->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Alt Vize Tipi</label>
-                    <select id="visaSubType" class="form-select" name="vize-tipi">
-                        <option value="">Lütfen vize seçimi yapınız</option>
-                    </select>
-                    @error('vize-tipi')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+
                 <div class="mb-3">
                     <label>Vize Süresi</label>
                     <select name="vize-sure" class="form-control">
@@ -56,23 +48,23 @@
                 </div>
                 <div class="mb-3">
                     <label>Müşteri T.C. Numarası</label>
-                    <input type="text" name="tc-no" autocomplete="off" class="form-control"
+                    <input type="text" name="tc_number" autocomplete="off" class="form-control"
                         placeholder="T.C. numarasını giriniz"
-                        value="{{ $baseCustomerDetails->tcno != '' ? $baseCustomerDetails->tcno : old('tc-no') }}" />
-                    @error('tc-no')
+                        value="{{ $baseCustomerDetails->tc_number != '' ? $baseCustomerDetails->tc_number : old('tc_number') }}" />
+                    @error('tc_number')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label>Müşteri Adresi</label>
-                    <input type="text" name="adres" autocomplete="off" class="form-control" placeholder="Adres giriniz"
-                        value="{{ $baseCustomerDetails->adres != '' ? $baseCustomerDetails->adres : old('adres') }}" />
-                    @error('adres')
+                    <input type="text" name="address" autocomplete="off" class="form-control" placeholder="Adres giriniz"
+                        value="{{ $baseCustomerDetails->address != '' ? $baseCustomerDetails->address : old('address') }}" />
+                    @error('address')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
-                    @if (session('userTypeId') == 4 || session('userTypeId') == 7 || session('userTypeId') == 1)
+                    @if (session('userTypeId') == 1)
                         <label>Müşteri Dosya Danışmanı</label>
                         <select name="danisman" class="form-control">
                             <option selected value="">Lütfen seçim yapın</option>
@@ -88,42 +80,9 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="btn btn-danger text-white confirm" data-title="Dikkat!"
+                <button type="submit" class="w-100 mt-2 btn btn-dark text-white btn-lg  confirm" data-title="Dikkat!"
                     data-content="Müşteri dosyası açılsın mı?">Aşamayı Tamamla</button>
             </form>
         </div>
     </div>
-@endsection
-
-@section('js')
-    <script>
-        function subVisaTypes(id) {
-            $.ajax({
-                type: 'POST',
-                url: "/musteri/ajax/alt-vize-tipi",
-                data: {
-                    'id': id,
-                    "_token": "{{ csrf_token() }}",
-                },
-                success: function(data) {
-                    if (data.length != 0) {
-
-                        $('#visaSubType').find('option').remove();
-                        $('#visaSubType').append('<option value="">Seçim yapınız</option>');
-
-                        for (var i = 0; i < data.length; i++) {
-                            $('#visaSubType').append('<option value="' + data[i]['id'] + '">' +
-                                data[i]['name'] + '</option>');
-                        }
-                    } else {
-                        $('#visaSubType').find('option').remove();
-                        $('#visaSubType').append('<option value="">Farklı vize tipi seçiniz</option>');
-                    }
-                },
-                error: function(response, status, xhr) {
-                    alert('İçerik alınırken hata oluştu. Hata: ' + xhr);
-                }
-            });
-        }
-    </script>
 @endsection

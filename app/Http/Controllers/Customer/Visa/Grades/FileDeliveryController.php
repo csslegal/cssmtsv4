@@ -36,10 +36,7 @@ class FileDeliveryController extends Controller
 
         if ($request->input('teslimat_sekli') == 1) {
 
-            $validatorStringArray = array(
-                'ofis' => 'required',
-                'teslimat_sekli' => 'required',
-            );
+            $validatorStringArray = array('ofis' => 'required', 'teslimat_sekli' => 'required',);
 
             $dataArray = array(
                 'visa_file_id' => $visa_file_id,
@@ -66,10 +63,7 @@ class FileDeliveryController extends Controller
             );
         } elseif ($request->input('teslimat_sekli') == 3) {
 
-            $validatorStringArray = array(
-                'ofis' => 'required',
-                'teslimat_sekli' => 'required',
-            );
+            $validatorStringArray = array('ofis' => 'required', 'teslimat_sekli' => 'required',);
 
             $dataArray = array(
                 'visa_file_id' => $visa_file_id,
@@ -81,36 +75,25 @@ class FileDeliveryController extends Controller
 
         $request->validate($validatorStringArray);
 
-        $visaFileGradesId = DB::table('visa_files')
-            ->select(['visa_file_grades_id'])
-            ->where('id', '=', $visa_file_id)->first();
-
-        $visaFileGradesName = new VisaFileGradesName(
-            $visaFileGradesId->visa_file_grades_id
-        );
+        $visaFileGradesId = DB::table('visa_files')->select(['visa_file_grades_id'])->where('id', '=', $visa_file_id)->first();
+        $visaFileGradesName = new VisaFileGradesName($visaFileGradesId->visa_file_grades_id);
 
         $whichGrades = new VisaFileWhichGrades();
         $nextGrades = $whichGrades->nextGrades($visa_file_id);
 
         if ($nextGrades != null) {
 
-            $visaFileDeliveryCount = DB::table('visa_file_delivery')
-                ->where('visa_file_id', '=', $visa_file_id)->get()->count();
+            $visaFileDeliveryCount = DB::table('visa_file_delivery')->where('visa_file_id', '=', $visa_file_id)->get()->count();
 
             if ($visaFileDeliveryCount > 0) {
+
                 $dataArray = array_merge($dataArray, array('updated_at' => date('Y-m-d H:i:s')));
-                DB::table('visa_file_delivery')
-                    ->where("visa_file_id", "=", $visa_file_id)
-                    ->update($dataArray);
+                DB::table('visa_file_delivery')->where("visa_file_id", "=", $visa_file_id)->update($dataArray);
             } else {
                 $dataArray = array_merge($dataArray, array('created_at' => date('Y-m-d H:i:s')));
                 DB::table('visa_file_delivery')->insert($dataArray);
             }
-            DB::table('visa_files')->where("id", "=", $visa_file_id)
-                ->update([
-                    'active' => 0,
-                    'visa_file_grades_id' => $nextGrades
-                ]);
+            DB::table('visa_files')->where("id", "=", $visa_file_id)->update(['active' => 0, 'visa_file_grades_id' => $nextGrades]);
 
             if ($request->session()->has($visa_file_id . '_grades_id')) {
                 $request->session()->forget($visa_file_id . '_grades_id');

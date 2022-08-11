@@ -18,53 +18,75 @@
         </ol>
     </nav>
 
-    <div class="card card-primary mb-3">
-        <div class="card-header bg-primary text-white">Başvuru Sonuç</div>
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">Başvuru Sonuç</div>
         <div class="card-body scroll">
-            <form action="basvuru-sonuc" method="POST" id="formSonuc">
+            <form action="" method="POST" id="formSonuc">
                 @csrf
                 <div class="mb-3">
-                    <label>Vize Alındı Mı ?</label>
+                    <label>Başvuru Sonucu</label>
                     <select name="sonuc" onchange="durum()" id="sonuc" class="form-control ">
-                        <option {{ old('sonuc') == 1 ? 'selected' : '' }} value="1">Evet</option>
-                        <option {{ old('sonuc') == 0 ? 'selected' : '' }} value="0">Hayır</option>
+                        <option selected value="1">Olumlu</option>
+                        <option value="0">Olumsuz</option>
+                        <option value="2">İade</option>
                     </select>
                     @error('sonuc')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="mb-3" id="vt">
-                    <label>Vize Tarihi</label>
-                    <input type="text" class="form-control datepicker" autocomplete="off" id="vize_tarihi"
-                        name="vize_tarihi" />
-                    @error('vize_tarihi')
+                <div class="mb-3" id="vbat">
+                    <label>Vize Başlangıç Tarihi</label>
+                    <input type="text" class="form-control datepicker" autocomplete="off" id="vize_baslangic_tarihi"
+                        name="vize_baslangic_tarihi"
+                        value="{{ old('vize_baslangic_tarihi') ? old('vize_baslangic_tarihi') : '' }}" />
+                    @error('vize_baslangic_tarihi')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3" id="vbit">
+                    <label>Vize Bitiş Tarihi</label>
+                    <input type="text" class="form-control datepicker1" autocomplete="off" id="vize_bitis_tarihi"
+                        name="vize_bitis_tarihi"
+                        value="{{ old('vize_bitis_tarihi') ? old('vize_bitis_tarihi') : '' }}" />
+                    @error('vize_bitis_tarihi')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3" id="vta">
+                    <label>Vize Teslim Alınma Tarihi</label>
+                    <input type="text" class="form-control datepicker2" autocomplete="off" id="vize_teslim_alinma_tarihi"
+                        name="vize_teslim_alinma_tarihi"
+                        value="{{ old('vize_teslim_alinma_tarihi') ? old('vize_teslim_alinma_tarihi') : '' }}" />
+                    @error('vize_teslim_alinma_tarihi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3" id="rs">
                     <label>Ret Sebebi</label>
-                    <input type="text" class="form-control" id="red_sebebi" autocomplete="off" name="red_sebebi" />
+                    <input type="text" class="form-control" id="red_sebebi" autocomplete="off" name="red_sebebi"
+                        value="{{ old('red_sebebi') ? old('red_sebebi') : '' }}" />
                     @error('red_sebebi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3" id="rt">
                     <label>Ret Tarihi</label>
-                    <input type="text" class="form-control datepicker1" id="red_tarihi" autocomplete="off"
-                        name="red_tarihi" />
+                    <input type="text" class="form-control datepicker3" id="red_tarihi" autocomplete="off"
+                        name="red_tarihi" value="{{ old('red_tarihi') ? old('red_tarihi') : '' }}" />
                     @error('red_tarihi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="mb-3" id="r">
-                    <div class="checkbox">
-                        <label>
-                            <input name="tercume" type="checkbox">
-                            Ret sonucunu tercümeye gönder</label>
-                    </div>
+                <div class="mb-3" id="rat">
+                    <label>Ret Teslim Alınma Tarihi</label>
+                    <input type="text" class="form-control datepicker4" id="red_teslim_alinma_tarihi" autocomplete="off"
+                        name="red_teslim_alinma_tarihi" value="{{ old('red_teslim_alinma_tarihi') ? old('red_teslim_alinma_tarihi') : '' }}"/>
+                    @error('red_teslim_alinma_tarihi')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
-                <button type="submit" class="btn btn-primary confirm" data-content="Devam edilsin mi?">Aşamayı
-                    Tamamla</button>
+                <button type="submit" class="w-100 mt-3 btn btn-dark text-white btn-lg confirm"
+                    data-content="Devam edilsin mi?">Aşamayı Tamamla</button>
             </form>
         </div>
     </div>
@@ -73,37 +95,46 @@
     <script type="text/javascript">
         $(document).ready(function() {
             if ($("#sonuc").val() == 1) {
-
-                $("#rt,#rs,#r").css("display", "none");
-                //$("#rt,#rs,#r").hide();
+                $("#rs,#rt,#rat").css("display", "none");
+                $("vbat,#vbit,#vta").css("display", "block");
+            } else if ($("#sonuc").val() == 0) {
+                $("#rs,#rt,#rat").css("display", "block");
+                $("vbat,#vbit,#vta").css("display", "none");
             } else {
-                $("#rt").css("display", "block");
-                // $("#rt").show();
-
-                $("#vt").css("display", "none");
-                // $("#vt").hide();
+                $("vbat,#vbit,#vta").css("display", "none");
+                $("#rs,#rt,#rat").css("display", "none");
             }
         });
 
         function durum() {
             if ($("#sonuc").val() == 1) {
 
-                $("#vt").css("display", "block");
-                //  $("#vt").show();
-
-                $("#rt,#rs,#r").css("display", "none");
-                //  $("#rt,#rs,#r").hide();
+                $("#rs,#rt,#rat").css("display", "none");
+                $("#vbat,#vbit,#vta").css("display", "block");
 
                 document.getElementById('red_tarihi').value = '';
+                document.getElementById('red_teslim_alinma_tarihi').value = '';
                 document.getElementById('red_sebebi').value = '';
+            } else if ($("#sonuc").val() == 0) {
+
+                $("#rs,#rt,#rat").css("display", "block");
+                $("#vbat,#vbit,#vta").css("display", "none");
+
+                document.getElementById('vize_baslangic_tarihi').value = '';
+                document.getElementById('vize_bitis_tarihi').value = '';
+                document.getElementById('vize_teslim_alinma_tarihi').value = '';
             } else {
-                $("#rt,#rs,#r").css("display", "block");
-                // $("#rt,#rs,#r").show();
 
-                $("#vt").css("display", "none");
-                //$("#vt").hide();
+                $("#rs,#rt,#rat").css("display", "none");
+                $("#vbat,#vbit,#vta").css("display", "none");
 
-                document.getElementById('vize_tarihi').value = '';
+                document.getElementById('red_tarihi').value = '';
+                document.getElementById('red_teslim_alinma_tarihi').value = '';
+                document.getElementById('red_sebebi').value = '';
+
+                document.getElementById('vize_baslangic_tarihi').value = '';
+                document.getElementById('vize_bitis_tarihi').value = '';
+                document.getElementById('vize_teslim_alinma_tarihi').value = '';
             }
         }
     </script>

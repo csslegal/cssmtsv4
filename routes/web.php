@@ -36,12 +36,16 @@ use App\Http\Controllers\Customer\NoteController as CustomerNoteController;
 use App\Http\Controllers\Customer\LogsController as CustomerLogsController;
 use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
 use App\Http\Controllers\Customer\Visa\IndexController as VisaIndexController;
+
 use App\Http\Controllers\Customer\Visa\GradesUpdateController as VisaGradesUpdateController;
+
 use App\Http\Controllers\Customer\Visa\Grades\FileOpenController as VisaFileOpenController;
-use App\Http\Controllers\Customer\Visa\Grades\DocumentListCompletedController as VisaDocumentListCompletedController;
-use App\Http\Controllers\Customer\Visa\Grades\TranslationsCompletedController as VisaTranslationsCompletedController;
-use App\Http\Controllers\Customer\Visa\Grades\AppointmentCompletedController as VisaAppointmentCompletedController;
-use App\Http\Controllers\Customer\Visa\Grades\DactylogramController as VisaDactylogramController;
+use App\Http\Controllers\Customer\Visa\Grades\FileOpenConfirmController as VisaFileOpenConfirmController;
+use App\Http\Controllers\Customer\Visa\Grades\DocumentWaitController as VisaDocumentWaitController;
+use App\Http\Controllers\Customer\Visa\Grades\ControlWaitController as VisaControlWaitController;
+use App\Http\Controllers\Customer\Visa\Grades\TranslationsWaitController as VisaTranslationsWaitController;
+use App\Http\Controllers\Customer\Visa\Grades\ApplicationWaitController as VisaApplicationWaitController;
+use App\Http\Controllers\Customer\Visa\Grades\AppointmentController as VisaAppointmentController;
 
 use App\Http\Controllers\Customer\Visa\Grades\AppointmentPutOffController as VisaAppointmentPutOffController;
 use App\Http\Controllers\Customer\Visa\Grades\ApplicationResultController as VisaApplicationResultController;
@@ -89,14 +93,14 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('arsive-tasima', VisaArchiveTransportController::class);
 
                 /***Dosya aşamaları başlangıç */
-                Route::resource('dosya-acma-onayi', VisaFileOpenConfirmController::class);
-                Route::resource('evrak-hazirlama', VisaDocumentListCompletedController::class);
-                Route::resource('tercume-tamamlama', VisaTranslationsCompletedController::class);
-                Route::resource('form-bilgileri', VisaAppointmentCompletedController::class);
-                Route::resource('parmak-izi', VisaDactylogramController::class);
-                Route::resource('randevu-erteleme', VisaAppointmentPutoffController::class);
-                Route::resource('basvuru-sonuc', VisaApplicationResultController::class);
-                Route::resource('teslimat-bilgisi', VisaFileDeliveryController::class);
+                Route::resource('dosya-acma-onayi', VisaFileOpenConfirmController::class); //
+                Route::resource('evrak-bekleyen', VisaDocumentWaitController::class); //
+                Route::resource('kontrol-bekleyen', VisaControlWaitController::class); //
+                Route::resource('tercume-bekleyen', VisaTranslationsWaitController::class);
+                Route::resource('basvuru-bekleyen', VisaApplicationWaitController::class);
+                Route::resource('randevu', VisaAppointmentController::class);
+                Route::resource('sonuc-bekleyen', VisaApplicationResultController::class);
+                Route::resource('teslimat', VisaFileDeliveryController::class);
                 /***Dosya aşamaları son */
             });
         });
