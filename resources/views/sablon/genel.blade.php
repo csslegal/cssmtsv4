@@ -58,13 +58,22 @@
 
                 $([".light [class*='-light']", ".dark [class*='-dark']"]).each((i, ele) => {
                     $(ele).removeClass('bg-light').addClass('bg-dark');
-                    $(ele).removeClass('text-light').addClass('text-dark');
-                    $(ele).removeClass('navbar-dark').addClass('navbar-light');
+                    $(ele).removeClass('text-dark').addClass('text-light');
+                    // $(ele).removeClass('navbar-dark').addClass('navbar-light');
                 });
                 $('body').removeClass('bg-light').addClass('bg-dark');
+
                 $('#breadcrumb').addClass('bg-light');
+
                 $('#nav-top').removeClass('navbar-dark').addClass('navbar-light');
                 $('#nav-top').removeClass('bg-dark').addClass('bg-light');
+
+                $('#slogan').removeClass('bg-dark').addClass('bg-light');
+                $('#slogan').removeClass('text-light').addClass('text-dark');
+
+                $('.nav-item > a').removeClass('link-light ').addClass('link-dark');
+                $('.nav-item > a').removeClass('bg-dark ').addClass('bg-light');
+                $('.nav-item > a').removeClass('text-light ').addClass('text-dark');
             @endif
         });
 
