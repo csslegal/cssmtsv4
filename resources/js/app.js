@@ -25,6 +25,16 @@ new AirDatepicker('.datepicker2', {
     isMobile: true,
     autoClose: true,
 })
+new AirDatepicker('.datepicker3', {
+    buttons: ['today', 'clear'],
+    isMobile: true,
+    autoClose: true,
+})
+new AirDatepicker('.datepicker4', {
+    buttons: ['today', 'clear'],
+    isMobile: true,
+    autoClose: true,
+})
 
 // Core - these two are required :-)
 require('tinymce');
