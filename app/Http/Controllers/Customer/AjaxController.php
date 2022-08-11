@@ -113,10 +113,8 @@ class AjaxController extends Controller
     public function post_visa_log_goster(Request $request)
     {
         if (is_numeric($request->input('id'))) {
-            return DB::table('visa_file_logs')
-                ->select('content')
-                ->where('id', '=', $request->input('id'))
-                ->first();
+            return DB::table('visa_file_logs')->select('content')
+                ->where('id', '=', $request->input('id'))->first();
         } else {
 
             echo 'Hatalı istek yapıldı';
@@ -145,10 +143,8 @@ class AjaxController extends Controller
 
     public function post_visa_file_log_content(Request $request)
     {
-        $getVisaTypes = DB::table('visa_file_logs')
-            ->select('content')
-            ->where('id', '=', $request->input('id'))
-            ->first();
+        $getVisaTypes = DB::table('visa_file_logs')->select('content')
+        ->where('id', '=', $request->input('id'))->first();
 
         return ($getVisaTypes);
     }
@@ -169,8 +165,8 @@ class AjaxController extends Controller
                 ->where('visa_files.id', '=', $request->input('id'))
                 ->orderByDesc('visa_file_logs.id')
                 ->get();
-            $sonuc = "<div class='card card-primary mb-3'><div class='card-header bg-primary text-white'>Loglar</div><div class='card-body scroll'>
-                    <table style='width:100%' class='table table-striped table-bordered table-sm table-light'>
+            $sonuc = "<div class='card card-dark mb-3'><div class='card-header bg-dark text-white'>Loglar</div><div class='card-body scroll'>
+                    <table style='width:100%' class='table table-striped table-bordered table-sm'>
                         <thead>
                         <th>ID</th>
                         <th>İşlem</th>
@@ -224,8 +220,8 @@ class AjaxController extends Controller
                 ->where('visa_file_id', '=', $request->input('id'))
                 ->get();
 
-            $sonuc = "<div class='card card-primary mb-3'><div class='card-header bg-primary text-white'>Alınan Ödemeler</div><div class='card-body scroll'>
-                    <table style='width:100%' class='table table-striped table-bordered table-sm table-light'>
+            $sonuc = "<div class='card card-dark mb-3'><div class='card-header bg-dark text-white'>Alınan Ödemeler</div><div class='card-body scroll'>
+                    <table style='width:100%' class='table table-striped table-bordered table-sm'>
                         <thead>
                             <th>ID</th>
                             <th>Başlıklar</th>
@@ -279,8 +275,8 @@ class AjaxController extends Controller
                 ->leftJoin('users', 'users.id', '=', 'visa_made_payments.user_id')
                 ->where('visa_file_id', '=', $request->input('id'))->get();
 
-            $sonuc .= "<div class='card card-primary mb-3'><div class='card-header bg-primary text-white'>Yapılan Ödemeler</div><div class='card-body scroll'>
-                    <table style='width:100%' class='table table-striped table-bordered table-sm table-light'>
+            $sonuc .= "<div class='card card-dark mb-3'><div class='card-header bg-dark text-white'>Yapılan Ödemeler</div><div class='card-body scroll'>
+                    <table style='width:100%' class='table table-striped table-bordered table-sm'>
                         <thead>
                             <th>ID</th>
                             <th>Başlıklar</th>
@@ -331,8 +327,8 @@ class AjaxController extends Controller
                 ->leftJoin('users', 'users.id', '=', 'visa_refund_payments.user_id')
                 ->where('visa_file_id', '=', $request->input('id'))->get();
 
-            $sonuc .= "<div class='card card-primary mb-3'><div class='card-header bg-primary text-white'>İade Ödemeler</div><div class='card-body scroll'>
-                    <table style='width:100%' class='table table-striped table-bordered table-sm table-light'>
+            $sonuc .= "<div class='card card-dark mb-3'><div class='card-header bg-dark text-white'>İade Ödemeler</div><div class='card-body scroll'>
+                    <table style='width:100%' class='table table-striped table-bordered table-sm'>
                         <thead>
                             <th>ID</th>
                             <th>Başlıklar</th>
@@ -394,8 +390,8 @@ class AjaxController extends Controller
                 ->distinct()
                 ->get();;
 
-            $sonuc = "<div class='card card-primary mb-3'><div class='card-header bg-primary text-white'>Faturalar</div><div class='card-body scroll'>
-                    <table style='width:100%' class='table table-striped table-bordered table-sm table-light'>
+            $sonuc = "<div class='card card-dark mb-3'><div class='card-header bg-dark text-white'>Faturalar</div><div class='card-body scroll'>
+                    <table style='width:100%' class='table table-striped table-bordered table-sm'>
                         <thead>
                             <th>ID</th>
                             <th>Toplam Ödeme</th>
