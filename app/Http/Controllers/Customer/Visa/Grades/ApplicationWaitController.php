@@ -13,6 +13,7 @@ class ApplicationWaitController extends Controller
     public function index($id, $visa_file_id)
     {
         $baseCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
+        $visaFile = DB::table('visa_files')->where('id', '=', $visa_file_id)->first();
 
         $times = DB::table('times')->get();
         $appointmentOffices = DB::table('appointment_offices')->get();
@@ -20,6 +21,7 @@ class ApplicationWaitController extends Controller
         return view('customer.visa.grades.appication-wait')->with([
             'baseCustomerDetails' => $baseCustomerDetails,
             'appointmentOffices' => $appointmentOffices,
+            'visaFile' => $visaFile,
             'times' => $times,
         ]);
     }
@@ -53,7 +55,6 @@ class ApplicationWaitController extends Controller
                 DB::table('visa_appointments')->insert(array(
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
-                    'appointment_office_id' => $request->input('ofis'),
                     'gwf' => $request->input('gwf'),
                     'name' => $request->input('hesap_adi'),
                     'password' => $request->input('sifre'),
@@ -73,7 +74,6 @@ class ApplicationWaitController extends Controller
                 DB::table('visa_appointments')->where("visa_file_id", "=", $visa_file_id)->update([
                     'user_id' => $request->session()->get('userId'),
                     'gwf' => $request->input('gwf'),
-                    'appointment_office_id' => $request->input('ofis'),
                     'name' => $request->input('hesap_adi'),
                     'password' => $request->input('sifre'),
                     'date' => $request->input('tarih'),
@@ -90,7 +90,9 @@ class ApplicationWaitController extends Controller
             }
 
             DB::table('visa_files')->where("id", "=", $visa_file_id)->update([
-                'visa_file_grades_id' => $nextGrades, 'expert_id' => $request->session()->get('userId')
+                'appointment_office_id' => $request->input('ofis'),
+                'visa_file_grades_id' => $nextGrades,
+                'expert_id' => $request->session()->get('userId')
             ]);
 
             if ($request->session()->has($visa_file_id . '_grades_id')) {

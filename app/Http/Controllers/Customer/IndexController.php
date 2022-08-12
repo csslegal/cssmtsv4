@@ -16,11 +16,8 @@ class IndexController extends Controller
 
     public function create()
     {
-        $applicationOffices = DB::table('application_offices')->get();
 
-        return view("customer.add")->with([
-            'applicationOffices' => $applicationOffices,
-        ]);
+        return view("customer.add");
     }
 
     public function store(Request $request)
@@ -52,7 +49,7 @@ class IndexController extends Controller
         $request->validate($validatorStringArray);
 
         $customerVarmiCount = DB::table('customers')
-        ->where('name', '=', $request->get('name'))
+            ->where('name', '=', $request->get('name'))
             ->where('phone', '=', $request->get('phone'))
             ->get()->count();
         if ($customerVarmiCount == 0) {
@@ -63,15 +60,11 @@ class IndexController extends Controller
 
             $user_id = $request->session()->get('userId');
 
-            if ($request->get('basvuru_ofis') != "") {
-                $application_office = $request->get('basvuru_ofis');
-            }
             $customer_id = DB::table('customers')->insertGetId([
                 'name' => $name,
                 'phone' => $phone,
                 'email' => $email,
                 'user_id' => $user_id,
-                'application_office_id' => $application_office,
                 'tc_number' => $tc_number,
                 'address' => $address,
                 'passport' => $passport,
@@ -109,9 +102,7 @@ class IndexController extends Controller
             'customers.address AS address',
             'customers.passport AS passport',
             'customers.passport_date AS passport_date',
-            'application_offices.name AS application_name',
-            ])
-            ->leftJoin('application_offices', 'application_offices.id', '=', 'customers.application_office_id');
+        ]);
 
         if (is_numeric($id) && $baseCustomerDetails->where('customers.id', '=', $id)->get()->count() > 0) {
 
@@ -161,12 +152,8 @@ class IndexController extends Controller
     public function edit($id, Request $request)
     {
         $baseCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
-        $applicationOffices = DB::table('application_offices')->get();
 
-        return view('customer.edit')->with([
-            'baseCustomerDetails' => $baseCustomerDetails,
-            'applicationOffices' => $applicationOffices,
-        ]);
+        return view('customer.edit')->with(['baseCustomerDetails' => $baseCustomerDetails,]);
     }
 
     public function update(Request $request, $id)
@@ -236,20 +223,7 @@ class IndexController extends Controller
                 'created_at' => date('Y-m-d H:i:s'),
             ));
         }
-        if ($currentCustomerDetails->application_office_id != $request->get('basvuru_ofis')) {
-            $updateArray = array_merge($updateArray, array('application_office_id' => $request->get('basvuru_ofis')));
 
-            $beforeApplicationOffice = DB::table('application_offices')->select('name')->where('id', '=', $currentCustomerDetails->application_office_id)->first();
-            $afterApplicationOffice = DB::table('application_offices')->select('name')->where('id', '=', $request->get('basvuru_ofis'))->first();
-            array_push($logsArray, array(
-                'operation_name' => 'Müşteri basvuru ofisi güncelleme',
-                'before' => isset($beforeApplicationOffice->name) ? $beforeApplicationOffice->name : null,
-                'after' => isset($afterApplicationOffice->name) ? $afterApplicationOffice->name : null,
-                'customer_id' => $id,
-                'user_id' => $request->session()->get('userId'),
-                'created_at' => date('Y-m-d H:i:s'),
-            ));
-        }
 
         if ($currentCustomerDetails->passport != $request->get('passport')) {
             $updateArray = array_merge($updateArray, array('passport' => $request->get('passport')));

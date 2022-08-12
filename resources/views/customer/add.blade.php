@@ -58,18 +58,6 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Başvuru Ofisi</label>
-                    <select class="form-select" name="basvuru_ofis">
-                        <option value="">Lütfen başvuru ofisini seçin</option>
-                        @foreach ($applicationOffices as $applicationOffice)
-                            <option {{ old('basvuru_ofis') == $applicationOffice->id ? 'selected' : '' }}
-                                value="{{ $applicationOffice->id }}">{{ $applicationOffice->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
                 <!-- {{ csrf_field() }} -->
                 @csrf
                 <button class="w-100 mt-3 btn btn-dark text-white btn-lg confirm" data-content="Devam edilsin mi?" type="submit">Kaydet</button>

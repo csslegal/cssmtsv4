@@ -22,9 +22,6 @@
                         <li><span class="fw-bold">Adres: </span>
                             {{ $baseCustomerDetails->address != null ? $baseCustomerDetails->address : 'Kayıt bilgisi yok' }}
                         </li>
-                        <li><span class="fw-bold">Başvuru Ofisi:: </span>
-                            {{ $baseCustomerDetails->application_name != null ? $baseCustomerDetails->application_name : 'Kayıt bilgisi yok' }}
-                        </li>
                         <li><span class="fw-bold">Pasaport No: </span>
                             {{ $baseCustomerDetails->passport != null ? $baseCustomerDetails->passport : 'Kayıt bilgisi yok' }}
                         </li>

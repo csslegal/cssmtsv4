@@ -35,7 +35,7 @@
                     <select class="form-select" name="ofis">
                         <option value="">Randevu ofisini seçiniz</option>
                         @foreach ($appointmentOffices as $appointmentOffice)
-                            <option {{ old('ofis') == $appointmentOffice->id ? 'selected' : '' }}
+                            <option {{ $visaFile->appointment_office_id == $appointmentOffice->id ? 'selected' : '' }}
                                 value="{{ $appointmentOffice->id }}">
                                 {{ $appointmentOffice->name }}
                             </option>

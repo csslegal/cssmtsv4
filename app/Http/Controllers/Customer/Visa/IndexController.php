@@ -24,6 +24,8 @@ class IndexController extends Controller
         $visaFileDetail = DB::table('visa_files')
             ->select([
                 'visa_files.id AS id',
+            'application_offices.name AS application_office_name',
+            'appointment_offices.name AS appointment_office_name',
                 'visa_files.status AS status',
                 'visa_files.visa_file_grades_id AS visa_file_grades_id',
                 'visa_files.temp_grades_id AS temp_grades_id',
@@ -52,6 +54,9 @@ class IndexController extends Controller
             ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
 
             ->leftJoin('visa_appointments', 'visa_appointments.visa_file_id', '=', 'visa_files.id')
+
+            ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_files.application_office_id')
+            ->leftJoin('appointment_offices', 'appointment_offices.id', '=', 'visa_files.appointment_office_id')
 
             ->where('visa_files.customer_id', '=', $id)
             ->where('visa_files.active', '=', 1)

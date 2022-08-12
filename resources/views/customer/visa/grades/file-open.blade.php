@@ -31,6 +31,9 @@
                             <option value="{{ $visaType->id }}">{{ $visaType->name }}</option>
                         @endforeach
                     </select>
+                    @error('vize-tipi')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="mb-3">
@@ -60,6 +63,34 @@
                     <input type="text" name="address" autocomplete="off" class="form-control" placeholder="Adres giriniz"
                         value="{{ $baseCustomerDetails->address != '' ? $baseCustomerDetails->address : old('address') }}" />
                     @error('address')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Başvuru Ofisi</label>
+                    <select class="form-select" name="basvuru_ofis">
+                        <option value="">Lütfen başvuru ofisini seçin</option>
+                        @foreach ($applicationOffices as $applicationOffice)
+                            <option {{ old('basvuru_ofis') == $applicationOffice->id ? 'selected' : '' }}
+                                value="{{ $applicationOffice->id }}">{{ $applicationOffice->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('basvuru_ofis')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Randevu Ofisi</label>
+                    <select class="form-select" name="randevu_ofis">
+                        <option value="">Lütfen randevu ofisini seçin</option>
+                        @foreach ($appointmentOffices as $appointmentOffice)
+                            <option {{ old('randevu_ofis') == $appointmentOffice->id ? 'selected' : '' }}
+                                value="{{ $appointmentOffice->id }}">{{ $appointmentOffice->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('randevu_ofis')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>

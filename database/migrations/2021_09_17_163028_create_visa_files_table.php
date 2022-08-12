@@ -28,6 +28,9 @@ class CreateVisaFilesTable extends Migration
             $table->integer('expert_id')->nullable();
             $table->integer('translator_id')->nullable();
 
+            $table->integer('application_office_id')->nullable(); //başvuru ofisi
+            $table->integer('appointment_office_id')->nullable();//randevu ofisi
+
             $table->integer('status')->default(0); //dosya durumu acil veya normal
             $table->integer('active')->default(1); //0 ise pasif arşiv
             $table->timestamps();

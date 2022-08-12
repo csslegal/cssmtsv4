@@ -123,6 +123,10 @@
                             <span class=" fw-bold">Diğer Bilgiler</span>
                             <ul>
                                 <li>
+                                    <span class="fw-bold">Başvuru Ofisi:</span>
+                                    <span>{{ $visaArchive->application_offices_name == '' ? 'Sonuç bulunamadı' : $visaArchive->application_offices_name }}</span>
+                                </li>
+                                <li>
                                     <span class="fw-bold">Dosya Danışmanı:</span>
                                     <span>{{ $visaArchive->advisor_name == '' ? 'Sonuç bulunamadı' : $visaArchive->advisor_name }}</span>
                                 </li>
@@ -132,7 +136,7 @@
                                 </li>
                                 <li>
                                     <span class="fw-bold">Teslim Eden Ofis:</span>
-                                    <span>{{ $visaArchive->application_offices_name == '' ? 'Sonuç bulunamadı' : $visaArchive->application_offices_name }}</span>
+                                    <span>{{ $visaArchive->delivery_application_office_name == '' ? 'Sonuç bulunamadı' : $visaArchive->delivery_application_office_name }}</span>
                                 </li>
                                 <li>
                                     <span class="fw-bold">Teslim Eden Personel:</span>

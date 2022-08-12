@@ -67,18 +67,6 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Başvuru Ofisi</label>
-                    <select class="form-select" name="basvuru_ofis">
-                        <option value="">Lütfen başvuru ofisini seçin</option>
-                        @foreach ($applicationOffices as $applicationOffice)
-                            <option
-                                {{ $baseCustomerDetails->application_office_id == $applicationOffice->id ? 'selected' : '' }}
-                                value="{{ $applicationOffice->id }}">{{ $applicationOffice->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-3">
                     <label for="" class="form-label">Pasaport Numarası</label>
                     <input type="text" name="passport" placeholder="Müşteri güncel pasaport numarası"
                         class="form-control" autocomplete="off"

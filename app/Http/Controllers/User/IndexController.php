@@ -26,11 +26,11 @@ class IndexController extends Controller
             ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
             ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-            ->leftJoin('application_offices', 'application_offices.id', '=', 'customers.application_office_id')
+            ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_files.application_office_id')
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_files.visa_type_id')
             ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
 
-            ->where('visa_files.active', '=', 1);
+        ->where('visa_files.active', '=', 1);
 
         $webResults = DB::table('web_panel_auth')->where('user_id', '=', $request->session()->get('userId'))->get();
 
@@ -50,10 +50,13 @@ class IndexController extends Controller
         switch ($request->session()->get('userTypeId')) {
             case 2: //danisman
 
-                $userApplicationOfficeIds = DB::table('users_application_offices')->select('application_office_id')->where('user_id', '=', $request->session()->get('userId'))->pluck('application_office_id')->toArray();
+                $userApplicationOfficeIds = DB::table('users_application_offices')->select('application_office_id')
+                ->where('user_id', '=', $request->session()->get('userId'))
+                    ->pluck('application_office_id')->toArray();
                 $visaCustomers = $visaCustomersUsers
-                    ->whereIn('customers.application_office_id', $userApplicationOfficeIds)
-                    ->orWhere('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    ->whereIn('visa_files.application_office_id', $userApplicationOfficeIds)
+                    //->orWhere('visa_files.advisor_id', '=', $request->session()->get('userId'))
+                    //->where('visa_files.active', '=', 1)
                     //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
 

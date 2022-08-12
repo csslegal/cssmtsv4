@@ -50,11 +50,14 @@ class ArchivesController extends Controller
                 'visa_application_result.visa_refusal_date',
             'visa_application_result.visa_refusal_delivery_accepted_date',
 
+            'delivery_application_office.name AS delivery_application_office_name',
+
                 'visa_file_delivery.delivery_method',
                 'visa_file_delivery.courier_company',
                 'visa_file_delivery.tracking_number',
                 'visa_file_delivery.created_at AS visa_file_delivery_created_at',
 
+            'application_offices.name AS application_offices_name',
                 'application_offices.name AS application_offices_name',
             'appointment_offices.name AS appointment_offices_name',
 
@@ -71,8 +74,10 @@ class ArchivesController extends Controller
             ->leftJoin('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
             ->leftJoin('visa_file_delivery', 'visa_file_delivery.visa_file_id', '=', 'visa_files.id')
             ->leftJoin('users AS user_delivery', 'user_delivery.id', '=', 'visa_file_delivery.user_id')
-            ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_file_delivery.application_office_id')
-            ->leftJoin('appointment_offices', 'appointment_offices.id', '=', 'visa_appointments.appointment_office_id')
+            ->leftJoin('application_offices AS delivery_application_office', 'delivery_application_office.id', '=', 'visa_file_delivery.application_office_id')
+
+            ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_files.application_office_id')
+            ->leftJoin('appointment_offices', 'appointment_offices.id', '=', 'visa_files.appointment_office_id')
 
             ->where('visa_files.customer_id', '=', $id)
             ->where('visa_files.active', '=', 0)

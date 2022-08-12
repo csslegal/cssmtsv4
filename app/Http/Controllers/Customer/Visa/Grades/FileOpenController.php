@@ -15,20 +15,25 @@ class FileOpenController extends Controller
     {
         $baseCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
         $visaValidities = DB::table('visa_validity')->orderBy('orderby')->get();
+        $applicationOffices = DB::table('application_offices')->orderBy('orderby')->get();
+        $appointmentOffices = DB::table('appointment_offices')->orderBy('orderby')->get();
         $visaTypes = DB::table('visa_types')->orderBy('orderby')->get();
         $users = DB::table('users')->orderBy('orderby')->get();
 
         return view('customer.visa.grades.file-open')->with([
-            'baseCustomerDetails' => $baseCustomerDetails,
-            'visaTypes' => $visaTypes,
             'users' => $users,
+            'visaTypes' => $visaTypes,
             'visaValidities' => $visaValidities,
+            'baseCustomerDetails' => $baseCustomerDetails,
+            'applicationOffices' => $applicationOffices,
+            'appointmentOffices' => $appointmentOffices,
         ]);
     }
 
     public function store(Request $request, $id)
     {
-        $request->validate([
+        $request->validate(['basvuru_ofis' => 'required|numeric',
+            'randevu_ofis' => 'required|numeric',
             'vize-tipi' => 'required|numeric',
             'vize-sure' => 'required|numeric',
             'tc_number' => 'required|min:7',
@@ -43,6 +48,8 @@ class FileOpenController extends Controller
                 'customer_id' => $id,
                 'visa_type_id' => $request->input('vize-tipi'),
                 'visa_validity_id' => $request->input('vize-sure'),
+                'application_office_id' => $request->input('basvuru_ofis'),
+                'appointment_office_id' => $request->input('randevu_ofis'),
                 'visa_file_grades_id' => env('VISA_FILE_OPEN_GRADES_ID'),
                 'created_at' => date('Y-m-d H:i:s')
             ]);
@@ -58,7 +65,8 @@ class FileOpenController extends Controller
             } elseif ($request->session()->get('userTypeId') == 1 || $request->session()->get('userTypeId') == 4 || $request->session()->get('userTypeId') == 7) {
                 DB::table('visa_files')->where('id', '=', $dosyaRefNumber)->update(['advisor_id' => $request->input('danisman'),]);
             }
-            DB::table('customers')->where('id', '=', $id)->update(['tc_number' => $request->input('tc_number'),
+            DB::table('customers')->where('id', '=', $id)->update([
+                'tc_number' => $request->input('tc_number'),
                 'address' => $request->input('address'),
             ]);
 
