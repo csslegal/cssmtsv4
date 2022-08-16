@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://mts.test:8080'),
+    'url' => env('APP_URL', 'http://mts.test'),
 
     'asset_url' => env('ASSET_URL', null),
 

@@ -134,7 +134,6 @@ Route::middleware(['sessionCheck'])->group(function () {
 
         /*** Kullanıcılar ajax işlemleri*/
         Route::group(['prefix' => 'ajax'], function () {
-
         });
     });
 
