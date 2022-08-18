@@ -2,7 +2,7 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb p-2 ">
+        <ol  id="breadcrumb" class="breadcrumb">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/web">Web İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/web/url">Url Analizleri</a></li>

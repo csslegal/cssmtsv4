@@ -5,7 +5,7 @@
 @endsection
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol id="breadcrumb" class="breadcrumb p-2">
+        <ol id="breadcrumb" class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">Kullanıcı İşlemleri</li>
         </ol>
     </nav>

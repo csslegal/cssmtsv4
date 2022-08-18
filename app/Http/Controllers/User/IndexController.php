@@ -14,13 +14,13 @@ class IndexController extends Controller
         $visaCustomersUsers = DB::table('customers')
             ->select([
                 'customers.id AS id',
-            'application_offices.name AS application_office_name',
+                'application_offices.name AS application_office_name',
                 'customers.name AS name',
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
                 'visa_file_grades.name AS visa_file_grades_name',
                 'visa_validity.name AS visa_validity_name',
-            'visa_types.name AS visa_type_name',
+                'visa_types.name AS visa_type_name',
                 'users.name AS u_name',
             ])
             ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
@@ -30,7 +30,7 @@ class IndexController extends Controller
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_files.visa_type_id')
             ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
 
-        ->where('visa_files.active', '=', 1);
+            ->where('visa_files.active', '=', 1);
 
         $webResults = DB::table('web_panel_auth')->where('user_id', '=', $request->session()->get('userId'))->get();
 
@@ -51,7 +51,7 @@ class IndexController extends Controller
             case 2: //danisman
 
                 $userApplicationOfficeIds = DB::table('users_application_offices')->select('application_office_id')
-                ->where('user_id', '=', $request->session()->get('userId'))
+                    ->where('user_id', '=', $request->session()->get('userId'))
                     ->pluck('application_office_id')->toArray();
                 $visaCustomers = $visaCustomersUsers
                     ->whereIn('visa_files.application_office_id', $userApplicationOfficeIds)
