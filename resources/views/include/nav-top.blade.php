@@ -1,4 +1,4 @@
-<div id="nav-top" class="container bg-dark mb-2 border">
+<div id="nav-top" class="container bg-dark mb-3 border">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-2">
         <span id="slogan" class="fs-4 link-light ">Müşteri Takip Sistemi</span>
         <ul class="nav col-12 col-md-auto justify-content-center">
