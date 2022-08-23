@@ -1,8 +1,18 @@
 <div class="card card-dark mb-3">
-    <div class="card-header bg-dark text-light  fw-bold">Cari Dosya Detayları
+    <div class="card-header bg-dark text-light">
+        Cari Dosya Detayları
         @if (session('userTypeId') == 1)
-            <a data-bs-toggle="modal" onclick="asama();" data-bs-target="#exampleModal" class="float-end fw-bold text-white"
-                href="#">Dosya Aşama İşlemleri</a>
+            <div class="dropdown float-end">
+                <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dosya Güncelleme
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="asama();" data-bs-target="#exampleModal">Dosya Aşaması</a></li>
+                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="status();" data-bs-target="#exampleModal">Dosya Durumu</a></li>
+                </ul>
+            </div>
+
         @endif
     </div>
 

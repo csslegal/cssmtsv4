@@ -38,6 +38,7 @@ use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
 use App\Http\Controllers\Customer\Visa\IndexController as VisaIndexController;
 
 use App\Http\Controllers\Customer\Visa\GradesUpdateController as VisaGradesUpdateController;
+use App\Http\Controllers\Customer\Visa\StatusUpdateController as VisaStatusUpdateController;
 
 use App\Http\Controllers\Customer\Visa\Grades\FileOpenController as VisaFileOpenController;
 use App\Http\Controllers\Customer\Visa\Grades\FileOpenConfirmController as VisaFileOpenConfirmController;
@@ -90,6 +91,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                 /***Dosya aşamalarından bağımsız bölümler */
 
                 Route::resource('asama-guncelle', VisaGradesUpdateController::class);
+                Route::resource('durum-guncelle', VisaStatusUpdateController::class);
                 Route::resource('arsive-tasima', VisaArchiveTransportController::class);
 
                 /***Dosya aşamaları başlangıç */

@@ -91,6 +91,22 @@
 
                 $("#contentLoad").html('{!! html_entity_decode($asamalar) !!}');
             }
+            function status() {
+                $("#contentHead").html('Dosya Durumu Güncelleme');
+                @php
+                    $durum = '<form action="vize/' . $visaFileDetail->id . '/durum-guncelle" method="post"><div class="form-group"><select name="status" class="form-control">';
+                        if ($visaFileDetail->status) {
+                            $durum .= '<option selected value="1">Acil Dosya</option><option value="0">Normal Dosya</option>';
+                        } else {
+                            $durum .= '<option value="1">Acil Dosya</option><option selected value="0">Normal Dosya</option>';
+                        }
+                    $durum .= '</select>';
+                    $durum .= '<input type="hidden" name="_token" value="' . csrf_token() . '" /></div>';
+                    $durum .= '<button type="submit" class="btn btn-dark text-white mt-2">Güncelle</button></form>';
+                @endphp
+
+                $("#contentLoad").html('{!! html_entity_decode($durum) !!}');
+            }
         @endif
     </script>
 @endsection

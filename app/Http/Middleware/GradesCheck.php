@@ -14,6 +14,7 @@ class GradesCheck
         //dd($theLastedURL);
         $arrayURLS = array(
             'asama-guncelle',
+            'durum-guncelle',
             'fatura',
             'odeme',
             'kapatma',
