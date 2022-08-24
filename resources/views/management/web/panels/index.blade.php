@@ -19,7 +19,6 @@
                         <th>ID</th>
                         <th>Grup Adı</th>
                         <th>Panel Adı</th>
-                        <th>Panel URL</th>
                         <th>E. Tarih</th>
                         <th>G. Tarih</th>
                         <th>İşlem</th>
@@ -31,7 +30,6 @@
                             <td>{{ $result->id }}</td>
                             <td>{{ $result->g_name }}</td>
                             <td>{{ $result->p_name }}</td>
-                            <td>{{ $result->url }}</td>
 
                             <td>{{ $result->created_at }}</td>
                             <td>{{ $result->updated_at }}</td>
