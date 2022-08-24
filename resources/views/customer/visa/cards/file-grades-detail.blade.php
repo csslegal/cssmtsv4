@@ -1,5 +1,5 @@
 <div class="card card-dark mb-3">
-    <div class="card-header bg-dark text-light fw-bold">Cari Dosya Geçmişi</div>
+    <div class="card-header bg-dark text-light">Cari Dosya Geçmişi</div>
 
     <div class="card-body scroll">
         <span class="text-red fw-bold">İşlemler</span>

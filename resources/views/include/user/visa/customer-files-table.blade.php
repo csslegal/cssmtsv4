@@ -1,6 +1,6 @@
 @if (in_array(1, $userAccesses))
     <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white fw-bold">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
+        <div class="card-header bg-dark text-white">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
         <div class="card-body scroll">
             <table id="dataTableVize" class="table table-striped table-bordered display" style="width:100%">
                 <thead>

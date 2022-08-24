@@ -1,5 +1,5 @@
 <div class="card card-dark mb-3">
-    <div class="card-header bg-dark text-white fw-bold">Vize Dosya İşlemleri</div>
+    <div class="card-header bg-dark text-white">Vize Dosya İşlemleri</div>
     <div class="card-body scroll">
         <div class="row">
 

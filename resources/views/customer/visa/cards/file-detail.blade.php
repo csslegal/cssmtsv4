@@ -19,7 +19,7 @@
     <div class="card-body scroll">
         <div class="row">
             <div class="col-lg-4">
-                <span class=" fw-bold">Cari Dosya Detayı</span>
+                <span class="">Cari Dosya Detayı</span>
                 <ul>
                     <li>
                         <span class="fw-bold">Başvuru Ofisi:</span>
