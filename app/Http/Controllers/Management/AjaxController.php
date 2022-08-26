@@ -131,7 +131,7 @@ class AjaxController extends Controller
         // Fetch records
         $records = DB::table('customers')->orderBy($columnName, $columnSortOrder)
             ->where('customers.name', 'like', '%' . $searchValue . '%')
-        ->select('customers.*')->skip($start)->take($rowperpage)->get();
+            ->select('customers.*')->skip($start)->take($rowperpage)->get();
 
         $data_arr = array();
 
@@ -220,7 +220,7 @@ class AjaxController extends Controller
 
             ->where('customers.name', 'like', '%' . $searchValue . '%')
             ->orWhere('customers.id', 'like', '%' . $searchValue . '%')
-        ->skip($start)->take($rowperpage)->get();
+            ->skip($start)->take($rowperpage)->get();
 
         $data_arr = array();
 
