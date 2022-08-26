@@ -90,8 +90,18 @@
         </div>
     </div>
 @endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
+@endsection
+
 @section('js')
+    <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
     <script>
+        new AirDatepicker('.datepicker', {
+            isMobile: true,
+            autoClose: true,
+        })
         $('#name').change(function() {
             $.ajax({
                 url: "/musteri/ajax/name-kontrol",

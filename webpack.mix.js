@@ -17,3 +17,5 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.copy('node_modules/tinymce/skins', 'public/js/skins');
 mix.copy('node_modules/chart.js/dist', 'public/js/chart.js');
+mix.copy('node_modules/tinymce', 'public/js/tinymce');
+mix.copy('node_modules/air-datepicker', 'public/js/air-datepicker');

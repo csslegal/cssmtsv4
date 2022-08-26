@@ -1,10 +1,11 @@
 @extends('sablon.genel')
 
 
-@section('title') Müşteri Kayıt @endsection
+@section('title')
+    Müşteri Kayıt
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
         <ol id="breadcrumb" class="breadcrumb">
             <li class="breadcrumb-item">
@@ -49,7 +50,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">Müşteri Açık Adresi</label>
-                    <input autocomplete="off" type="text" class="form-control" name="address" value="{{ old('address') }}">
+                    <input autocomplete="off" type="text" class="form-control" name="address"
+                        value="{{ old('address') }}">
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label">Müşteri T.C. Numarası</label>
@@ -60,13 +62,26 @@
                 </div>
                 <!-- {{ csrf_field() }} -->
                 @csrf
-                <button class="w-100 mt-3 btn btn-dark text-white btn-lg confirm" data-content="Devam edilsin mi?" type="submit">Kaydet</button>
+                <button class="w-100 mt-3 btn btn-dark text-white btn-lg confirm" data-content="Devam edilsin mi?"
+                    type="submit">Kaydet</button>
             </form>
         </div>
     </div>
 @endsection
+
+
 @section('js')
+    <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
     <script>
+        tinymce.init({
+            selector: '#editor200',
+            height: 200,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor visualblocks fullscreen insertdatetime media table paste wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        });
         $('#name').change(function() {
             $.ajax({
                 url: "/musteri/ajax/name-kontrol",

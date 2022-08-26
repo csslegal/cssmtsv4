@@ -6,5 +6,22 @@
     "/js/chart.js/chart.min.js": "/js/chart.js/chart.min.js",
     "/js/chart.js/chart.mjs": "/js/chart.js/chart.mjs",
     "/js/chart.js/helpers.esm.js": "/js/chart.js/helpers.esm.js",
-    "/js/chart.js/helpers.mjs": "/js/chart.js/helpers.mjs"
+    "/js/chart.js/helpers.mjs": "/js/chart.js/helpers.mjs",
+    "/js/tinymce/bower.json": "/js/tinymce/bower.json",
+    "/js/tinymce/CHANGELOG.md": "/js/tinymce/CHANGELOG.md",
+    "/js/tinymce/composer.json": "/js/tinymce/composer.json",
+    "/js/tinymce/jquery.tinymce.js": "/js/tinymce/jquery.tinymce.js",
+    "/js/tinymce/jquery.tinymce.min.js": "/js/tinymce/jquery.tinymce.min.js",
+    "/js/tinymce/license.txt": "/js/tinymce/license.txt",
+    "/js/tinymce/package.json": "/js/tinymce/package.json",
+    "/js/tinymce/README.md": "/js/tinymce/README.md",
+    "/js/tinymce/tinymce.d.ts": "/js/tinymce/tinymce.d.ts",
+    "/js/tinymce/tinymce.js": "/js/tinymce/tinymce.js",
+    "/js/tinymce/tinymce.min.js": "/js/tinymce/tinymce.min.js",
+    "/js/air-datepicker/air-datepicker.css": "/js/air-datepicker/air-datepicker.css",
+    "/js/air-datepicker/air-datepicker.d.ts": "/js/air-datepicker/air-datepicker.d.ts",
+    "/js/air-datepicker/air-datepicker.js": "/js/air-datepicker/air-datepicker.js",
+    "/js/air-datepicker/index.es.js": "/js/air-datepicker/index.es.js",
+    "/js/air-datepicker/package.json": "/js/air-datepicker/package.json",
+    "/js/air-datepicker/README.md": "/js/air-datepicker/README.md"
 }

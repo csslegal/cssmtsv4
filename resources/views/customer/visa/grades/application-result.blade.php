@@ -46,8 +46,7 @@
                 <div class="mb-3" id="vbit">
                     <label>Vize Bitiş Tarihi</label>
                     <input type="text" class="form-control datepicker1" autocomplete="off" id="vize_bitis_tarihi"
-                        name="vize_bitis_tarihi"
-                        value="{{ old('vize_bitis_tarihi') ? old('vize_bitis_tarihi') : '' }}" />
+                        name="vize_bitis_tarihi" value="{{ old('vize_bitis_tarihi') ? old('vize_bitis_tarihi') : '' }}" />
                     @error('vize_bitis_tarihi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -80,7 +79,8 @@
                 <div class="mb-3" id="rat">
                     <label>Ret Teslim Alınma Tarihi</label>
                     <input type="text" class="form-control datepicker4" id="red_teslim_alinma_tarihi" autocomplete="off"
-                        name="red_teslim_alinma_tarihi" value="{{ old('red_teslim_alinma_tarihi') ? old('red_teslim_alinma_tarihi') : '' }}"/>
+                        name="red_teslim_alinma_tarihi"
+                        value="{{ old('red_teslim_alinma_tarihi') ? old('red_teslim_alinma_tarihi') : '' }}" />
                     @error('red_teslim_alinma_tarihi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -91,8 +91,34 @@
         </div>
     </div>
 @endsection
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
+@endsection
+
 @section('js')
-    <script type="text/javascript">
+    <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
+    <script>
+        new AirDatepicker('.datepicker', {
+            isMobile: true,
+            autoClose: true,
+        })
+        new AirDatepicker('.datepicker1', {
+            isMobile: true,
+            autoClose: true,
+        })
+        new AirDatepicker('.datepicker2', {
+            isMobile: true,
+            autoClose: true,
+        })
+        new AirDatepicker('.datepicker3', {
+            isMobile: true,
+            autoClose: true,
+        })
+        new AirDatepicker('.datepicker4', {
+            isMobile: true,
+            autoClose: true,
+        })
         $(document).ready(function() {
             if ($("#sonuc").val() == 1) {
                 $("#rs,#rt,#rat").css("display", "none");

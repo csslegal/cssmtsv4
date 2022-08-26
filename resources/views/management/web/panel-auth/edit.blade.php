@@ -84,9 +84,21 @@
     </div>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
+@endsection
 
 @section('js')
+    <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
     <script>
+        new AirDatepicker('.datepicker1', {
+            isMobile: true,
+            autoClose: true,
+        })
+        new AirDatepicker('.datepicker2', {
+            isMobile: true,
+            autoClose: true,
+        })
         $(document).ready(function() {
             $("#checkedAll").change(function() {
                 if (this.checked) {
