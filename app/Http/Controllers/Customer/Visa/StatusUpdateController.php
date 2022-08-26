@@ -38,11 +38,19 @@ class StatusUpdateController extends Controller
     {
         if (DB::table('visa_files')->where('id', '=', $visa_file_id)->update(['status' => $request->input('status'), 'updated_at' => date('Y-m-d H:i:s')])) {
 
+            $status = "";
+
+            if ($request->input('status') == 1) {
+                $status .= "ACİL";
+            } else {
+                $status .= "NORMAL";
+            }
+
             DB::table('visa_file_logs')->insert([
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => 'Dosya durumu güncelleme',
-                'content' => 'Dosya durum güncellemesi yapıldı',
+                'content' => 'Dosya durumu ' . $status . ' olarak güncellendi',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 

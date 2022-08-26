@@ -37,8 +37,8 @@
                                     <span>{{ $visaArchive->visa_validity_name }}</span>
                                 </li>
                                 <li>
-                                    <span class="fw-bold">Dosya Aciliyeti:</span>
-                                    <span>{{ $visaArchive->status == 0 ? 'Normal' : 'Acil' }}</span>
+                                    <span class="fw-bold">Dosya Durumu:</span>
+                                    <span>{{ $visaArchive->status == 0 ? 'Normal' : 'Acil' }} Dosya</span>
                                 </li>
 
                                 @if ($visaArchive->visa_result == null)
