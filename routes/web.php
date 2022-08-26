@@ -160,6 +160,7 @@ Route::middleware(['sessionCheck'])->group(function () {
 
             Route::get('customers', [ManagementAjaxController::class, 'get_customers_list']);
             Route::get('visa-logs', [ManagementAjaxController::class, 'get_visa_logs_list']);
+            Route::get('visa-grades-count', [ManagementAjaxController::class, 'get_visa_grades_count']);
         });
 
         /**Yonetim vize işlemleri*/

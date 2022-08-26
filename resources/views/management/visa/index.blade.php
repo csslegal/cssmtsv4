@@ -13,6 +13,9 @@
             @include('include.management.visa.nav')
 
             <!-- vize dosyaları logları-->
+            @include('include.management.visa.chartjs')
+
+            <!-- vize dosyaları logları-->
             @include('include.management.visa.logs')
 
             <!-- Modal -->
@@ -72,7 +75,86 @@
 @endsection
 
 @section('js')
+    <script src="{{ asset('js/chart.js/chart.min.js') }}"></script>
     <script>
+        const label = "Cari Dosya Sayısı";
+        @php
+            $keys = [];
+            $values = [];
+            foreach ($visaFilesGradesCount as $col => $val) {
+                array_push($keys, rtrim($col,' dosyalar'));
+                array_push($values, $val);
+            }
+            $labels = '"'. implode('", "', $keys).'"';
+            $veri = implode(', ', $values);
+        @endphp
+
+
+        const veri = [
+            {!! $veri !!}
+        ];
+
+        const labels = [
+            {!! $labels !!}
+        ];
+
+        const borderColor = [
+            'rgba(21, 89, 84, 1)',
+            'rgba(255, 162, 0, 1)',
+            'rgba(103, 39, 112, 1)',
+            'rgba(255, 55, 18, 1)',
+            'rgba(29, 17, 72, 1)',
+            'rgba(242, 202, 151, 1)',
+            'rgba(119, 124, 238, 1)',
+            'rgba(238, 119, 119, 1)',
+            'rgba(141, 56, 201, 1)',
+            'rgba(102, 152, 255, 1)',
+            'rgba(56, 124, 68, 1)',
+            'rgba(76, 196, 23, 1)',
+        ];
+
+        const backgroundColor = [
+            'rgba(21, 89, 84, 0.5)',
+            'rgba(255, 162, 0, 0.5)',
+            'rgba(103, 39, 112, 0.5)',
+            'rgba(255, 55, 18, 0.5)',
+            'rgba(29, 17, 72, 0.5)',
+            'rgba(242, 202, 151, 0.5)',
+            'rgba(119, 124, 238, 0.5)',
+            'rgba(238, 119, 119, 0.5)',
+            'rgba(141, 56, 201, 0.5)',
+            'rgba(102, 152, 255, 0.5)',
+            'rgba(56, 124, 68, 0.5)',
+            'rgba(76, 196, 23, 0.5)',
+        ]
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: label,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
+                data: veri,
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            },
+        };
+
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+
         function contentLoad(ne, id) {
             var url = "";
             if (ne == 'not') {
@@ -91,7 +173,7 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data, status, xhr) {
-                    if (data['content']==='') {
+                    if (data['content'] === '') {
                         $("#contentLoad").html('İçerik bulunamadı');
                     } else {
                         $("#contentLoad").html(data['content']);

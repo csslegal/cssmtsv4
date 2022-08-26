@@ -28,6 +28,19 @@ class VisaController extends Controller
             ->orderByDesc('customer_notes.id')
             ->get();
 
+        $visaFilesGradesCount = DB::table('visa_files')
+            ->select([
+                'visa_file_grades.name AS visa_file_grades_name',
+                DB::raw('count(*) as total')
+            ])
+            ->rightJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+
+            ->groupBy('visa_files.visa_file_grades_id')
+            ->where('visa_files.active', '=', 1)
+
+            ->pluck('total','visa_file_grades_name')->all();
+
+
         return view('management.visa.index')->with(
             [
                 'countVisaTypes' => $countVisaTypes,
@@ -35,6 +48,7 @@ class VisaController extends Controller
                 'countVisaFileGradesUsersType' => $countVisaFileGradesUsersType,
                 'countVisaValidity' => $countVisaValidity,
                 'customerNotes' => $customerNotes,
+                'visaFilesGradesCount' => $visaFilesGradesCount,
             ]
         );
     }
