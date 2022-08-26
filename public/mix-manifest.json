@@ -1,4 +1,10 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/chart.js/chart.esm.js": "/js/chart.js/chart.esm.js",
+    "/js/chart.js/chart.js": "/js/chart.js/chart.js",
+    "/js/chart.js/chart.min.js": "/js/chart.js/chart.min.js",
+    "/js/chart.js/chart.mjs": "/js/chart.js/chart.mjs",
+    "/js/chart.js/helpers.esm.js": "/js/chart.js/helpers.esm.js",
+    "/js/chart.js/helpers.mjs": "/js/chart.js/helpers.mjs"
 }
