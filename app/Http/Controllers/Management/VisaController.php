@@ -33,13 +33,14 @@ class VisaController extends Controller
                 'visa_file_grades.name AS visa_file_grades_name',
                 DB::raw('count(*) as total')
             ])
-            ->rightJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+            ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
 
             ->groupBy('visa_files.visa_file_grades_id')
-            ->where('visa_files.active', '=', 1)
+            //->where('visa_files.active', '=', 1)
 
-            ->pluck('total','visa_file_grades_name')->all();
+            ->pluck('total', 'visa_file_grades_name')->all();
 
+        //dd($visaFilesGradesCount);
 
         return view('management.visa.index')->with(
             [
