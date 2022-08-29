@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,6 +11,20 @@ class VisaController extends Controller
 {
     public function get_index()
     {
+
+        //Danışma kullanıcı tipi idsi
+        define('ADVISOR_USER_TYPE_ID', 2);
+
+        /***Visa applications result positive */
+        define('VISA_APPLICATION_RESULT_POSITIVE_ID', 1);
+
+
+        /***Visa applications result negative */
+        define('VISA_APPLICATION_RESULT_NEGATIVE_ID', 0);
+
+        /***Visa applications result iade */
+        define('VISA_APPLICATION_RESULT_IADE', 2);
+
         $countVisaFileGrades = DB::table('visa_file_grades')->get()->count();
         $countVisaFileGradesUsersType = DB::table('visa_file_grades_users_type')->distinct()->get()->count();
         $countVisaValidity = DB::table('visa_validity')->get()->count();
@@ -52,7 +67,38 @@ class VisaController extends Controller
 
             ->pluck('total', 'application_office_name')->all();
 
-        //dd($visaFilesGradesCount);
+        $arrayVisaFilesAdvisorsAnalist = [];
+
+        $AllAdvisors = DB::table('users')->select(['id', 'name'])
+            ->where('active', '=', 1)
+            ->where('user_type_id', '=', ADVISOR_USER_TYPE_ID)->get();
+
+        foreach ($AllAdvisors as $AllAdvisor) {
+
+            $positiveCount = 0;
+            $negativeCount = 0;
+            $iadeCount = 0;;
+
+            $positiveCount =   DB::table('visa_files')
+                ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                ->where('visa_files.advisor_id', '=', $AllAdvisor->id)
+                ->where('visa_application_result.visa_result', '=', VISA_APPLICATION_RESULT_POSITIVE_ID)->get()->count();
+            $negativeCount =  DB::table('visa_files')
+                ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                ->where('visa_files.advisor_id', '=', $AllAdvisor->id)
+                ->where('visa_application_result.visa_result', '=', VISA_APPLICATION_RESULT_NEGATIVE_ID)->get()->count();
+            $iadeCount =  DB::table('visa_files')
+                ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                ->where('visa_files.advisor_id', '=', $AllAdvisor->id)
+                ->where('visa_application_result.visa_result', '=', VISA_APPLICATION_RESULT_IADE)->get()->count();
+
+            array_push($arrayVisaFilesAdvisorsAnalist, array(
+                $AllAdvisor->name,
+                $positiveCount == null ? 0 : $positiveCount,
+                $negativeCount == null ? 0 : $negativeCount,
+                $iadeCount == null ? 0 : $iadeCount
+            ));
+        }
 
         return view('management.visa.index')->with(
             [
@@ -63,6 +109,7 @@ class VisaController extends Controller
                 'customerNotes' => $customerNotes,
                 'visaFilesGradesCount' => $visaFilesGradesCount,
                 'visaFilesApplicationOfficeCount' => $visaFilesApplicationOfficeCount,
+                'arrayVisaFilesAdvisorsAnalist' => $arrayVisaFilesAdvisorsAnalist,
             ]
         );
     }
