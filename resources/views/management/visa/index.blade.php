@@ -77,26 +77,25 @@
 @section('js')
     <script src="{{ asset('js/chart.js/chart.min.js') }}"></script>
     <script>
-        const label = "Cari Dosya Sayısı";
-        @php
-            $keys = [];
-            $values = [];
-            foreach ($visaFilesGradesCount as $col => $val) {
-                array_push($keys, rtrim($col,' dosyalar'));
-                array_push($values, $val);
+        function shuffle(array) {
+            let currentIndex = array.length,
+                randomIndex;
+
+            // While there remain elements to shuffle.
+            while (currentIndex != 0) {
+
+                // Pick a remaining element.
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+
+                // And swap it with the current element.
+                [array[currentIndex], array[randomIndex]] = [
+                    array[randomIndex], array[currentIndex]
+                ];
             }
-            $labels = '"'. implode('", "', $keys).'"';
-            $veri = implode(', ', $values);
-        @endphp
 
-
-        const veri = [
-            {!! $veri !!}
-        ];
-
-        const labels = [
-            {!! $labels !!}
-        ];
+            return array;
+        }
 
         const borderColor = [
             'rgba(21, 89, 84, 1)',
@@ -112,7 +111,6 @@
             'rgba(56, 124, 68, 1)',
             'rgba(76, 196, 23, 1)',
         ];
-
         const backgroundColor = [
             'rgba(21, 89, 84, 0.5)',
             'rgba(255, 162, 0, 0.5)',
@@ -126,34 +124,77 @@
             'rgba(102, 152, 255, 0.5)',
             'rgba(56, 124, 68, 0.5)',
             'rgba(76, 196, 23, 0.5)',
-        ]
+        ];
 
-        const data = {
-            labels: labels,
-            datasets: [{
-                label: label,
-                backgroundColor: backgroundColor,
-                borderColor: borderColor,
-                data: veri,
-            }]
-        };
 
-        const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+
+        /**Dosya Aşamalarına Göre Cari Dosya Sayısı**/
+        @php
+            $gradesKey = [];
+            $gradesValue = [];
+            foreach ($visaFilesGradesCount as $col => $val) {
+                $stringArrayKey = explode(' ', $col);
+                array_push($gradesKey, $stringArrayKey[0] . ' ' . $stringArrayKey[1]);
+                array_push($gradesValue, $val);
+            }
+            $gradesKeys = '"' . implode('", "', $gradesKey) . '"';
+            $gradesValues = implode(', ', $gradesValue);
+        @endphp
+        new Chart(
+            document.getElementById('myChart'), {
+                type: 'bar',
+                data: {
+                    labels: [{!! $gradesKeys !!}],
+                    datasets: [{
+                        label: 'Cari Dosya Sayısı',
+                        backgroundColor: shuffle(backgroundColor),
+                        borderColor: shuffle(borderColor),
+                        data: [{!! $gradesValues !!}],
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
-                }
-            },
-        };
-
-        const myChart = new Chart(
-            document.getElementById('myChart'),
-            config
+                },
+            }
         );
+
+        /**Başvuru Ofisine Göre Cari Dosya Sayısı**/
+        @php
+            $applicationOfficeKey = [];
+            $applicationOfficeValue = [];
+            foreach ($visaFilesApplicationOfficeCount as $col => $val) {
+                array_push($applicationOfficeKey, $col);
+                array_push($applicationOfficeValue, $val);
+            }
+            $applicationOfficeKeys = '"' . implode('", "', $applicationOfficeKey) . '"';
+            $applicationOfficeValues = implode(', ', $applicationOfficeValue);
+        @endphp
+        new Chart(
+            document.getElementById('myChart2'), {
+                type: 'bar',
+                data: {
+                    labels: [{!! $applicationOfficeKeys !!}],
+                    datasets: [{
+                        label: 'Cari Dosya Sayısı',
+                        backgroundColor: shuffle(backgroundColor),
+                        borderColor: shuffle(borderColor),
+                        data: [{!! $applicationOfficeValues !!}],
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                },
+            }
+        );
+
 
         function contentLoad(ne, id) {
             var url = "";

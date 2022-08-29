@@ -30,7 +30,7 @@
     </div>
     @if (isset($customerDetails))
 
-        @if ($customerDetails->count()>0)
+        @if ($customerDetails->count() > 0)
             <div class="col-md-12 mt-5 mb-3">
                 <div class="card card-dark">
                     <div class="card-header bg-dark text-white">Bulunan Sonuçlar</div>
@@ -93,12 +93,8 @@
                 <div class="card card-dark">
                     <div class="card-header bg-dark text-white">Bulunan Sonuçlar</div>
                     <div class="card-body scroll">
-
-                        <div class="alert alert-dark text-dark">
-                            Herhangi bir müşteri kaydı bulunamadı. Kayıt sayfasına gitmek için <a class="fw-bold" href="/musteri/create">tıklayınız</a>.
-                        </div>
-                        <p></p>
-
+                        Herhangi bir müşteri kaydı bulunamadı. Kayıt sayfasına gitmek için
+                        <a class="fw-bold" href="/musteri/create">tıklayınız</a>
                     </div>
                 </div>
             </div>

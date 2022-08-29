@@ -36,9 +36,21 @@ class VisaController extends Controller
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
 
             ->groupBy('visa_files.visa_file_grades_id')
-            //->where('visa_files.active', '=', 1)
+            ->where('visa_files.active', '=', 1)
 
             ->pluck('total', 'visa_file_grades_name')->all();
+
+        $visaFilesApplicationOfficeCount = DB::table('visa_files')
+            ->select([
+                'application_offices.name AS application_office_name',
+                DB::raw('count(*) as total')
+            ])
+            ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_files.application_office_id')
+
+            ->groupBy('visa_files.application_office_id')
+            ->where('visa_files.active', '=', 1)
+
+            ->pluck('total', 'application_office_name')->all();
 
         //dd($visaFilesGradesCount);
 
@@ -50,6 +62,7 @@ class VisaController extends Controller
                 'countVisaValidity' => $countVisaValidity,
                 'customerNotes' => $customerNotes,
                 'visaFilesGradesCount' => $visaFilesGradesCount,
+                'visaFilesApplicationOfficeCount' => $visaFilesApplicationOfficeCount,
             ]
         );
     }
