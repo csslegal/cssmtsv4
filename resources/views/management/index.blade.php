@@ -62,6 +62,15 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <div class="card mb-2">
                                 <div class="card-body">
+                                    <h5 class="card-title">Sistem Logları</h5>
+                                    <p class="card-text">Sistem kayıtlı loglar</p>
+                                    <a href="yonetim/logging" class="btn btn-dark float-end">Git</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 ">
+                            <div class="card mb-2">
+                                <div class="card-body">
                                     <h5 class="card-title">Kullanıcı Tipleri</h5>
                                     <p class="card-text">Sistemde {{ $countUserType }} kayıt var.</p>
                                     <a href="yonetim/users-type" class="btn btn-dark float-end">Git</a>

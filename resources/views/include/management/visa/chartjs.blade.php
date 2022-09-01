@@ -14,9 +14,8 @@
                     <canvas id="myChart2"></canvas>
                 </div>
             </div>
-            <div class="col-md-12 mt-5"></div>
-            <div class="col-md-12">
-                <label for="" class="text text-dark fw-bold">Danışman Vize Sonucu Performansı(VİZE x RED)</label>
+            <div class="col-md-6  mt-5">
+                <label for="" class="text text-dark fw-bold">Danışman Vize Sonuc Performansı(VİZE x RED)</label>
                 <div style="width: 100%;">
                     <canvas id="myChart3"></canvas>
                 </div>

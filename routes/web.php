@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\General\LoginController as GeneralLoginController;
 use App\Http\Controllers\Management\IndexController as ManagementIndexController;
 use App\Http\Controllers\Management\ProfilController as ManagementProfilController;
+use App\Http\Controllers\Management\LoggingController as ManagementLoggingController;
 use App\Http\Controllers\Management\CustomersController as ManagementCustomersController;
 use App\Http\Controllers\Management\AjaxController as ManagementAjaxController;
 use App\Http\Controllers\Management\ApplicationOfficeController as ManagementApplicationOfficeController;
@@ -151,6 +152,7 @@ Route::middleware(['sessionCheck'])->group(function () {
         Route::resource('application-office', ManagementApplicationOfficeController::class);
         Route::resource('appointment-office', ManagementAppointmentOfficeController::class);
         Route::resource('customers', ManagementCustomersController::class);
+        Route::resource('logging', ManagementLoggingController::class);
 
         /**Yonetim ajax işlemleri*/
         Route::group(['prefix' => 'ajax'], function () {
