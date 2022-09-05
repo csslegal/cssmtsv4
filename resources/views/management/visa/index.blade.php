@@ -242,7 +242,9 @@
             $data = '';
             foreach ($arrayVisaFilesAdvisorsAnalist as $arrayVisaFilesAdvisorAnalist) {
                 $randomIndex = array_rand($arrayColors);
-                $data .= "{label: '" . $arrayVisaFilesAdvisorAnalist[0] . "',data: [{x: " . $arrayVisaFilesAdvisorAnalist[1] . ',y: ' . $arrayVisaFilesAdvisorAnalist[2] . ",r: 15}, ],backgroundColor: '" . $arrayColors[$randomIndex] . "'},";
+                //$arrayVisaFilesAdvisorAnalistRadius = 15;
+                $arrayVisaFilesAdvisorAnalistRadius = ($arrayVisaFilesAdvisorAnalist[1] / ($arrayVisaFilesAdvisorAnalist[1] + $arrayVisaFilesAdvisorAnalist[2])) * 20;
+                $data .= "{label: '" . $arrayVisaFilesAdvisorAnalist[0] . "',data: [{x: " . $arrayVisaFilesAdvisorAnalist[1] . ',y: ' . $arrayVisaFilesAdvisorAnalist[2] . ',r: ' . $arrayVisaFilesAdvisorAnalistRadius . "}, ],backgroundColor: '" . $arrayColors[$randomIndex] . "'},";
             }
         @endphp
         new Chart(document.getElementById('myChart3'), {
@@ -253,6 +255,20 @@
                 ]
             },
             options: {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return [
+                                    context.dataset.label + ' Analizleri:',
+                                    'Olumlu Sonuc Sayısı: ' + context.parsed.x,
+                                    'Olumsuz Sonuc Sayısı: ' + context.parsed.y,
+                                    'Başarı Oranı: %' + context.parsed.x / (context.parsed.x + context.parsed.y)*100,
+                                ];
+                            }
+                        }
+                    }
+                },
                 scales: {
                     y: {
                         type: 'linear',
