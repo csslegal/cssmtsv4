@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,42 +15,62 @@ class LoggingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, Response $response)
     {
-        /***Dosyadaki log kayıtları */
+        /**Dosyadaki log kayıtları*/
         $fileLogs = [];
+        $logFiles = [];
+        $logFileNames = [];
 
-        /***dizindeki log dosyaları */
-        $logFiles = array_filter(
+        /**dizindeki log dosyaları*/
+        $tempLogFileNames = array_filter(
             scandir(storage_path() . '/logs'),
             fn ($fn) => !str_starts_with($fn, '.') // filter everything that begins with dot
         );
 
+        foreach ($tempLogFileNames as $tempLogFileName) {
+            array_push($logFileNames, $tempLogFileName);
+        }
+
+        $logFileNames = array_reverse($logFileNames);
+
+        /**gecerli sayfa sayısı*/
+        $page = isset($request->page) ? $request->page : 1;
+        $page = $page <= 0 ? 1 : $page;
+
+        /**toplam sayfa sayısı*/
+        $totalContentCount = count($logFileNames);
+
+        /**her sayfada gösterilecek içerik sayısı*/
+        $showContentCount = 10;
+
+        /**kısaltma miktari ne kadaar düsüşise o kadar az button görüntüleecektir. */
+        $shortSize = 0;
+
+        /**son sayfa sayısı */
+        $endPage = ceil($totalContentCount / $showContentCount);
+
+        /**ilk sayfa sayısı*/
+        $startPage = ($page - 1) * $showContentCount;
+
+        /**Bitiş sayfa sayısı buyukse */
+        if ($endPage >= $page) {
+            for ($i = $startPage; $i < $startPage + $showContentCount; $i++) {
+                isset($logFileNames[$i]) ? array_push($logFiles, $logFileNames[$i]) : "";
+            }
+        }
+
         return view('management.logging.index')->with([
             'logFiles' => $logFiles,
             'fileLogs' => $fileLogs,
+            'pages' => [
+                'page' => $page,
+                'endPage' => $endPage,
+                'shortSize' => $shortSize,
+                'totalContentCount' => $totalContentCount,
+                'showContentCount' => $showContentCount,
+            ]
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -58,26 +79,52 @@ class LoggingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
 
-        $logFiles = array_filter(
+        $fileLogs = [];
+        $logFiles = [];
+        $logFileNames = [];
+
+        $tempLogFileNames = array_filter(
             scandir(storage_path() . '/logs'),
             fn ($fn) => !str_starts_with($fn, '.') // filter everything that begins with dot
         );
 
+        foreach ($tempLogFileNames as $tempLogFileName) {
+            array_push($logFileNames, $tempLogFileName);
+        }
+        $logFileNames = array_reverse($logFileNames);
 
-        // from PHP documentations
+        /**gecerli sayfa sayısı*/
+        $page = isset($request->page) ? $request->page : 1;
+        $page = $page <= 0 ? 1 : $page;
+
+        /**toplam sayfa sayısı*/
+        $totalContentCount = count($logFileNames);
+
+        /**her sayfada gösterilecek içerik sayısı*/
+        $showContentCount = 10;
+
+        /**kısaltma miktari ne kadaar düsüşise o kadar az button görüntüleecektir. */
+        $shortSize = 0;
+
+        /**son sayfa sayısı */
+        $endPage = ceil($totalContentCount / $showContentCount);
+
+        /**ilk sayfa sayısı*/
+        $startPage = ($page - 1) * $showContentCount;
+
+        /**Bitiş sayfa sayısı buyukse */
+        if ($endPage >= $page) {
+            for ($i = $startPage; $i < $startPage + $showContentCount; $i++) {
+                isset($logFileNames[$i]) ? array_push($logFiles, $logFileNames[$i]) : "";
+            }
+        }
+
         $logFile = file(storage_path() . '/logs\/' . $id);
-        $fileLogs = [];
-        // Loop through an array, show HTML source as HTML source; and line numbers too.
-        foreach ($logFile as $line_num => $line) {
-            /***
-            $explode = explode('local.INFO:', htmlspecialchars($line));
-            if (count($explode) > 0)
-                $fileLogs[] = array('line' => $line_num, 'date' => $explode[0], 'content' => $explode[1]);
 
-             */
+        foreach ($logFile as $line_num => $line) {
             if (count($logFile) > 0)
                 $fileLogs[] = array('line' => $line_num, 'content' => ($line));
         }
@@ -85,6 +132,13 @@ class LoggingController extends Controller
         return view('management.logging.index')->with([
             'fileLogs' => $fileLogs,
             'logFiles' => $logFiles,
+            'pages' => [
+                'page' => $page,
+                'endPage' => $endPage,
+                'shortSize' => $shortSize,
+                'totalContentCount' => $totalContentCount,
+                'showContentCount' => $showContentCount,
+            ]
         ]);
     }
 
@@ -117,8 +171,16 @@ class LoggingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        if (is_file(storage_path() . '/logs\/' . $id)) {
+            unlink(storage_path() . '/logs\/' . $id);
+
+            $request->session()->flash('mesajSuccess', 'Dosya silindi');
+            return redirect('yonetim/logging');
+        } else {
+            $request->session()->flash('mesajDanger', 'Dosya bulunamadı');
+            return redirect('yonetim/logging');
+        }
     }
 }
