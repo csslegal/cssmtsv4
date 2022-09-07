@@ -127,20 +127,13 @@
         function shuffle(array) {
             let currentIndex = array.length,
                 randomIndex;
-
-            // While there remain elements to shuffle.
             while (currentIndex != 0) {
-
-                // Pick a remaining element.
                 randomIndex = Math.floor(Math.random() * currentIndex);
                 currentIndex--;
-
-                // And swap it with the current element.
                 [array[currentIndex], array[randomIndex]] = [
                     array[randomIndex], array[currentIndex]
                 ];
             }
-
             return array;
         }
         const borderColor = [
@@ -241,9 +234,27 @@
             $arrayColors = ['rgb(21, 89, 84)', 'rgb(255, 162, 0)', 'rgb(103, 39, 112)', 'rgb(255, 55, 18)', 'rgb(29, 17, 72)', 'rgb(242, 202, 151)', 'rgb(119, 124, 238)', 'rgb(238, 119, 119)', 'rgb(141, 56, 201)', 'rgb(102, 152, 255)', 'rgb(56, 124, 68)', 'rgb(76, 196, 23)'];
             $data = '';
             foreach ($arrayVisaFilesAdvisorsAnalist as $arrayVisaFilesAdvisorAnalist) {
-                $randomIndex = array_rand($arrayColors);
-                //$arrayVisaFilesAdvisorAnalistRadius = 15;
-                $arrayVisaFilesAdvisorAnalistRadius = ($arrayVisaFilesAdvisorAnalist[1] / ($arrayVisaFilesAdvisorAnalist[1] + $arrayVisaFilesAdvisorAnalist[2])) * 20;
+                //array random index
+                $randomIndex = rand(0, count($arrayColors) - 1);
+                //olumlu sonuc sıfır ise
+                if ($arrayVisaFilesAdvisorAnalist[1] == 0) {
+                    //olumsuz sonuc
+                    if ($arrayVisaFilesAdvisorAnalist[2] == 0) {
+                        //radıus default
+                        $arrayVisaFilesAdvisorAnalistRadius = env('ANALIST_RADIUS_DEFAULT_ORAN');
+                    } else {
+                        $arrayVisaFilesAdvisorAnalistRadius = env('ANALIST_RADIUS_DOWN_ORAN');
+                    }
+                    //olumsu sonuc var ise
+                } else {
+                    //olumsuz yok ise
+                    if ($arrayVisaFilesAdvisorAnalist[2] == 0) {
+                        $arrayVisaFilesAdvisorAnalistRadius = env('ANALIST_RADIUS_UP_ORAN');
+                    } else {
+                        //hem olumlu hemde olumsuz sonuclar var ise oranı al
+                        $arrayVisaFilesAdvisorAnalistRadius = ($arrayVisaFilesAdvisorAnalist[1] / ($arrayVisaFilesAdvisorAnalist[1] + $arrayVisaFilesAdvisorAnalist[2])) * env('ANALIST_RADIUS_DEFAULT_ORAN');
+                    }
+                }
                 $data .= "{label: '" . $arrayVisaFilesAdvisorAnalist[0] . "',data: [{x: " . $arrayVisaFilesAdvisorAnalist[1] . ',y: ' . $arrayVisaFilesAdvisorAnalist[2] . ',r: ' . $arrayVisaFilesAdvisorAnalistRadius . "}, ],backgroundColor: '" . $arrayColors[$randomIndex] . "'},";
             }
         @endphp
@@ -263,7 +274,8 @@
                                     context.dataset.label + ' Analizleri:',
                                     'Olumlu Sonuc Sayısı: ' + context.parsed.x,
                                     'Olumsuz Sonuc Sayısı: ' + context.parsed.y,
-                                    'Başarı Oranı: %' + context.parsed.x / (context.parsed.x + context.parsed.y)*100,
+                                    'Başarı Oranı: %' + context.parsed.x / (context.parsed.x + context
+                                        .parsed.y) * 100,
                                 ];
                             }
                         }
