@@ -122,7 +122,7 @@ class LoggingController extends Controller
             }
         }
 
-        $logFile = file(storage_path() . '/logs\/' . $id);
+        $logFile = file(storage_path() . '/logs/' . $id);
 
         foreach ($logFile as $line_num => $line) {
             if (count($logFile) > 0)
@@ -173,8 +173,8 @@ class LoggingController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        if (is_file(storage_path() . '/logs\/' . $id)) {
-            unlink(storage_path() . '/logs\/' . $id);
+        if (is_file(storage_path() . '/logs/' . $id)) {
+            unlink(storage_path() . '/logs/' . $id);
 
             $request->session()->flash('mesajSuccess', 'Dosya silindi');
             return redirect('yonetim/logging');
