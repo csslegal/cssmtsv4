@@ -19,7 +19,7 @@
     <div class="row justify-content-md-center offset-md-2 col-md-8 mt-5">
         <form action="" method="POST">
             <div class="input-group input-group-lg mt-5 mb-4">
-                <input type="text" class="form-control" name="arama" autocomplete="off"
+                <input type="text"  autofocus class="form-control" name="arama" autocomplete="off"
                     value="{{ isset($arama) ? $arama : '' }}" placeholder="Kayıt sorgula" data-bs-toggle="tooltip"
                     data-bs-placement="bottom" data-bs-html="true"
                     title="Sorgulama Kriterleri <li>İsim Soyisim</li><li>E-Mail</li><li>Telefon</li><li>T.C. No</li><li> Pasaport No</li><li>Dosya Ref. No</li>">
