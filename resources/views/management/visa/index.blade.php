@@ -74,9 +74,24 @@
     </div>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
+@endsection
+
 @section('js')
+    <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
+
     <script src="{{ asset('js/chart.js/chart.min.js') }}"></script>
     <script>
+        new AirDatepicker('#dates', {
+            isMobile: true,
+            buttons: ['today', 'clear'],
+            range: true,
+            autoClose: true,
+            multipleDatesSeparator: '--',
+        })
+
+
         function contentLoad(ne, id) {
             var url = "";
             if (ne == 'not') {

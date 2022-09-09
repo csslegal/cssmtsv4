@@ -9,21 +9,18 @@ use Illuminate\Support\Facades\DB;
 
 class VisaController extends Controller
 {
-    public function get_index()
+    public function get_index(Request $request)
     {
 
-        //Danışma kullanıcı tipi idsi
-        define('ADVISOR_USER_TYPE_ID', 2);
+        if ($request->has('dates') && $request->input('dates') != '') {
+            $explodes =  explode('--', $request->input('dates'));
+        } else {
+            $explodes = [date('Y-m-01'), date('Y-m-28')];
+        }
 
-        /***Visa applications result positive */
-        define('VISA_APPLICATION_RESULT_POSITIVE_ID', 1);
-
-
-        /***Visa applications result negative */
-        define('VISA_APPLICATION_RESULT_NEGATIVE_ID', 0);
-
-        /***Visa applications result iade */
-        define('VISA_APPLICATION_RESULT_IADE', 2);
+        /**Dosya acılış tarihine göre filtreleme */
+        $startDate = $explodes[0];
+        $endDate = $explodes[1];
 
         $countVisaFileGrades = DB::table('visa_file_grades')->get()->count();
         $countVisaFileGradesUsersType = DB::table('visa_file_grades_users_type')->distinct()->get()->count();
@@ -53,6 +50,9 @@ class VisaController extends Controller
             ->groupBy('visa_files.visa_file_grades_id')
             ->where('visa_files.active', '=', 1)
 
+            ->whereDate('visa_files.created_at', '>=', $startDate)
+            ->whereDate('visa_files.created_at', '<=', $endDate)
+
             ->pluck('total', 'visa_file_grades_name')->all();
 
         $visaFilesApplicationOfficeCount = DB::table('visa_files')
@@ -65,32 +65,38 @@ class VisaController extends Controller
             ->groupBy('visa_files.application_office_id')
             ->where('visa_files.active', '=', 1)
 
+            ->whereDate('visa_files.created_at', '>=', $startDate)
+            ->whereDate('visa_files.created_at', '<=', $endDate)
+
             ->pluck('total', 'application_office_name')->all();
 
         $arrayVisaFilesAdvisorsAnalist = [];
 
-        $AllAdvisors = DB::table('users')->select(['id', 'name'])
-            ->where('active', '=', 1)
-            ->where('user_type_id', '=', ADVISOR_USER_TYPE_ID)->get();
+        $AllAdvisors = DB::table('users')->select(['id', 'name'])->where('active', '=', 1)
+            ->where('user_type_id', '=',  env('ADVISOR_USER_TYPE_ID'))->get();
 
         foreach ($AllAdvisors as $AllAdvisor) {
-
-            $positiveCount = 0;
-            $negativeCount = 0;
-            $iadeCount = 0;;
-
             $positiveCount =   DB::table('visa_files')
                 ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
                 ->where('visa_files.advisor_id', '=', $AllAdvisor->id)
-                ->where('visa_application_result.visa_result', '=', VISA_APPLICATION_RESULT_POSITIVE_ID)->get()->count();
+                ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                ->whereDate('visa_files.created_at', '>=', $startDate)
+                ->whereDate('visa_files.created_at', '<=', $endDate)
+                ->get()->count();
             $negativeCount =  DB::table('visa_files')
                 ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
                 ->where('visa_files.advisor_id', '=', $AllAdvisor->id)
-                ->where('visa_application_result.visa_result', '=', VISA_APPLICATION_RESULT_NEGATIVE_ID)->get()->count();
+                ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                ->whereDate('visa_files.created_at', '>=', $startDate)
+                ->whereDate('visa_files.created_at', '<=', $endDate)
+                ->get()->count();
             $iadeCount =  DB::table('visa_files')
                 ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
                 ->where('visa_files.advisor_id', '=', $AllAdvisor->id)
-                ->where('visa_application_result.visa_result', '=', VISA_APPLICATION_RESULT_IADE)->get()->count();
+                ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_IADE'))
+                ->whereDate('visa_files.created_at', '>=', $startDate)
+                ->whereDate('visa_files.created_at', '<=', $endDate)
+                ->get()->count();
 
             array_push($arrayVisaFilesAdvisorsAnalist, array(
                 $AllAdvisor->name,
@@ -107,6 +113,7 @@ class VisaController extends Controller
                 'countVisaFileGradesUsersType' => $countVisaFileGradesUsersType,
                 'countVisaValidity' => $countVisaValidity,
                 'customerNotes' => $customerNotes,
+
                 'visaFilesGradesCount' => $visaFilesGradesCount,
                 'visaFilesApplicationOfficeCount' => $visaFilesApplicationOfficeCount,
                 'arrayVisaFilesAdvisorsAnalist' => $arrayVisaFilesAdvisorsAnalist,
