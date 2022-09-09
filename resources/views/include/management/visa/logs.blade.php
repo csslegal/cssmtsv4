@@ -4,11 +4,11 @@
         <table id="dtVisaLogsTable" class="table table-striped table-bordered display" style="width:100%">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>İşlem Tarihi</th>
+                    <th>URL</th>
                     <th>Müşteri Adı</th>
                     <th>Aşama</th>
                     <th>İşlem Yapan</th>
+                    <th>İşlem Tarihi</th>
                 </tr>
             </thead>
         </table>

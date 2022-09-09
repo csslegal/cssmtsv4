@@ -16,7 +16,7 @@
             <table id="dtCustomersTable" class="table table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>URL</th>
                         <th>Adı</th>
                         <th>Telefon</th>
                         <th>E-posta</th>

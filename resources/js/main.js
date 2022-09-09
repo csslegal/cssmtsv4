@@ -30,30 +30,33 @@ $('#dtCustomersTable').DataTable({
         { data: 'phone' },
         { data: 'email' },
         { data: 'address' },
-
-    ]
+    ],
+    "columnDefs": [{
+        "targets": 0,
+        "render": function ( data, type, row, meta ) {
+            return '<a href="/musteri/' + data + '">Git</a>';
+        }
+    }],
 });
 $('#dtVisaLogsTable').DataTable({
     processing: true,
     serverSide: true,
-
     ajax: "/yonetim/ajax/visa-logs",
-    "order": [[1, 'desc'],],
-    "columnDefs": [{ "type": "num", "targets": 1 }],
     language: { url: '/dataTables.tr.json' },
     columns: [
         { data: 'id' },
-        { data: 'created_at' },
         { data: 'name' },
         { data: 'subject' },
         { data: 'u_name' },
-    ], columnDefs: [
-        {
-            render: function (data) {
-                return '<a href="/musteri/' + data + '/vize">' + data + '</a>';
-            },
+        { data: 'created_at' },
+    ],
+    "order": [[4, 'desc'],],
+    "columnDefs": [{
+        "targets": 0,
+        "render": function ( data, type, row, meta ) {
+            return '<a href="/musteri/' + data + '/vize">Git</a>';
         }
-    ]
+    }],
 });
 
 $('a.confirm').confirm({
