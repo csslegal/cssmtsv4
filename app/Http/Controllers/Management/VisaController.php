@@ -11,7 +11,6 @@ class VisaController extends Controller
 {
     public function get_index(Request $request)
     {
-
         if ($request->has('dates') && $request->input('dates') != '') {
             $explodes =  explode('--', $request->input('dates'));
         } else {
@@ -106,19 +105,17 @@ class VisaController extends Controller
             ));
         }
 
-        return view('management.visa.index')->with(
-            [
-                'countVisaTypes' => $countVisaTypes,
-                'countFileGrades' => $countVisaFileGrades,
-                'countVisaFileGradesUsersType' => $countVisaFileGradesUsersType,
-                'countVisaValidity' => $countVisaValidity,
-                'customerNotes' => $customerNotes,
+        return view('management.visa.index')->with([
+            'countVisaTypes' => $countVisaTypes,
+            'countFileGrades' => $countVisaFileGrades,
+            'countVisaFileGradesUsersType' => $countVisaFileGradesUsersType,
+            'countVisaValidity' => $countVisaValidity,
+            'customerNotes' => $customerNotes,
 
-                'visaFilesGradesCount' => $visaFilesGradesCount,
-                'visaFilesApplicationOfficeCount' => $visaFilesApplicationOfficeCount,
-                'arrayVisaFilesAdvisorsAnalist' => $arrayVisaFilesAdvisorsAnalist,
-            ]
-        );
+            'visaFilesGradesCount' => $visaFilesGradesCount,
+            'visaFilesApplicationOfficeCount' => $visaFilesApplicationOfficeCount,
+            'arrayVisaFilesAdvisorsAnalist' => $arrayVisaFilesAdvisorsAnalist,
+        ]);
     }
     public function get_danisman(Request $request)
     {

@@ -14,23 +14,22 @@
     </div>
     <div class="card-body scroll">
         <div class="row">
-            <div class="col-lg-12 ">
+            <div class="col-lg-6 ">
                 <label class="text text-dark fw-bold">Aşamalara Göre</label>
-                <div style="height: auto;width: 310px; margin: 0 auto">
+                <div style="width: 100%">
                     <canvas id="myChart"></canvas>
                 </div>
             </div>
 
             <div class="col-lg-6">
                 <label class="text text-dark fw-bold">Başvuru Ofislere Göre</label>
-                <div style="height: auto;width: 310px; margin: 0 auto">
+                <div style="width: 100%">
                     <canvas id="myChart2"></canvas>
                 </div>
             </div>
             <div class="col-lg-6">
-                <label class="text text-dark fw-bold">Danışman Vize Sonuc Performansı(VİZE x
-                    RED)</label>
-                <div style="height: auto;width: 310px; margin: 0 auto">
+                <label class="text text-dark fw-bold">Danışman Vize Sonuc Performansı(VİZE x RED)</label>
+                <div style="width: 100%">
                     <canvas id="myChart3"></canvas>
                 </div>
             </div>
