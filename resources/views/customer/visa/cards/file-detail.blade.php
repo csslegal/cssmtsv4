@@ -18,8 +18,8 @@
 
     <div class="card-body scroll">
         <div class="row">
-            <div class="col-lg-4">
-                <span class="">Cari Dosya Detayı</span>
+            <div class="col-md-6 col-lg-4">
+                <span class="fw-bold">Cari Dosya Detayı</span>
                 <ul>
                     <li>
                         <span class="fw-bold">Başvuru Ofisi:</span>
@@ -31,9 +31,7 @@
                     </li>
                     <li>
                         <span class="fw-bold">Vize Tipi:</span>
-                        <span>
-                            {{ $visaFileDetail->visa_type_name }}
-                        </span>
+                        <span>{{ $visaFileDetail->visa_type_name }}</span>
                     </li>
                     <li>
                         <span class="fw-bold">Vize Süresi:</span>
@@ -46,7 +44,7 @@
 
                 </ul>
             </div>
-            <div class="col-lg-4">
+            <div class="col-md-6 col-lg-4">
                 <span class=" fw-bold">Randevu Bilgisi</span>
                 <ul>
                     <li>
@@ -68,7 +66,7 @@
 
                 </ul>
             </div>
-            <div class="col-lg-4">
+            <div class="col-md-6 col-lg-4">
                 <span class=" fw-bold">İlgili Personel</span>
                 <ul>
                     <li>
