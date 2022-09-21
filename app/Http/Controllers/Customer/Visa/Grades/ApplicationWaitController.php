@@ -17,25 +17,40 @@ class ApplicationWaitController extends Controller
 
         $times = DB::table('times')->get();
         $appointmentOffices = DB::table('appointment_offices')->get();
+        $users = DB::table('users')->orderBy('orderby')->get();
+
 
         return view('customer.visa.grades.appication-wait')->with([
             'baseCustomerDetails' => $baseCustomerDetails,
             'appointmentOffices' => $appointmentOffices,
             'visaFile' => $visaFile,
             'times' => $times,
+            'users' => $users,
         ]);
     }
 
     public function store($id, $visa_file_id, Request $request)
     {
-        $validatorStringArray = array(
-            'gwf' => 'required',
-            'ofis' => 'required',
-            'hesap_adi' => 'required',
-            'sifre' => 'required',
-            'tarih' => 'required',
-            'saat' => 'required',
-        );
+        if ($request->session()->get('userTypeId') == 1) {
+            $validatorStringArray = array(
+                'gwf' => 'required',
+                'uzman' => 'required',
+                'ofis' => 'required',
+                'hesap_adi' => 'required',
+                'sifre' => 'required',
+                'tarih' => 'required',
+                'saat' => 'required',
+            );
+        } else {
+            $validatorStringArray = array(
+                'gwf' => 'required',
+                'ofis' => 'required',
+                'hesap_adi' => 'required',
+                'sifre' => 'required',
+                'tarih' => 'required',
+                'saat' => 'required',
+            );
+        }
 
         $request->validate($validatorStringArray);
 
@@ -89,12 +104,19 @@ class ApplicationWaitController extends Controller
                 ]);
             }
 
-            DB::table('visa_files')->where("id", "=", $visa_file_id)->update([
-                'appointment_office_id' => $request->input('ofis'),
-                'visa_file_grades_id' => $nextGrades,
-                'expert_id' => $request->session()->get('userId')
-            ]);
-
+            if ($request->session()->get('userTypeId') == 1) {
+                DB::table('visa_files')->where("id", "=", $visa_file_id)->update([
+                    'appointment_office_id' => $request->input('ofis'),
+                    'expert_id' => $request->input('uzman'),
+                    'visa_file_grades_id' => $nextGrades,
+                ]);
+            } else {
+                DB::table('visa_files')->where("id", "=", $visa_file_id)->update([
+                    'appointment_office_id' => $request->input('ofis'),
+                    'expert_id' => $request->session()->get('userId'),
+                    'visa_file_grades_id' => $nextGrades,
+                ]);
+            }
             if ($request->session()->has($visa_file_id . '_grades_id')) {
                 $request->session()->forget($visa_file_id . '_grades_id');
             }

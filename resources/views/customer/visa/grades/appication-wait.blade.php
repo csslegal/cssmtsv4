@@ -23,6 +23,23 @@
             <form action="" method="POST">
                 @csrf
                 <div class="mb-3">
+                    @if (session('userTypeId') == 1)
+                        <label>Dosya Uzmanı</label>
+                        <select name="uzman" class="form-control">
+                            <option selected value="">Lütfen seçim yapın</option>
+                            @foreach ($users as $user)
+                                @if ($user->user_type_id == env('EXPERT_USER_TYPE_ID') && $user->active == 1)
+                                    <option {{ old('uzman') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">
+                                        {{ $user->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    @endif
+                    @error('uzman')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label>GWF Numarası</label>
                     <input type="text" name="gwf" autocomplete="off" class="form-control"
                         placeholder="GWF numarası girin" value="{{ old('gwf') }}" />
@@ -100,6 +117,7 @@
     <script>
         new AirDatepicker('.datepicker', {
             isMobile: true,
+            autoClose: true,
             buttons: ['today', 'clear'],
         });
     </script>
