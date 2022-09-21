@@ -102,22 +102,27 @@
         new AirDatepicker('.datepicker', {
             isMobile: true,
             autoClose: true,
+            buttons: ['today', 'clear'],
         })
         new AirDatepicker('.datepicker1', {
             isMobile: true,
             autoClose: true,
+            buttons: ['today', 'clear'],
         })
         new AirDatepicker('.datepicker2', {
             isMobile: true,
             autoClose: true,
+            buttons: ['today', 'clear'],
         })
         new AirDatepicker('.datepicker3', {
             isMobile: true,
             autoClose: true,
+            buttons: ['today', 'clear'],
         })
         new AirDatepicker('.datepicker4', {
             isMobile: true,
             autoClose: true,
+            buttons: ['today', 'clear'],
         })
         $(document).ready(function() {
             if ($("#sonuc").val() == 1) {

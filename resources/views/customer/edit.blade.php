@@ -101,6 +101,8 @@
         new AirDatepicker('.datepicker', {
             isMobile: true,
             autoClose: true,
+            buttons: ['today', 'clear'],
+
         })
         $('#name').change(function() {
             $.ajax({

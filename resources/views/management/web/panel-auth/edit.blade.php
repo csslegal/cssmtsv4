@@ -49,7 +49,8 @@
                 </div>
                 <div class="mb-3">
                     <label>Bitiş Tarihi</label>
-                    <input type="text" class="form-control datepicker2" value="{{ $result->and_time }}" name="bitis" />
+                    <input type="text" class="form-control datepicker2" value="{{ $result->and_time }}"
+                        name="bitis" />
                     @error('bitis')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -94,10 +95,12 @@
         new AirDatepicker('.datepicker1', {
             isMobile: true,
             autoClose: true,
+            buttons: ['today', 'clear'],
         })
         new AirDatepicker('.datepicker2', {
             isMobile: true,
             autoClose: true,
+            buttons: ['today', 'clear'],
         })
         $(document).ready(function() {
             $("#checkedAll").change(function() {

@@ -16,8 +16,6 @@
         </ol>
     </nav>
 
-    @include('customer.cards.customer-process')
-
     @include('customer.cards.base-information')
 
     @include('customer.cards.access')

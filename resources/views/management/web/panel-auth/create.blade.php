@@ -92,10 +92,12 @@
         new AirDatepicker('.datepicker1', {
             isMobile: true,
             autoClose: true,
+            buttons: ['today', 'clear'],
         })
         new AirDatepicker('.datepicker2', {
             isMobile: true,
             autoClose: true,
+            buttons: ['today', 'clear'],
         })
         $(document).ready(function() {
             $("#checkedAll").change(function() {
