@@ -1,7 +1,31 @@
 @if (isset($baseCustomerDetails))
     <div class="card card-dark mb-3" id="temel">
         <div class="card-header bg-dark text-white">Müşteri Bilgileri
-            <a class="float-end text-white" href="/musteri/{{ $baseCustomerDetails->id }}/edit">Güncelle</a>
+
+            @if (session('userTypeId') == 1)
+                <div class="dropdown float-end">
+                    <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">Müşteri İşlemleri
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="/musteri/{{ $baseCustomerDetails->id }}/edit">Bilgi
+                                Güncelleme</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/musteri/{{ $baseCustomerDetails->id }}/logs">Log Gösterme</a>
+                        </li>
+                        <li>
+                            <form action="/musteri/{{ $baseCustomerDetails->id }}/logs" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $baseCustomerDetails->id }}">
+                                <button class="confirm dropdown-item" data-title="Dikkat!" data-content="Müşteri hesabı silinsin mi? İşlem geri alınamaz...">Hesap Silme</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            @endif
         </div>
 
         <div class="card-body scroll">
