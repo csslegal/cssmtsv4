@@ -1,7 +1,7 @@
 <div class="row">
     @if (in_array(1, $userAccesses))
         <div class="col-xl-6 col-lg-6">
-            <div class="card border-dark mb-3">
+            <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Vize İşlemleri</h5>
                     <ul>
