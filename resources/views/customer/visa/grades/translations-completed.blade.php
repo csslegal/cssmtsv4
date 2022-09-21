@@ -23,6 +23,23 @@
             <form action="" method="POST">
                 @csrf
                 <div class="mb-3">
+                    @if (session('userTypeId') == 1)
+                        <label>Dosya Tercümanı</label>
+                        <select name="tercuman" class="form-control">
+                            <option selected value="">Lütfen seçim yapın</option>
+                            @foreach ($users as $user)
+                                @if ($user->user_type_id == env('TRANSLATION_USER_TYPE_ID') && $user->active == 1)
+                                    <option {{ old('tercuman') == $user->id ? 'selected' : '' }}
+                                        value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    @endif
+                    @error('tercuman')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label>Orjinal Sayfa Sayısı</label>
                     <input type="text" name="sayfa" autocomplete="off" class="form-control"
                         placeholder="Sayfa sayısı girin" value="{{ old('sayfa') }}" />

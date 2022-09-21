@@ -14,6 +14,9 @@ class TranslationsWaitController extends Controller
 {
     public function index($id, $visa_file_id)
     {
+
+        $users = DB::table('users')->orderBy('orderby')->get();
+
         $baseCustomerDetails = DB::table('customers')->select(['customers.id AS id', 'visa_files.id AS visa_file_id',])
             ->join('visa_files', 'visa_files.customer_id', '=', 'customers.id')
             ->where('visa_files.active', '=', 1)->where('customers.id', '=', $id)->first();
@@ -21,19 +24,34 @@ class TranslationsWaitController extends Controller
 
         return view('customer.visa.grades.translations-completed')->with([
             'baseCustomerDetails' => $baseCustomerDetails,
+            'users' => $users,
         ]);
     }
 
     public function  store($id, $visa_file_id, Request $request)
     {
-        $request->validate([
-            'sayfa' => 'required|numeric',
-            'kelime' => 'required|numeric',
-            'karakter' => 'required|numeric',
-            'tercume-sayfa' => 'required|numeric',
-            'tercume-kelime' => 'required|numeric',
-            'tercume-karakter' => 'required|numeric',
-        ]);
+        if ($request->session()->get('userTypeId') == 1) {
+            $validatorStringArray = array(
+                'tercuman' => 'required|numeric',
+                'sayfa' => 'required|numeric',
+                'kelime' => 'required|numeric',
+                'karakter' => 'required|numeric',
+                'tercume-sayfa' => 'required|numeric',
+                'tercume-kelime' => 'required|numeric',
+                'tercume-karakter' => 'required|numeric',
+            );
+        } else {
+            $validatorStringArray = array(
+                'sayfa' => 'required|numeric',
+                'kelime' => 'required|numeric',
+                'karakter' => 'required|numeric',
+                'tercume-sayfa' => 'required|numeric',
+                'tercume-kelime' => 'required|numeric',
+                'tercume-karakter' => 'required|numeric',
+            );
+        }
+
+        $request->validate($validatorStringArray);
 
         $visaFileGradesId = DB::table('visa_files')->select(['visa_file_grades_id'])->where('id', '=', $visa_file_id)->first();
         $visaFileGradesName = new VisaFileGradesName($visaFileGradesId->visa_file_grades_id);
@@ -83,10 +101,17 @@ class TranslationsWaitController extends Controller
                 ]);
             }
 
-            DB::table('visa_files')->where("id", "=", $visa_file_id)->update([
-                'visa_file_grades_id' => $nextGrades,
-                'translator_id' => $request->session()->get('userId')
-            ]);
+            if ($request->session()->get('userTypeId') == 1) {
+                DB::table('visa_files')->where("id", "=", $visa_file_id)->update([
+                    'visa_file_grades_id' => $nextGrades,
+                    'translator_id' => $request->input('tercuman'),
+                ]);
+            } else {
+                DB::table('visa_files')->where("id", "=", $visa_file_id)->update([
+                    'visa_file_grades_id' => $nextGrades,
+                    'translator_id' => $request->session()->get('userId')
+                ]);
+            }
 
             if ($request->session()->has($visa_file_id . '_grades_id')) {
                 $request->session()->forget($visa_file_id . '_grades_id');
