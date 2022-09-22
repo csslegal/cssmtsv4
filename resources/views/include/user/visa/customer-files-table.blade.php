@@ -1,4 +1,12 @@
 @if (in_array(1, $userAccesses))
+
+    <div class="card card-dark mb-3">
+        <div class="card-header bg-dark text-white">Randevu Takvimi</div>
+        <div class="card-body scroll">
+            <div id='calendar'></div>
+        </div>
+    </div>
+
     <div class="card card-dark mb-3">
         <div class="card-header bg-dark text-white">Vize Dosyası İşlemi Bekleyen Müşteriler</div>
         <div class="card-body scroll">
@@ -16,7 +24,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach ($visaCustomers as $visaCustomer)
                         <tr class="{{ $visaCustomer->status ? 'text-success' : '' }}">
                             <td>

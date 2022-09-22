@@ -12,6 +12,12 @@
 
             @include('include.management.visa.nav')
 
+            <div class="card card-dark mb-3">
+                <div class="card-header bg-dark text-white">Randevu Takvimi</div>
+                <div class="card-body scroll">
+                    <div id='calendar'></div>
+                </div>
+            </div>
             <!-- vize dosyaları logları-->
             @include('include.management.visa.chartjs')
 
@@ -76,9 +82,12 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/fullcalendar/main.css') }}" />
 @endsection
 
 @section('js')
+    <script src="{{ asset('js/fullcalendar/main.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar/locales/tr.js') }}"></script>
     <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
     <script src="{{ asset('js/chart.js/chart.min.js') }}"></script>
     <script>
@@ -436,5 +445,38 @@
                 },
             });
         @endif
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'tr',
+                themeSystem: 'bootstrap5',
+                height: '400px',
+                buttonIcons: true,
+                hiddenDays: [0, 6],
+                fixedWeekCount: false,
+                headerToolbar: {
+                    left: 'title',
+                    right: 'today prev,next'
+                },
+                eventSources: [{
+                    url: '/kullanici/ajax/calendar-event',
+                    method: 'POST',
+                    extraParams: {
+                        _token: '{{ csrf_token() }}',
+                        user_id: '{{ session('userId') }}',
+                        user_type_id: '{{ session('userTypeId') }}',
+                    }
+                }],
+                eventClick: function(event, jsEvent, view) {
+                    jQuery('#contentHead').html(event.event.title);
+                    jQuery('#contentLoad').html(event.event.extendedProps.description);
+                    var exampleModal = document.getElementById('exampleModal');
+                    var modal = bootstrap.Modal.getInstance(exampleModal);
+                    jQuery('#exampleModal').modal('show')
+                }
+            });
+            calendar.render();
+        });
     </script>
 @endsection

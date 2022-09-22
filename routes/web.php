@@ -28,6 +28,7 @@ use App\Http\Controllers\Management\UrlController;
 
 use App\Http\Controllers\Web\IndexController as WebIndexController;
 
+use App\Http\Controllers\User\UserCalendarController;
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\AjaxController as UserAjaxController;
 
@@ -137,6 +138,7 @@ Route::middleware(['sessionCheck'])->group(function () {
 
         /*** Kullanıcılar ajax işlemleri*/
         Route::group(['prefix' => 'ajax'], function () {
+            Route::post('calendar-event', [UserCalendarController::class, 'index']);
         });
     });
 
