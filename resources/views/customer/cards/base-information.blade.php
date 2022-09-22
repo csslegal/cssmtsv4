@@ -16,7 +16,7 @@
                             <a class="dropdown-item" href="/musteri/{{ $baseCustomerDetails->id }}/logs">Log Gösterme</a>
                         </li>
                         <li>
-                            <form action="/musteri/{{ $baseCustomerDetails->id }}/logs" method="POST">
+                            <form action="/musteri/{{ $baseCustomerDetails->id }}" method="POST">
                                 @method('DELETE')
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $baseCustomerDetails->id }}">
