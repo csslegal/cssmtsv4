@@ -451,7 +451,7 @@
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 locale: 'tr',
                 themeSystem: 'bootstrap5',
-                height: '400px',
+                height: '450px',
                 buttonIcons: true,
                 hiddenDays: [0, 6],
                 fixedWeekCount: false,
