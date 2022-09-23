@@ -49,7 +49,7 @@ class UserCalendarController extends Controller
                 ->join('visa_appointments', 'visa_appointments.visa_file_id', '=', 'visa_files.id')
                 ->join('appointment_offices', 'appointment_offices.id', '=', 'visa_files.appointment_office_id')
                 ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-                ->where('visa_files.advisor_id', '=', $userId)
+                //->where('visa_files.advisor_id', '=', $userId)
                 ->whereDate('visa_appointments.date', '>=', $startDate)
                 ->whereDate('visa_appointments.date', '<=', $endDate)
                 ->whereIn('visa_files.application_office_id', $userApplicationOfficeIds)
