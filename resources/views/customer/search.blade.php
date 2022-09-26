@@ -18,8 +18,8 @@
     </nav>
     <div class="row justify-content-md-center offset-md-2 col-md-8 mt-5">
         <form action="" method="POST">
-            <div class="input-group input-group-lg mt-5 mb-4">
-                <input type="text"  autofocus class="form-control" name="arama" autocomplete="off"
+            <div class="input-group input-group-lg mt-5 mb-3">
+                <input type="text" autofocus class="form-control" name="arama" autocomplete="off"
                     value="{{ isset($arama) ? $arama : '' }}" placeholder="Kayıt sorgula" data-bs-toggle="tooltip"
                     data-bs-placement="bottom" data-bs-html="true"
                     title="Sorgulama Kriterleri <li>İsim Soyisim</li><li>E-Mail</li><li>Telefon</li><li>T.C. No</li><li> Pasaport No</li><li>Dosya Ref. No</li>">
@@ -51,10 +51,21 @@
                                 @foreach ($customerDetails as $customerDetail)
                                     <tr>
                                         <td class="text-center">
-                                            <a href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->id }}</a>
+                                            @if ($customerDetail->active == '1')
+                                                <a href="/musteri/{{ $customerDetail->id }}/vize">
+                                                    {{ $customerDetail->id }}
+                                                </a>
+                                            @elseif ($customerDetail->active == '0')
+                                                <a href="/musteri/{{ $customerDetail->id }}/vize/arsiv">
+                                                    {{ $customerDetail->id }}
+                                                </a>
+                                            @elseif ($customerDetail->active == null)
+                                                <span>Kayıt bulunamadı</span>
+                                            @endif
                                         </td>
-                                        <td class="text-center"><a
-                                                href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->name }}</a>
+                                        <td class="text-center">
+                                            <a href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->name }}</a>
+
                                         </td>
                                         <td class="text-center">{{ $customerDetail->phone }}</td>
                                         <td class="text-center">{{ $customerDetail->email }}</td>
