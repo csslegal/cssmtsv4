@@ -1,4 +1,4 @@
-<div class="text-center mb-2">
+<div class="text-center mb-3">
     <div class="mt-5">
         <img class="w-100 p-1" src="{{ asset('storage/logo.png') }}" alt="logo">
     </div>

@@ -23,7 +23,7 @@
 
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 ">
-                    <div class="card border-success mb-2">
+                    <div class="card border-success mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Parmak izi verildi mi?</h5>
                             <p>Müşteri dosyası parmak izi verme işlemi tamamlanır</p>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 ">
-                    <div class="card border-info mb-2">
+                    <div class="card border-info mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Randevu ertelendi mi?</h5>
                             <p>Müşteri dosyası "Başvuru bekleyen dosyalar" aşamasına alınır</p>

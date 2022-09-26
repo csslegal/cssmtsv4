@@ -18,7 +18,7 @@
     <div class="page-content">
         <div class="row">
             <div class="col-md-offset-4 text-center mt-5  ">
-                <img src="{{ asset('storage/logo.png') }}" alt="logo" class="p-4 mb-4">
+                <img src="{{ asset('storage/logo.png') }}" alt="logo" class="p-4 mb-3">
                 <br>
                 <span class=" text-danger ">401 | Yetkisiz İstek</span>
                 <br>

@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
-                    <div class="card mb-2">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Gruplar</h5>
                             <p class="card-text fw-bold"> Toplam {{ $countWebGroups }} grup sistemde kayıtlı. </p>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
-                    <div class="card mb-2">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Paneller</h5>
                             <p class="card-text fw-bold"> Toplam {{ $countWebPanels }} panel sistemde kayıtlı.
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
-                    <div class="card mb-2">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Panel Yetkileri Düzenle</h5>
                             <p class="card-text fw-bold"> Toplam {{ $countWebPanelAuth }} yetki sistemde kayıtlı. </p>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
-                    <div class="card mb-2">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Panellere Git</h5>
                             <p class="card-text fw-bold">Web site panellerine geçiş yapma</p>
@@ -55,7 +55,7 @@
             </div>
             <div class="row">
                  <div class="col-lg-3 col-md-6 col-sm-6 ">
-                    <div class="card mb-2">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">URL Analizleri</h5>
                             <p class="card-text fw-bold">URL Analizleri Git</p>

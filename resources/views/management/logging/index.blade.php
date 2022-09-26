@@ -9,7 +9,7 @@
     </nav>
 
     <div class="row">
-        <div class="col-md-3 mb-4">
+        <div class="col-md-3 mb-3">
             <div class="card card-dark">
                 <div class="card-header bg-dark text-white fw-bold">Dizindeki Loglar</div>
                 <div class="card-body">
@@ -105,7 +105,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 mb-4">
+        <div class="col-md-9 mb-3">
             <div class="card card-dark">
                 <div class="card-header bg-dark text-white fw-bold">Log Detayları</div>
                 <div class="card-body">

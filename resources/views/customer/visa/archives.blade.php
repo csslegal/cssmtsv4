@@ -170,7 +170,7 @@
                         <div class="row">
                             @if (session('userTypeId') == 1 || session('userTypeId') == 2)
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                    <div class="card border-danger mb-2">
+                                    <div class="card border-danger mb-3">
                                         <div class="card-body">
                                             <h5 class="card-title">Loglar</h5>
                                             <p>Dosya Logları</p>

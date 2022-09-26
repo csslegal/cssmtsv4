@@ -8,7 +8,7 @@
         </ol>
     </nav>
 
-    <div class="card card-dark mb-4">
+    <div class="card card-dark mb-3">
         <div class="card-header bg-dark text-white fw-bold">Profilim</div>
         <div class="card-body">
             <div class="row">
