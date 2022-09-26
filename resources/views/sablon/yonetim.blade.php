@@ -76,6 +76,11 @@
                 $('.nav-item > a').removeClass('link-light ').addClass('link-dark');
                 $('.nav-item > a').removeClass('bg-dark ').addClass('bg-light');
                 $('.nav-item > a').removeClass('text-light ').addClass('text-dark');
+
+
+                $('.nav-item > button').removeClass('link-light ').addClass('link-dark');
+                $('.nav-item > button').removeClass('bg-dark ').addClass('bg-light');
+                $('.nav-item > button').removeClass('text-light ').addClass('text-dark');
             @endif
         });
 
