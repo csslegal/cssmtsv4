@@ -12,18 +12,33 @@
 
             @include('include.management.visa.nav')
 
-            <div class="card card-dark mb-3">
-                <div class="card-header bg-dark text-white">Randevu Takvimi</div>
-                <div class="card-body scroll">
-                    <div id='calendar'></div>
-                </div>
+
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item  me-2" role="presentation">
+                    <button class="nav-link bg-dark text-light active" id="pills-home-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Randevu
+                        Takvimi</button>
+                </li>
+                <li class="nav-item me-2" role="presentation">
+                    <button class="nav-link bg-dark text-light mr-2" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile"
+                        aria-selected="false">Chart JS Logları</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link bg-dark text-light" id="pills-contact-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact"
+                        aria-selected="false">Dosya Logları</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+                    tabindex="0"> @include('include.management.visa.calendar')</div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+                    tabindex="0"> @include('include.management.visa.chartjs')</div>
+                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"
+                    tabindex="0">@include('include.management.visa.logs')</div>
+
             </div>
-            <!-- vize dosyaları logları-->
-            @include('include.management.visa.chartjs')
-
-            <!-- vize dosyaları logları-->
-            @include('include.management.visa.logs')
-
             <!-- Modal -->
             @include('include.management.content-load')
 
@@ -32,7 +47,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card mb-2">
+                            <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Dosya Aşamaları</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countFileGrades }} dosya aşaması sistemde
@@ -42,7 +57,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card mb-2">
+                            <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Dosya Aşama Erişimleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaFileGradesUsersType }} kullanıcı
@@ -52,7 +67,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card mb-2">
+                            <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Vize Tipleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaTypes }} vize tipi sistemde kayıtlı.
@@ -63,7 +78,7 @@
                         </div>
 
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-                            <div class="card mb-2">
+                            <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Vize Süreleri</h5>
                                     <p class="card-text fw-bold"> Toplam {{ $countVisaValidity }} vize süresi sistemde
