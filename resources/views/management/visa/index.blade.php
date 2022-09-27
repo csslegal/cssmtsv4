@@ -14,28 +14,28 @@
 
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li class="nav-item  me-2" role="presentation">
-                    <button class="nav-link bg-dark text-light active" id="pills-home-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Randevu
-                        Takvimi</button>
+                <li class="nav-item me-2" role="presentation">
+                    <a href="/yonetim/vize#pills-calendar" class="nav-link bg-dark text-light active" id="pills-calendar-tab"
+                        data-bs-toggle="pill" data-bs-target="#pills-calendar" role="tab" aria-controls="pills-calendar"
+                        aria-selected="true">Randevu Takvimi</a>
                 </li>
                 <li class="nav-item me-2" role="presentation">
-                    <button class="nav-link bg-dark text-light mr-2" id="pills-profile-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-profile" role="tab" aria-controls="pills-profile"
-                        aria-selected="false">Chart JS Logları</button>
+                    <a href="/yonetim/vize#pills-chartjs" class="nav-link bg-dark text-light mr-2" id="pills-chartjs-tab"
+                        data-bs-toggle="pill" data-bs-target="#pills-chartjs" role="tab" aria-controls="pills-chartjs"
+                        aria-selected="false">Chart JS Logları</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link bg-dark text-light" id="pills-contact-tab" data-bs-toggle="pill"
-                        data-bs-target="#pills-contact" role="tab" aria-controls="pills-contact"
-                        aria-selected="false">Dosya Logları</button>
+                    <a href="/yonetim/vize#pills-logs" class="nav-link bg-dark text-light" id="pills-logs-tab"
+                        data-bs-toggle="pill" role="tab" aria-controls="pills-logs" aria-selected="false">Dosya
+                        Logları</a>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+                <div class="tab-pane fade show active" id="pills-calendar" role="tabpanel" aria-labelledby="pills-calendar-tab"
                     tabindex="0"> @include('include.management.visa.calendar')</div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+                <div class="tab-pane fade" id="pills-chartjs" role="tabpanel" aria-labelledby="pills-chartjs-tab"
                     tabindex="0"> @include('include.management.visa.chartjs')</div>
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"
+                <div class="tab-pane fade" id="pills-logs" role="tabpanel" aria-labelledby="pills-logs-tab"
                     tabindex="0">@include('include.management.visa.logs')</div>
 
             </div>
@@ -203,6 +203,7 @@
             'rgba(56, 124, 68, 0.5)',
             'rgba(76, 196, 23, 0.5)',
         ];
+
         @if ($visaFilesGradesCount != null)
             /**Dosya Aşamalarına Göre Cari Dosya Sayısı**/
             @php
@@ -492,6 +493,10 @@
                 }
             });
             calendar.render();
+        });
+
+        jQuery(document).ready(function($) {
+            $('#pills-tab a[href="/yonetim/vize' + window.location.hash + '"]').tab('show');
         });
     </script>
 @endsection

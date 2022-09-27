@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="float-end">
-                    <form action="/yonetim/vize" method="GET">
+                    <form action="/yonetim/vize#pills-chartjs" method="GET">
                         <div class="input-group input-group-sm">
                             <span class="input-group-text ">Dosya Tipi:</span>
                             <select class="form-control" name="status" id="">
