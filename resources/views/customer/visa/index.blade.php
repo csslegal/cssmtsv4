@@ -19,12 +19,12 @@
         </ol>
     </nav>
 
-    @include('customer.visa.cards.visa-proccess')
-
     @if (isset($visaFileDetail))
         @include('customer.visa.cards.file-detail')
         @include('customer.visa.cards.file-grades-detail')
     @endif
+
+    @include('customer.visa.cards.visa-proccess')
 
     @include('customer.modals.content-load')
 @endsection
