@@ -66,35 +66,29 @@ class VisaController extends Controller
 
         $visaFileOpenArray = [];
         $visaFileMadeArray = [];
-        //$visaFileMountArray = [];
+        $visaFileMountArray = [];
 
         foreach ($twoDatesBetween->mounts() as $mount) {
             $mountExp = explode('-', $mount);
-            /**
-            array_push(
-                $visaFileMountArray,
-                '\'' . date('M', strtotime($mount)) . '\''
-            );
-             */
-            array_push(
-                $visaFileOpenArray,
-                DB::table('visa_files')
-                    ->whereMonth('visa_files.created_at', $mountExp[1])
-                    ->whereYear('visa_files.created_at', $mountExp[0])
-                    ->get()->count()
-            );
-            array_push(
-                $visaFileMadeArray,
-                DB::table('visa_files')
-                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                    ->whereMonth('visa_application_result.visa_file_close_date', $mountExp[1])
-                    ->whereYear('visa_application_result.visa_file_close_date', $mountExp[0])
-                    ->get()->count()
-            );
+            $openCount = DB::table('visa_files')
+                ->whereMonth('visa_files.created_at', $mountExp[1])
+                ->whereYear('visa_files.created_at', $mountExp[0])
+                ->get()->count();
+            $madeCount = DB::table('visa_files')
+                ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                ->whereMonth('visa_application_result.visa_file_close_date', $mountExp[1])
+                ->whereYear('visa_application_result.visa_file_close_date', $mountExp[0])
+                ->get()->count();
+            if ($openCount == 0 && $madeCount == 0) {
+                continue;
+            }
+            array_push($visaFileMountArray, $mount);
+            array_push($visaFileOpenArray, $openCount);
+            array_push($visaFileMadeArray, $madeCount);
         }
 
         $visaFilesOpenMadeCount = [
-            '[\'' . implode('\',\'', $twoDatesBetween->mounts()) . '\']',
+            '[\'' . implode('\',\'', $visaFileMountArray) . '\']',
             '[' . implode(', ', $visaFileOpenArray) . ']',
             '[' . implode(', ', $visaFileMadeArray) . ']',
         ];
