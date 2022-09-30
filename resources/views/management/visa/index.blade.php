@@ -237,7 +237,7 @@
                             },
                             title: {
                                 display: true,
-                                text: 'Dosya Açma ve Tamamlama Analizleri'
+                                text: 'Dosya Açma ve Tamamlama Analizleri (Son 12 Ay)'
                             }
                         },
                     },
@@ -283,7 +283,7 @@
                             },
                             title: {
                                 display: true,
-                                text: 'Aşamalara Göre Analizler'
+                                text: 'Aşamalara Göre Analizler (Seçilen Tarihler Arası)'
                             }
                         }
                     },
@@ -328,7 +328,7 @@
                             },
                             title: {
                                 display: true,
-                                text: 'Başvuru Ofislere Göre Analizler'
+                                text: 'Başvuru Ofislere Göre Analizler (Seçilen Tarihler Arası)'
                             }
                         }
                     },
@@ -373,7 +373,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Danışman Vize Sonuc Analizleri(VİZE x RED)'
+                            text: 'Danışman Vize Sonuc Analizleri(VİZE x RED & Seçilen Tarihler Arası)'
                         }
                     },
                     scales: {
@@ -427,7 +427,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Uzman Vize Sonuc Analizleri(VİZE x RED)'
+                            text: 'Uzman Vize Sonuc Analizleri(VİZE x RED & Seçilen Tarihler Arası)'
                         }
                     },
                     scales: {
@@ -477,7 +477,7 @@
                         },
                         title: {
                             display: true,
-                            text: 'Tercüman Vize Dosyası Tercüme Analizleri(Sayfa x Kelime)'
+                            text: 'Tercüman Vize Dosyası Tercüme Analizleri(Sayfa x Kelime & Seçilen Tarihler Arası)'
                         }
                     },
                     scales: {
