@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
+use App\MyClass\TwoDatesBetween;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Days;
 
 class VisaController extends Controller
 {
@@ -49,6 +51,56 @@ class VisaController extends Controller
             ->orderByDesc('customer_notes.id')
             ->get();
 
+        $twoDatesBetween = new TwoDatesBetween(
+            date(
+                "Y-m-d",
+                strtotime(
+                    '-1 year',
+                    strtotime(
+                        date("Y-m-d")
+                    )
+                )
+            ),
+            date("Y-m-d")
+        );
+
+        $visaFileOpenArray = [];
+        $visaFileMadeArray = [];
+        //$visaFileMountArray = [];
+
+        foreach ($twoDatesBetween->mounts() as $mount) {
+            $mountExp = explode('-', $mount);
+            /**
+            array_push(
+                $visaFileMountArray,
+                '\'' . date('M', strtotime($mount)) . '\''
+            );
+             */
+            array_push(
+                $visaFileOpenArray,
+                DB::table('visa_files')
+                    ->whereMonth('visa_files.created_at', $mountExp[1])
+                    ->whereYear('visa_files.created_at', $mountExp[0])
+                    ->get()->count()
+            );
+            array_push(
+                $visaFileMadeArray,
+                DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->whereMonth('visa_application_result.visa_file_close_date', $mountExp[1])
+                    ->whereYear('visa_application_result.visa_file_close_date', $mountExp[0])
+                    ->get()->count()
+            );
+        }
+
+        $visaFilesOpenMadeCount = [
+            '[\'' . implode('\',\'', $twoDatesBetween->mounts()) . '\']',
+            '[' . implode(', ', $visaFileOpenArray) . ']',
+            '[' . implode(', ', $visaFileMadeArray) . ']',
+        ];
+
+        // dd($visaFilesOpenMadeCount);
+
         $visaFilesGradesCount = DB::table('visa_files')
             ->select([
                 'visa_file_grades.name AS visa_file_grades_name',
@@ -84,9 +136,9 @@ class VisaController extends Controller
         $arrayVisaFilesTranslationsAnalist = [];
 
         $allAdvisors = DB::table('users')
-        ->select(['id', 'name'])->where('active', '=', 1)
-        ->where('user_type_id', '=',  env('ADVISOR_USER_TYPE_ID'))
-        ->get();
+            ->select(['id', 'name'])->where('active', '=', 1)
+            ->where('user_type_id', '=',  env('ADVISOR_USER_TYPE_ID'))
+            ->get();
 
         foreach ($allAdvisors as $allAdvisor) {
 
@@ -128,10 +180,10 @@ class VisaController extends Controller
         }
 
         $allExperts = DB::table('users')
-        ->select(['id', 'name'])
-        ->where('active', '=', 1)
-        ->where('user_type_id', '=',  env('EXPERT_USER_TYPE_ID'))
-        ->get();
+            ->select(['id', 'name'])
+            ->where('active', '=', 1)
+            ->where('user_type_id', '=',  env('EXPERT_USER_TYPE_ID'))
+            ->get();
 
         foreach ($allExperts as $allExpert) {
 
@@ -173,10 +225,10 @@ class VisaController extends Controller
         }
 
         $allTranslations = DB::table('users')
-        ->select(['id', 'name'])
-        ->where('active', '=', 1)
-        ->where('user_type_id', '=',  env('TRANSLATION_USER_TYPE_ID'))
-        ->get();
+            ->select(['id', 'name'])
+            ->where('active', '=', 1)
+            ->where('user_type_id', '=',  env('TRANSLATION_USER_TYPE_ID'))
+            ->get();
 
         $allVisaFileCount =  DB::table('visa_files')
             ->join('visa_translations', 'visa_translations.visa_file_id', '=', 'visa_files.id')
@@ -218,6 +270,7 @@ class VisaController extends Controller
             'countVisaValidity' => $countVisaValidity,
             'customerNotes' => $customerNotes,
 
+            'visaFilesOpenMadeCount' => $visaFilesOpenMadeCount,
             'visaFilesGradesCount' => $visaFilesGradesCount,
             'visaFilesApplicationOfficeCount' => $visaFilesApplicationOfficeCount,
             'arrayVisaFilesAdvisorsAnalist' => $arrayVisaFilesAdvisorsAnalist,

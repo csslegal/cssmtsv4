@@ -15,14 +15,14 @@
 
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item me-2" role="presentation">
-                    <a href="/yonetim/vize#pills-calendar" class="nav-link bg-dark text-light active" id="pills-calendar-tab"
-                        data-bs-toggle="pill" data-bs-target="#pills-calendar" role="tab" aria-controls="pills-calendar"
-                        aria-selected="true">Randevu Takvimi</a>
+                    <a href="/yonetim/vize#pills-calendar" class="nav-link bg-dark text-light active"
+                        id="pills-calendar-tab" data-bs-toggle="pill" data-bs-target="#pills-calendar" role="tab"
+                        aria-controls="pills-calendar" aria-selected="true">Randevu Takvimi</a>
                 </li>
                 <li class="nav-item me-2" role="presentation">
                     <a href="/yonetim/vize#pills-chartjs" class="nav-link bg-dark text-light mr-2" id="pills-chartjs-tab"
                         data-bs-toggle="pill" data-bs-target="#pills-chartjs" role="tab" aria-controls="pills-chartjs"
-                        aria-selected="false">Chart JS Logları</a>
+                        aria-selected="false">Grafikler</a>
                 </li>
                 <li class="nav-item" role="presentation">
                     <a href="/yonetim/vize#pills-logs" class="nav-link bg-dark text-light" id="pills-logs-tab"
@@ -31,12 +31,12 @@
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-calendar" role="tabpanel" aria-labelledby="pills-calendar-tab"
-                    tabindex="0"> @include('include.management.visa.calendar')</div>
+                <div class="tab-pane fade show active" id="pills-calendar" role="tabpanel"
+                    aria-labelledby="pills-calendar-tab" tabindex="0"> @include('include.management.visa.calendar')</div>
                 <div class="tab-pane fade" id="pills-chartjs" role="tabpanel" aria-labelledby="pills-chartjs-tab"
                     tabindex="0"> @include('include.management.visa.chartjs')</div>
-                <div class="tab-pane fade" id="pills-logs" role="tabpanel" aria-labelledby="pills-logs-tab"
-                    tabindex="0">@include('include.management.visa.logs')</div>
+                <div class="tab-pane fade" id="pills-logs" role="tabpanel" aria-labelledby="pills-logs-tab" tabindex="0">
+                    @include('include.management.visa.logs')</div>
 
             </div>
             <!-- Modal -->
@@ -204,6 +204,47 @@
             'rgba(76, 196, 23, 0.5)',
         ];
 
+        @if ($visaFilesOpenMadeCount != null)
+            /**Dosya açma ve yapılma sayısı**/
+            new Chart(
+                document.getElementById('myChart0'), {
+                    type: 'bar',
+                    data: {
+                        labels: {!! $visaFilesOpenMadeCount[0] !!},
+                        datasets: [{
+                            label: 'Açılan Dosya Sayısı',
+                            data: {!! $visaFilesOpenMadeCount[1] !!},
+                            borderColor: 'rgba(255, 55, 18, 1)',
+                            backgroundColor: 'rgba(255, 55, 18, 0.5)',
+                            borderWidth: 1,
+                            borderRadius: 20,
+                            borderSkipped: false,
+                        }, {
+                            label: 'Yapılan Dosya Sayısı',
+                            data: {!! $visaFilesOpenMadeCount[2] !!},
+                            borderColor: 'rgba(21, 89, 84, 1)',
+                            backgroundColor: 'rgba(21, 89, 84, 0.5)',
+                            borderWidth: 1,
+                            borderRadius: 20,
+                            borderSkipped: false,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Dosya Açma ve Tamamlama Analizleri'
+                            }
+                        },
+                    },
+                }
+            );
+        @endif
+
         @if ($visaFilesGradesCount != null)
             /**Dosya Aşamalarına Göre Cari Dosya Sayısı**/
             @php
@@ -233,6 +274,16 @@
                         scales: {
                             y: {
                                 beginAtZero: true
+                            }
+                        },
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Aşamalara Göre Analizler'
                             }
                         }
                     },
@@ -269,6 +320,16 @@
                             y: {
                                 beginAtZero: true
                             }
+                        },
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Başvuru Ofislere Göre Analizler'
+                            }
                         }
                     },
                 }
@@ -283,34 +344,13 @@
                 foreach ($arrayVisaFilesAdvisorsAnalist as $arrayVisaFilesAdvisorAnalist) {
                     //array random index
                     $randomIndex = rand(0, count($arrayColors) - 1);
-                    //olumlu sonuc sıfır ise
-                    if ($arrayVisaFilesAdvisorAnalist[1] == 0) {
-                        //olumsuz sonuc
-                        if ($arrayVisaFilesAdvisorAnalist[2] == 0) {
-                            //radıus default
-                            $arrayVisaFilesAdvisorAnalistRadius = env('ANALIST_RADIUS_DEFAULT_ORAN');
-                        } else {
-                            $arrayVisaFilesAdvisorAnalistRadius = env('ANALIST_RADIUS_DOWN_ORAN');
-                        }
-                        //olumsu sonuc var ise
-                    } else {
-                        //olumsuz yok ise
-                        if ($arrayVisaFilesAdvisorAnalist[2] == 0) {
-                            $arrayVisaFilesAdvisorAnalistRadius = env('ANALIST_RADIUS_UP_ORAN');
-                        } else {
-                            //hem olumlu hemde olumsuz sonuclar var ise oranı al
-                            $arrayVisaFilesAdvisorAnalistRadius = round(($arrayVisaFilesAdvisorAnalist[1] / ($arrayVisaFilesAdvisorAnalist[1] + $arrayVisaFilesAdvisorAnalist[2])) * env('ANALIST_RADIUS_DEFAULT_ORAN'));
-                        }
-                    }
-                    $data .= "{label: '" . $arrayVisaFilesAdvisorAnalist[0] . "',data: [{x: " . $arrayVisaFilesAdvisorAnalist[1] . ',y: ' . $arrayVisaFilesAdvisorAnalist[2] . ',r: ' . $arrayVisaFilesAdvisorAnalistRadius . "}, ],backgroundColor: '" . $arrayColors[$randomIndex] . "'},";
+                    $data .= "{label: '" . $arrayVisaFilesAdvisorAnalist[0] . "',data: [{x: " . $arrayVisaFilesAdvisorAnalist[1] . ',y: ' . $arrayVisaFilesAdvisorAnalist[2] . ',r: ' . env('ANALIST_RADIUS_DEFAULT_ORAN') . "}, ],backgroundColor: '" . $arrayColors[$randomIndex] . "'},";
                 }
             @endphp
             new Chart(document.getElementById('myChart3'), {
                 type: 'bubble',
                 data: {
-                    datasets: [
-                        {!! $data !!}
-                    ]
+                    datasets: [{!! $data !!}]
                 },
                 options: {
                     plugins: {
@@ -327,6 +367,13 @@
                                     ];
                                 }
                             }
+                        },
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Danışman Vize Sonuc Analizleri(VİZE x RED)'
                         }
                     },
                     scales: {
@@ -339,7 +386,7 @@
                             grace: '5%'
                         }
                     }
-                },
+                }
             });
         @endif
 
@@ -351,34 +398,13 @@
                 foreach ($arrayVisaFilesExpertsAnalist as $arrayVisaFilesExpertAnalist) {
                     //array random index
                     $randomIndex = rand(0, count($arrayColors2) - 1);
-                    //olumlu sonuc sıfır ise
-                    if ($arrayVisaFilesExpertAnalist[1] == 0) {
-                        //olumsuz sonuc
-                        if ($arrayVisaFilesExpertAnalist[2] == 0) {
-                            //radıus default
-                            $arrayVisaFilesExpertAnalistRadius = env('ANALIST_RADIUS_DEFAULT_ORAN');
-                        } else {
-                            $arrayVisaFilesExpertAnalistRadius = env('ANALIST_RADIUS_DOWN_ORAN');
-                        }
-                        //olumsu sonuc var ise
-                    } else {
-                        //olumsuz yok ise
-                        if ($arrayVisaFilesExpertAnalist[2] == 0) {
-                            $arrayVisaFilesExpertAnalistRadius = env('ANALIST_RADIUS_UP_ORAN');
-                        } else {
-                            //hem olumlu hemde olumsuz sonuclar var ise oranı al
-                            $arrayVisaFilesExpertAnalistRadius = round(($arrayVisaFilesExpertAnalist[1] / ($arrayVisaFilesExpertAnalist[1] + $arrayVisaFilesExpertAnalist[2])) * env('ANALIST_RADIUS_DEFAULT_ORAN'));
-                        }
-                    }
-                    $data .= "{label: '" . $arrayVisaFilesExpertAnalist[0] . "',data: [{x: " . $arrayVisaFilesExpertAnalist[1] . ',y: ' . $arrayVisaFilesExpertAnalist[2] . ',r: ' . $arrayVisaFilesExpertAnalistRadius . "}, ],backgroundColor: '" . $arrayColors2[$randomIndex] . "'},";
+                    $data .= "{label: '" . $arrayVisaFilesExpertAnalist[0] . "',data: [{x: " . $arrayVisaFilesExpertAnalist[1] . ',y: ' . $arrayVisaFilesExpertAnalist[2] . ',r: ' . env('ANALIST_RADIUS_DEFAULT_ORAN') . "}, ],backgroundColor: '" . $arrayColors2[$randomIndex] . "'},";
                 }
             @endphp
             new Chart(document.getElementById('myChart4'), {
                 type: 'bubble',
                 data: {
-                    datasets: [
-                        {!! $data !!}
-                    ]
+                    datasets: [{!! $data !!}]
                 },
                 options: {
                     plugins: {
@@ -395,6 +421,13 @@
                                     ];
                                 }
                             }
+                        },
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Uzman Vize Sonuc Analizleri(VİZE x RED)'
                         }
                     },
                     scales: {
@@ -418,15 +451,7 @@
                 $data = '';
                 foreach ($arrayVisaFilesTranslationsAnalist as $arrayVisaFilesTranslationAnalist) {
                     $randomIndex = rand(0, count($arrayColors3) - 1);
-
-                    $arrayVisaFilesTranslationAnalistRadius = round(($arrayVisaFilesTranslationAnalist[1] / $allVisaFileCount) * env('ANALIST_RADIUS_DEFAULT_ORAN'));
-
-                    if ($arrayVisaFilesTranslationAnalistRadius < 20) {
-                        $arrayVisaFilesTranslationAnalistRadius = 20;
-                    } elseif ($arrayVisaFilesTranslationAnalistRadius > 40) {
-                        $arrayVisaFilesTranslationAnalistRadius = 40;
-                    }
-                    $data .= "{label: '" . $arrayVisaFilesTranslationAnalist[0] . "',data: [{x: " . $arrayVisaFilesTranslationAnalist[2] . ',y: ' . $arrayVisaFilesTranslationAnalist[3] . ',r: ' . $arrayVisaFilesTranslationAnalistRadius . "}, ],backgroundColor: '" . $arrayColors3[$randomIndex] . "'},";
+                    $data .= "{label: '" . $arrayVisaFilesTranslationAnalist[0] . "',data: [{x: " . $arrayVisaFilesTranslationAnalist[2] . ',y: ' . $arrayVisaFilesTranslationAnalist[3] . ',r: ' . env('ANALIST_RADIUS_DEFAULT_ORAN') . "}, ],backgroundColor: '" . $arrayColors3[$randomIndex] . "'},";
                 }
             @endphp
             new Chart(document.getElementById('myChart5'), {
@@ -446,6 +471,13 @@
                                     ];
                                 }
                             }
+                        },
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Tercüman Vize Dosyası Tercüme Analizleri(Sayfa x Kelime)'
                         }
                     },
                     scales: {
