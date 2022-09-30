@@ -1,4 +1,5 @@
-<div class="modal fade" id="exampleModalNot" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModalNot" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form method="post" action="/musteri/{{ $baseCustomerDetails->id }}/not-ekle">
@@ -10,8 +11,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="not" class="form-label">Müşteri Notu Giriniz</label>
-                        <textarea id="editor200" name="not" rows="20"
-                            class="form-control">{!! old('not') !!}</textarea>
+                        <textarea id="editor200" name="not" rows="20" class="form-control">{!! old('not') !!}</textarea>
                         @error('not')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
