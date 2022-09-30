@@ -21,12 +21,29 @@
     @if ($visaArchives->count() > 0)
         @foreach ($visaArchives as $visaArchive)
             <div class="card border-dark mb-3">
-                <div class="card-header bg-dark text-white">{{ $visaArchive->id }} Referans Numaralı Arşiv Dosyası
+                <div class="card-header bg-dark text-white">
+                    {{ $visaArchive->id }} Referans Numaralı Arşiv Dosyası
+                    @if (session('userTypeId') == 1 || session('userTypeId') == 2)
+                        <div class="dropdown drop float-end">
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Arşiv Dosya İşlemleri
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button class="dropdown-item btn btn-dark btn-sm "
+                                        onclick="contentLoad('arsiv-log','{{ $visaArchive->id }}')" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal"><i class="bi bi-image"></i> Loglar
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    @endif
                 </div>
                 <div class="card-body scroll">
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-sm-6">
-                            <span class=" fw-bold">Dosya Detayı</span>
+                            <span class=" fw-bold">Detaylar</span>
                             <ul>
                                 <li>
                                     <span class="fw-bold">Vize Tipi:</span>
@@ -165,26 +182,7 @@
 
                             </ul>
                         </div>
-                        <hr>
 
-                        <div class="row">
-                            @if (session('userTypeId') == 1 || session('userTypeId') == 2)
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                    <div class="card border-danger mb-3">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Loglar</h5>
-                                            <p>Dosya Logları</p>
-                                            <button class="btn btn-dark btn-sm float-end text-white"
-                                                onclick="contentLoad('arsiv-log','{{ $visaArchive->id }}')"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                                <i class="bi bi-image"></i> Göster
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-
-                        </div>
                     </div>
                 </div>
             </div>
