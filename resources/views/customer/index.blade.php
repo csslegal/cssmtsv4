@@ -18,11 +18,10 @@
 
     @include('customer.cards.base-information')
 
-    @include('customer.cards.access')
-
     @include('customer.cards.notes')
 
-    <!-- Modal -->
+    @include('customer.cards.access')
+
     @include('customer.modals.content-load')
 
     @include('customer.modals.note-add-modal')
