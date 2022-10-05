@@ -38,21 +38,24 @@
             <div class="row">
                 <div class="col-md-6">
                     <ul>
-                        <li><span class="fw-bold">Adı: </span> {{ $baseCustomerDetails->name }}</li>
+                        <li><span class="fw-bold">Müşteri Adı: </span> {{ $baseCustomerDetails->name }}</li>
                         <li><span class="fw-bold">Telefon: </span> {{ $baseCustomerDetails->phone }}</li>
-                        <li><span class="fw-bold">E-mail: </span> {{ $baseCustomerDetails->email }}</li>
-                        <li><span class="fw-bold">T.C. Kimlik No: </span>
-                            {{ $baseCustomerDetails->tc_number != null ? $baseCustomerDetails->tc_number : 'Kayıt bilgisi yok' }}
+                        <li><span class="fw-bold">E-posta: </span> {{ $baseCustomerDetails->email }}</li>
+                        <li><span class="fw-bold">E-posta Onayı: </span>
+                            {{ $baseCustomerDetails->information_confirm == 1 ? 'Gönderme Onaylı' : 'Gönderme Onaysız' }}
                         </li>
 
                     </ul>
                 </div>
                 <div class="col-md-6">
                     <ul>
-                        <li><span class="fw-bold">Adres: </span>
+                        <li><span class="fw-bold">Müşteri Adresi: </span>
                             {{ $baseCustomerDetails->address != null ? $baseCustomerDetails->address : 'Kayıt bilgisi yok' }}
                         </li>
-                        <li><span class="fw-bold">Pasaport No: </span>
+                        <li><span class="fw-bold">T.C. Kimlik No: </span>
+                            {{ $baseCustomerDetails->tc_number != null ? $baseCustomerDetails->tc_number : 'Kayıt bilgisi yok' }}
+                        </li>
+                        <li><span class="fw-bold">Pasaport Numarası: </span>
                             {{ $baseCustomerDetails->passport != null ? $baseCustomerDetails->passport : 'Kayıt bilgisi yok' }}
                         </li>
                         <li><span class="fw-bold">Pasaport Tarihi: </span>

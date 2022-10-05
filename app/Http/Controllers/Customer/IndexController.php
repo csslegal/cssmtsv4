@@ -96,13 +96,14 @@ class IndexController extends Controller
             ->select([
                 'customers.id AS id',
                 'customers.name AS name',
-            'customers.phone AS phone',
+                'customers.phone AS phone',
                 'customers.email AS email',
-            'customers.tc_number AS tc_number',
-            'customers.address AS address',
-            'customers.passport AS passport',
-            'customers.passport_date AS passport_date',
-        ]);
+                'customers.tc_number AS tc_number',
+                'customers.address AS address',
+                'customers.passport AS passport',
+                'customers.passport_date AS passport_date',
+                'customers.information_confirm  AS information_confirm',
+            ]);
 
         if (is_numeric($id) && $baseCustomerDetails->where('customers.id', '=', $id)->get()->count() > 0) {
 
