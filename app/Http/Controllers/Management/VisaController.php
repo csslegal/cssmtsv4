@@ -52,16 +52,10 @@ class VisaController extends Controller
             ->get();
 
         $twoDatesBetween = new TwoDatesBetween(
-            date(
-                "Y-m-d",
-                strtotime(
-                    '-1 year',
-                    strtotime(
-                        date("Y-m-d")
-                    )
-                )
-            ),
-            date("Y-m-d")
+            //başlangıc tarihi
+            date("Y-m-d", strtotime('-1 year', strtotime(date("Y-m-d")))),
+            //bitiş tarihi
+            date("Y-m-d", strtotime('+15 day', strtotime(date("Y-m-d"))))
         );
 
         $visaFileOpenArray = [];
@@ -69,6 +63,7 @@ class VisaController extends Controller
         $visaFileMountArray = [];
 
         foreach ($twoDatesBetween->mounts() as $mount) {
+
             $mountExp = explode('-', $mount);
             $openCount = DB::table('visa_files')
                 ->whereMonth('visa_files.created_at', $mountExp[1])
