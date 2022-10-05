@@ -9,21 +9,21 @@
             <table id="dataTable" class="table table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Tarihi</th>
-                        <th class="text-center">Saati</th>
-                        <th class="text-center">Kayıt Yapan</th>
-                        <th class="text-center">İşlemler</th>
+                        <th>ID</th>
+                        <th>Kayıt Yapan</th>
+                        <th>Tarihi</th>
+                        <th>Saati</th>
+                        <th>İşlemler</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($customerNotes as $customerNote)
                         <tr>
-                            <td class="text-center">{{ $customerNote->id }}</td>
-                            <td class="text-center">{{ date('Y-m-d', strtotime($customerNote->created_at)) }}</td>
-                            <td class="text-center">{{ date('H:i:s', strtotime($customerNote->created_at)) }}</td>
-                            <td class="text-center">{{ $customerNote->u_name }}</td>
-                            <td class="text-center">
+                            <td>{{ $customerNote->id }}</td>
+                            <td>{{ $customerNote->u_name }}</td>
+                            <td>{{ date('Y-m-d', strtotime($customerNote->created_at)) }}</td>
+                            <td>{{ date('H:i:s', strtotime($customerNote->created_at)) }}</td>
+                            <td>
                                 <button class="border btn btn-sm"
                                     onclick="contentLoad('not','{{ $customerNote->id }}')" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal" title="Göster">

@@ -125,6 +125,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 ">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Müşteri Notları</h5>
+                                    <p class="card-text">Sistemdeki müşteri notları.
+                                    </p>
+                                    <a href="yonetim/customer-notes" class="btn btn-dark float-end">Git</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

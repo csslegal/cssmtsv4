@@ -7,6 +7,7 @@ use App\Http\Controllers\Management\IndexController as ManagementIndexController
 use App\Http\Controllers\Management\ProfilController as ManagementProfilController;
 use App\Http\Controllers\Management\LoggingController as ManagementLoggingController;
 use App\Http\Controllers\Management\CustomersController as ManagementCustomersController;
+use App\Http\Controllers\Management\CustomerNotesController as ManagementCustomerNotesController;
 use App\Http\Controllers\Management\AjaxController as ManagementAjaxController;
 use App\Http\Controllers\Management\ApplicationOfficeController as ManagementApplicationOfficeController;
 use App\Http\Controllers\Management\AppointmentOfficeController as ManagementAppointmentOfficeController;
@@ -154,6 +155,7 @@ Route::middleware(['sessionCheck'])->group(function () {
         Route::resource('application-office', ManagementApplicationOfficeController::class);
         Route::resource('appointment-office', ManagementAppointmentOfficeController::class);
         Route::resource('customers', ManagementCustomersController::class);
+        Route::resource('customer-notes', ManagementCustomerNotesController::class);
         Route::resource('logging', ManagementLoggingController::class);
 
         /**Yonetim ajax işlemleri*/
