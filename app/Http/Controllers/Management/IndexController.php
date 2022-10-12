@@ -16,14 +16,7 @@ class IndexController extends Controller
             ->pluck('access.id')->toArray();
 
         return view('management.index')->with([
-            'countUsers' => DB::table('users')->where('active', '=', '1')->get()->count(),
-            'countUserType' => DB::table('users_type')->get()->count(),
-            'countUserAccess' => DB::table('access')->get()->count(),
-            'countApplicationOffice' => DB::table('application_offices')->get()->count(),
-            'countCustomer' => DB::table('customers')->get()->count(),
-            'countAppointmentOffice' => DB::table('appointment_offices')->get()->count(),
             'userAccesses' => $userAccesses,
-
         ]);
     }
 }

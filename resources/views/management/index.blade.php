@@ -63,7 +63,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Sistem Logları</h5>
-                                    <p class="card-text">Sistem kayıtlı loglar</p>
+                                    <p class="card-text">Sistem kaydı logları</p>
                                     <a href="yonetim/logging" class="btn btn-dark float-end">Git</a>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Kullanıcı Tipleri</h5>
-                                    <p class="card-text">Sistemde {{ $countUserType }} kayıt var.</p>
+                                    <p class="card-text">Kullanıcı tipi kayıt detayları.</p>
                                     <a href="yonetim/users-type" class="btn btn-dark float-end">Git</a>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Kullanıcılar</h5>
-                                    <p class="card-text"> Sistemde {{ $countUsers }} kayıt var.</p>
+                                    <p class="card-text">Kullanıcı kaydı detayları.</p>
                                     <a href="yonetim/users" class="btn btn-dark float-end">Git</a>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Kullanıcı Erişimleri</h5>
-                                    <p class="card-text"> Sistemde {{ $countUserAccess }} kayıt var.</p>
+                                    <p class="card-text">Kullanıcı erişimi kayıt detayları.</p>
                                     <a href="yonetim/users-access" class="btn btn-dark float-end">Git</a>
                                 </div>
                             </div>
@@ -99,8 +99,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Randevu Ofisleri</h5>
-                                    <p class="card-text"> Sistemde {{ $countAppointmentOffice }} kayıt var.
-                                    </p>
+                                    <p class="card-text">Başvuru ofisi kayıt detayları.</p>
                                     <a href="yonetim/appointment-office" class="btn btn-dark float-end">Git</a>
                                 </div>
                             </div>
@@ -109,7 +108,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Başvuru Ofisleri</h5>
-                                    <p class="card-text">Sistemde {{ $countApplicationOffice }} kayıt var.
+                                    <p class="card-text">Başvuru ofisi kayıt detayları.
                                     </p>
                                     <a href="yonetim/application-office" class="btn btn-dark float-end">Git</a>
                                 </div>
@@ -119,7 +118,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Müşteri Bilgileri</h5>
-                                    <p class="card-text">Sistemde {{ $countCustomer }} kayıt var.
+                                    <p class="card-text">Müşteri kayıt detayları.
                                     </p>
                                     <a href="yonetim/customers" class="btn btn-dark float-end">Git</a>
                                 </div>
@@ -129,7 +128,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Müşteri Notları</h5>
-                                    <p class="card-text">Sistemdeki müşteri notları.
+                                    <p class="card-text">Müşteri not bilgisi detayları.
                                     </p>
                                     <a href="yonetim/customer-notes" class="btn btn-dark float-end">Git</a>
                                 </div>

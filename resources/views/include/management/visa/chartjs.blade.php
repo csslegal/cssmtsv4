@@ -23,54 +23,58 @@
                     </div>
                 </h1>
             </div>
-            @if ($visaFilesOpenMadeCount != null)
-                <div class="col-lg-6 ">
-                    <div style="width: 100%">
-                        <canvas id="myChart0"></canvas>
+            <div class="row">
+                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6">
+                    <div style="width: 100%"><canvas id="myChartQuotaDay"></canvas>
                         <hr>
                     </div>
                 </div>
-            @endif
-            @if ($visaFilesGradesCount != null)
-                <div class="col-lg-6 ">
-                    <div style="width: 100%">
-                        <canvas id="myChart"></canvas>
+                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6"">
+                    <div style="width: 100%"><canvas id="myChartQuotaWeek"></canvas>
                         <hr>
                     </div>
                 </div>
-            @endif
-            @if ($visaFilesApplicationOfficeCount != null)
-                <div class="col-lg-6">
-                    <div style="width: 100%">
-                        <canvas id="myChart2"></canvas>
+                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6"">
+                    <div style="width: 100%"><canvas id="myChartQuotaMount"></canvas>
                         <hr>
                     </div>
                 </div>
-            @endif
-            @if ($arrayVisaFilesTranslationsAnalist != null)
-                <div class="col-lg-6">
-                    <div style="width: 100%">
-                        <canvas id="myChart5"></canvas>
+                <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6"">
+                    <div style="width: 100%"><canvas id="myChartQuotaYear"></canvas>
                         <hr>
                     </div>
                 </div>
-            @endif
-            @if ($arrayVisaFilesAdvisorsAnalist != null)
-                <div class="col-lg-6">
-                    <div style="width: 100%">
-                        <canvas id="myChart3"></canvas>
+                <div class="col-xxl-4 col-xl-6 col-lg-6">
+                    <div style="width: 100%"><canvas id="myChart"></canvas>
                         <hr>
                     </div>
                 </div>
-            @endif
-            @if ($arrayVisaFilesExpertsAnalist != null)
-                <div class="col-lg-6">
-                    <div style="width: 100%">
-                        <canvas id="myChart4"></canvas>
+                <div class="col-xxl-4 col-xl-6 col-lg-6">
+                    <div style="width: 100%"><canvas id="myChart1"></canvas>
                         <hr>
                     </div>
                 </div>
-            @endif
+                <div class="col-xxl-4 col-xl-6 col-lg-6">
+                    <div style="width: 100%"><canvas id="myChart2"></canvas>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-6 col-lg-6">
+                    <div style="width: 100%"><canvas id="myChart3"></canvas>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-6 col-lg-6">
+                    <div style="width: 100%"><canvas id="myChart4"></canvas>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-6 col-lg-6">
+                    <div style="width: 100%"><canvas id="myChart5"></canvas>
+                        <hr>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

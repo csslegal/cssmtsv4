@@ -57,6 +57,7 @@ use App\Http\Controllers\Customer\Visa\Grades\FileDeliveryController as VisaFile
 
 use App\Http\Controllers\Customer\Visa\ArchivesController as VisaArchivesController;
 use App\Http\Controllers\Customer\Visa\ArchiveTransportController as VisaArchiveTransportController;
+use App\Http\Controllers\Management\AjaxVisaGraphicController;
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
@@ -167,6 +168,19 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('customers', [ManagementAjaxController::class, 'get_customers_list']);
             Route::get('visa-logs', [ManagementAjaxController::class, 'get_visa_logs_list']);
             Route::get('visa-grades-count', [ManagementAjaxController::class, 'get_visa_grades_count']);
+
+
+            Route::get('quota-day',[AjaxVisaGraphicController::class,'quota_day']);
+            Route::get('quota-week',[AjaxVisaGraphicController::class,'quota_week']);
+            Route::get('quota-mount',[AjaxVisaGraphicController::class,'quota_mount']);
+            Route::get('quota-year',[AjaxVisaGraphicController::class,'quota_year']);
+
+            Route::get('grades-count',[AjaxVisaGraphicController::class,'grades_count']);
+            Route::get('application-office-count',[AjaxVisaGraphicController::class,'application_office_count']);
+            Route::get('advisor-analist',[AjaxVisaGraphicController::class,'advisor_analist']);
+            Route::get('expert-analist',[AjaxVisaGraphicController::class,'expert_analist']);
+            Route::get('translator-analist',[AjaxVisaGraphicController::class,'translator_analist']);
+            Route::get('open-made-analist',[AjaxVisaGraphicController::class,'open_made_analist']);
         });
 
         /**Yonetim vize işlemleri*/
