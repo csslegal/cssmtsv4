@@ -14551,7 +14551,7 @@ var FullCalendar = (function (exports) {
         table: 'table-bordered',
         tableCellShaded: 'table-active',
         buttonGroup: 'btn-group',
-        button: 'btn btn-dark',
+        button: 'btn btn-primary',
         buttonActive: 'active',
         popover: 'popover',
         popoverHeader: 'popover-header',
