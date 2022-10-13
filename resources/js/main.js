@@ -7,7 +7,7 @@ window.history.pushState(null, "", window.location.href);
 window.onpopstate = function () { window.history.pushState(null, "", window.location.href); };
 
 //datatable olusturma
-$('#dataTableVize,#dataTableDilOkulu,#dataTableHarici,#dataTableWeb').DataTable({
+$('#dataTableVize,#dataTableVize1,#dataTableVize2,#dataTableVize3,#dataTableVize4,#dataTableVize5,#dataTableVize6,#dataTableVize7,#dataTableVize8,#dataTableVize9,#dataTableVize10,#dataTableDilOkulu,#dataTableHarici,#dataTableWeb').DataTable({
     "order": [[0, 'asc'],],
     "columnDefs": [{ "type": "num", "targets": 0 }],
     language: { url: '/dataTables.tr.json' },
@@ -38,6 +38,7 @@ $('#dtCustomersTable').DataTable({
         }
     }],
 });
+
 $('#dtVisaLogsTable').DataTable({
     processing: true,
     serverSide: true,

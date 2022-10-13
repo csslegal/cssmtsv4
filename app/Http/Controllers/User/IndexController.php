@@ -18,6 +18,7 @@ class IndexController extends Controller
                 'customers.name AS name',
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
+                'visa_file_grades.id AS visa_file_grades_id',
                 'visa_file_grades.name AS visa_file_grades_name',
                 'visa_validity.name AS visa_validity_name',
                 'visa_types.name AS visa_type_name',
@@ -47,6 +48,18 @@ class IndexController extends Controller
             ->where('user_id', '=', $request->session()->get('userId'))
             ->pluck('access.id')->toArray();
 
+        if ($request->session()->get('userTypeId') == 2) {
+            $visaGradesAccesses = DB::table('visa_file_grades')->where('id','<>',1)->get();
+        } else {
+            $visaGradesAccesses = DB::table('visa_file_grades_users_type')
+                ->select([
+                    'visa_file_grades.id AS id',
+                    'visa_file_grades.name AS name',
+                ])
+                ->join('visa_file_grades', 'visa_file_grades.id', '=', 'visa_file_grades_users_type.visa_file_grade_id')
+                ->where('visa_file_grades_users_type.user_type_id', '=', $request->session()->get('userTypeId'))->get();
+        }
+
         switch ($request->session()->get('userTypeId')) {
             case 2: //danisman
 
@@ -65,6 +78,7 @@ class IndexController extends Controller
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
                     'panelsTimeAccess' => $panelsTimeAccess,
+                    'visaGradesAccesses' => $visaGradesAccesses,
                 ]);
                 break;
             case 3: //uzman
@@ -79,6 +93,7 @@ class IndexController extends Controller
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
                     'panelsTimeAccess' => $panelsTimeAccess,
+                    'visaGradesAccesses' => $visaGradesAccesses,
                 ]);
                 break;
 
@@ -93,6 +108,7 @@ class IndexController extends Controller
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
                     'panelsTimeAccess' => $panelsTimeAccess,
+                    'visaGradesAccesses' => $visaGradesAccesses,
                 ]);
                 break;
             case 6: //muhasebe
@@ -109,6 +125,7 @@ class IndexController extends Controller
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
                     'panelsTimeAccess' => $panelsTimeAccess,
+                    'visaGradesAccesses' => $visaGradesAccesses,
                 ]);
                 break;
             case 10: //muhendis
@@ -120,6 +137,7 @@ class IndexController extends Controller
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
                     'panelsTimeAccess' => $panelsTimeAccess,
+                    'visaGradesAccesses' => $visaGradesAccesses,
                 ]);
                 break;
             case 11: //yazar
@@ -131,6 +149,7 @@ class IndexController extends Controller
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
                     'panelsTimeAccess' => $panelsTimeAccess,
+                    'visaGradesAccesses' => $visaGradesAccesses,
                 ]);
                 break;
             case 12: //grafiker
@@ -142,6 +161,7 @@ class IndexController extends Controller
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
                     'panelsTimeAccess' => $panelsTimeAccess,
+                    'visaGradesAccesses' => $visaGradesAccesses,
                 ]);
                 break;
             case 13: //editor
@@ -153,6 +173,7 @@ class IndexController extends Controller
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
                     'panelsTimeAccess' => $panelsTimeAccess,
+                    'visaGradesAccesses' => $visaGradesAccesses,
                 ]);
                 break;
             case 14: //s.m uzmanı
@@ -164,6 +185,7 @@ class IndexController extends Controller
                     'visaCustomers' => $visaCustomers,
                     'webResults' => $webResults,
                     'panelsTimeAccess' => $panelsTimeAccess,
+                    'visaGradesAccesses' => $visaGradesAccesses,
                 ]);
                 break;
             default:
