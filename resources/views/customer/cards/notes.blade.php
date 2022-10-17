@@ -1,6 +1,6 @@
 @if (isset($customerNotes))
-    <div class="card card-dark mb-3" id="not">
-        <div class="card-header bg-dark text-white">Müşteri Notları
+    <div class="card card-danger mb-3" id="not">
+        <div class="card-header bg-danger text-white">Müşteri Notları
             <a data-bs-toggle="modal" data-bs-target="#exampleModalNot" class="float-end fw-bold text-white" href="#">Not
                 Ekle</a>
 

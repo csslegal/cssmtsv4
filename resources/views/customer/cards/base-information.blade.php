@@ -1,6 +1,6 @@
 @if (isset($baseCustomerDetails))
-    <div class="card card-dark mb-3" id="temel">
-        <div class="card-header bg-dark text-white">Müşteri Bilgileri
+    <div class="card card-danger mb-3" id="temel">
+        <div class="card-header bg-danger text-white">Müşteri Bilgileri
 
 
             <div class="dropdown float-end">

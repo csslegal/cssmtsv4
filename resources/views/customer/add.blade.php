@@ -7,7 +7,7 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol id="breadcrumb" class="breadcrumb">
+        <ol id="breadcrumb" class="breadcrumb p-2">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -62,7 +62,7 @@
                 </div>
                 <!-- {{ csrf_field() }} -->
                 @csrf
-                <button class="w-100 mt-3 btn btn-dark text-white btn-lg confirm" data-content="Devam edilsin mi?"
+                <button class="w-100 mt-3 btn btn-danger text-white btn-lg confirm" data-content="Devam edilsin mi?"
                     type="submit">Kaydet</button>
             </form>
         </div>

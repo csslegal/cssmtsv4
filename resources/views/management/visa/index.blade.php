@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <nav aria-label="breadcrumb">
-                <ol id="breadcrumb" class="breadcrumb">
+                <ol id="breadcrumb" class="breadcrumb p-2">
                     <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Vize İşlemleri</li>
                 </ol>
@@ -49,8 +49,8 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Dosya Aşamaları</h5>
-                                    <p class="card-text">Cari vize dosya aşama kayıtları</p>
-                                    <a href="/yonetim/vize/dosya-asama" class="btn btn-dark float-end">Git</a>
+                                    <p class="card-text">Cari vize dosya aşama detayları.</p>
+                                    <a href="/yonetim/vize/dosya-asama" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
                                 </div>
                             </div>
                         </div>
@@ -58,8 +58,8 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Dosya Aşama Erişimleri</h5>
-                                    <p class="card-text">Kullanıcı dosya aşama erişim kayıtları</p>
-                                    <a href="/yonetim/vize/dosya-asama-erisim" class="btn btn-dark float-end">Git</a>
+                                    <p class="card-text">Dosya aşama erişim detayları.</p>
+                                    <a href="/yonetim/vize/dosya-asama-erisim" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
                                 </div>
                             </div>
                         </div>
@@ -67,8 +67,8 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Vize Tipleri</h5>
-                                    <p class="card-text">Vize tipleri kayıtları</p>
-                                    <a href="/yonetim/vize/vize-tipi" class="btn btn-dark float-end">Git</a>
+                                    <p class="card-text">Vize tipleri detayları.</p>
+                                    <a href="/yonetim/vize/vize-tipi" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
                                 </div>
                             </div>
                         </div>
@@ -77,8 +77,8 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h5 class="card-title">Vize Süreleri</h5>
-                                    <p class="card-text">Vize süreleri kayıtları</p>
-                                    <a href="/yonetim/vize/vize-suresi" class="btn btn-dark float-end">Git</a>
+                                    <p class="card-text">Vize süreleri detayları.</p>
+                                    <a href="/yonetim/vize/vize-suresi" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
                                 </div>
                             </div>
                         </div>

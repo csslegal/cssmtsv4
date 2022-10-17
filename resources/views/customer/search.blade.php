@@ -7,7 +7,7 @@
 @section('content')
 
     <nav aria-label="breadcrumb">
-        <ol id="breadcrumb" class="breadcrumb">
+        <ol id="breadcrumb" class="breadcrumb p-2">
             <li class="breadcrumb-item">
                 <a href="{{ session('userTypeId') != 1 ? '/kullanici' : '/yonetim' }}">
                     {{ session('userTypeId') != 1 ? 'Kullanıcı Müşteri İşlemleri' : 'Yönetim Müşteri İşlemleri' }}
@@ -22,9 +22,9 @@
                 <input type="text" autofocus class="form-control" name="arama" autocomplete="off"
                     value="{{ isset($arama) ? $arama : '' }}" placeholder="Kayıt sorgula" data-bs-toggle="tooltip"
                     data-bs-placement="bottom" data-bs-html="true"
-                    title="Sorgulama Kriterleri <li>İsim Soyisim</li><li>E-Mail</li><li>Telefon</li><li>T.C. No</li><li> Pasaport No</li><li>Dosya Ref. No</li>">
+                    title="İsim Soyisim, E-Posta, Telefon, T.C. No, Pasaport No ve Dosya Ref. No ile müşteri sorgulaması yapılabilir.">
                 {{ csrf_field() }}
-                <button class="btn btn-dark border" type="submit">Ara</button>
+                <button class="btn btn-danger border" type="submit">Ara</button>
             </div>
         </form>
     </div>
@@ -104,8 +104,8 @@
                 <div class="card card-dark">
                     <div class="card-header bg-dark text-white">Bulunan Sonuçlar</div>
                     <div class="card-body scroll">
-                        Herhangi bir müşteri kaydı bulunamadı. Kayıt sayfasına gitmek için
-                        <a class="fw-bold" href="/musteri/create">tıklayınız</a>
+                        Sonuç bulunamadı, kayıt sayfasına gitmek için
+                        <a class="fw-bold text-danger" href="/musteri/create">tıklayınız</a>
                     </div>
                 </div>
             </div>

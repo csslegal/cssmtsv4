@@ -1,15 +1,17 @@
 @if (in_array(1, $userAccesses))
 
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Randevu Takvimi</div>
+    <!--<div class="card card-danger mb-3">
+        <div class="card-header bg-danger text-white">
+            Randevu Takvimi
+        </div>
         <div class="card-body scroll">
             <div id='calendar'></div>
         </div>
-    </div>
-
+    </div>-->
     @foreach ($visaGradesAccesses as $visaGradesAccess)
-        <div class="card card-dark mb-3">
-            <div class="card-header bg-dark text-white">{{ $visaGradesAccess->name }}</div>
+        <div class="card mb-3">
+            <div class="card-header bg-danger text-white ">
+                {{ mb_convert_case($visaGradesAccess->name, MB_CASE_TITLE, 'UTF-8') }}</div>
             <div class="card-body scroll">
                 <table id="dataTableVize{{ $visaGradesAccess->id }}" class="table table-striped table-bordered display"
                     style="width:100%">
@@ -29,11 +31,10 @@
                         @foreach ($visaCustomers as $visaCustomer)
                             @if ($visaCustomer->visa_file_grades_id == $visaGradesAccess->id)
                                 <tr class="{{ $visaCustomer->status ? 'text-success' : '' }}">
-                                    <td> <a
+                                    <td><a
                                             href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->visa_file_id }}</a>
                                     </td>
-                                    <td>
-                                        <a href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->name }}</a>
+                                    <td><a href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->name }}</a>
                                     </td>
                                     <td>{{ $visaCustomer->u_name }}</td>
                                     <!--<td>{{ $visaCustomer->application_office_name }}</td>-->

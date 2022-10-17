@@ -1,12 +1,10 @@
-<div class="card card-dark mb-3">
-    <div class="card-header bg-dark text-light">
+<div class="card card-danger mb-3">
+    <div class="card-header bg-danger text-white">
         Cari Dosya Detayları
         @if (session('userTypeId') == 1)
             <div class="dropdown float-end">
                 <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Dosya İşlemleri
-                </a>
+                    aria-expanded="false">Dosya İşlemleri</a>
 
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="asama();"

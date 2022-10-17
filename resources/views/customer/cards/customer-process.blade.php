@@ -14,7 +14,7 @@
                                 @method('DELETE')
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $baseCustomerDetails->id }}">
-                                <button class="confirm btn btn-dark text-white float-end" data-title="Dikkat!"
+                                <button class="confirm btn btn-danger text-white float-end" data-title="Dikkat!"
                                     data-content="Müşteri silinsin mi?">İşlem yap</button>
                             </form>
                         </div>
@@ -27,7 +27,7 @@
                             <br>
                             <p>Müşteri loglarını gösterme</p>
                             <a href="/musteri/{{ $baseCustomerDetails->id }}/logs"
-                                class="btn btn-dark text-white float-end">Git</a>
+                                class="btn btn-danger text-white float-end">İşleme git</a>
                         </div>
                     </div>
                 </div>

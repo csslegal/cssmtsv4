@@ -1,9 +1,9 @@
-<div class="card card-dark mb-3">
-    <div class="card-header bg-dark text-light">Cari Dosya Geçmişi</div>
+<div class="card card-danger mb-3">
+    <div class="card-header bg-danger text-white">Cari Dosya Geçmişi</div>
 
     <div class="card-body scroll">
         <span class="text-red fw-bold">İşlemler</span>
-        <ol reversed>
+        <ol>
             @foreach ($visaFileGradesLogs as $visaFileGradesLog)
                 <li class="mt-1">
                     <span class="fw-bold">{{ $visaFileGradesLog->subject }}</span>,
@@ -16,10 +16,10 @@
                             <i class=" bi bi-file-image"></i> Detay
                         </button>
                     </span>
-                    @if ($loop->first && $visaFileGradesPermitted['permitted'])
+                    @if ($loop->last && $visaFileGradesPermitted['permitted'])
                         <span>
                             <a href="vize/{{ $visaFileDetail->id }}/{{ $visaFileGradesPermitted['grades_url'] }}"
-                                class="confirm btn btn-sm btn-dark text-white" data-title="Dikkat!"
+                                class="confirm btn btn-sm btn-danger text-white" data-title="Dikkat!"
                                 data-content="{{ $visaFileGradesPermitted['grades_name'] }} aşamasına yönlendirilsin mi?">Sonraki
                                 aşama</a>
                         </span>

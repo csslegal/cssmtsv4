@@ -88,7 +88,7 @@
                             @enderror
                         </div>
                     </div>
-                    <button class="w-100 mt-3 btn btn-dark text-white btn-lg" type="submit">Güncelle</button>
+                    <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Güncelle</button>
                 </form>
             </div>
         </div>
