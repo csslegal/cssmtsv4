@@ -2,3 +2,33 @@
 .scroll {
     overflow-x: auto;
 }
+
+.pagination > li > a
+{
+    background-color: white;
+    color: purple;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #190e3d;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: #190e3d;
+    border: solid 1px #190e3d;
+}
+
+.pagination > .active > a:hover
+{
+    color: #eee;
+    background-color: #190e3d;
+    border: solid 1px #190e3d;
+}
