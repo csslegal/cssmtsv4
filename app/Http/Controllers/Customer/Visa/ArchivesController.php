@@ -28,7 +28,7 @@ class ArchivesController extends Controller
                 'visa_file_grades.url AS url',
                 'visa_file_grades.name AS grades_name',
 
-            'visa_types.name AS visa_type_name',
+                'visa_types.name AS visa_type_name',
                 'visa_validity.name AS visa_validity_name',
 
                 'visa_appointments.gwf AS visa_appointments_gwf',
@@ -43,23 +43,23 @@ class ArchivesController extends Controller
                 'user_expert.name AS expert_name',
 
                 'visa_application_result.visa_result',
-            'visa_application_result.visa_start_date',
-            'visa_application_result.visa_end_date',
-            'visa_application_result.visa_delivery_accepted_date',
+                'visa_application_result.visa_start_date',
+                'visa_application_result.visa_end_date',
+                'visa_application_result.visa_delivery_accepted_date',
                 'visa_application_result.visa_refusal_reason',
                 'visa_application_result.visa_refusal_date',
-            'visa_application_result.visa_refusal_delivery_accepted_date',
+                'visa_application_result.visa_refusal_delivery_accepted_date',
 
-            'delivery_application_office.name AS delivery_application_office_name',
+                'delivery_application_office.name AS delivery_application_office_name',
 
                 'visa_file_delivery.delivery_method',
                 'visa_file_delivery.courier_company',
                 'visa_file_delivery.tracking_number',
                 'visa_file_delivery.created_at AS visa_file_delivery_created_at',
 
-            'application_offices.name AS application_offices_name',
                 'application_offices.name AS application_offices_name',
-            'appointment_offices.name AS appointment_offices_name',
+                'application_offices.name AS application_offices_name',
+                'appointment_offices.name AS appointment_offices_name',
 
                 'user_delivery.name AS user_delivery_name',
             ])

@@ -16,26 +16,19 @@ class VisaFileGradesUsersTypeController extends Controller
     public function index()
     {
         $kayitlar = DB::table('users_type')
-
             ->select(
                 'users_type.id AS id',
                 'users_type.name AS ut_name',
                 'visa_file_grades_users_type.created_at AS created_at',
                 'visa_file_grades_users_type.updated_at AS updated_at',
             )
-            ->join(
-                'visa_file_grades_users_type',
-                'users_type.id',
-                '=',
-                'visa_file_grades_users_type.user_type_id'
-            )
+            ->join('visa_file_grades_users_type', 'users_type.id', '=', 'visa_file_grades_users_type.user_type_id')
             ->distinct()
             ->get();
 
-        return view('management.visa.file-grades-users-type.index')
-            ->with(
-                ['kayitlar' => $kayitlar]
-            );
+        return view('management.visa.file-grades-users-type.index')->with([
+            'kayitlar' => $kayitlar
+        ]);
     }
 
     /**
@@ -46,18 +39,12 @@ class VisaFileGradesUsersTypeController extends Controller
     public function create()
     {
         $usersTypes = DB::table('users_type')->get();
+        $visaFileGrades = DB::table('visa_file_grades')->orderBy('orderby')->get();
 
-        $visaFileGrades = DB::table('visa_file_grades')
-            ->orderBy('orderby')
-            ->get();
-
-        return view('management.visa.file-grades-users-type.create')
-            ->with(
-                [
-                    'usersTypes' => $usersTypes,
-                    'visaFileGrades' => $visaFileGrades,
-                ]
-            );
+        return view('management.visa.file-grades-users-type.create')->with([
+            'usersTypes' => $usersTypes,
+            'visaFileGrades' => $visaFileGrades,
+        ]);
     }
 
     /**
@@ -91,12 +78,10 @@ class VisaFileGradesUsersTypeController extends Controller
             DB::table('visa_file_grades_users_type')->where('user_type_id', '=', $tip)->delete();
             DB::table('visa_file_grades_users_type')->insert($arrayVisaFileGrade);
 
-            $request->session()
-                ->flash('mesajSuccess', 'Başarıyla kaydedildi');
+            $request->session()->flash('mesajSuccess', 'Başarıyla kaydedildi');
             return redirect('yonetim/vize/dosya-asama-erisim');
         } else {
-            $request->session()
-                ->flash('mesajDanger', 'En az bir dosya aşaması seçimi yapınız');
+            $request->session()->flash('mesajDanger', 'En az bir dosya aşaması seçimi yapınız');
             return redirect('yonetim/vize/dosya-asama-erisim/create');
         }
     }
@@ -121,7 +106,8 @@ class VisaFileGradesUsersTypeController extends Controller
     public function edit($id)
     {
         $usersTypes = DB::table('users_type')->get();
-        $visaFileGrades = DB::table('visa_file_grades')->get();
+        $visaFileGrades = DB::table('visa_file_grades')->orderBy('orderby')->get();
+
         $fileGradesUsersType = DB::table('visa_file_grades_users_type')
             ->select('visa_file_grade_id')
             ->where('user_type_id', '=', $id)
@@ -129,15 +115,12 @@ class VisaFileGradesUsersTypeController extends Controller
 
         $kayit = DB::table('users_type')->where('id', '=', $id)->first();
 
-        return view('management.visa.file-grades-users-type.edit')
-            ->with(
-                [
-                    'kayit' => $kayit,
-                    'usersTypes' => $usersTypes,
-                    'visaFileGrades' => $visaFileGrades,
-                    'fileGradesUsersType' => $fileGradesUsersType,
-                ]
-            );
+        return view('management.visa.file-grades-users-type.edit')->with([
+            'kayit' => $kayit,
+            'usersTypes' => $usersTypes,
+            'visaFileGrades' => $visaFileGrades,
+            'fileGradesUsersType' => $fileGradesUsersType,
+        ]);
     }
 
     /**
@@ -160,9 +143,7 @@ class VisaFileGradesUsersTypeController extends Controller
 
         if (count((array)$visaFileGrades) > 0) {
 
-            DB::table('visa_file_grades_users_type')
-                ->where('user_type_id', '=', $id)
-                ->delete();
+            DB::table('visa_file_grades_users_type')->where('user_type_id', '=', $id)->delete();
 
             $arrayVisaFileGrade = array();
 
@@ -177,11 +158,9 @@ class VisaFileGradesUsersTypeController extends Controller
                     ])
                 );
             }
-            DB::table('visa_file_grades_users_type')
-                ->insert($arrayVisaFileGrade);
+            DB::table('visa_file_grades_users_type')->insert($arrayVisaFileGrade);
 
-            $request->session()
-                ->flash('mesajSuccess', 'Başarıyla kaydedildi');
+            $request->session()->flash('mesajSuccess', 'Başarıyla kaydedildi');
             return redirect('yonetim/vize/dosya-asama-erisim');
         }
     }
@@ -195,22 +174,17 @@ class VisaFileGradesUsersTypeController extends Controller
     public function destroy(Request $request, $id)
     {
         if (is_numeric($id)) {
-            if (
-                DB::table('visa_file_grades_users_type')
-                ->where('user_type_id', '=', $id)
-                ->delete()
-            ) {
-                $request->session()
-                    ->flash('mesajSuccess', 'Başarıyla silindi');
+
+            if (DB::table('visa_file_grades_users_type')->where('user_type_id', '=', $id)->delete()) {
+
+                $request->session()->flash('mesajSuccess', 'Başarıyla silindi');
                 return redirect('yonetim/vize/dosya-asama-erisim');
             } else {
-                $request->session()
-                    ->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
+                $request->session()->flash('mesajDanger', 'Silinme sıralasında sorun oluştu');
                 return redirect('yonetim/vize/dosya-asama-erisim');
             }
         } else {
-            $request->session()
-                ->flash('mesajDanger', 'ID alınırken sorun oluştu');
+            $request->session()->flash('mesajDanger', 'ID alınırken sorun oluştu');
             return redirect('yonetim/vize/dosya-asama-erisim');
         }
     }

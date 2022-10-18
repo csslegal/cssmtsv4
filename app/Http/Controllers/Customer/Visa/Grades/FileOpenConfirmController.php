@@ -78,10 +78,10 @@ class FileOpenConfirmController extends Controller
             $deleted = DB::table('visa_files')->where("id", "=", $visa_file_id)->delete();
 
             if ($deleted) {
-                $request->session()->flash('mesajSuccess', 'Vize dosyası iptal edildi');
+                $request->session()->flash('mesajSuccess', 'Vize dosyası red edildi');
                 return redirect('/musteri/' . $id . '/vize');
             } else {
-                $request->session()->flash('mesajDanger', 'Vize dosyası iptal sıralasında sorun oluştu');
+                $request->session()->flash('mesajDanger', 'Vize dosyası red sıralasında sorun oluştu');
                 return redirect('/musteri/' . $id . '/vize');
             }
         }

@@ -16,7 +16,7 @@ class VisaFileGradesController extends Controller
      */
     public function index()
     {
-        $kayitlar = DB::table('visa_file_grades')->get();
+        $kayitlar = DB::table('visa_file_grades')->orderBy('orderby')->get();
 
         return view('management.visa.file-grades.index')
             ->with(['kayitlar' => $kayitlar]);

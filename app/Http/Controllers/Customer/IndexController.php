@@ -40,7 +40,7 @@ class IndexController extends Controller
         }
         if ($request->get('address') != "") {
             $validatorStringArray = array_merge($validatorStringArray, array('address' => 'string|min:3'));
-            $address = $request->get('address');
+            $address = mb_convert_case(mb_strtolower($request->get('address')), MB_CASE_TITLE, "UTF-8");
         }
         if ($request->get('tc_number') != "") {
             $validatorStringArray = array_merge($validatorStringArray, array('tc_number' => 'min:10|unique:customers|numeric'));
