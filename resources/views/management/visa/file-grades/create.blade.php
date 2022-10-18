@@ -39,6 +39,7 @@
                             <option value="VISA_CONTROL_WAIT_GRADES_ID">Kontrol Bekleyen Dosyalar</option>
                             <option value="VISA_TRANSLATIONS_COMPLETED_GRADES_ID">Tercüme Bekleyen Dosyalar</option>
                             <option value="VISA_APPOINTMENT_COMPLETED_GRADES_ID">Başvuru Bekleyen Dosyalar</option>
+                            <option value="VISA_APPLICATION_PAID_GRADES_ID">Başvuru Ödemesi Bekleyen Dosyalar</option>
                             <option value="VISA_DACTYLOGRAM_GRADES_ID">Randevusu Alınmış Dosyalar</option>
                             <option value="VISA_APPLICATION_RESULT_GRADES_ID">Sonuç Bekleyen Dosyalar</option>
                             <option value="VISA_FILE_DELIVERY_GRADES_ID">Dosya Teslim Bekleyen</option>
