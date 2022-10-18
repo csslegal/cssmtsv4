@@ -17,7 +17,8 @@
                     style="width:100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Son İşlem Tarihi</th>
+                            <th>Ref No</th>
                             <th>Müşteri Adı</th>
                             <th>Danışman</th>
                             <!--<th>Başvuru Ofisi</th>-->
@@ -31,10 +32,16 @@
                         @foreach ($visaCustomers as $visaCustomer)
                             @if ($visaCustomer->visa_file_grades_id == $visaGradesAccess->id)
                                 <tr class="{{ $visaCustomer->status ? 'text-success' : '' }}">
-                                    <td><a
-                                            href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->visa_file_id }}</a>
+                                    <td>{{ $visaCustomer->created_at }}</td>
+                                    <td>
+                                        <a href="/musteri/{{ $visaCustomer->id }}/vize">
+                                            {{ $visaCustomer->visa_file_id }}
+                                        </a>
                                     </td>
-                                    <td><a href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->name }}</a>
+                                    <td>
+                                        <a href="/musteri/{{ $visaCustomer->id }}/vize">
+                                            {{ $visaCustomer->name }}
+                                        </a>
                                     </td>
                                     <td>{{ $visaCustomer->u_name }}</td>
                                     <!--<td>{{ $visaCustomer->application_office_name }}</td>-->

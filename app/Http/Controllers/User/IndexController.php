@@ -23,6 +23,7 @@ class IndexController extends Controller
                 'visa_validity.name AS visa_validity_name',
                 'visa_types.name AS visa_type_name',
                 'users.name AS u_name',
+                DB::raw("max(visa_file_logs.created_at) AS created_at"),
             ])
             ->leftJoin('visa_files', 'visa_files.customer_id', '=', 'customers.id')
             ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
@@ -30,8 +31,12 @@ class IndexController extends Controller
             ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_files.application_office_id')
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_files.visa_type_id')
             ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
+            ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
 
-            ->where('visa_files.active', '=', 1);
+            ->groupBy('visa_file_logs.visa_file_id')
+
+            ->where('visa_files.active', '=', 1)
+            ;
 
         $webResults = DB::table('web_panel_auth')->where('user_id', '=', $request->session()->get('userId'))->get();
 
@@ -49,7 +54,7 @@ class IndexController extends Controller
             ->pluck('access.id')->toArray();
 
         if ($request->session()->get('userTypeId') == 2) {
-            $visaGradesAccesses = DB::table('visa_file_grades')->where('id','<>',1)->get();
+            $visaGradesAccesses = DB::table('visa_file_grades')->where('id','<>',1)->orderBy('orderby')->get();
         } else {
             $visaGradesAccesses = DB::table('visa_file_grades_users_type')
                 ->select([
@@ -69,7 +74,7 @@ class IndexController extends Controller
                 $visaCustomers = $visaCustomersUsers
                     ->whereIn('visa_files.application_office_id', $userApplicationOfficeIds)
                     //->orWhere('visa_files.advisor_id', '=', $request->session()->get('userId'))
-                    //->where('visa_files.active', '=', 1)
+                    ->where('visa_files.active', '=', 1)
                     //->where('visa_files.advisor_id', '=', $request->session()->get('userId'))
                     ->get();
 
@@ -114,7 +119,7 @@ class IndexController extends Controller
             case 6: //muhasebe
                 $visaCustomers = $visaCustomersUsers
                     ->where('visa_files.visa_file_grades_id', '=', env('VISA_FILE_OPEN_CONFIRM_GRADES_ID'))
-                    //->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_MADE_PAYMENT_GRADES_ID'))
+                    ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPLICATION_PAID_GRADES_ID'))
                     //->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_INVOICE_SAVE_GRADES_ID'))
                     //->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_RE_PAYMENT_CONFIRM_GRADES_ID'))
                     //->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'))
