@@ -54,9 +54,11 @@ use App\Http\Controllers\Customer\Visa\Grades\AppointmentController as VisaAppoi
 use App\Http\Controllers\Customer\Visa\Grades\AppointmentPutOffController as VisaAppointmentPutOffController;
 use App\Http\Controllers\Customer\Visa\Grades\ApplicationResultController as VisaApplicationResultController;
 use App\Http\Controllers\Customer\Visa\Grades\FileDeliveryController as VisaFileDeliveryController;
+use App\Http\Controllers\Customer\Visa\Grades\FinishArchiveController as VisaFinishArchiveController;
 
 use App\Http\Controllers\Customer\Visa\ArchivesController as VisaArchivesController;
 use App\Http\Controllers\Customer\Visa\ArchiveTransportController as VisaArchiveTransportController;
+use App\Http\Controllers\Customer\Visa\Grades\ApplicationPaidWaitController;
 use App\Http\Controllers\Management\AjaxVisaGraphicController;
 
 /**Genel yönlendirmeler*/
@@ -93,7 +95,6 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::group(['prefix' => '{visa_file_id}', 'middleware' => 'gradesCheck'], function () {
 
                 /***Dosya aşamalarından bağımsız bölümler */
-
                 Route::resource('asama-guncelle', VisaGradesUpdateController::class);
                 Route::resource('durum-guncelle', VisaStatusUpdateController::class);
                 Route::resource('arsive-tasima', VisaArchiveTransportController::class);
@@ -104,9 +105,11 @@ Route::middleware(['sessionCheck'])->group(function () {
                 Route::resource('kontrol-bekleyen', VisaControlWaitController::class); //
                 Route::resource('tercume-bekleyen', VisaTranslationsWaitController::class);
                 Route::resource('basvuru-bekleyen', VisaApplicationWaitController::class);
+                Route::resource('basvuru-odemesi', ApplicationPaidWaitController::class);
                 Route::resource('randevu', VisaAppointmentController::class);
                 Route::resource('sonuc-bekleyen', VisaApplicationResultController::class);
                 Route::resource('teslimat', VisaFileDeliveryController::class);
+                Route::resource('sonuclanmis-arsiv', VisaFinishArchiveController::class);
                 /***Dosya aşamaları son */
             });
         });

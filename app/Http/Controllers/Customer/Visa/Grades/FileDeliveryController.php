@@ -93,7 +93,7 @@ class FileDeliveryController extends Controller
                 $dataArray = array_merge($dataArray, array('created_at' => date('Y-m-d H:i:s')));
                 DB::table('visa_file_delivery')->insert($dataArray);
             }
-            DB::table('visa_files')->where("id", "=", $visa_file_id)->update(['active' => 0, 'visa_file_grades_id' => $nextGrades]);
+            DB::table('visa_files')->where("id", "=", $visa_file_id)->update(['active' => 1, 'visa_file_grades_id' => $nextGrades]);
 
             if ($request->session()->has($visa_file_id . '_grades_id')) {
                 $request->session()->forget($visa_file_id . '_grades_id');

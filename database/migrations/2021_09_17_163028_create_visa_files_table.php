@@ -23,6 +23,7 @@ class CreateVisaFilesTable extends Migration
             $table->integer('visa_validity_id')->nullable(); //vize süresi
             $table->integer('visa_file_grades_id')->nullable(); //dosya aşaması
             $table->integer('temp_grades_id')->nullable(); //dosya aşaması geçiçi tutma
+            $table->text('archive_folder_name')->nullable(); //arşiv klasor adı
 
             $table->integer('advisor_id')->nullable();
             $table->integer('expert_id')->nullable();
