@@ -11,13 +11,16 @@ class CustomersImport implements ToCollection
 {
     public function collection(Collection $rows)
     {
+        $rowIndex = 0;
         foreach ($rows as $row) {
-
+            if ($rowIndex == 0) {
+                $rowIndex++;
+                continue;
+            }
             if (
-                DB::table('customers')->where('tc_number', '=', $row[1])->count() == 0
-                || (Customers::where('name', '=', $row[0])->where('phone', '=', $row[3])->count() == 0
-                    &&  Customers::where('name', '=', $row[0])->where('email', '=', $row[4])->count() == 0
-                )
+                DB::table('customers')->where('tc_number', '=', $row[1])->count() == 0 ||
+                (Customers::where('name', '=', $row[0])->where('phone', '=', $row[3])->count() == 0 &&
+                    Customers::where('name', '=', $row[0])->where('email', '=', $row[4])->count() == 0 )
             ) {
 
                 Customers::create([
