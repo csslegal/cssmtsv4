@@ -9,7 +9,7 @@
             <div class="modal-body" id="contentLoad">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Kapat</button>
             </div>
         </div>
     </div>

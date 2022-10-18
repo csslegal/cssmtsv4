@@ -1,7 +1,7 @@
 @extends('sablon.genel')
 
 @section('title')
-    Tercüme Tamamlama
+    Tercüme Bekleyen Dosyalar
 @endsection
 
 @section('content')
@@ -14,11 +14,11 @@
             </li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}">Müşteri Sayfası</a></li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}/vize">Vize İşlemleri</a></li>
-            <li class="breadcrumb-item active">Tercüme Tamamlama</li>
+            <li class="breadcrumb-item active">Tercüme Bekleyen Dosyalar</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Tercüme Tamamlama</div>
+    <div class="card card-danger mb-3">
+        <div class="card-header bg-danger text-white">Tercüme Bekleyen Dosya İşlemleri</div>
         <div class="card-body scroll">
             <form action="" method="POST">
                 @csrf
@@ -89,7 +89,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="w-100 mt-2 btn btn-dark text-white btn-lg confirm" data-title="Dikkat!"
+                <button type="submit" class="w-100 mt-2 btn btn-danger text-white btn-lg confirm" data-title="Dikkat!"
                     data-content="Tercüme bilgileri kaydedilsin mı?">Aşamayı Tamamla</button>
             </form>
         </div>

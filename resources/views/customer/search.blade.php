@@ -32,10 +32,10 @@
 
         @if ($customerDetails->count() > 0)
             <div class="col-md-12 mt-5 mb-3">
-                <div class="card card-dark">
-                    <div class="card-header bg-dark text-white">Bulunan Sonuçlar</div>
+                <div class="card card-danger">
+                    <div class="card-header bg-danger text-white">Bulunan Sonuçlar</div>
                     <div class="card-body scroll">
-                        <table id="dataTable" class=" table table-striped table-bordered display" style="width:100%">
+                        <table id="dataTable" class="table table-striped table-bordered display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>

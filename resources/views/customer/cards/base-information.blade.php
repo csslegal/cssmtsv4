@@ -1,8 +1,6 @@
 @if (isset($baseCustomerDetails))
     <div class="card card-danger mb-3" id="temel">
         <div class="card-header bg-danger text-white">Müşteri Bilgileri
-
-
             <div class="dropdown float-end">
                 <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">Müşteri İşlemleri
@@ -10,14 +8,16 @@
                 <ul class="dropdown-menu">
                     @if (session('userTypeId') == 1 || session('userTypeId') == 2)
                         <li>
-                            <a class="dropdown-item" href="/musteri/{{ $baseCustomerDetails->id }}/edit">Bilgi
-                                Güncelleme</a>
+                            <a class="dropdown-item" href="/musteri/{{ $baseCustomerDetails->id }}/edit">
+                                Bilgi Güncelleme
+                            </a>
                         </li>
                     @endif
                     @if (session('userTypeId') == 1)
                         <li>
-                            <a class="dropdown-item" href="/musteri/{{ $baseCustomerDetails->id }}/logs">Log
-                                Gösterme</a>
+                            <a class="dropdown-item" href="/musteri/{{ $baseCustomerDetails->id }}/logs">
+                                Log Gösterme
+                            </a>
                         </li>
                         <li>
                             <form action="/musteri/{{ $baseCustomerDetails->id }}" method="POST">
@@ -25,8 +25,9 @@
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $baseCustomerDetails->id }}">
                                 <button class="confirm dropdown-item" data-title="Dikkat!"
-                                    data-content="Müşteri hesabı silinsin mi? İşlem geri alınamaz...">Hesap
-                                    Silme</button>
+                                    data-content="Müşteri hesabı silinsin mi? İşlem geri alınamaz...">
+                                    Hesap Silme
+                                </button>
                             </form>
                         </li>
                     @endif

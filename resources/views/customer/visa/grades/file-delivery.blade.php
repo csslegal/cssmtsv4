@@ -1,7 +1,7 @@
 @extends('sablon.genel')
 
 @section('title')
-    Dosya Teslimatı
+    Dosya Teslimi Bekleyen Dosyalar
 @endsection
 
 @section('content')
@@ -14,11 +14,11 @@
             </li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}">Müşteri Sayfası</a></li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}/vize">Vize İşlemleri</a></li>
-            <li class="breadcrumb-item active">Dosya Teslimatı</li>
+            <li class="breadcrumb-item active">Dosya Teslimi Bekleyen Dosyalar</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Dosya Teslim Et</div>
+    <div class="card card-danger mb-3">
+        <div class="card-header bg-danger text-white">Dosya Teslimi Bekleyen Dosya İşlemleri</div>
         <div class="card-body scroll">
             <form action="teslimat" method="POST">
                 @csrf
@@ -87,7 +87,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="w-100 mt-2 btn btn-dark text-white btn-lg  confirm"
+                <button type="submit" class="w-100 mt-2 btn btn-danger text-white btn-lg confirm"
                     data-content="Devam edilsin mi?">Aşamayı Tamamla</button>
             </form>
         </div>

@@ -1,7 +1,7 @@
 @extends('sablon.genel')
 
 @section('title')
-    Randevu Bilgileri Kaydı
+    Başvuru Bekleyen Dosyalar
 @endsection
 
 @section('content')
@@ -17,8 +17,8 @@
             <li class="breadcrumb-item active">Başvuru Bekleyen Dosyalar</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Başvuru Bekleyen Dosya İşlemleri</div>
+    <div class="card card-danger mb-3">
+        <div class="card-header bg-danger text-white">Başvuru Bekleyen Dosya İşlemleri</div>
         <div class="card-body scroll">
             <form action="" method="POST">
                 @csrf
@@ -101,7 +101,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="w-100 mt-2 btn btn-dark text-white btn-lg confirm" data-title="Dikkat!"
+                <button type="submit" class="w-100 mt-2 btn btn-danger text-white btn-lg confirm" data-title="Dikkat!"
                     data-content="Müşteri randevusu kaydedilsin mı?">Aşamayı Tamamla</button>
             </form>
         </div>

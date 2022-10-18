@@ -16,8 +16,8 @@
             <li class="breadcrumb-item active">Müşteri Kayıt</li>
         </ol>
     </nav>
-    <div class="card card-dark">
-        <div class="card-header bg-dark text-white">Müşteri Kayıt</div>
+    <div class="card card-danger">
+        <div class="card-header bg-danger text-white">Müşteri Kayıt</div>
         <div class="card-body scroll">
             <form method="post" action="/musteri">
                 <div class="mb-3">

@@ -19,8 +19,8 @@
         </ol>
     </nav>
 
-    <div class="card card-dark">
-        <div class="card-header bg-dark text-white">Müşteri Düzenle</div>
+    <div class="card card-danger">
+        <div class="card-header bg-danger text-white">Müşteri Düzenle</div>
         <div class="card-body scroll">
             <form method="post" action="/musteri/{{ $baseCustomerDetails->id }}">
                 @method('PUT')

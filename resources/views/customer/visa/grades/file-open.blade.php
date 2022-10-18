@@ -1,7 +1,7 @@
 @extends('sablon.genel')
 
 @section('title')
-    Cari Dosya Aç
+    Dosya Açma İşlemi Başlatıldı
 @endsection
 
 @section('content')
@@ -15,11 +15,11 @@
             </li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}">Müşteri Sayfası</a></li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}/vize">Vize İşlemleri</a></li>
-            <li class="breadcrumb-item active">Cari Dosya Aç</li>
+            <li class="breadcrumb-item active">Dosya Açma İşlemi Başlatıldı</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Cari Dosya Aç</div>
+    <div class="card card-danger mb-3">
+        <div class="card-header bg-danger text-white">Dosya Açma İşlemleri</div>
         <div class="card-body scroll">
             <form action="" method="POST">
                 @csrf
@@ -111,7 +111,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="w-100 mt-2 btn btn-dark text-white btn-lg  confirm" data-title="Dikkat!"
+                <button type="submit" class="w-100 mt-2 btn btn-danger text-white btn-lg confirm" data-title="Dikkat!"
                     data-content="Müşteri dosyası açılsın mı?">Aşamayı Tamamla</button>
             </form>
         </div>

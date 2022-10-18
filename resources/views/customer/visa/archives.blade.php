@@ -20,8 +20,8 @@
 
     @if ($visaArchives->count() > 0)
         @foreach ($visaArchives as $visaArchive)
-            <div class="card border-dark mb-3">
-                <div class="card-header bg-dark text-white">
+            <div class="card border-danger mb-3">
+                <div class="card-header bg-danger text-white">
                     {{ $visaArchive->id }} Referans Numaralı Arşiv Dosyası
                     @if (session('userTypeId') == 1 || session('userTypeId') == 2)
                         <div class="dropdown drop float-end">
@@ -182,13 +182,10 @@
 
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
         @endforeach
-
-        <!-- Modal -->
         @include('customer.modals.content-load')
 
         <div class="modal fade" id="exampleModal1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

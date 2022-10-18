@@ -13,8 +13,8 @@
     </nav>
 
     @if ($userInformations != null)
-        <div class="card card-dark mb-3">
-            <div class="card-header bg-dark text-white fw-bold">Profilim</div>
+        <div class="card card-danger mb-3">
+            <div class="card-header bg-danger text-white fw-bold">Profilim</div>
             <div class="card-body">
                 <div class="row">
 
@@ -67,8 +67,8 @@
             </div>
         </div>
 
-        <div class="card card-dark">
-            <div class="card-header bg-dark text-white fw-bold">Şifre Güncelleme</div>
+        <div class="card card-danger">
+            <div class="card-header bg-danger text-white fw-bold">Şifre Güncelleme</div>
             <div class="card-body">
                 <form method="POST" action="/kullanici/profil">
                     @csrf

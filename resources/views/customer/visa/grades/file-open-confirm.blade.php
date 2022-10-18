@@ -1,7 +1,7 @@
 @extends('sablon.genel')
 
 @section('title')
-    Parmak İzi Verme
+    Dosya Açma Onayı İşlemi Bekleyen
 @endsection
 
 @section('content')
@@ -14,23 +14,23 @@
             </li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}">Müşteri Sayfası</a></li>
             <li class="breadcrumb-item"><a href="/musteri/{{ $baseCustomerDetails->id }}/vize">Vize İşlemleri</a></li>
-            <li class="breadcrumb-item active">Dosya Açma Onayı</li>
+            <li class="breadcrumb-item active">Dosya Açma Onayı İşlemi Bekleyen</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Dosya Açma Onayı İşlemleri</div>
+    <div class="card card-danger mb-3">
+        <div class="card-header bg-danger text-white">Dosya Açma Onayı İşlemleri</div>
         <div class="card-body scroll">
 
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 ">
-                    <div class="card border-success mb-3">
+                    <div class="card border-dark mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Onayla</h5>
                             <p>Onaylandığında "Evrak Bekleyen Dosyalar" aşamasına geçilecektir.</p>
                             <form action="" method="POST">
                                 @csrf
                                 <input type="hidden" name="tamam" value="tamam">
-                                <button type="submit" class="btn btn-success float-end text-white"
+                                <button type="submit" class="w-100 mt-2 btn btn-danger float-end text-white"
                                     onClick="this.form.submit(); this.disabled=true;">Onayla</button>
                             </form>
                         </div>
@@ -39,13 +39,13 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 ">
                     <div class="card border-dark mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">İptal Et</h5>
-                            <p>İptal edildiğinde bu dosya ile ilgili bütün kayıtlar silinecektir.</p>
+                            <h5 class="card-title">Red Et</h5>
+                            <p>Red edildiğinde bu dosya ile ilgili bütün kayıtlar silinecektir.</p>
                             <form action="" method="POST">
                                 @csrf
                                 <input type="hidden" name="iptal" value="iptal">
-                                <button type="submit" class="btn btn-dark float-end text-white"
-                                    onClick="this.form.submit(); this.disabled=true;">İptal Et</button>
+                                <button type="submit" class="w-100 mt-2 btn btn-dark float-end text-white"
+                                    onClick="this.form.submit(); this.disabled=true;">Red Et</button>
                             </form>
                         </div>
                     </div>
