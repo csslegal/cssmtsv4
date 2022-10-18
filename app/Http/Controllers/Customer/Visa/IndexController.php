@@ -24,22 +24,35 @@ class IndexController extends Controller
         $visaFileDetail = DB::table('visa_files')
             ->select([
                 'visa_files.id AS id',
-            'application_offices.name AS application_office_name',
-            'appointment_offices.name AS appointment_office_name',
+                'application_offices.name AS application_office_name',
+                'appointment_offices.name AS appointment_office_name',
+
                 'visa_files.status AS status',
                 'visa_files.visa_file_grades_id AS visa_file_grades_id',
                 'visa_files.temp_grades_id AS temp_grades_id',
                 'visa_files.created_at AS created_at',
+
                 'visa_file_grades.url AS url',
                 'visa_file_grades.name AS grades_name',
-            'visa_types.name AS visa_type_name',
+
+                'visa_types.name AS visa_type_name',
+
                 'visa_validity.name AS visa_validity_name',
+
                 'visa_appointments.gwf AS visa_appointments_gwf',
                 'visa_appointments.name AS visa_appointments_name',
                 'visa_appointments.password AS visa_appointments_password',
                 'visa_appointments.date AS visa_appointments_date',
                 'visa_appointments.time AS visa_appointments_time',
                 'visa_appointments.created_at AS visa_appointments_created_at',
+
+                'visa_application_result.visa_result',
+                'visa_application_result.visa_start_date',
+                'visa_application_result.visa_end_date',
+                'visa_application_result.visa_delivery_accepted_date',
+                'visa_application_result.visa_refusal_reason',
+                'visa_application_result.visa_refusal_date',
+                'visa_application_result.visa_refusal_delivery_accepted_date',
 
                 'user_advisor.name AS advisor_name',
                 'user_translator.name AS translator_name',
@@ -54,6 +67,7 @@ class IndexController extends Controller
             ->leftJoin('visa_validity', 'visa_validity.id', '=', 'visa_files.visa_validity_id')
 
             ->leftJoin('visa_appointments', 'visa_appointments.visa_file_id', '=', 'visa_files.id')
+            ->leftJoin('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
 
             ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_files.application_office_id')
             ->leftJoin('appointment_offices', 'appointment_offices.id', '=', 'visa_files.appointment_office_id')
@@ -72,7 +86,7 @@ class IndexController extends Controller
             ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
             ->where('visa_files.customer_id', '=', $id)
             ->where('visa_files.active', '=', 1)
-            ->orderByDesc('visa_file_logs.id')
+            ->orderBy('visa_file_logs.id')
             ->get();
 
         /***dosya acma */
