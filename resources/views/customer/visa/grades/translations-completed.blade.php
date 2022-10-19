@@ -24,7 +24,7 @@
                 @csrf
                 <div class="mb-3">
                     @if (session('userTypeId') == 1)
-                        <label>Dosya Tercümanı</label>
+                        <label class="form-label">Dosya Tercümanı</label>
                         <select name="tercuman" class="form-control">
                             <option selected value="">Lütfen seçim yapın</option>
                             @foreach ($users as $user)
@@ -40,7 +40,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Orjinal Sayfa Sayısı</label>
+                    <label class="form-label">Orjinal Sayfa Sayısı</label>
                     <input type="text" name="sayfa" autocomplete="off" class="form-control"
                         placeholder="Sayfa sayısı girin" value="{{ old('sayfa') }}" />
                     @error('sayfa')
@@ -48,7 +48,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Orjinal Kelime Sayısı</label>
+                    <label class="form-label">Orjinal Kelime Sayısı</label>
                     <input type="text" name="kelime" autocomplete="off" class="form-control"
                         placeholder="Kelime sayısı girin" value="{{ old('kelime') }}" />
                     @error('kelime')
@@ -56,7 +56,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Orjinal Karakter Sayısı</label>
+                    <label class="form-label">Orjinal Karakter Sayısı</label>
                     <input type="text" name="karakter" autocomplete="off" class="form-control"
                         placeholder="Karakter sayısı girin" value="{{ old('karakter') }}" />
                     @error('karakter')
@@ -65,7 +65,7 @@
                 </div>
                 <hr>
                 <div class="mb-3">
-                    <label>Tercüme Sayfa Sayısı</label>
+                    <label class="form-label">Tercüme Sayfa Sayısı</label>
                     <input type="text" name="tercume-sayfa" autocomplete="off" class="form-control"
                         placeholder="Sayfa sayısı girin" value="{{ old('tercume-sayfa') }}" />
                     @error('tercume-sayfa')
@@ -73,7 +73,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Tercüme Kelime Sayısı</label>
+                    <label class="form-label">Tercüme Kelime Sayısı</label>
                     <input type="text" name="tercume-kelime" autocomplete="off" class="form-control"
                         placeholder="Kelime sayısı girin" value="{{ old('tercume-kelime') }}" />
                     @error('tercume-kelime')
@@ -81,7 +81,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Tercüme Karakter Sayısı</label>
+                    <label class="form-label">Tercüme Karakter Sayısı</label>
                     <input type="text" name="tercume-karakter" autocomplete="off" class="form-control"
                         placeholder="Karakter sayısı girin" value="{{ old('tercume-karakter') }}" />
                     @error('tercume-karakter')

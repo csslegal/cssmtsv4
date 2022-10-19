@@ -24,7 +24,7 @@ Sonuç Bekleyen Dosyalar
             <form action="" method="POST" id="formSonuc">
                 @csrf
                 <div class="mb-3">
-                    <label>Başvuru Sonucu</label>
+                    <label class="form-label">Başvuru Sonucu</label>
                     <select name="sonuc" onchange="durum()" id="sonuc" class="form-control ">
                         <option selected value="1">Olumlu</option>
                         <option value="0">Olumsuz</option>
@@ -35,7 +35,7 @@ Sonuç Bekleyen Dosyalar
                     @enderror
                 </div>
                 <div class="mb-3" id="vbat">
-                    <label>Vize Başlangıç Tarihi</label>
+                    <label class="form-label">Vize Başlangıç Tarihi</label>
                     <input type="text" class="form-control datepicker" autocomplete="off" id="vize_baslangic_tarihi"
                         name="vize_baslangic_tarihi"
                         value="{{ old('vize_baslangic_tarihi') ? old('vize_baslangic_tarihi') : '' }}" />
@@ -44,7 +44,7 @@ Sonuç Bekleyen Dosyalar
                     @enderror
                 </div>
                 <div class="mb-3" id="vbit">
-                    <label>Vize Bitiş Tarihi</label>
+                    <label class="form-label">Vize Bitiş Tarihi</label>
                     <input type="text" class="form-control datepicker1" autocomplete="off" id="vize_bitis_tarihi"
                         name="vize_bitis_tarihi" value="{{ old('vize_bitis_tarihi') ? old('vize_bitis_tarihi') : '' }}" />
                     @error('vize_bitis_tarihi')
@@ -52,7 +52,7 @@ Sonuç Bekleyen Dosyalar
                     @enderror
                 </div>
                 <div class="mb-3" id="vta">
-                    <label>Vize Teslim Alınma Tarihi</label>
+                    <label class="form-label">Vize Teslim Alınma Tarihi</label>
                     <input type="text" class="form-control datepicker2" autocomplete="off" id="vize_teslim_alinma_tarihi"
                         name="vize_teslim_alinma_tarihi"
                         value="{{ old('vize_teslim_alinma_tarihi') ? old('vize_teslim_alinma_tarihi') : '' }}" />
@@ -61,7 +61,7 @@ Sonuç Bekleyen Dosyalar
                     @enderror
                 </div>
                 <div class="mb-3" id="rs">
-                    <label>Ret Sebebi</label>
+                    <label class="form-label">Ret Sebebi</label>
                     <input type="text" class="form-control" id="red_sebebi" autocomplete="off" name="red_sebebi"
                         value="{{ old('red_sebebi') ? old('red_sebebi') : '' }}" />
                     @error('red_sebebi')
@@ -69,7 +69,7 @@ Sonuç Bekleyen Dosyalar
                     @enderror
                 </div>
                 <div class="mb-3" id="rt">
-                    <label>Ret Tarihi</label>
+                    <label class="form-label">Ret Tarihi</label>
                     <input type="text" class="form-control datepicker3" id="red_tarihi" autocomplete="off"
                         name="red_tarihi" value="{{ old('red_tarihi') ? old('red_tarihi') : '' }}" />
                     @error('red_tarihi')
@@ -77,7 +77,7 @@ Sonuç Bekleyen Dosyalar
                     @enderror
                 </div>
                 <div class="mb-3" id="rat">
-                    <label>Ret Teslim Alınma Tarihi</label>
+                    <label class="form-label">Ret Teslim Alınma Tarihi</label>
                     <input type="text" class="form-control datepicker4" id="red_teslim_alinma_tarihi" autocomplete="off"
                         name="red_teslim_alinma_tarihi"
                         value="{{ old('red_teslim_alinma_tarihi') ? old('red_teslim_alinma_tarihi') : '' }}" />

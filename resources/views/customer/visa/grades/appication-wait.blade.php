@@ -24,7 +24,7 @@
                 @csrf
                 <div class="mb-3">
                     @if (session('userTypeId') == 1)
-                        <label>Dosya Uzmanı</label>
+                        <label class="form-label">Dosya Uzmanı</label>
                         <select name="uzman" class="form-control">
                             <option selected value="">Lütfen seçim yapın</option>
                             @foreach ($users as $user)
@@ -40,7 +40,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>GWF Numarası</label>
+                    <label class="form-label">GWF Numarası</label>
                     <input type="text" name="gwf" autocomplete="off" class="form-control"
                         placeholder="GWF numarası girin" value="{{ old('gwf') }}" />
                     @error('gwf')
@@ -63,7 +63,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Hesap Adı</label>
+                    <label class="form-label">Hesap Adı</label>
                     <input type="text" name="hesap_adi" autocomplete="off" class="form-control"
                         placeholder="Hesap adını girin" value="{{ old('hesap_adi') }}" />
                     @error('hesap_adi')
@@ -71,7 +71,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Hesap Şifresi</label>
+                    <label class="form-label">Hesap Şifresi</label>
                     <input type="text" name="sifre" autocomplete="off" class="form-control"
                         placeholder="Hesap şifresi girin" value="{{ old('sifre') }}" />
                     @error('sifre')
@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label>Randevu Tarihi</label>
+                    <label class="form-label">Randevu Tarihi</label>
                     <input type="text" class="datepicker form-control" name="tarih" autocomplete="off"
                         placeholder="Randevu tarihi girin" value="{{ old('tarih') }}" />
                     @error('tarih')
@@ -88,7 +88,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Randevu Saati</label>
+                    <label class="form-label">Randevu Saati</label>
                     <select name="saat" class="form-control">
                         <option value="">Seçim yapınız</option>
                         @foreach ($times as $time)

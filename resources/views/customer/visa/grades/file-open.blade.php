@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label>Vize Süresi</label>
+                    <label class="form-label">Vize Süresi</label>
                     <select name="vize-sure" class="form-control">
                         <option selected value="">Lütfen seçim yapın</option>
                         @foreach ($visaValidities as $visaValidity)
@@ -50,7 +50,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Müşteri T.C. Numarası</label>
+                    <label class="form-label">Müşteri T.C. Numarası</label>
                     <input type="text" name="tc_number" autocomplete="off" class="form-control"
                         placeholder="T.C. numarasını giriniz"
                         value="{{ $baseCustomerDetails->tc_number != '' ? $baseCustomerDetails->tc_number : old('tc_number') }}" />
@@ -59,7 +59,7 @@
                     @enderror
                 </div>
                 <div class="mb-3">
-                    <label>Müşteri Adresi</label>
+                    <label class="form-label">Müşteri Adresi</label>
                     <input type="text" name="address" autocomplete="off" class="form-control" placeholder="Adres giriniz"
                         value="{{ $baseCustomerDetails->address != '' ? $baseCustomerDetails->address : old('address') }}" />
                     @error('address')
@@ -96,7 +96,7 @@
                 </div>
                 <div class="mb-3">
                     @if (session('userTypeId') == 1)
-                        <label>Müşteri Dosya Danışmanı</label>
+                        <label class="form-label">Müşteri Dosya Danışmanı</label>
                         <select name="danisman" class="form-control">
                             <option selected value="">Lütfen seçim yapın</option>
                             @foreach ($users as $user)

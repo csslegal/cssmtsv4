@@ -18,7 +18,7 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <label class="">Grubu</label>
+                        <label  class="form-label">Grubu</label>
                         <select name="grup" id="" class="form-control">
                             <option value="">Seçim yapınız</option>
                             @foreach ($results as $result)
@@ -30,7 +30,7 @@
                         @enderror
                     </div>
                     <div class="col-12 g-3">
-                        <label class="">Site Adı</label>
+                        <label  class="form-label">Site Adı</label>
                         <input type="text" value="{{ old('site') }}" placeholder="csslegal.com" name="site"
                             class="form-control">
                         @error('site')
@@ -38,7 +38,7 @@
                         @enderror
                     </div>
                     <div class="col-12 g-3">
-                        <label class="">Panel URL</label>
+                        <label  class="form-label">Panel URL</label>
                         <input type="text" value="{{ old('url') != null ? old('url') : 'https://' }}" name="url"
                             placeholder="https://csslegal.com/" class="form-control">
                         @error('url')

@@ -23,7 +23,7 @@
             <form action="teslimat" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label>Teslim Edilme Şekli </label>
+                    <label class="form-label">Teslim Edilme Şekli </label>
                     <select name="teslimat_sekli" onchange="delivery()" id="teslimat_sekli" class="form-control">
                         <option {{ old('teslimat_sekli') == 1 ? ' selected ' : '' }} value="1">Elden kimlik ile
                         </option>
@@ -36,7 +36,7 @@
                     @enderror
                 </div>
                 <div class="mb-3" id="k">
-                    <label>Kargolar</label>
+                    <label class="form-label">Kargolar</label>
                     <select class="form-control" name="kargo_firmasi" id="kargo_firmasi">
                         <option value="">Seçim yapınız</option>
                         <option {{ old('kargo_firmasi') == 'Yurtiçi Kargo' ? ' selected ' : '' }} value="Yurtiçi Kargo">
@@ -67,7 +67,7 @@
                     @enderror
                 </div>
                 <div class="mb-3" id="kn">
-                    <label>Kargo Takip Numarası</label>
+                    <label class="form-label">Kargo Takip Numarası</label>
                     <input type="text" class="form-control" name="kargo_takip_no" autocomplete="off" id="kargo_takip_no"
                         value="{{ old('kargo_takip_no') }}" />
                     @error('kargo_takip_no')
@@ -75,7 +75,7 @@
                     @enderror
                 </div>
                 <div class="mb-3" id="bo">
-                    <label>Teslim Edilen Ofis</label>
+                    <label class="form-label">Teslim Edilen Ofis</label>
                     <select class="form-control" name="ofis" id="ofis">
                         <option value="">Seçim yapınız</option>
                         @foreach ($applicationOffices as $applicationOffice)

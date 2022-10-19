@@ -16,7 +16,7 @@
                 @method('PUT')
                 @csrf
                 <div class="col-12">
-                    <label class="">Grubu</label>
+                    <label class="form-label">Grubu</label>
                     <select name="grup" id="" class="form-control">
                         <option value="">Seçim yapınız</option>
                         @foreach ($resultGroups as $resultGroup)

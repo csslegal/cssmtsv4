@@ -36,7 +36,7 @@
                             <option value="VISA_FILE_OPEN_GRADES_ID">Dosya Açma İşlemi Başlatıldı</option>
                             <option value="VISA_FILE_OPEN_CONFIRM_GRADES_ID">Dosya Açma Onayı Bekleyen</option>
                             <option value="VISA_DOCUMENT_WAIT_GRADES_ID">Evrak Bekleyen Dosyalar</option>
-                            <option value="VISA_CONTROL_WAIT_GRADES_ID">Kontrol Bekleyen Dosyalar</option>
+                            <option value="VISA_CONTROL_WAIT_GRADES_ID">Uzman Onayı Bekleyen Dosyalar</option>
                             <option value="VISA_TRANSLATIONS_COMPLETED_GRADES_ID">Tercüme Bekleyen Dosyalar</option>
                             <option value="VISA_APPOINTMENT_COMPLETED_GRADES_ID">Başvuru Bekleyen Dosyalar</option>
                             <option value="VISA_APPLICATION_PAID_GRADES_ID">Başvuru Ödemesi Bekleyen Dosyalar</option>
