@@ -23,6 +23,7 @@ class ArchivesController extends Controller
                 'visa_files.id AS id',
                 'visa_files.status AS status',
                 'visa_files.visa_file_grades_id AS visa_file_grades_id',
+                'visa_files.archive_folder_name AS archive_folder_name',
                 'visa_files.created_at AS created_at',
 
                 'visa_file_grades.url AS url',

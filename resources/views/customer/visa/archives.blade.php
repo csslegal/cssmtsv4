@@ -20,13 +20,13 @@
 
     @if ($visaArchives->count() > 0)
         @foreach ($visaArchives as $visaArchive)
-            <div class="card border-danger mb-3">
+            <div class="card card-danger mb-3">
                 <div class="card-header bg-danger text-white">
                     {{ $visaArchive->id }} Referans Numaralı Arşiv Dosyası
                     @if (session('userTypeId') == 1 || session('userTypeId') == 2)
                         <div class="dropdown drop float-end">
-                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                            <button class="btn btn-dark btn-sm dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 Arşiv Dosya İşlemleri
                             </button>
                             <ul class="dropdown-menu">
@@ -179,7 +179,10 @@
                                         <span>Başvuru yenileme</span>
                                     </li>
                                 @endif
-
+                                <li>
+                                    <span class="fw-bold">Arşiv Klasoru:</span>
+                                    <span>{{ $visaArchive->archive_folder_name }} Dosya</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
