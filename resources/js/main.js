@@ -67,7 +67,7 @@ $('a.confirm').confirm({
     content: '',
     buttons: {
         hayır: {
-            btnClass: 'btn-info btn-sm text-white',
+            btnClass: 'btn-dark btn-sm text-white',
             action: function () {
             }
         },
@@ -85,7 +85,7 @@ $('form>button.confirm').confirm({
     content: '',
     buttons: {
         hayır: {
-            btnClass: 'btn-info btn-sm text-white',
+            btnClass: 'btn-dark btn-sm text-white',
             action: function () {
             }
         },
