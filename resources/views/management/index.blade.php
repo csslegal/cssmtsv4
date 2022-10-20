@@ -12,7 +12,7 @@
         @if (in_array(1, $userAccesses))
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card mb-3">
-                    <div class="card-header text-white bg-dark mb-3">Vize İşlemleri</div>
+                    <div class="card-header text-white bg-danger mb-3">Vize İşlemleri</div>
                     <div class="card-body">
                         <p class="card-text">Vize ile ilgili bütün işlemler.</p>
                         <a href="/yonetim/vize" class="w-100 mt-2 btn text-white btn-dark btn-block">İşlem yap</a>
@@ -23,7 +23,7 @@
         @if (in_array(2, $userAccesses))
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card   mb-3">
-                    <div class="card-header text-white bg-dark mb-3">Harici Tercüme İşlemleri</div>
+                    <div class="card-header text-white bg-danger mb-3">Harici Tercüme İşlemleri</div>
                     <div class="card-body">
                         <p class="card-text">Harici Tercümeler işlemleri.</p>
                         <a href="/yonetim/harici" class="w-100 mt-2 btn text-white btn-dark btn-block">İşlem yap</a>
@@ -34,7 +34,7 @@
         @if (in_array(3, $userAccesses))
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card  mb-3">
-                    <div class="card-header text-white bg-dark mb-3">Dil Okulu İşlemleri</div>
+                    <div class="card-header text-white bg-danger mb-3">Dil Okulu İşlemleri</div>
                     <div class="card-body">
                         <p class="card-text">Dil Okulu işlemleri.</p>
                         <a href="/yonetim/dilokulu" class="w-100 mt-2 btn text-white btn-dark btn-block">İşlem yap</a>
@@ -45,7 +45,7 @@
         @if (in_array(4, $userAccesses))
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card  mb-3">
-                    <div class="card-header text-white bg-dark mb-3">Web İşlemleri</div>
+                    <div class="card-header text-white bg-danger mb-3">Web İşlemleri</div>
                     <div class="card-body">
                         <p class="card-text">Web siteleri işlemleri.</p>
                         <a href="/yonetim/web" class="w-100 mt-2 btn text-white btn-dark">İşlem yap</a>
@@ -55,7 +55,7 @@
         @endif
         <div class="col-md-12">
             <div class="card mb-3">
-                <div class="card-header text-white bg-dark mb-3">Genel İşlemler</div>
+                <div class="card-header text-white bg-danger mb-3">Genel İşlemler</div>
                 <div class="card-body ">
                     <div class="row">
 

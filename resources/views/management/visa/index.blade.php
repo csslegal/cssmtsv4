@@ -35,14 +35,14 @@
                 <div class="tab-pane fade" id="pills-chartjs" role="tabpanel" aria-labelledby="pills-chartjs-tab"
                     tabindex="0"> @include('include.management.visa.chartjs')</div>
                 <div class="tab-pane fade" id="pills-logs" role="tabpanel" aria-labelledby="pills-logs-tab" tabindex="0">
-                    @include('include.management.visa.logs')</div>
-
+                    @include('include.management.visa.logs')
+                </div>
             </div>
             <!-- Modal -->
             @include('include.management.content-load')
 
             <div class="card">
-                <div class="card-header text-white bg-dark mb-3">Genel Vize İşlemleri</div>
+                <div class="card-header text-white bg-danger mb-3">Genel Vize İşlemleri</div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">

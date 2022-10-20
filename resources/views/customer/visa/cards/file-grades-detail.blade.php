@@ -11,7 +11,7 @@
                         yapıldı.
                     </span>
                     <span>
-                        <button class="btn btn-sm text-dark border" onclick="goster('{{ $visaFileGradesLog->id }}')"
+                        <button class="btn btn-sm btn-dark" onclick="goster('{{ $visaFileGradesLog->id }}')"
                             title="İçeriği göster" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class=" bi bi-file-image"></i> Detay
                         </button>
@@ -19,9 +19,9 @@
                     @if ($loop->last && $visaFileGradesPermitted['permitted'])
                         <span>
                             <a href="vize/{{ $visaFileDetail->id }}/{{ $visaFileGradesPermitted['grades_url'] }}"
-                                class="confirm btn btn-sm btn-danger text-white" data-title="Dikkat!"
+                                class="btn btn-sm btn-dark confirm" data-title="Dikkat!"
                                 data-content="{{ $visaFileGradesPermitted['grades_name'] }} aşamasına yönlendirilsin mi?">Sonraki
-                                aşama</a>
+                                aşama <i class=" bi bi-caret-right"></i></a>
                         </span>
                     @endif
                 </li>

@@ -22,8 +22,8 @@
         <div class="card-body scroll">
             <form action="" method="POST">
                 @csrf
-                <div class="mb-3">
-                    @if (session('userTypeId') == 1)
+                @if (session('userTypeId') == 1)
+                    <div class="mb-3">
                         <label class="form-label">Dosya Tercümanı</label>
                         <select name="tercuman" class="form-control">
                             <option selected value="">Lütfen seçim yapın</option>
@@ -34,11 +34,11 @@
                                 @endif
                             @endforeach
                         </select>
-                    @endif
-                    @error('tercuman')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+                        @error('tercuman')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                @endif
                 <div class="mb-3">
                     <label class="form-label">Orjinal Sayfa Sayısı</label>
                     <input type="text" name="sayfa" autocomplete="off" class="form-control"
@@ -89,7 +89,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="w-100 mt-2 btn btn-danger text-white btn-lg confirm" data-title="Dikkat!"
+                <button type="submit" class="w-100 mt-2 btn btn-dark text-white confirm" data-title="Dikkat!"
                     data-content="Tercüme bilgileri kaydedilsin mı?">Aşamayı Tamamla</button>
             </form>
         </div>

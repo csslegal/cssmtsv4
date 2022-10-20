@@ -5,16 +5,26 @@
             <div class="dropdown float-end">
                 <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">Dosya İşlemleri</a>
-
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="asama();"
-                            data-bs-target="#exampleModal">Aşama Güncelle</a></li>
-                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="status();"
-                            data-bs-target="#exampleModal">Durum Güncelle</a></li>
+                    <li>
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="asama();"
+                            data-bs-target="#exampleModal">
+                            Aşama Güncelle
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" onclick="status();"
+                            data-bs-target="#exampleModal">
+                            Durum Güncelle
+                        </a>
+                    </li>
                     @if (isset($visaFileDetail))
                         @if (session('userTypeId') == 1)
-                            <li><a class="dropdown-item" href="vize/{{ $visaFileDetail->id }}/arsive-tasima">Arşive
-                                    Taşıma</a></li>
+                            <li>
+                                <a class="dropdown-item" href="vize/{{ $visaFileDetail->id }}/arsive-tasima">
+                                    Arşive Taşıma
+                                </a>
+                            </li>
                         @endif
                     @endif
                 </ul>

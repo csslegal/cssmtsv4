@@ -12,7 +12,7 @@
     @include('include.management.web.nav')
 
     <div class="card">
-        <div class="card-header text-white bg-dark mb-3">Web İşlemleri</div>
+        <div class="card-header text-white bg-danger mb-3">Web İşlemleri</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 ">

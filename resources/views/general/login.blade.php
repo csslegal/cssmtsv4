@@ -23,7 +23,7 @@
                         src="{{ asset('storage/logo.png') }}" alt="logo">
                 </div>
                 <div class="card border border-1 shadow-lg rounded-lg mt-3">
-                    <div class="card-header justify-content-center bg-dark text-white">
+                    <div class="card-header justify-content-center bg-danger text-white">
                         <h3 class="fw-light my-2">Kullanıcı Girişi</h3>
                     </div>
                     <div class="card-body">
@@ -33,7 +33,7 @@
                         <form action="giris" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label class="small mb-1" for="email">E-mail</label>
+                                <label class="form-label" for="email">E-mail</label>
                                 <input name="email" value="{{ old('email') }}" class="form-control" id="email"
                                     type="text" placeholder="E-mail Adresiniz">
                                 @error('email')
@@ -41,7 +41,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="small mb-1" for="password">Şifre</label>
+                                <label class="form-label" for="password">Şifre</label>
                                 <input name="password" value="{{ old('password') }}" class="form-control"
                                     id="password" type="password" placeholder="Şifreniz">
                                 @error('password')

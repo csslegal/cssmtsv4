@@ -6,18 +6,18 @@
                     <div class="float-end">
                         <form action="/yonetim/vize#pills-chartjs" method="GET">
                             <div class="input-group input-group-sm">
-                                <span class="input-group-text ">Dosya Tipi:</span>
+                                <span class="input-group-text bg-danger text-white">Dosya Tipi:</span>
                                 <select class="form-control" name="status" id="">
                                     <option value="cari" @if (request()->get('status') == 'cari') selected @endif>Cari
                                     </option>
                                     <option value="arsiv" @if (request()->get('status') == 'arsiv') selected @endif>Arşiv
                                     </option>
                                 </select>
-                                <span class="input-group-text ">Tarih Aralığı:</span>
+                                <span class="input-group-text bg-danger text-white">Tarih Aralığı:</span>
                                 <input type="text" name="dates"
                                     value="{{ request('dates') ? request('dates') : date('Y-m-01') . '--' . date('Y-m-28') }}"
                                     autocomplete="off" id="dates" class="form-control">
-                                <button type="submit" class="btn btn-light">Uygula</button>
+                                <button type="submit" class="btn btn-dark">Uygula</button>
                             </div>
                         </form>
                     </div>
