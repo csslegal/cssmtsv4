@@ -25,27 +25,27 @@
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Vize Tipi</label>
-                    <select class="form-select" name="vize-tipi">
+                    <select class="form-select" name="tipi">
                         <option value="">Lütfen seçimi yapınız</option>
                         @foreach ($visaTypes as $visaType)
                             <option value="{{ $visaType->id }}">{{ $visaType->name }}</option>
                         @endforeach
                     </select>
-                    @error('vize-tipi')
+                    @error('tipi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Vize Süresi</label>
-                    <select name="vize-sure" class="form-control">
+                    <select name="sure" class="form-control">
                         <option selected value="">Lütfen seçim yapın</option>
                         @foreach ($visaValidities as $visaValidity)
                             <option {{ old('vize-sure') == $visaValidity->id ? 'selected' : '' }}
                                 value="{{ $visaValidity->id }}">{{ $visaValidity->name }}</option>
                         @endforeach
                     </select>
-                    @error('vize-sure')
+                    @error('sure')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>

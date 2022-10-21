@@ -170,7 +170,10 @@ class IndexController extends Controller
         $validatorStringArray = array_merge($validatorStringArray, array('email' => 'required|min:3|email'));
 
         if ($currentCustomerDetails->name != mb_convert_case(mb_strtolower($request->get('name')), MB_CASE_TITLE, "UTF-8")) {
-            $updateArray = array_merge($updateArray, array('name' => mb_convert_case(mb_strtolower($request->get('name')), MB_CASE_TITLE, "UTF-8")));
+            $updateArray = array_merge(
+                $updateArray,
+                array('name' => mb_convert_case(mb_strtolower($request->get('name')), MB_CASE_TITLE, "UTF-8"))
+            );
             array_push($logsArray, array(
                 'operation_name' => 'Müşteri adı güncelleme',
                 'before' => $currentCustomerDetails->name,
@@ -203,7 +206,10 @@ class IndexController extends Controller
             ));
         }
         if ($currentCustomerDetails->address != $request->get('address')) {
-            $updateArray = array_merge($updateArray, array('address' => $request->get('address')));
+            $updateArray = array_merge(
+                $updateArray,
+                array('address' =>  mb_convert_case(mb_strtolower($request->get('address')), MB_CASE_TITLE, "UTF-8"))
+            );
             array_push($logsArray, array(
                 'operation_name' => 'Müşteri adresi güncelleme',
                 'before' => $currentCustomerDetails->address,
