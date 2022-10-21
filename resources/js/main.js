@@ -15,7 +15,7 @@ $('#dataTableVize,#dataTableVize1,#dataTableVize2,#dataTableVize3,#dataTableVize
 
 });
 $('#dataTable').DataTable({
-    "order": [[0, 'asc'],],
+    "order": [[0, 'desc'],],
     "pageLength": 5,
     "columnDefs": [{ "type": "num", "targets": 0 }],
     language: { url: '/dataTables.tr.json' },
@@ -94,6 +94,42 @@ $('form>button.confirm').confirm({
             action: function () {
                 $.alert('İşlem devam ediyor.');
                 $('form')[0].submit();
+            }
+        }
+    }
+});
+$('form>button.confirm1').confirm({
+    title: 'Dikkat!',
+    content: '',
+    buttons: {
+        hayır: {
+            btnClass: 'btn-dark btn-sm text-white',
+            action: function () {
+            }
+        },
+        evet: {
+            btnClass: 'btn-danger btn-sm text-white', // multiple classes.
+            action: function () {
+                $.alert('İşlem devam ediyor.');
+                $('form')[1].submit();
+            }
+        }
+    }
+});
+$('form>button.confirm2').confirm({
+    title: 'Dikkat!',
+    content: '',
+    buttons: {
+        hayır: {
+            btnClass: 'btn-dark btn-sm text-white',
+            action: function () {
+            }
+        },
+        evet: {
+            btnClass: 'btn-danger btn-sm text-white', // multiple classes.
+            action: function () {
+                $.alert('İşlem devam ediyor.');
+                $('form')[2].submit();
             }
         }
     }

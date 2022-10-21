@@ -24,7 +24,6 @@
 
     @include('customer.modals.content-load')
 
-    @include('customer.modals.note-add-modal')
 @endsection
 
 @section('js')

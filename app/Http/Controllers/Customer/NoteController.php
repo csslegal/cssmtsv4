@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 class NoteController extends Controller
 {
 
+
+    public function index(Request $request)
+    {
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -17,18 +22,35 @@ class NoteController extends Controller
      */
     public function store($id, Request $request)
     {
-        $request->validate(['not' => 'required']);
+        $request->validate([
+            'note' => 'required',
+        ]);
 
-        $customerNotId = DB::table('customer_notes')
+        $customerNoteId = DB::table('customer_notes')
             ->insertGetId([
                 'user_id' => $request->session()->get('userId'),
                 'customer_id' => $id,
-                'content' => $request->get('not'),
+                'content' => $request->get('note'),
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
-        DB::table('customer_notes')->where(['id' => $customerNotId])->update(['orderby' => $customerNotId]);
+        DB::table('customer_notes')->where(['id' => $customerNoteId])->update(['orderby' => $customerNoteId]);
 
         $request->session()->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
-        return redirect('/musteri/' . $id);
+        return redirect('/musteri/' . $id . '#notes');
+    }
+
+    /**
+     *
+     */
+    public function destroy($id, $note_id, Request $request)
+    {
+
+        if (DB::table('customer_notes')->where('id', '=', $note_id)->delete()) {
+            $request->session()->flash('mesajSuccess', 'Kayıt başarıyla silindi');
+            return redirect('/musteri/' . $id . '#notes');
+        } else {
+            $request->session()->flash('mesajDanger', 'Silme işlemi tamamlanamadı');
+            return redirect('/musteri/' . $id . '#notes');
+        }
     }
 }

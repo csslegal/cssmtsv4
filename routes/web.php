@@ -75,42 +75,57 @@ Route::middleware(['sessionCheck'])->group(function () {
     Route::post('/theme', [GeneralLoginController::class, "post_theme"]);
 
     /**Musteri yönlendirmeler*/
-    Route::resource('musteri/sorgula', CustomerSearchController::class);
-    Route::resource('musteri', CustomerIndexController::class);
+    //Route::resource('musteri', CustomerIndexController::class);
 
     Route::group(['prefix' => 'musteri'], function () {
 
-        Route::resource('{id}/not-ekle', CustomerNoteController::class);
-        Route::resource('{id}/logs', CustomerLogsController::class);
+        Route::get('/', [CustomerIndexController::class, 'index']);
+        Route::post('/', [CustomerIndexController::class, 'store']);
+        Route::get('create', [CustomerIndexController::class, 'create']);
 
-        /**Vize işlemleri*/
-        Route::group(['prefix' => '{id}/vize'], function () {
-            Route::get('/', [VisaIndexController::class, 'index']);
-            Route::get('asama', [CustomerAjaxController::class, 'get_grades']);
-            Route::resource('arsiv', VisaArchivesController::class);
+        Route::get('sorgula', [CustomerSearchController::class, 'index']);
+        Route::post('sorgula', [CustomerSearchController::class, 'store']);
 
-            /**Dosya aşama işlemleri */
-            Route::resource('dosya-acma', VisaFileOpenController::class);
+        Route::group(['prefix' => '{id}'], function () {
 
-            Route::group(['prefix' => '{visa_file_id}', 'middleware' => 'gradesCheck'], function () {
+            Route::get('/', [CustomerIndexController::class, 'show']);
+            Route::put('/', [CustomerIndexController::class, 'update']);
+            Route::get('edit', [CustomerIndexController::class, 'edit']);
+            Route::delete('/', [CustomerIndexController::class, 'destroy']);
 
-                /***Dosya aşamalarından bağımsız bölümler */
-                Route::resource('asama-guncelle', VisaGradesUpdateController::class);
-                Route::resource('durum-guncelle', VisaStatusUpdateController::class);
-                Route::resource('arsive-tasima', VisaArchiveTransportController::class);
+            Route::resource('notes', CustomerNoteController::class);
+            Route::resource('logs', CustomerLogsController::class);
 
-                /***Dosya aşamaları başlangıç */
-                Route::resource('dosya-acma-onayi', VisaFileOpenConfirmController::class); //
-                Route::resource('evrak-bekleyen', VisaDocumentWaitController::class); //
-                Route::resource('kontrol-bekleyen', VisaControlWaitController::class); //
-                Route::resource('tercume-bekleyen', VisaTranslationsWaitController::class);
-                Route::resource('basvuru-bekleyen', VisaApplicationWaitController::class);
-                Route::resource('basvuru-odemesi', ApplicationPaidWaitController::class);
-                Route::resource('randevu', VisaAppointmentController::class);
-                Route::resource('sonuc-bekleyen', VisaApplicationResultController::class);
-                Route::resource('teslimat', VisaFileDeliveryController::class);
-                Route::resource('sonuclanmis-arsiv', VisaFinishArchiveController::class);
-                /***Dosya aşamaları son */
+            /**Vize işlemleri*/
+            Route::group(['prefix' => 'vize'], function () {
+
+                Route::get('/', [VisaIndexController::class, 'index']);
+                Route::get('asama', [CustomerAjaxController::class, 'get_grades']);
+                Route::resource('arsiv', VisaArchivesController::class);
+
+                /**Dosya aşama işlemleri */
+                Route::resource('dosya-acma', VisaFileOpenController::class);
+
+                Route::group(['prefix' => '{visa_file_id}', 'middleware' => 'gradesCheck'], function () {
+
+                    /***Dosya aşamalarından bağımsız bölümler */
+                    Route::resource('asama-guncelle', VisaGradesUpdateController::class);
+                    Route::resource('durum-guncelle', VisaStatusUpdateController::class);
+                    Route::resource('arsive-tasima', VisaArchiveTransportController::class);
+
+                    /***Dosya aşamaları başlangıç */
+                    Route::resource('dosya-acma-onayi', VisaFileOpenConfirmController::class); //
+                    Route::resource('evrak-bekleyen', VisaDocumentWaitController::class); //
+                    Route::resource('kontrol-bekleyen', VisaControlWaitController::class); //
+                    Route::resource('tercume-bekleyen', VisaTranslationsWaitController::class);
+                    Route::resource('basvuru-bekleyen', VisaApplicationWaitController::class);
+                    Route::resource('basvuru-odemesi', ApplicationPaidWaitController::class);
+                    Route::resource('randevu', VisaAppointmentController::class);
+                    Route::resource('sonuc-bekleyen', VisaApplicationResultController::class);
+                    Route::resource('teslimat', VisaFileDeliveryController::class);
+                    Route::resource('sonuclanmis-arsiv', VisaFinishArchiveController::class);
+                    /***Dosya aşamaları son */
+                });
             });
         });
 
@@ -173,17 +188,17 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('visa-grades-count', [ManagementAjaxController::class, 'get_visa_grades_count']);
 
 
-            Route::get('quota-day',[AjaxVisaGraphicController::class,'quota_day']);
-            Route::get('quota-week',[AjaxVisaGraphicController::class,'quota_week']);
-            Route::get('quota-mount',[AjaxVisaGraphicController::class,'quota_mount']);
-            Route::get('quota-year',[AjaxVisaGraphicController::class,'quota_year']);
+            Route::get('quota-day', [AjaxVisaGraphicController::class, 'quota_day']);
+            Route::get('quota-week', [AjaxVisaGraphicController::class, 'quota_week']);
+            Route::get('quota-mount', [AjaxVisaGraphicController::class, 'quota_mount']);
+            Route::get('quota-year', [AjaxVisaGraphicController::class, 'quota_year']);
 
-            Route::get('grades-count',[AjaxVisaGraphicController::class,'grades_count']);
-            Route::get('application-office-count',[AjaxVisaGraphicController::class,'application_office_count']);
-            Route::get('advisor-analist',[AjaxVisaGraphicController::class,'advisor_analist']);
-            Route::get('expert-analist',[AjaxVisaGraphicController::class,'expert_analist']);
-            Route::get('translator-analist',[AjaxVisaGraphicController::class,'translator_analist']);
-            Route::get('open-made-analist',[AjaxVisaGraphicController::class,'open_made_analist']);
+            Route::get('grades-count', [AjaxVisaGraphicController::class, 'grades_count']);
+            Route::get('application-office-count', [AjaxVisaGraphicController::class, 'application_office_count']);
+            Route::get('advisor-analist', [AjaxVisaGraphicController::class, 'advisor_analist']);
+            Route::get('expert-analist', [AjaxVisaGraphicController::class, 'expert_analist']);
+            Route::get('translator-analist', [AjaxVisaGraphicController::class, 'translator_analist']);
+            Route::get('open-made-analist', [AjaxVisaGraphicController::class, 'open_made_analist']);
         });
 
         /**Yonetim vize işlemleri*/

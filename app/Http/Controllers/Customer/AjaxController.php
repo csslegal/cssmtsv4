@@ -121,26 +121,6 @@ class AjaxController extends Controller
         }
     }
 
-    public function post_not_sil(Request $request)
-    {
-        if (is_numeric($request->input('id'))) {
-
-            if (DB::table('customer_notes')
-                ->where('id', '=', $request->input('id'))
-                ->delete()
-            ) {
-                $request->session()
-                    ->flash('mesajSuccess', 'Kayıt başarıyla silindi');
-            } else {
-                $request->session()
-                    ->flash('mesajDanger', 'Silme işlemi tamamlanamadı');
-            }
-        } else {
-            $request->session()
-                ->flash('mesajDanger', 'Hatalı istek yapıldı');
-        }
-    }
-
     public function post_visa_file_log_content(Request $request)
     {
         $getVisaTypes = DB::table('visa_file_logs')->select('content')

@@ -20,6 +20,7 @@
         <div class="card-header bg-danger text-white">Müşteri Kayıt</div>
         <div class="card-body scroll">
             <form method="post" action="/musteri">
+                {{ csrf_field() }}
                 <div class="mb-3">
                     <label for="name" class="form-label">Müşteri Adı</label>
                     <input autocomplete="off" type="text" class="form-control" id="name" name="name"
@@ -60,8 +61,6 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <!-- {{ csrf_field() }} -->
-                @csrf
                 <button class="w-100 mt-3 btn btn-danger text-white btn-lg confirm" data-content="Devam edilsin mi?"
                     type="submit">Kaydet</button>
             </form>

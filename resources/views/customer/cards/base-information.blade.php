@@ -2,7 +2,7 @@
     <div class="card card-danger mb-3" id="temel">
         <div class="card-header bg-danger text-white">Müşteri Bilgileri
             <div class="dropdown float-end">
-                <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                <a class="btn btn-dark btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">Müşteri İşlemleri
                 </a>
                 <ul class="dropdown-menu">
@@ -21,10 +21,9 @@
                         </li>
                         <li>
                             <form action="/musteri/{{ $baseCustomerDetails->id }}" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $baseCustomerDetails->id }}">
-                                <button class="confirm dropdown-item" data-title="Dikkat!"
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button class="dropdown-item confirm" data-title="Dikkat!"
                                     data-content="Müşteri hesabı silinsin mi? İşlem geri alınamaz...">
                                     Hesap Silme
                                 </button>
