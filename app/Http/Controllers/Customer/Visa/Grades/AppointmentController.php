@@ -30,7 +30,11 @@ class AppointmentController extends Controller
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Müşteri dosyası parmak izi verme işlemi tamamlandı',
+                'content' => '<p>Randevusu alınmış dosya aşamasında;</p>
+                                <ul>
+                                    <li>Parmak izi verildi</li>
+                                </ul>
+                            <p>şeklinde kayıt tamamlandı.</p>',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
@@ -61,7 +65,11 @@ class AppointmentController extends Controller
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Müşteri dosyası "Başvuru bekleyen dosyalar" aşamasına alındı',
+                'content' => '<p>Randevusu alınmış dosya aşamasında;</p>
+                                <ul>
+                                    <li>Başvuru bekleyen dosyalar aşamasına alındı</li>
+                                </ul>
+                            <p>şeklinde kayıt tamamlandı.',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 

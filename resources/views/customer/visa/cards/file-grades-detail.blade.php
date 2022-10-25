@@ -13,7 +13,7 @@
                     <span>
                         <button class="btn btn-sm btn-dark" onclick="goster('{{ $visaFileGradesLog->id }}')"
                             title="İçeriği göster" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class=" bi bi-file-image"></i> Detay
+                            Göster
                         </button>
                     </span>
                     @if ($loop->last && $visaFileGradesPermitted['permitted'])

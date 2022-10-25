@@ -23,7 +23,7 @@
             <form action="" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label class="form-label">Arşiv Klasor Adı</label>
+                    <label class="form-label">Arşiv Klasör Adı</label>
                     <select class="form-control" name="folder_name">
 
                         @for ($year = strtotime('Y'); $year >= strtotime('2006-01-01'); $year = strtotime('-1 year', $year))

@@ -18,22 +18,20 @@
         </ol>
     </nav>
 
-    @if ($visaArchives->count() > 0)
+    @if (count($visaArchives) > 0)
         @foreach ($visaArchives as $visaArchive)
             <div class="card card-danger mb-3">
                 <div class="card-header bg-danger text-white">
                     {{ $visaArchive->id }} Referans Numaralı Arşiv Dosyası
                     @if (session('userTypeId') == 1 || session('userTypeId') == 2)
                         <div class="dropdown drop float-end">
-                            <button class="btn btn-dark btn-sm dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Arşiv Dosya İşlemleri
-                            </button>
+                            <button class="btn btn-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">Arşiv Dosya İşlemleri</button>
                             <ul class="dropdown-menu">
                                 <li>
                                     <button class="dropdown-item btn btn-dark btn-sm "
                                         onclick="contentLoad('arsiv-log','{{ $visaArchive->id }}')" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal"><i class="bi bi-image"></i> Loglar
+                                        data-bs-target="#exampleModal">Logları Göster
                                     </button>
                                 </li>
                             </ul>
@@ -181,7 +179,7 @@
                                 @endif
                                 <li>
                                     <span class="fw-bold">Arşiv Klasoru:</span>
-                                    <span>{{ $visaArchive->archive_folder_name }} Dosya</span>
+                                    <span>{{ $visaArchive->archive_folder_name == '' ? 'Sonuç bulunamadı' : $visaArchive->archive_folder_name }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -190,23 +188,6 @@
             </div>
         @endforeach
         @include('customer.modals.content-load')
-
-        <div class="modal fade" id="exampleModal1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel1" aria-hidden="true" style="z-index: 1056">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger text-white">
-                        <h5 id="contentHead1" class="modal-title" id="exampleModalLabel1">İçerik</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="contentLoad1">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     @else
         <div class="card card-dark mb-3">
             <div class="card-body scroll">Herhangi bir arşiv dosyası bulunamadı</div>
@@ -215,36 +196,21 @@
 @endsection
 @section('js')
     <script>
-        function goster(id) {
-            $("#contentLoad1").html('İçerik alınıyor...');
-            $("#contentHead1").html('Dosya İşlem Detayları');
-            $.ajax({
-                type: 'POST',
-                url: "/musteri/ajax/vize-dosya-log",
-                data: {
-                    'id': id,
-                    "_token": "{{ csrf_token() }}",
-                },
-                success: function(data, status, xhr) {
-                    if (data['content'] == '') {
-                        $("#contentLoad1").html('İçerik girişi yapılmadı');
-                    } else {
-                        $("#contentLoad1").html(data['content']);
-                    }
-                },
-                error: function(data, status, xhr) {
-                    $("#contentLoad1").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
-                }
-            });
-        }
-
         function contentLoad(ne, id) {
-            var url = "/musteri/ajax/vize/";
+            var url = "/musteri/ajax/";
             if (ne == 'arsiv-log') {
-                url += "arsiv-log";
-                $("#contentHead").html('Dosya İşlem Geçmişi');
+                url += "vize/arsiv-log";
+                $("#contentHead").html('Vize Dosyası İşlem Logları');
+                $("#contentLoad").html('İçerik alınıyor...');
+            } else if (ne == 'vize-dosya-log') {
+                url += "vize-dosya-log";
+
+                $("#contentLoad1").html('İçerik alınıyor...');
+                $("#contentHead1").html('Vize Dosyası İşlem Log Detayları');
+                $("#footerLoad1").html(
+                    '<button class="btn btn-danger" data-bs-target="#exampleModal" data-bs-toggle="modal">Loglara Dön</button>'
+                );
             }
-            $("#contentLoad").html('İçerik alınıyor...');
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -253,10 +219,22 @@
                     "_token": "{{ csrf_token() }}",
                 },
                 success: function(data, status, xhr) {
-                    $("#contentLoad").html(data);
+                    if (ne == 'arsiv-log') {
+                        $("#contentLoad").html(data);
+                    } else if (ne == 'vize-dosya-log') {
+                        if (data['content'] == '') {
+                            $("#contentLoad1").html('İçerik girişi yapılmadı');
+                        } else {
+                            $("#contentLoad1").html(data['content']);
+                        }
+                    }
                 },
                 error: function(data, status, xhr) {
-                    $("#contentLoad").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
+                    if (ne == 'arsiv-log') {
+                        $("#contentLoad").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
+                    } else if (ne == 'vize-dosya-log') {
+                        $("#contentLoad1").html('<div class="alert alert-error" > ' + xhr + ' </div> ');
+                    }
                 }
             });
         }

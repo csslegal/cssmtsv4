@@ -61,12 +61,15 @@ class ApplicationWaitController extends Controller
         $nextGrades = $whichGrades->nextGrades($visa_file_id);
 
         if ($nextGrades != null) {
+            $customerAppointmentCount = DB::table('visa_appointments')->where('visa_file_id', '=', $visa_file_id)->get()->count();
+            $appointmentOffice = DB::table('appointment_offices')->where('id', '=', $request->input('ofis'))->first();
 
-            $customerAppointmentCount = DB::table('visa_appointments')
-                ->where('visa_file_id', '=', $visa_file_id)->get()->count();
-
+            if ($request->session()->get('userTypeId') == 1) {
+                $user = DB::table('users')->where('id', '=', $request->input('uzman'))->first();
+            } else {
+                $user = DB::table('users')->where('id', '=', $request->session()->get('userId'))->first();
+            }
             if ($customerAppointmentCount == 0) {
-
                 DB::table('visa_appointments')->insert(array(
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
@@ -81,11 +84,20 @@ class ApplicationWaitController extends Controller
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
                     'subject' => $visaFileGradesName->getName(),
-                    'content' => 'Başvuru bekleyen dosyalar aşaması tamamalandı',
+                    'content' => '<p>Başvuru bekleyen dosyalar aşamasında;</p>
+                                    Randevu Bilgileri
+                                    <ul>
+                                        <li>GWF numarası: ' . $request->input('gwf') . ',</li>
+                                        <li>Randevu ofisi: ' . $appointmentOffice->name . ',</li>
+                                        <li>Randevu tarihi: ' . $request->input('tarih') . ',</li>
+                                        <li>Randevu saati: ' . $request->input('saat') . ',</li>
+                                        <li>Hesap adı: ' . $request->input('hesap_adi') . ',</li>
+                                        <li>Uzmanı: ' . $user->name . '</li>
+                                    </ul>
+                                <p>şeklinde kayıt tamamlandı.</p>',
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
             } else {
-
                 DB::table('visa_appointments')->where("visa_file_id", "=", $visa_file_id)->update([
                     'user_id' => $request->session()->get('userId'),
                     'gwf' => $request->input('gwf'),
@@ -99,7 +111,17 @@ class ApplicationWaitController extends Controller
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
                     'subject' => $visaFileGradesName->getName(),
-                    'content' => 'Başvuru bekleyen dosyalar işlemi tekrardan güncellendi',
+                    'content' => '<p>Başvuru bekleyen dosyalar aşamasında;</p>
+                                    Randevu Bilgileri
+                                    <ul>
+                                        <li>GWF numarası: ' . $request->input('gwf') . ',</li>
+                                        <li>Randevu ofisi: ' . $appointmentOffice->name . ',</li>
+                                        <li>Randevu tarihi: ' . $request->input('tarih') . ',</li>
+                                        <li>Randevu saati: ' . $request->input('saat') . ',</li>
+                                        <li>Hesap adı: ' . $request->input('hesap_adi') . ',</li>
+                                        <li>Uzmanı: ' . $user->name . '</li>
+                                    </ul>
+                                <p>şeklinde kayıt güncellendi.</p>',
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
             }

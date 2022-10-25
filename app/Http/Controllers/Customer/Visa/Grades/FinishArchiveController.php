@@ -49,7 +49,11 @@ class FinishArchiveController extends Controller
             'visa_file_id' => $visa_file_id,
             'user_id' => $request->session()->get('userId'),
             'subject' => $visaFileGradesName->getName(),
-            'content' => 'Vize dosyası, arşiv bilgisi kayıt altına alındı ',
+            'content' => '<p>Sonuçlanmış dosyalar & arşiv aşamasında;</p>
+                            <ul>
+                                <li>Arşiv klasör adı: ' . $request->input('folder_name') . '</li>
+                            </ul>
+                        <p>şeklinde arşive gönderildi.</p>',
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 

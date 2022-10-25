@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Customer\Visa\Grades;
 use App\Http\Controllers\Controller;
 use App\MyClass\VisaFileGradesName;
 use App\MyClass\VisaFileWhichGrades;
-use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
 class TranslationsWaitController extends Controller
 {
@@ -78,7 +76,20 @@ class TranslationsWaitController extends Controller
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
                     'subject' => $visaFileGradesName->getName(),
-                    'content' => 'Tercüme bilgisi kaydedildi',
+                    'content' => '<p>Tercüme bekleyen dosyalar aşamasında;</p>
+                                    Orjinal Belge Bilgileri
+                                    <ul>
+                                        <li>Sayfa sayısı: ' . $request->input('sayfa') . ',</li>
+                                        <li>Kelime sayısı: ' . $request->input('kelime') . ',</li>
+                                        <li>Karakter sayısı: ' . $request->input('karakter') . '</li>
+                                    </ul>
+                                    Tercüme Belge Bilgileri
+                                    <ul>
+                                        <li>Sayfa sayısı: ' . $request->input('tercume-sayfa') . ',</li>
+                                        <li>Kelime sayısı: ' . $request->input('tercume-kelime') . ',</li>
+                                        <li>Karakter sayısı: ' . $request->input('tercume-karakter') . '</li>
+                                    </ul>
+                                <p>şeklinde kayıt tamamlandı.</p>',
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
             } else {
@@ -96,7 +107,20 @@ class TranslationsWaitController extends Controller
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
                     'subject' => $visaFileGradesName->getName(),
-                    'content' => 'Tercüme bilgisi güncellendi',
+                    'content' => '<p>Tercüme bekleyen dosyalar aşamasında;</p>
+                                    Orjinal Belge Bilgileri
+                                    <ul>
+                                        <li>Sayfa sayısı: ' . $request->input('sayfa') . ',</li>
+                                        <li>Kelime sayısı: ' . $request->input('kelime') . ',</li>
+                                        <li>Karakter sayısı: ' . $request->input('karakter') . '</li>
+                                    </ul>
+                                    Tercüme Belge Bilgileri
+                                    <ul>
+                                        <li>Sayfa sayısı: ' . $request->input('tercume-sayfa') . ',</li>
+                                        <li>Kelime sayısı: ' . $request->input('tercume-kelime') . ',</li>
+                                        <li>Karakter sayısı: ' . $request->input('tercume-karakter') . '</li>
+                                    </ul>
+                                <p>şeklinde kayıt güncellendi.</p>',
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
             }

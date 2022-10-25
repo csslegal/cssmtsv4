@@ -47,8 +47,10 @@ class FileOpenController extends Controller
 
             $tipi = $request->input('tipi');
             $sure = $request->input('sure');
+
             $basvuru_ofis = $request->input('basvuru_ofis');
             $randevu_ofis = $request->input('randevu_ofis');
+
             $tc_number = $request->input('tc_number');
             $address = mb_convert_case(mb_strtolower($request->get('address')), MB_CASE_TITLE, "UTF-8");
 
@@ -88,15 +90,17 @@ class FileOpenController extends Controller
                 'visa_file_id' => $dosyaRefNumber,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => '<p>Müşteri dosyası açma işlemi başlatılıyor aşamasında;</p>' .
-                    '<ul><li>Vize tipi: ' . $visaType->name .
-                    ',</li><li>Vize süresi: ' . $visaValidity->name .
-                    ',</li><li>Kimlik no: ' . $tc_number .
-                    ',</li><li>Adresi: ' . $address .
-                    ',</li><li>Başvuru ofisi: ' . $applicationOffice->name .
-                    ',</li><li>Randevu ofisi: ' . $appointmentOffice->name .
-                    ',</li><li>Danışmanı: ' . $user->name .
-                    '</li></ul><p>şeklinde kayıt tamamlandı.</p>',
+                'content' => '<p>Müşteri dosyası açma işlemi başlatılıyor aşamasında;</p>
+                                <ul>
+                                    <li>Vize tipi: ' . $visaType->name . ',</li>
+                                    <li>Vize süresi: ' . $visaValidity->name . ',</li>
+                                    <li>Kimlik no: ' . $tc_number . ',</li>
+                                    <li>Adresi: ' . $address . ',</li>
+                                    <li>Başvuru ofisi: ' . $applicationOffice->name . ',</li>
+                                    <li>Randevu ofisi: ' . $appointmentOffice->name . ',</li>
+                                    <li>Danışmanı: ' . $user->name . '</li>
+                                </ul>
+                            <p>şeklinde kayıt tamamlandı.</p>',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 

@@ -82,11 +82,9 @@ class FileDeliveryController extends Controller
         $nextGrades = $whichGrades->nextGrades($visa_file_id);
 
         if ($nextGrades != null) {
-
             $visaFileDeliveryCount = DB::table('visa_file_delivery')->where('visa_file_id', '=', $visa_file_id)->get()->count();
 
             if ($visaFileDeliveryCount > 0) {
-
                 $dataArray = array_merge($dataArray, array('updated_at' => date('Y-m-d H:i:s')));
                 DB::table('visa_file_delivery')->where("visa_file_id", "=", $visa_file_id)->update($dataArray);
             } else {
@@ -99,14 +97,50 @@ class FileDeliveryController extends Controller
                 $request->session()->forget($visa_file_id . '_grades_id');
             }
 
-            DB::table('visa_file_logs')->insert([
-                'visa_file_id' => $visa_file_id,
-                'user_id' => $request->session()->get('userId'),
-                'subject' => $visaFileGradesName->getName(),
-                'content' => 'Vize dosyası teslim edildi',
-                'created_at' => date('Y-m-d H:i:s'),
-            ]);
+            $applicationOffice = DB::table('application_offices')->where('id', '=', $request->input('ofis'))->first();
 
+            if ($request->input('teslimat_sekli') == 1) {
+                DB::table('visa_file_logs')->insert([
+                    'visa_file_id' => $visa_file_id,
+                    'user_id' => $request->session()->get('userId'),
+                    'subject' => $visaFileGradesName->getName(),
+                    'content' => '<p>Dosya teslimi bekleyenler aşamasında;</p>
+                                    <ul>
+                                        <li>Teslim edilme şekli: Elden kimlik ile</li>
+                                        <li>Teslim eden ofis: ' . $applicationOffice->name . '</li>
+                                    </ul>
+                                <p>şeklinde kayıt tamamlandı.</p>',
+                    'created_at' => date('Y-m-d H:i:s'),
+                ]);
+            } elseif ($request->input('teslimat_sekli') == 2) {
+                DB::table('visa_file_logs')->insert([
+                    'visa_file_id' => $visa_file_id,
+                    'user_id' => $request->session()->get('userId'),
+                    'subject' => $visaFileGradesName->getName(),
+                    'content' => '<p>Dosya teslimi bekleyenler aşamasında;</p>
+                                    <ul>
+                                        <li>Teslim edilme şekli: Kargo ile</li>
+                                        <li>Teslim eden ofis: ' . $applicationOffice->name . '</li>
+                                        <li>Kargo firması: ' . $request->input('kargo_firmasi') . '</li>
+                                        <li>Kargo takip no: ' . $request->input('kargo_takip_no') . '</li>
+                                    </ul>
+                                <p>şeklinde kayıt tamamlandı.</p>',
+                    'created_at' => date('Y-m-d H:i:s'),
+                ]);
+            } elseif ($request->input('teslimat_sekli') == 3) {
+                DB::table('visa_file_logs')->insert([
+                    'visa_file_id' => $visa_file_id,
+                    'user_id' => $request->session()->get('userId'),
+                    'subject' => $visaFileGradesName->getName(),
+                    'content' => '<p>Dosya teslimi bekleyenler aşamasında;</p>
+                                    <ul>
+                                        <li>Teslim edilme şekli: Başvuru yenileme ile</li>
+                                        <li>Teslim eden ofis: ' . $applicationOffice->name . '</li>
+                                    </ul>
+                                <p>şeklinde kayıt tamamlandı.</p>',
+                    'created_at' => date('Y-m-d H:i:s'),
+                ]);
+            }
             $request->session()->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
             return redirect('/musteri/' . $id . '/vize');
         } else {

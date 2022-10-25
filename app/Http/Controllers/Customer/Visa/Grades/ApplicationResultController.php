@@ -76,7 +76,14 @@ class ApplicationResultController extends Controller
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
                     'subject' => $visaFileGradesName->getName(),
-                    'content' => 'Vize Sonucu OLUMLU olarak kaydedildi',
+                    'content' => '<p>Sonuç bekleyen dosya aşamasında;</p>
+                                    <ul>
+                                        <li>Başvuru sonucu: Olumlu</li>
+                                        <li>Vize başlangıç tarihi: ' . $request->input('vize_baslangic_tarihi') . '</li>
+                                        <li>Vize bitiş tarihi: ' . $request->input('vize_bitis_tarihi') . '</li>
+                                        <li>Vize teslim alınma tarihi: ' . $request->input('vize_teslim_alinma_tarihi') . '</li>
+                                    </ul>
+                                <p>şeklinde kayıt tamamlandı.</p>',
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
                 $request->session()->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
@@ -121,7 +128,11 @@ class ApplicationResultController extends Controller
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
                     'subject' => $visaFileGradesName->getName(),
-                    'content' => 'Vize Sonucu İADE olarak kaydedildi',
+                    'content' => '<p>Sonuç bekleyen dosya aşamasında;</p>
+                                    <ul>
+                                        <li>Başvuru sonucu: İade</li>
+                                    </ul>
+                                <p>şeklinde kayıt tamamlandı.</p>',
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
                 $request->session()->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');
@@ -170,7 +181,14 @@ class ApplicationResultController extends Controller
                     'visa_file_id' => $visa_file_id,
                     'user_id' => $request->session()->get('userId'),
                     'subject' => $visaFileGradesName->getName(),
-                    'content' => 'Vize Sonucu OLUSUZ olarak kaydedildi',
+                    'content' => '<p>Sonuç bekleyen dosya aşamasında;</p>
+                                    <ul>
+                                        <li>Başvuru sonucu: Olumsuz</li>
+                                        <li>Red sebebi: ' . $request->input('red_sebebi') . '</li>
+                                        <li>Red tarihi: ' . $request->input('red_tarihi') . '</li>
+                                        <li>Red teslim alınma tarihi: ' . $request->input('red_teslim_alinma_tarihi') . '</li>
+                                    </ul>
+                                <p>şeklinde kayıt tamamlandı.</p>',
                     'created_at' => date('Y-m-d H:i:s'),
                 ]);
                 $request->session()->flash('mesajSuccess', 'Kayıt başarıyla yapıldı');

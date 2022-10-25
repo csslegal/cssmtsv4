@@ -35,7 +35,11 @@ class DocumentWaitController extends Controller
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Müşteri dosyası, evrak kontrolü bekleyen dosyalar aşaması tamamlandı',
+                'content' => '<p>Evrak bekleyen dosyalar aşamasında;</p>
+                                <ul>
+                                    <li>Evraklar tamamlandı</li>
+                                </ul>
+                            <p>şeklinde kayıt tamamlandı.</p>',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 

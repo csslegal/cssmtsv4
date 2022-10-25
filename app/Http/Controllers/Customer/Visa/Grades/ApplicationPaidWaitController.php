@@ -51,7 +51,11 @@ class ApplicationPaidWaitController extends Controller
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Başvuru ödemesi işlemi yapıldı',
+                'content' => '<p>Başvuru ödemesi bekleyen aşamasında;</p>
+                                <ul>
+                                    <li>Başvuru ödemesi onaylandı</li>
+                                </ul>
+                            <p>şeklinde kayıt tamamlandı.</p>',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
@@ -82,7 +86,11 @@ class ApplicationPaidWaitController extends Controller
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Müşteri dosyası "Başvuru bekleyen dosyalar" aşamasına alındı',
+                'content' => '<p>Başvuru ödemesi bekleyen aşamasında;</p>
+                                <ul>
+                                    <li>Başvuru ödemesi red edildi</li>
+                                </ul>
+                            <p>şeklinde kayıt tamamlandı.</p>',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 

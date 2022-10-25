@@ -51,7 +51,11 @@ class FileOpenConfirmController extends Controller
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Dosya açma onayı işlemi tamamlandı',
+                'content' =>  '<p>Dosya açma onayı işlemi bekleyen aşamasında;</p>
+                                <ul>
+                                    <li>Dosya açma onaylandı</li>
+                                </ul>
+                            <p>şeklinde kayıt tamamlandı.</p>',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 

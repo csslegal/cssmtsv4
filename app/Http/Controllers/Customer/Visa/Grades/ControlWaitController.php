@@ -14,6 +14,7 @@ class ControlWaitController extends Controller
     public function index($id)
     {
         $baseCustomerDetails = DB::table('customers')->where('id', '=', $id)->first();
+
         return view('customer.visa.grades.control-wait')->with([
             'baseCustomerDetails' => $baseCustomerDetails,
         ]);
@@ -30,7 +31,11 @@ class ControlWaitController extends Controller
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Müşteri dosyası evrak kontrolü bekleyen dosyalar aşamasında onaylandı',
+                'content' => '<p>Uzman onayı bekleyen dosyalar aşamasında;</p>
+                                <ul>
+                                    <li>Evraklar onaylandı</li>
+                                </ul>
+                            <p>şeklinde kayıt tamamlandı.</p>',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
@@ -61,7 +66,11 @@ class ControlWaitController extends Controller
                 'visa_file_id' => $visa_file_id,
                 'user_id' => $request->session()->get('userId'),
                 'subject' => $visaFileGradesName->getName(),
-                'content' => 'Müşteri dosyası evrak kontrolü bekleyen dosyalar aşamasında ret edildi',
+                'content' => '<p>Uzman onayı bekleyen dosyalar aşamasında;</p>
+                                <ul>
+                                    <li>Evrakların onayı red edildi</li>
+                                </ul>
+                            <p>şeklinde kayıt tamamlandı.</p>',
                 'created_at' => date('Y-m-d H:i:s'),
             ]);
 
