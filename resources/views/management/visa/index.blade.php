@@ -234,7 +234,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Danışman Vize Sonuc Analizleri(VİZE x RED & Seçilen Tarihler Arası)'
+                                    text: 'Danışman Vize Sonuc Analizleri(VİZE x RET & Seçilen Tarihler Arası)'
                                 }
                             },
                             scales: {
@@ -273,7 +273,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Danışman Vize Sonuc Analizleri(VİZE x RED & Seçilen Tarihler Arası)'
+                                    text: 'Danışman Vize Sonuc Analizleri(VİZE x RET & Seçilen Tarihler Arası)'
                                 }
                             },
                             scales: {

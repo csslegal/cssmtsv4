@@ -441,7 +441,7 @@ class AjaxVisaGraphicController extends Controller
         }
 
         $data = '{
-            "title":"Danışman Vize Sonuc Analizleri(VİZE x RED & Seçilen Tarihler Arası)",
+            "title":"Danışman Vize Sonuc Analizleri(VİZE x RET & Seçilen Tarihler Arası)",
             "datasets":[';
 
         $oran = 0;
@@ -541,7 +541,7 @@ class AjaxVisaGraphicController extends Controller
         }
 
         $data = '{
-            "title":"Uzman Vize Sonuc Analizleri(VİZE x RED & Seçilen Tarihler Arası)",
+            "title":"Uzman Vize Sonuc Analizleri(VİZE x RET & Seçilen Tarihler Arası)",
             "datasets":[';
 
         $oran = 0;

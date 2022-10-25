@@ -21,6 +21,7 @@
                 <div class="w-100 mb-1">
                     <hr>
                 </div>
+
                 <div class="col-12">
                     <div class="card card-danger mb-3">
                         <div class="card-header bg-danger text-white">Alınan Notlar</div>
@@ -28,7 +29,7 @@
                             <table id="dataTable" class="table table-striped table-bordered display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>No</th>
                                         <th>Kayıt Yapan</th>
                                         <th>Tarihi</th>
                                         <th>Saati</th>
@@ -36,9 +37,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php $no=1; @endphp
                                     @foreach ($customerNotes as $customerNote)
                                         <tr>
-                                            <td>{{ $customerNote->id }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $customerNote->u_name }}</td>
                                             <td>{{ date('Y-m-d', strtotime($customerNote->created_at)) }}</td>
                                             <td>{{ date('H:i:s', strtotime($customerNote->created_at)) }}</td>
@@ -46,8 +48,8 @@
                                                 <div class="btn-group">
                                                     <button
                                                         class="btn btn-dark btn-sm"onclick="contentLoad('not','{{ $customerNote->id }}')"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal">Notu Göster</button>
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">Notu
+                                                        Göster</button>
                                                     @if (session('userTypeId') == 1)
                                                         <form method="post"
                                                             action="/musteri/{{ $baseCustomerDetails->id }}/notes/{{ $customerNote->id }}">

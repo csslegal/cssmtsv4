@@ -39,13 +39,13 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 ">
                     <div class="card border-dark mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">Red Et</h5>
-                            <p>Red edildiğinde "Başvuru bekleyen dosyalar" aşamasına geçer</p>
+                            <h5 class="card-title">Ret Et</h5>
+                            <p>Ret edildiğinde "Başvuru bekleyen dosyalar" aşamasına geçer</p>
                             <form action="" method="POST">
                                 @csrf
                                 <input type="hidden" name="iptal" value="iptal">
                                 <button type="submit" class="w-100 mt-2 btn btn-dark float-end text-white"
-                                    onClick="this.form.submit(); this.disabled=true;">Red Et</button>
+                                    onClick="this.form.submit(); this.disabled=true;">Ret Et</button>
                             </form>
                         </div>
                     </div>

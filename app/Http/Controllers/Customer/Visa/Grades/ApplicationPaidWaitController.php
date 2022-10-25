@@ -88,7 +88,7 @@ class ApplicationPaidWaitController extends Controller
                 'subject' => $visaFileGradesName->getName(),
                 'content' => '<p>Başvuru ödemesi bekleyen aşamasında;</p>
                                 <ul>
-                                    <li>Başvuru ödemesi red edildi</li>
+                                    <li>Başvuru ödemesi ret edildi</li>
                                 </ul>
                             <p>şeklinde kayıt tamamlandı.</p>',
                 'created_at' => date('Y-m-d H:i:s'),

@@ -184,9 +184,9 @@ class ApplicationResultController extends Controller
                     'content' => '<p>Sonuç bekleyen dosya aşamasında;</p>
                                     <ul>
                                         <li>Başvuru sonucu: Olumsuz</li>
-                                        <li>Red sebebi: ' . $request->input('red_sebebi') . '</li>
-                                        <li>Red tarihi: ' . $request->input('red_tarihi') . '</li>
-                                        <li>Red teslim alınma tarihi: ' . $request->input('red_teslim_alinma_tarihi') . '</li>
+                                        <li>Ret sebebi: ' . $request->input('red_sebebi') . '</li>
+                                        <li>Ret tarihi: ' . $request->input('red_tarihi') . '</li>
+                                        <li>Ret teslim alınma tarihi: ' . $request->input('red_teslim_alinma_tarihi') . '</li>
                                     </ul>
                                 <p>şeklinde kayıt tamamlandı.</p>',
                     'created_at' => date('Y-m-d H:i:s'),

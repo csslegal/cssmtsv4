@@ -75,8 +75,10 @@
         @if (isset($visaFileDetail) && session('userTypeId') == 1)
             function asama() {
                 $("#contentHead").html('Dosya Aşama Güncelleme');
+
                 @php
                     $asamalar = '<form action="vize/' . $visaFileDetail->id . '/asama-guncelle" method="post"><div class="form-group"><select name="visa_file_grades_id" class="form-control">';
+
                     foreach ($visaFileGrades as $visaFileGrade) {
                         if ($visaFileGrade->id == $visaFileDetail->visa_file_grades_id) {
                             $asamalar .= '<option selected value="' . $visaFileGrade->id . '">' . $visaFileGrade->name . '</option>';
@@ -86,23 +88,24 @@
                     }
                     $asamalar .= '</select>';
                     $asamalar .= '<input type="hidden" name="_token" value="' . csrf_token() . '" /></div>';
-                    $asamalar .= '<button type="submit" class="btn btn-dark text-white mt-2">Güncelle</button></form>';
+                    $asamalar .= '<button type="submit" class="btn btn-danger text-white mt-2">Güncelle</button></form>';
                 @endphp
 
                 $("#contentLoad").html('{!! html_entity_decode($asamalar) !!}');
             }
+
             function status() {
                 $("#contentHead").html('Dosya Durumu Güncelleme');
                 @php
                     $durum = '<form action="vize/' . $visaFileDetail->id . '/durum-guncelle" method="post"><div class="form-group"><select name="status" class="form-control">';
-                        if ($visaFileDetail->status) {
-                            $durum .= '<option selected value="1">Acil Dosya</option><option value="0">Normal Dosya</option>';
-                        } else {
-                            $durum .= '<option value="1">Acil Dosya</option><option selected value="0">Normal Dosya</option>';
-                        }
+                    if ($visaFileDetail->status) {
+                        $durum .= '<option selected value="1">Acil Dosya</option><option value="0">Normal Dosya</option>';
+                    } else {
+                        $durum .= '<option value="1">Acil Dosya</option><option selected value="0">Normal Dosya</option>';
+                    }
                     $durum .= '</select>';
                     $durum .= '<input type="hidden" name="_token" value="' . csrf_token() . '" /></div>';
-                    $durum .= '<button type="submit" class="btn btn-dark text-white mt-2">Güncelle</button></form>';
+                    $durum .= '<button type="submit" class="btn btn-danger text-white mt-2">Güncelle</button></form>';
                 @endphp
 
                 $("#contentLoad").html('{!! html_entity_decode($durum) !!}');

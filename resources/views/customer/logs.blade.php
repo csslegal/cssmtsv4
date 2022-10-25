@@ -1,9 +1,10 @@
 @extends('sablon.genel')
 
-@section('title') Müşteri Logları @endsection
+@section('title')
+    Müşteri Logları
+@endsection
 
 @section('content')
-
     <nav aria-label="breadcrumb">
         <ol id="breadcrumb" class="breadcrumb p-2">
             <li class="breadcrumb-item">
@@ -24,22 +25,23 @@
                 <thead>
                     <tr>
                         <th class="text-center">#</th>
+                        <th class="text-center">İşlem Tarihi</th>
+                        <th class="text-center">İşlem Yapan</th>
                         <th class="text-center">İşlem Adı</th>
                         <th class="text-center">Önceki</th>
                         <th class="text-center">Sonraki</th>
-                        <th class="text-center">İşlem Yapan</th>
-                        <th class="text-center">İşlem Tarihi</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @php $no=0; @endphp
                     @foreach ($customerLogs as $customerLog)
                         <tr>
-                            <td>{{ $customerLog->id }}</td>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $customerLog->created_at }}</td>
+                            <td>{{ $customerLog->u_name }}</td>
                             <td>{{ $customerLog->operation_name }}</td>
                             <td>{{ $customerLog->before }}</td>
                             <td>{{ $customerLog->after }}</td>
-                            <td>{{ $customerLog->u_name }}</td>
-                            <td>{{ $customerLog->created_at }}</td>
                         </tr>
                     @endforeach
                 </tbody>
