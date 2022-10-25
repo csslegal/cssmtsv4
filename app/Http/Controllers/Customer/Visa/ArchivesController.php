@@ -83,6 +83,8 @@ class ArchivesController extends Controller
             ->where('visa_files.customer_id', '=', $id)
             ->where('visa_files.active', '=', 0)
 
+            ->orderByDesc('visa_files.created_at')
+
             ->get();
 
         return view('customer.visa.archives')->with([

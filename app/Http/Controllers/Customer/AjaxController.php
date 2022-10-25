@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class AjaxController extends Controller
 {
-
     public function get_grades(Request $request, $id)
     {
         $visaIDgradesID = DB::table('customers')
@@ -48,7 +47,6 @@ class AjaxController extends Controller
             }
         }
     }
-
     public function post_name_kontrol(Request $request)
     {
         echo DB::table('customers')
@@ -60,7 +58,6 @@ class AjaxController extends Controller
             ))
             ->count() > 0 ? true : false;
     }
-
     public function post_telefon_kontrol(Request $request)
     {
         echo DB::table('customers')
@@ -72,7 +69,6 @@ class AjaxController extends Controller
             ))
             ->count() > 0 ? true : false;
     }
-
     public function post_email_kontrol(Request $request)
     {
         echo DB::table('customers')
@@ -84,7 +80,6 @@ class AjaxController extends Controller
             ))
             ->count() > 0 ? true : false;
     }
-
     public function post_not_goster(Request $request)
     {
         if (is_numeric($request->input('id'))) {
@@ -97,13 +92,12 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
-
     public function post_email_log_goster(Request $request)
     {
         if (is_numeric($request->input('id'))) {
             return DB::table('email_logs')
-            ->select('content')
-            ->where('id', '=', $request->input('id'))
+                ->select('content')
+                ->where('id', '=', $request->input('id'))
                 ->first();
         } else {
 
@@ -120,15 +114,13 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
-
     public function post_visa_file_log_content(Request $request)
     {
         $getVisaTypes = DB::table('visa_file_logs')->select('content')
-        ->where('id', '=', $request->input('id'))->first();
+            ->where('id', '=', $request->input('id'))->first();
 
         return ($getVisaTypes);
     }
-
     public function post_visa_archive_log(Request $request)
     {
         if (is_numeric($request->input('id'))) {
@@ -143,39 +135,37 @@ class AjaxController extends Controller
                 ->join('visa_files', 'visa_files.id', '=', 'visa_file_logs.visa_file_id')
                 ->leftJoin('users', 'users.id', '=', 'visa_file_logs.user_id')
                 ->where('visa_files.id', '=', $request->input('id'))
-                ->orderByDesc('visa_file_logs.id')
+                ->orderBy('visa_file_logs.id')
                 ->get();
-            $sonuc = "<div class='card card-dark mb-3'><div class='card-header bg-dark text-white'>Loglar</div><div class='card-body scroll'>
-                    <table style='width:100%' class='table table-striped table-bordered table-sm'>
+            $sonuc = "<div class='table-responsive'><table style='width:100%' class='table table-hover table-striped table-bordered'>
                         <thead>
-                        <th>ID</th>
-                        <th>İşlem</th>
-                        <th>Detay</th>
-                        <th>Tarih</th>
-                        <th>İşlem Yapan</th>
+                            <th>NO</th>
+                            <th>Tarih</th>
+                            <th>İşlem Yapan</th>
+                            <th>İşlem</th>
+                            <th>Detay</th>
                         </thead>
                         <tbody>";
             if ($visaFileLogs->count() == 0) {
                 $sonuc .= "<tr><td colspan='5'>Kayıt bulunamadı</td></tr>";
             }
+            $no=1;
             foreach ($visaFileLogs as $visaFileLog) {
                 $sonuc .= "<tr>
-                                <td>" .  $visaFileLog->id . "</td>
-                                <td>" .  $visaFileLog->subject . "</td>
-                                <td><button class='btn btn-sm text-dark border' onclick='goster($visaFileLog->id)' title='İçeriği göster' data-bs-toggle='modal' data-bs-target='#exampleModal1'><i class=' bi bi-file-image'></i> Detay</button></td>
-                                <td>" .  $visaFileLog->created_at . "</td>
-                                <td>" .  $visaFileLog->user_name . "</td>
-                            </tr>
-                            ";
+                            <td>" .  $no++ . "</td>
+                            <td>" .  $visaFileLog->created_at . "</td>
+                            <td>" .  $visaFileLog->user_name . "</td>
+                            <td>" .  $visaFileLog->subject . "</td>
+                            <td><button class='btn btn-danger btn-sm' onclick='contentLoad(\"vize-dosya-log\",".$visaFileLog->id.")' data-bs-toggle='modal' data-bs-target='#exampleModal1'>Detay göster</button></td>
+                        </tr>";
             }
-            $sonuc .= "</tbody></table></div></div>";
+            $sonuc .= "</tbody></table></div>";
 
             return $sonuc;
         } else {
             echo 'Hatalı istek yapıldı';
         }
     }
-
     public function post_visa_archive_payment(Request $request)
     {
         if (is_numeric($request->input('id'))) {
@@ -350,7 +340,6 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
-
     public function post_visa_archive_invoice(Request $request)
     {
         if (is_numeric($request->input('id'))) {
@@ -403,7 +392,6 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
-
     public function post_visa_archive_receipt(Request $request)
     {
         if (is_numeric($request->input('id'))) {
