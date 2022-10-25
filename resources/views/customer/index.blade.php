@@ -23,7 +23,6 @@
     @include('customer.cards.access')
 
     @include('customer.modals.content-load')
-
 @endsection
 
 @section('js')
@@ -42,11 +41,13 @@
         function contentLoad(ne, id) {
             var url = "";
             if (ne == 'not') {
+                $("#contentLoad").html('İçerik alınıyor...');
+                $("#contentHead").html('Müşteri Not Detayı');
                 url = "/musteri/ajax/not-goster";
             } else if (ne == 'email') {
+                $("#contentLoad").html('İçerik alınıyor...');
                 url = "/musteri/ajax/email-goster";
             }
-            $("#contentLoad").html('İçerik alınıyor...');
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -60,23 +61,6 @@
                 error: function(data, status, xhr) {
                     $("#contentLoad")
                         .html('<div class="alert alert-error" > ' + xhr + ' </div> ');
-                }
-            });
-        }
-
-        function notSil(id) {
-            $.ajax({
-                type: 'POST',
-                url: "/musteri/ajax/not-sil",
-                data: {
-                    'id': id,
-                    "_token": "{{ csrf_token() }}",
-                },
-                success: function(data, status, xhr) {
-                    location.reload();
-                },
-                error: function(data, status, xhr) {
-                    alert(xhr);
                 }
             });
         }
