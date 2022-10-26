@@ -262,22 +262,25 @@ class AjaxVisaGraphicController extends Controller
         /**Dosya acılış tarihine göre filtreleme */
         $startDate = $explodes[0];
         $endDate = $explodes[1];
+        if ($request->input('status') == "all") {
+            $visaFilesGradesCount = DB::table('visa_files')
+                ->select(['visa_file_grades.name AS visa_file_grades_name', DB::raw('count(*) as total')])
+                ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+                ->groupBy('visa_files.visa_file_grades_id')
+                ->whereDate('visa_files.created_at', '>=', $startDate)
+                ->whereDate('visa_files.created_at', '<=', $endDate)
+                ->pluck('total', 'visa_file_grades_name')->all();
+        } else {
+            $visaFilesGradesCount = DB::table('visa_files')
+                ->select(['visa_file_grades.name AS visa_file_grades_name', DB::raw('count(*) as total')])
+                ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
+                ->groupBy('visa_files.visa_file_grades_id')
 
-        $visaFilesGradesCount = DB::table('visa_files')
-            ->select([
-                'visa_file_grades.name AS visa_file_grades_name',
-                DB::raw('count(*) as total')
-            ])
-            ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
-
-            ->groupBy('visa_files.visa_file_grades_id')
-            ->where('visa_files.active', '=', $cariDurum)
-
-            ->whereDate('visa_files.created_at', '>=', $startDate)
-            ->whereDate('visa_files.created_at', '<=', $endDate)
-
-            ->pluck('total', 'visa_file_grades_name')->all();
-
+                ->where('visa_files.active', '=', $cariDurum)
+                ->whereDate('visa_files.created_at', '>=', $startDate)
+                ->whereDate('visa_files.created_at', '<=', $endDate)
+                ->pluck('total', 'visa_file_grades_name')->all();
+        }
         foreach ($visaFilesGradesCount as $col => $val) {
             $stringArrayKey = explode(' ', $col);
             array_push($arrayLabels, $stringArrayKey[0] . ' ' . $stringArrayKey[1]);
@@ -336,22 +339,25 @@ class AjaxVisaGraphicController extends Controller
         /**Dosya acılış tarihine göre filtreleme */
         $startDate = $explodes[0];
         $endDate = $explodes[1];
+        if ($request->input('status') == "all") {
+            $visaFilesApplicationOfficeCount = DB::table('visa_files')
+                ->select(['application_offices.name AS application_office_name', DB::raw('count(*) as total')])
+                ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_files.application_office_id')
+                ->groupBy('visa_files.application_office_id')
+                ->whereDate('visa_files.created_at', '>=', $startDate)
+                ->whereDate('visa_files.created_at', '<=', $endDate)
+                ->pluck('total', 'application_office_name')->all();
+        } else {
+            $visaFilesApplicationOfficeCount = DB::table('visa_files')
+                ->select(['application_offices.name AS application_office_name', DB::raw('count(*) as total')])
+                ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_files.application_office_id')
+                ->groupBy('visa_files.application_office_id')
 
-        $visaFilesApplicationOfficeCount = DB::table('visa_files')
-            ->select([
-                'application_offices.name AS application_office_name',
-                DB::raw('count(*) as total')
-            ])
-            ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_files.application_office_id')
-
-            ->groupBy('visa_files.application_office_id')
-            ->where('visa_files.active', '=', $cariDurum)
-
-            ->whereDate('visa_files.created_at', '>=', $startDate)
-            ->whereDate('visa_files.created_at', '<=', $endDate)
-
-            ->pluck('total', 'application_office_name')->all();
-
+                ->where('visa_files.active', '=', $cariDurum)
+                ->whereDate('visa_files.created_at', '>=', $startDate)
+                ->whereDate('visa_files.created_at', '<=', $endDate)
+                ->pluck('total', 'application_office_name')->all();
+        }
         foreach ($visaFilesApplicationOfficeCount as $col => $val) {
             array_push($arrayLabels, $col);
             array_push($arrayData, $val);
@@ -403,33 +409,55 @@ class AjaxVisaGraphicController extends Controller
 
         foreach ($allAdvisors as $allAdvisor) {
 
-            $positiveCount =   DB::table('visa_files')
-                ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                ->where('visa_files.advisor_id', '=', $allAdvisor->id)
-                ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
-                ->where('visa_files.active', '=', $cariDurum)
+            if ($request->input('status') == "all") {
 
-                ->whereDate('visa_files.created_at', '>=', $startDate)
-                ->whereDate('visa_files.created_at', '<=', $endDate)
-                ->get()->count();
-            $negativeCount =  DB::table('visa_files')
-                ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                ->where('visa_files.advisor_id', '=', $allAdvisor->id)
-                ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
-                ->where('visa_files.active', '=', $cariDurum)
-
-                ->whereDate('visa_files.created_at', '>=', $startDate)
-                ->whereDate('visa_files.created_at', '<=', $endDate)
-                ->get()->count();
-            $iadeCount =  DB::table('visa_files')
-                ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                ->where('visa_files.advisor_id', '=', $allAdvisor->id)
-                ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_IADE'))
-                ->where('visa_files.active', '=', $cariDurum)
-
-                ->whereDate('visa_files.created_at', '>=', $startDate)
-                ->whereDate('visa_files.created_at', '<=', $endDate)
-                ->get()->count();
+                $positiveCount =   DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.advisor_id', '=', $allAdvisor->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+                $negativeCount =  DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.advisor_id', '=', $allAdvisor->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+                $iadeCount =  DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.advisor_id', '=', $allAdvisor->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_IADE'))
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+            } else {
+                $positiveCount =   DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.advisor_id', '=', $allAdvisor->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                    ->where('visa_files.active', '=', $cariDurum)
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+                $negativeCount =  DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.advisor_id', '=', $allAdvisor->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                    ->where('visa_files.active', '=', $cariDurum)
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+                $iadeCount =  DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.advisor_id', '=', $allAdvisor->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_IADE'))
+                    ->where('visa_files.active', '=', $cariDurum)
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+            }
             if ($iadeCount == 0 && $negativeCount == 0 && $positiveCount == 0)
                 continue;
             array_push($arrayVisaFilesAdvisorsAnalist, array(
@@ -503,35 +531,58 @@ class AjaxVisaGraphicController extends Controller
 
         foreach ($allExperts as $allExpert) {
 
-            $positiveCount =   DB::table('visa_files')
-                ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                ->where('visa_files.expert_id', '=', $allExpert->id)
-                ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
-                ->where('visa_files.active', '=', $cariDurum)
+            if ($request->input('status') == "all") {
 
-                ->whereDate('visa_files.created_at', '>=', $startDate)
-                ->whereDate('visa_files.created_at', '<=', $endDate)
-                ->get()->count();
-            $negativeCount =  DB::table('visa_files')
-                ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                ->where('visa_files.expert_id', '=', $allExpert->id)
-                ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
-                ->where('visa_files.active', '=', $cariDurum)
-
-                ->whereDate('visa_files.created_at', '>=', $startDate)
-                ->whereDate('visa_files.created_at', '<=', $endDate)
-                ->get()->count();
-            $iadeCount =  DB::table('visa_files')
-                ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                ->where('visa_files.expert_id', '=', $allExpert->id)
-                ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_IADE'))
-                ->where('visa_files.active', '=', $cariDurum)
-
-                ->whereDate('visa_files.created_at', '>=', $startDate)
-                ->whereDate('visa_files.created_at', '<=', $endDate)
-                ->get()->count();
+                $positiveCount =   DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.expert_id', '=', $allExpert->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+                $negativeCount =  DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.expert_id', '=', $allExpert->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+                $iadeCount =  DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.expert_id', '=', $allExpert->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_IADE'))
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+            } else {
+                $positiveCount =   DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.expert_id', '=', $allExpert->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                    ->where('visa_files.active', '=', $cariDurum)
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+                $negativeCount =  DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.expert_id', '=', $allExpert->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                    ->where('visa_files.active', '=', $cariDurum)
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+                $iadeCount =  DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.expert_id', '=', $allExpert->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_IADE'))
+                    ->where('visa_files.active', '=', $cariDurum)
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+            }
             if ($iadeCount == 0 && $negativeCount == 0 && $positiveCount == 0)
                 continue;
+
             array_push($arrayVisaFilesExpertsAnalist, array(
                 $allExpert->name,
                 $positiveCount == null ? 0 : $positiveCount,
@@ -603,20 +654,34 @@ class AjaxVisaGraphicController extends Controller
 
         foreach ($allTranslations as $allTranslation) {
 
-            $visaFilesTranslation = DB::table('visa_files')
-                ->select([
-                    DB::raw("COUNT(visa_files.id) as visa_files_count"),
-                    DB::raw("SUM(visa_translations.translated_page) as translated_page_count"),
-                    DB::raw("SUM(visa_translations.translated_word) as translated_word_count"),
-                ])
-                ->join('visa_translations', 'visa_translations.visa_file_id', '=', 'visa_files.id')
-                ->where('visa_files.translator_id', '=', $allTranslation->id)
-                ->where('visa_files.active', '=', $cariDurum)
+            if ($request->input('status') == "all") {
 
-                ->whereDate('visa_files.created_at', '>=', $startDate)
-                ->whereDate('visa_files.created_at', '<=', $endDate)
-                ->first();
+                $visaFilesTranslation = DB::table('visa_files')
+                    ->select([
+                        DB::raw("COUNT(visa_files.id) as visa_files_count"),
+                        DB::raw("SUM(visa_translations.translated_page) as translated_page_count"),
+                        DB::raw("SUM(visa_translations.translated_word) as translated_word_count"),
+                    ])
+                    ->join('visa_translations', 'visa_translations.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.translator_id', '=', $allTranslation->id)
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->first();
+            } else {
 
+                $visaFilesTranslation = DB::table('visa_files')
+                    ->select([
+                        DB::raw("COUNT(visa_files.id) as visa_files_count"),
+                        DB::raw("SUM(visa_translations.translated_page) as translated_page_count"),
+                        DB::raw("SUM(visa_translations.translated_word) as translated_word_count"),
+                    ])
+                    ->join('visa_translations', 'visa_translations.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.translator_id', '=', $allTranslation->id)
+                    ->where('visa_files.active', '=', $cariDurum)
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->first();
+            }
             if ($visaFilesTranslation->visa_files_count == 0)
                 continue;
 
@@ -682,6 +747,7 @@ class AjaxVisaGraphicController extends Controller
                 ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
                 ->whereMonth('visa_application_result.visa_file_close_date', $mountExp[1])
                 ->whereYear('visa_application_result.visa_file_close_date', $mountExp[0])->get()->count();
+
             if ($openCount == 0 && $madeCount == 0) {
                 continue;
             }

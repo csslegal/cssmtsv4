@@ -12,6 +12,8 @@
                                     </option>
                                     <option value="arsiv" @if (request()->get('status') == 'arsiv') selected @endif>Arşiv
                                     </option>
+                                    <option value="all" @if (request()->get('status') == 'all') selected @endif>Tümü
+                                    </option>
                                 </select>
                                 <span class="input-group-text bg-danger text-white">Tarih Aralığı:</span>
                                 <input type="text" name="dates"
