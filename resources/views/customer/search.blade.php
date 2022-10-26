@@ -29,7 +29,6 @@
         </form>
     </div>
     @if (isset($customerDetails))
-
         @if ($customerDetails->count() > 0)
             <div class="col-md-12 mt-5 mb-3">
                 <div class="card card-danger">
@@ -48,24 +47,20 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $no=1; @endphp
                                 @foreach ($customerDetails as $customerDetail)
                                     <tr>
                                         <td class="text-center">
                                             @if ($customerDetail->active == '1')
-                                                <a href="/musteri/{{ $customerDetail->id }}/vize">
-                                                    {{ $customerDetail->id }}
-                                                </a>
+                                                <a href="/musteri/{{ $customerDetail->id }}/vize">{{ $no++ }}</a>
                                             @elseif ($customerDetail->active == '0')
-                                                <a href="/musteri/{{ $customerDetail->id }}/vize/arsiv">
-                                                    {{ $customerDetail->id }}
-                                                </a>
+                                                <a href="/musteri/{{ $customerDetail->id }}/vize/arsiv">{{ $no++ }}</a>
                                             @elseif ($customerDetail->active == null)
-                                                <span>Kayıt bulunamadı</span>
+                                                <span>{{$no++}}</span>
                                             @endif
                                         </td>
                                         <td class="text-center">
                                             <a href="/musteri/{{ $customerDetail->id }}">{{ $customerDetail->name }}</a>
-
                                         </td>
                                         <td class="text-center">{{ $customerDetail->phone }}</td>
                                         <td class="text-center">{{ $customerDetail->email }}</td>
@@ -110,6 +105,5 @@
                 </div>
             </div>
         @endif
-
     @endif
 @endsection
