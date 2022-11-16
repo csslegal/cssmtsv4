@@ -28,14 +28,10 @@ class ManagementCheck
 
         foreach ($activeVisaFiles as $activeVisaFile) {
 
-            $customerName = DB::table('customers')
-                ->where('id', '=', $activeVisaFile->customer_id)->first();
+            $customerName = DB::table('customers')->where('id', '=', $activeVisaFile->customer_id)->first();
+            $activeVisaFileLastLog = DB::table('visa_file_logs')->select('created_at AS date')->where('visa_file_id', '=', $activeVisaFile->id)->orderByDesc('id')->first();
 
-            $activeVisaFileLastLog = DB::table('visa_file_logs')->select('created_at AS date')
-                ->whereDate('created_at', '<', date('Y-m-d', strtotime(date('Y-m-d') . ' -' . env('NOTIFICATION_VISA_LOG_LAST_DAY') . ' days')))
-                ->where('visa_file_id', '=', $activeVisaFile->id)
-                ->orderByDesc('id')->first();
-            if ($customerName != null && $activeVisaFileLastLog != null) {
+            if ($customerName != null && $activeVisaFileLastLog != null && ($activeVisaFileLastLog->date <= date('Y-m-d', strtotime(date('Y-m-d') . ' -' . env('NOTIFICATION_VISA_LOG_LAST_DAY') . ' days')))) {
                 array_push($notifications, array(
                     'date' => $activeVisaFileLastLog->date,
                     'visa_file_id' => $activeVisaFile->id,
