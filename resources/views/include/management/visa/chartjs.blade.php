@@ -62,6 +62,11 @@
                     </div>
                 </div>
                 <div class="col-xxl-4 col-xl-6 col-lg-6">
+                    <div style="width: 100%"><canvas id="myChart6"></canvas>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-xxl-4 col-xl-6 col-lg-6">
                     <div style="width: 100%"><canvas id="myChart3"></canvas>
                         <hr>
                     </div>

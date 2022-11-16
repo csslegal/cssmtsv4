@@ -195,6 +195,7 @@ Route::middleware(['sessionCheck'])->group(function () {
 
             Route::get('grades-count', [AjaxVisaGraphicController::class, 'grades_count']);
             Route::get('application-office-count', [AjaxVisaGraphicController::class, 'application_office_count']);
+            Route::get('visa-types-analist', [AjaxVisaGraphicController::class, 'visa_types_analist']);
             Route::get('advisor-analist', [AjaxVisaGraphicController::class, 'advisor_analist']);
             Route::get('expert-analist', [AjaxVisaGraphicController::class, 'expert_analist']);
             Route::get('translator-analist', [AjaxVisaGraphicController::class, 'translator_analist']);

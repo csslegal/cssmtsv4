@@ -100,53 +100,61 @@
     <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
     <script src="{{ asset('js/chart.js/chart.min.js') }}"></script>
     <script>
+        var loadTime = 100;
+        var plusLoadTime = 200;
         //günlük haftalık aylık ve yıllık acılan dosya sayıları
         setTimeout(function() {
             ajax_chart("polarArea", "myChartQuotaDay", "", "/yonetim/ajax/quota-day")
-        }, 500);
+        }, loadTime += plusLoadTime);
         setTimeout(function() {
             ajax_chart("polarArea", "myChartQuotaWeek", "", "/yonetim/ajax/quota-week")
-        }, 1000);
+        }, loadTime += plusLoadTime);
         setTimeout(function() {
             ajax_chart("polarArea", "myChartQuotaMount", "", "/yonetim/ajax/quota-mount")
-        }, 1500);
+        }, loadTime += plusLoadTime);
         setTimeout(function() {
             ajax_chart("polarArea", "myChartQuotaYear", "", "/yonetim/ajax/quota-year")
-        }, 2000);
+        }, loadTime += plusLoadTime);
 
         //açılan ve tamamlanan dosya sayıları
         setTimeout(function() {
             ajax_chart("bar", "myChart", "Dosya sayısı",
                 "/yonetim/ajax/open-made-analist?status={{ request('status') }}&dates={{ request('dates') }}")
-        }, 2250);
+        }, loadTime += plusLoadTime);
 
         //aşamalara göre dosya sayısı
         setTimeout(function() {
             ajax_chart("bar", "myChart1", "Dosya sayısı",
                 "/yonetim/ajax/grades-count?status={{ request('status') }}&dates={{ request('dates') }}")
-        }, 2500);
+        }, loadTime += plusLoadTime);
         //ofislere gore dosya sayısı
         setTimeout(function() {
             ajax_chart("bar", "myChart2", "Dosya sayısı",
                 "/yonetim/ajax/application-office-count?status={{ request('status') }}&dates={{ request('dates') }}"
             )
-        }, 3000);
+        }, loadTime += plusLoadTime);
+        //vize turune göre dosya sayısı
+        setTimeout(function() {
+            ajax_chart("bubble", "myChart6", "Dosya sayısı",
+                "/yonetim/ajax/visa-types-analist?status={{ request('status') }}&dates={{ request('dates') }}"
+            )
+        }, loadTime += plusLoadTime);
         //danışman analızleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart3", "Dosya sayısı",
                 "/yonetim/ajax/advisor-analist?status={{ request('status') }}&dates={{ request('dates') }}")
-        }, 3500);
+        }, loadTime += plusLoadTime);
         //uzman analızleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart4", "Dosya sayısı",
                 "/yonetim/ajax/expert-analist?status={{ request('status') }}&dates={{ request('dates') }}")
-        }, 4000);
+        }, loadTime += plusLoadTime);
         //tercuman analizleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart5", "Dosya sayısı",
                 "/yonetim/ajax/translator-analist?status={{ request('status') }}&dates={{ request('dates') }}"
             )
-        }, 4500)
+        }, loadTime += plusLoadTime)
 
         function ajax_chart(types, id, labell, url, data) {
             var data = data || {};
@@ -234,7 +242,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Danışman Vize Sonuc Analizleri(VİZE x RET & Seçilen Tarihler Arası)'
+                                    text: ''
                                 }
                             },
                             scales: {
@@ -273,7 +281,7 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Danışman Vize Sonuc Analizleri(VİZE x RET & Seçilen Tarihler Arası)'
+                                    text: ''
                                 }
                             },
                             scales: {

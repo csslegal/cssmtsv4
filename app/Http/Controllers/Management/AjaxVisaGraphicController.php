@@ -377,6 +377,111 @@ class AjaxVisaGraphicController extends Controller
         }';
     }
 
+    public function visa_types_analist(Request $request)
+    {
+        if ($request->has('dates') && $request->input('dates') != '') {
+            $explodes =  explode('--', $request->input('dates'));
+        } else {
+            $explodes = [date('Y-m-01'), date('Y-m-28')];
+        }
+
+        if ($request->has('status') && $request->input('status') != '') {
+
+            if ($request->input('status') == "cari") {
+                $cariDurum = 1;
+            } else {
+                $cariDurum = 0;
+            }
+        } else {
+            $cariDurum = 1;
+        }
+
+        /**Dosya acılış tarihine göre filtreleme */
+        $startDate = $explodes[0];
+        $endDate = $explodes[1];
+
+        $arrayVisaFilesAdvisorsAnalist = [];
+
+        $allVisaTypes = DB::table('visa_types')->select(['id', 'name'])->get();
+
+        foreach ($allVisaTypes as $allVisaType) {
+
+            if ($request->input('status') == "all") {
+
+                $positiveCount =   DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+                $negativeCount =  DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+            } else {
+                $positiveCount =   DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                    ->where('visa_files.active', '=', $cariDurum)
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+                $negativeCount =  DB::table('visa_files')
+                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                    ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                    ->where('visa_files.active', '=', $cariDurum)
+                    ->whereDate('visa_files.created_at', '>=', $startDate)
+                    ->whereDate('visa_files.created_at', '<=', $endDate)
+                    ->get()->count();
+            }
+            if ($negativeCount == 0 && $positiveCount == 0)
+                continue;
+            array_push($arrayVisaFilesAdvisorsAnalist, array(
+                $allVisaType->name,
+                $positiveCount == null ? 0 : $positiveCount,
+                $negativeCount == null ? 0 : $negativeCount,
+            ));
+        }
+
+        $data = '{
+            "title":"Vize Tipleri Sonuc Analizleri(VİZE x RET & Seçilen Tarihler Arası)",
+            "datasets":[';
+
+        $oran = 0;
+        $plusValue = 0;
+
+        foreach ($arrayVisaFilesAdvisorsAnalist as $value) {
+            //array random index
+            $randomIndex = rand(0, count($this->backgrounColorArray) - 1);
+
+            $tempOran = $value[1] / ($value[1] + $value[2]) * 100;
+
+            if ($tempOran > $oran) {
+                $oran = $tempOran;
+                $plusValue++;
+            }
+            $data .= '{
+                "label": "' . $value[0] .  '",
+                "backgroundColor": "' . $this->backgrounColorArray[$randomIndex] . '",
+                "data": [{
+                    "x": ' . $value[1] . ',
+                    "y": ' . $value[2] . ',
+                    "r": ' . (env('ANALIST_RADIUS_DEFAULT_ORAN') + $plusValue) . '
+                }]
+            },';
+        }
+        $data = rtrim($data, ",");
+        $data .= ']}';
+
+        return $data;
+    }
+
     public function advisor_analist(Request $request)
     {
         if ($request->has('dates') && $request->input('dates') != '') {
