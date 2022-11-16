@@ -19,6 +19,27 @@
         </div>
         <div class="col-md-4">
             <ul class="nav float-end">
+                @isset($notifications)
+                    <li class="nav-item">
+                        <a class="dropdown nav-link link-light px-2 " data-bs-toggle="dropdown" aria-expanded="true">
+                            <span class="badge text-bg-light text-danger">{{ count($notifications) }}</span>
+                            Bildirimler
+                        </a>
+                        <div class="dropdown-menu text-muted p-2"
+                            style="max-height: 300px; max-width: 300px;overflow-y: scroll">
+                            @php $count=1; @endphp
+                            @foreach ($notifications as $notification)
+                                <p class="mb-1 {{ !$loop->last ? ' border-bottom ' : '' }}">
+                                    <span class="text-dark">{{ $count++ }}.</span>
+                                    {{ Str::limit($notification['date'], 18, '') }}'den beri <a
+                                        class="text-decoration-none text-danger"
+                                        href="/musteri/{{ $notification['customer_id'] }}/vize">{{ $notification['customer_name'] }}</a>
+                                    dosyada işlem yapılmadı.
+                                </p>
+                            @endforeach
+                        </div>
+                    </li>
+                @endisset
                 <li class="nav-item">
                     @if (session('userTypeId') == 1)
                         <a href="/yonetim/profil"
