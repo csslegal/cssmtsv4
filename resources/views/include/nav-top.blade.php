@@ -19,27 +19,31 @@
         </div>
         <div class="col-md-4">
             <ul class="nav float-end">
-                @isset($notifications)
+                @if (isset($notifications) && count($notifications) > 0)
                     <li class="nav-item">
                         <a class="dropdown nav-link link-light px-2 " data-bs-toggle="dropdown" aria-expanded="true">
-                            <span class="badge text-bg-light text-danger">{{ count($notifications) }}</span>
+                            <i class="bi bi-bell-fill"></i>
                             Bildirimler
+                            <span class="badge bg-danger text-light">{{ count($notifications) }}</span>
                         </a>
-                        <div class="dropdown-menu text-muted p-2"
-                            style="max-height: 300px; max-width: 300px;overflow-y: scroll">
-                            @php $count=1; @endphp
-                            @foreach ($notifications as $notification)
-                                <p class="mb-1 {{ !$loop->last ? ' border-bottom ' : '' }}">
-                                    <span class="text-dark">{{ $count++ }}.</span>
-                                    {{ Str::limit($notification['date'], 18, '') }}'den beri <a
-                                        class="text-decoration-none text-danger"
-                                        href="/musteri/{{ $notification['customer_id'] }}/vize">{{ $notification['customer_name'] }}</a>
-                                    dosyada işlem yapılmadı.
-                                </p>
-                            @endforeach
+                        <div class="dropdown-menu"
+                            style="padding: 0; max-height: 300px; {{ count($notifications) > 4 ? ' overflow-y: scroll;' : '' }}">
+                            <div class="list-group">
+
+                                @foreach ($notifications as $notification)
+                                    <a href="/musteri/{{ $notification['customer_id'] }}/vize"
+                                        class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1 text-danger fw-bold">{{ $notification['customer_name'] }}</h6>
+                                            <small class="text-muted">{{ $notification['date'] }}</small>
+                                        </div>
+                                        <p class="mb-1">Son dosya işlemi üzerinden {{ $notification['date'] }} geçti.</p>
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                     </li>
-                @endisset
+                @endif
                 <li class="nav-item">
                     @if (session('userTypeId') == 1)
                         <a href="/yonetim/profil"
