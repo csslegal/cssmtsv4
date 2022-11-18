@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\General\LoginController as GeneralLoginController;
+
 use App\Http\Controllers\Management\IndexController as ManagementIndexController;
 use App\Http\Controllers\Management\ProfilController as ManagementProfilController;
 use App\Http\Controllers\Management\LoggingController as ManagementLoggingController;
@@ -14,24 +15,22 @@ use App\Http\Controllers\Management\AppointmentOfficeController as ManagementApp
 use App\Http\Controllers\Management\UsersAccessController as ManagementUsersAccessController;
 use App\Http\Controllers\Management\UsersController as ManagementUsersController;
 use App\Http\Controllers\Management\UsersTypeController as ManagementUsersTypeController;
-
 use App\Http\Controllers\Management\WebController as ManagementWebController;
 use App\Http\Controllers\Management\WebGroupsController as ManagementWebGroupsController;
 use App\Http\Controllers\Management\WebPanelsController as ManagementWebPanelsController;
 use App\Http\Controllers\Management\WebPanelAuthController as ManagementWebPanelAuthController;
-
 use App\Http\Controllers\Management\VisaController as ManagementVisaController;
 use App\Http\Controllers\Management\VisaTypesController as ManagementVisaTypesController;
 use App\Http\Controllers\Management\VisaFileGradesController as ManagementVisaFileGradesController;
 use App\Http\Controllers\Management\VisaFileGradesUsersTypeController as ManagementVisaFileGradesUsersTypeController;
 use App\Http\Controllers\Management\VisaValidityController as ManagementVisaValidityController;
 use App\Http\Controllers\Management\UrlController;
+use App\Http\Controllers\Management\AjaxVisaGraphicController;
 
 use App\Http\Controllers\Web\IndexController as WebIndexController;
 
 use App\Http\Controllers\User\UserCalendarController;
 use App\Http\Controllers\User\IndexController as UserIndexController;
-use App\Http\Controllers\User\AjaxController as UserAjaxController;
 
 use App\Http\Controllers\Customer\IndexController as CustomerIndexController;
 use App\Http\Controllers\Customer\SearchController as CustomerSearchController;
@@ -39,10 +38,10 @@ use App\Http\Controllers\Customer\NoteController as CustomerNoteController;
 use App\Http\Controllers\Customer\LogsController as CustomerLogsController;
 use App\Http\Controllers\Customer\AjaxController as CustomerAjaxController;
 use App\Http\Controllers\Customer\Visa\IndexController as VisaIndexController;
-
 use App\Http\Controllers\Customer\Visa\GradesUpdateController as VisaGradesUpdateController;
 use App\Http\Controllers\Customer\Visa\StatusUpdateController as VisaStatusUpdateController;
-
+use App\Http\Controllers\Customer\Visa\ArchivesController as VisaArchivesController;
+use App\Http\Controllers\Customer\Visa\ArchiveTransportController as VisaArchiveTransportController;
 use App\Http\Controllers\Customer\Visa\Grades\FileOpenController as VisaFileOpenController;
 use App\Http\Controllers\Customer\Visa\Grades\FileOpenConfirmController as VisaFileOpenConfirmController;
 use App\Http\Controllers\Customer\Visa\Grades\DocumentWaitController as VisaDocumentWaitController;
@@ -50,16 +49,11 @@ use App\Http\Controllers\Customer\Visa\Grades\ControlWaitController as VisaContr
 use App\Http\Controllers\Customer\Visa\Grades\TranslationsWaitController as VisaTranslationsWaitController;
 use App\Http\Controllers\Customer\Visa\Grades\ApplicationWaitController as VisaApplicationWaitController;
 use App\Http\Controllers\Customer\Visa\Grades\AppointmentController as VisaAppointmentController;
-
-use App\Http\Controllers\Customer\Visa\Grades\AppointmentPutOffController as VisaAppointmentPutOffController;
 use App\Http\Controllers\Customer\Visa\Grades\ApplicationResultController as VisaApplicationResultController;
 use App\Http\Controllers\Customer\Visa\Grades\FileDeliveryController as VisaFileDeliveryController;
 use App\Http\Controllers\Customer\Visa\Grades\FinishArchiveController as VisaFinishArchiveController;
-
-use App\Http\Controllers\Customer\Visa\ArchivesController as VisaArchivesController;
-use App\Http\Controllers\Customer\Visa\ArchiveTransportController as VisaArchiveTransportController;
 use App\Http\Controllers\Customer\Visa\Grades\ApplicationPaidWaitController;
-use App\Http\Controllers\Management\AjaxVisaGraphicController;
+
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);

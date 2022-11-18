@@ -294,7 +294,7 @@ class AjaxVisaGraphicController extends Controller
             "labels":[' . $impLabels . '],
             "borderColor":[' . $impBorderColor . '],
             "backgroundColor":[' . $impBackGrounColor . '],
-            "title":"Aşamalara Göre Analizler (Seçilen Tarihler Arası)",
+            "title":"Aşama Analizi (Seçilen Tarihlerde Açılanlar)",
             "data": {
                 "quantity":[' . $impData . ']
             }
@@ -370,7 +370,7 @@ class AjaxVisaGraphicController extends Controller
             "labels":[' . $impLabels . '],
             "borderColor":[' . $impBorderColor . '],
             "backgroundColor":[' . $impBackGrounColor . '],
-            "title":"Başvuru Ofislere Göre Analizler (Seçilen Tarihler Arası)",
+            "title":"Başvuru Ofisleri Analizi (Seçilen Tarihlerde Açılanlar)",
             "data": {
                 "quantity":[' . $impData . ']
             }
@@ -450,7 +450,7 @@ class AjaxVisaGraphicController extends Controller
         }
 
         $data = '{
-            "title":"Vize Tipleri Sonuc Analizleri(VİZE x RET & Seçilen Tarihler Arası)",
+            "title":"Vize Tipleri Analizi(Seçilen Tarihlerde Açılanlar)",
             "datasets":[';
 
         $oran = 0;
@@ -574,7 +574,7 @@ class AjaxVisaGraphicController extends Controller
         }
 
         $data = '{
-            "title":"Danışman Vize Sonuc Analizleri(VİZE x RET & Seçilen Tarihler Arası)",
+            "title":"Danışman Analizi (Seçilen Tarihlerde Açılanlar)",
             "datasets":[';
 
         $oran = 0;
@@ -697,7 +697,7 @@ class AjaxVisaGraphicController extends Controller
         }
 
         $data = '{
-            "title":"Uzman Vize Sonuc Analizleri(VİZE x RET & Seçilen Tarihler Arası)",
+            "title":"Uzman Analizi (Seçilen Tarihlerde Açılanlar)",
             "datasets":[';
 
         $oran = 0;
@@ -799,7 +799,7 @@ class AjaxVisaGraphicController extends Controller
         }
 
         $data = '{
-            "title":"Tercüman Vize Dosyası Tercüme Analizleri(Sayfa x Kelime & Seçilen Tarihler Arası)",
+            "title":"Tercüman Analizi (Seçilen Tarihlerde Açılanlar)",
             "datasets":[';
 
         $oran = 0;

@@ -101,7 +101,7 @@
     <script src="{{ asset('js/chart.js/chart.min.js') }}"></script>
     <script>
         var loadTime = 100;
-        var plusLoadTime = 200;
+        var plusLoadTime = 300;
         //günlük haftalık aylık ve yıllık acılan dosya sayıları
         setTimeout(function() {
             ajax_chart("polarArea", "myChartQuotaDay", "", "/yonetim/ajax/quota-day")
