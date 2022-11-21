@@ -4,93 +4,150 @@
     <nav aria-label="breadcrumb">
         <ol id="breadcrumb" class="breadcrumb p-2">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Vize İşlemleri</li>
+            <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Grafikler</li>
         </ol>
     </nav>
 
-    @include('include.management.visa.nav')
-
-    <div class="card mb-3">
-        <div class="card-header text-white bg-danger">Grafikler</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6 ">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Analizler</h5>
-                            <p class="card-text">Analiz grafik detayları.</p>
-                            <a href="/yonetim/vize/grafik/index" class="w-100 mt-2 btn btn-dark">İşlem
-                                yap</a>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="col-12">
+            <h2>Kota Grafikleri</h2>
+        </div>
+        <div class="col-xxl-3 col-lg-6 col-md-6">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChartQuotaDay"></canvas></div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 ">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Randevu Takvimi</h5>
-                            <p class="card-text">Randevu grafik detayları.</p>
-                            <a href="/yonetim/vize/grafik/takvim" class="w-100 mt-2 btn btn-dark">İşlem
-                                yap</a>
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-6 col-md-6"">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChartQuotaWeek"></canvas></div>
                 </div>
-
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-6 col-md-6"">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChartQuotaMount"></canvas></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-lg-6 col-md-6"">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChartQuotaYear"></canvas></div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="card mb-3">
-        <div class="card-header text-white bg-danger">Genel Vize İşlemleri</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6 ">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Dosya Aşamaları</h5>
-                            <p class="card-text">Cari vize dosya aşama detayları.</p>
-                            <a href="/yonetim/vize/dosya-asama" class="w-100 mt-2 btn btn-dark">İşlem
-                                yap</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 ">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Dosya Aşama Erişimleri</h5>
-                            <p class="card-text">Dosya aşama erişim detayları.</p>
-                            <a href="/yonetim/vize/dosya-asama-erisim" class="w-100 mt-2 btn btn-dark">İşlem
-                                yap</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 ">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Vize Tipleri</h5>
-                            <p class="card-text">Vize tipleri detayları.</p>
-                            <a href="/yonetim/vize/vize-tipi" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-lg-4 col-md-6 col-sm-6 ">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Vize Süreleri</h5>
-                            <p class="card-text">Vize süreleri detayları.</p>
-                            <a href="/yonetim/vize/vize-suresi" class="w-100 mt-2 btn btn-dark">İşlem
-                                yap</a>
+    <div class="row mb-3 mt-3">
+        <div class="col-12">
+            <h2> Analiz Grafikleri
+                <div class="float-end">
+                    <form action="" method="GET">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-danger text-white">Dosya Tipi:</span>
+                            <select class="form-control" name="status" id="">
+                                <option value="cari" @if (request()->get('status') == 'cari') selected @endif>
+                                    Cari
+                                </option>
+                                <option value="arsiv" @if (request()->get('status') == 'arsiv') selected @endif>
+                                    Arşiv
+                                </option>
+                                <option value="all" @if (request()->get('status') == 'all') selected @endif>
+                                    Tümü
+                                </option>
+                            </select>
+                            <span class="input-group-text bg-danger text-white">Tarih Aralığı:</span>
+                            <input type="text" name="dates"
+                                value="{{ request('dates') ? request('dates') : date('Y-m-01') . '--' . date('Y-m-28') }}"
+                                autocomplete="off" id="date1" class="form-control">
+                            <button type="submit" class="btn btn-dark">Uygula</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 ">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Dosyası Logları</h5>
-                            <p class="card-text">Vize dosya log detayları.</p>
-                            <a href="/yonetim/vize/logs" class="w-100 mt-2 btn btn-dark">İşlem
-                                yap</a>
+            </h2>
+
+        </div>
+        <div class="col-xxl-4 col-xl-6 col-lg-6">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-4 col-xl-6 col-lg-6">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChart1"></canvas></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-4 col-xl-6 col-lg-6">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChart2"></canvas></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-4 col-xl-6 col-lg-6">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChart6"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3 mt-3">
+        <div class="col-12">
+            <h2> Personel Grafikleri
+                <div class="float-end">
+                    <form action="" method="GET">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-danger text-white">Dosya Tipi:</span>
+                            <select class="form-control" name="status" id="">
+                                <option value="cari" @if (request()->get('status') == 'cari') selected @endif>
+                                    Cari
+                                </option>
+                                <option value="arsiv" @if (request()->get('status') == 'arsiv') selected @endif>
+                                    Arşiv
+                                </option>
+                                <option value="all" @if (request()->get('status') == 'all') selected @endif>
+                                    Tümü
+                                </option>
+                            </select>
+                            <span class="input-group-text bg-danger text-white">Tarih Aralığı:</span>
+                            <input type="text" name="dates"
+                                value="{{ request('dates') ? request('dates') : date('Y-m-01') . '--' . date('Y-m-28') }}"
+                                autocomplete="off" id="date2" class="form-control">
+                            <button type="submit" class="btn btn-dark">Uygula</button>
                         </div>
-                    </div>
+                    </form>
+                </div>
+            </h2>
+        </div>
+        <div class="col-xxl-4 col-xl-6 col-lg-6">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChart3"></canvas></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-4 col-xl-6 col-lg-6">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChart4"></canvas></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-4 col-xl-6 col-lg-6">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%"><canvas id="myChart5"></canvas></div>
                 </div>
             </div>
         </div>
@@ -99,15 +156,28 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
-    <link rel="stylesheet" href="{{ asset('js/fullcalendar/main.css') }}" />
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/fullcalendar/main.js') }}"></script>
-    <script src="{{ asset('js/fullcalendar/locales/tr.js') }}"></script>
     <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
     <script src="{{ asset('js/chart.js/chart.min.js') }}"></script>
     <script>
+        new AirDatepicker('#date1', {
+            isMobile: true,
+            autoClose: true,
+            position: 'right center',
+            range: true,
+            buttons: ['today', 'clear'],
+            multipleDatesSeparator: '--',
+        })
+        new AirDatepicker('#dates2', {
+            isMobile: true,
+            autoClose: true,
+            range: true,
+            position: 'right center',
+            buttons: ['today', 'clear'],
+            multipleDatesSeparator: '--',
+        })
         var loadTime = 100;
         var plusLoadTime = 300;
         //günlük haftalık aylık ve yıllık acılan dosya sayıları
@@ -123,13 +193,11 @@
         setTimeout(function() {
             ajax_chart("polarArea", "myChartQuotaYear", "", "/yonetim/ajax/quota-year")
         }, loadTime += plusLoadTime);
-
         //açılan ve tamamlanan dosya sayıları
         setTimeout(function() {
             ajax_chart("bar", "myChart", "Dosya sayısı",
                 "/yonetim/ajax/open-made-analist?status={{ request('status') }}&dates={{ request('dates') }}")
         }, loadTime += plusLoadTime);
-
         //aşamalara göre dosya sayısı
         setTimeout(function() {
             ajax_chart("bar", "myChart1", "Dosya sayısı",
@@ -324,12 +392,5 @@
                 chart.update(); // finally update our chart
             });
         }
-        new AirDatepicker('#dates', {
-            isMobile: true,
-            autoClose: true,
-            range: true,
-            buttons: ['today', 'clear'],
-            multipleDatesSeparator: '--',
-        })
     </script>
 @endsection

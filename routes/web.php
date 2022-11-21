@@ -26,6 +26,7 @@ use App\Http\Controllers\Management\VisaFileGradesUsersTypeController as Managem
 use App\Http\Controllers\Management\VisaValidityController as ManagementVisaValidityController;
 use App\Http\Controllers\Management\UrlController;
 use App\Http\Controllers\Management\AjaxVisaGraphicController;
+use App\Http\Controllers\Management\VisaGraphicController;
 
 use App\Http\Controllers\Web\IndexController as WebIndexController;
 
@@ -53,7 +54,6 @@ use App\Http\Controllers\Customer\Visa\Grades\ApplicationResultController as Vis
 use App\Http\Controllers\Customer\Visa\Grades\FileDeliveryController as VisaFileDeliveryController;
 use App\Http\Controllers\Customer\Visa\Grades\FinishArchiveController as VisaFinishArchiveController;
 use App\Http\Controllers\Customer\Visa\Grades\ApplicationPaidWaitController;
-
 
 /**Genel yönlendirmeler*/
 Route::get('/', [GeneralLoginController::class, "get_index"]);
@@ -204,11 +204,17 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('uzman', [ManagementVisaController::class, 'get_uzman']);
             Route::get('muhasebe', [ManagementVisaController::class, 'get_muhasebe']);
             Route::get('tercuman', [ManagementVisaController::class, 'get_tercuman']);
+            Route::get('logs', [ManagementVisaController::class, 'get_logs']);
 
             Route::resource('vize-tipi', ManagementVisaTypesController::class);
             Route::resource('vize-suresi', ManagementVisaValidityController::class);
             Route::resource('dosya-asama', ManagementVisaFileGradesController::class);
             Route::resource('dosya-asama-erisim', ManagementVisaFileGradesUsersTypeController::class);
+
+            Route::group(['prefix' => 'grafik'], function () {
+                Route::get('index', [VisaGraphicController::class, 'index']);
+                Route::get('takvim', [VisaGraphicController::class, 'getCalendar']);
+            });
         });
 
         /**Yonetim web işlemleri*/

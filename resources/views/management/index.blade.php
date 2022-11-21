@@ -1,14 +1,12 @@
 @extends('sablon.yonetim')
 
 @section('content')
+    <nav aria-label="breadcrumb">
+        <ol id="breadcrumb" class="breadcrumb p-2">
+            <li class="breadcrumb-item active" aria-current="page">Yönetim İşlemleri</li>
+        </ol>
+    </nav>
     <div class="row">
-        <div class="col-md-12">
-            <nav aria-label="breadcrumb">
-                <ol id="breadcrumb" class="breadcrumb p-2">
-                    <li class="breadcrumb-item active" aria-current="page">Yönetim İşlemleri</li>
-                </ol>
-            </nav>
-        </div>
         @if (in_array(1, $userAccesses))
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card mb-3">

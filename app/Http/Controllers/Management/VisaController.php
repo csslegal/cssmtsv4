@@ -12,6 +12,10 @@ class VisaController extends Controller
     {
         return view('management.visa.index');
     }
+    public function get_logs(Request $request)
+    {
+        return view('management.visa.logs');
+    }
     public function get_danisman(Request $request)
     {
         $visaCustomers = DB::table('customers')
