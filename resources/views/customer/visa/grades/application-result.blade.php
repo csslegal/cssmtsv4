@@ -1,7 +1,7 @@
 @extends('sablon.genel')
 
 @section('title')
-Sonuç Bekleyen Dosyalar
+    Sonuç Bekleyen Dosyalar
 @endsection
 
 @section('content')
@@ -36,7 +36,7 @@ Sonuç Bekleyen Dosyalar
                 </div>
                 <div class="mb-3" id="vbat">
                     <label class="form-label">Vize Başlangıç Tarihi</label>
-                    <input type="text" class="form-control datepicker" autocomplete="off" id="vize_baslangic_tarihi"
+                    <input type="text" class="form-control" id="date1" autocomplete="off"
                         name="vize_baslangic_tarihi"
                         value="{{ old('vize_baslangic_tarihi') ? old('vize_baslangic_tarihi') : '' }}" />
                     @error('vize_baslangic_tarihi')
@@ -45,17 +45,16 @@ Sonuç Bekleyen Dosyalar
                 </div>
                 <div class="mb-3" id="vbit">
                     <label class="form-label">Vize Bitiş Tarihi</label>
-                    <input type="text" class="form-control datepicker1" autocomplete="off" id="vize_bitis_tarihi"
-                        name="vize_bitis_tarihi" value="{{ old('vize_bitis_tarihi') ? old('vize_bitis_tarihi') : '' }}" />
+                    <input type="text" class="form-control" id="date2" autocomplete="off" name="vize_bitis_tarihi"
+                        value="{{ old('vize_bitis_tarihi') ? old('vize_bitis_tarihi') : '' }}" />
                     @error('vize_bitis_tarihi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3" id="vta">
                     <label class="form-label">Vize Teslim Alınma Tarihi</label>
-                    <input type="text" class="form-control datepicker2" autocomplete="off" id="vize_teslim_alinma_tarihi"
-                        name="vize_teslim_alinma_tarihi"
-                        value="{{ old('vize_teslim_alinma_tarihi') ? old('vize_teslim_alinma_tarihi') : '' }}" />
+                    <input type="text" class="form-control" autocomplete="off" name="vize_teslim_alinma_tarihi"
+                        id="date3" value="{{ old('vize_teslim_alinma_tarihi') ? old('vize_teslim_alinma_tarihi') : '' }}" />
                     @error('vize_teslim_alinma_tarihi')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -70,7 +69,7 @@ Sonuç Bekleyen Dosyalar
                 </div>
                 <div class="mb-3" id="rt">
                     <label class="form-label">Ret Tarihi</label>
-                    <input type="text" class="form-control datepicker3" id="red_tarihi" autocomplete="off"
+                    <input type="text" class="form-control" id="date4" autocomplete="off"
                         name="red_tarihi" value="{{ old('red_tarihi') ? old('red_tarihi') : '' }}" />
                     @error('red_tarihi')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -78,7 +77,7 @@ Sonuç Bekleyen Dosyalar
                 </div>
                 <div class="mb-3" id="rat">
                     <label class="form-label">Ret Teslim Alınma Tarihi</label>
-                    <input type="text" class="form-control datepicker4" id="red_teslim_alinma_tarihi" autocomplete="off"
+                    <input type="text" class="form-control" id="date5" autocomplete="off"
                         name="red_teslim_alinma_tarihi"
                         value="{{ old('red_teslim_alinma_tarihi') ? old('red_teslim_alinma_tarihi') : '' }}" />
                     @error('red_teslim_alinma_tarihi')
@@ -92,38 +91,8 @@ Sonuç Bekleyen Dosyalar
     </div>
 @endsection
 
-@section('css')
-    <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
-@endsection
-
 @section('js')
-    <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
     <script>
-        new AirDatepicker('.datepicker', {
-            isMobile: true,
-            autoClose: true,
-            buttons: ['today', 'clear'],
-        })
-        new AirDatepicker('.datepicker1', {
-            isMobile: true,
-            autoClose: true,
-            buttons: ['today', 'clear'],
-        })
-        new AirDatepicker('.datepicker2', {
-            isMobile: true,
-            autoClose: true,
-            buttons: ['today', 'clear'],
-        })
-        new AirDatepicker('.datepicker3', {
-            isMobile: true,
-            autoClose: true,
-            buttons: ['today', 'clear'],
-        })
-        new AirDatepicker('.datepicker4', {
-            isMobile: true,
-            autoClose: true,
-            buttons: ['today', 'clear'],
-        })
         $(document).ready(function() {
             if ($("#sonuc").val() == 1) {
                 $("#rs,#rt,#rat").css("display", "none");
@@ -143,29 +112,29 @@ Sonuç Bekleyen Dosyalar
                 $("#rs,#rt,#rat").css("display", "none");
                 $("#vbat,#vbit,#vta").css("display", "block");
 
-                document.getElementById('red_tarihi').value = '';
-                document.getElementById('red_teslim_alinma_tarihi').value = '';
+                document.getElementById('date4').value = '';
+                document.getElementById('date5').value = '';
                 document.getElementById('red_sebebi').value = '';
             } else if ($("#sonuc").val() == 0) {
 
                 $("#rs,#rt,#rat").css("display", "block");
                 $("#vbat,#vbit,#vta").css("display", "none");
 
-                document.getElementById('vize_baslangic_tarihi').value = '';
-                document.getElementById('vize_bitis_tarihi').value = '';
-                document.getElementById('vize_teslim_alinma_tarihi').value = '';
+                document.getElementById('date1').value = '';
+                document.getElementById('date2').value = '';
+                document.getElementById('date3').value = '';
             } else {
 
                 $("#rs,#rt,#rat").css("display", "none");
                 $("#vbat,#vbit,#vta").css("display", "none");
 
-                document.getElementById('red_tarihi').value = '';
-                document.getElementById('red_teslim_alinma_tarihi').value = '';
+                document.getElementById('date4').value = '';
+                document.getElementById('date5').value = '';
                 document.getElementById('red_sebebi').value = '';
 
-                document.getElementById('vize_baslangic_tarihi').value = '';
-                document.getElementById('vize_bitis_tarihi').value = '';
-                document.getElementById('vize_teslim_alinma_tarihi').value = '';
+                document.getElementById('date1').value = '';
+                document.getElementById('date2').value = '';
+                document.getElementById('date3').value = '';
             }
         }
     </script>

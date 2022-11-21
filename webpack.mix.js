@@ -23,5 +23,5 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.copy('node_modules/chart.js/dist', 'public/js/chart.js');
 mix.copy('node_modules/tinymce', 'public/js/tinymce');
-mix.copy('node_modules/air-datepicker', 'public/js/air-datepicker');
+//mix.copy('node_modules/air-datepicker', 'public/js/air-datepicker');
 mix.copy('node_modules/fullcalendar', 'public/js/fullcalendar');

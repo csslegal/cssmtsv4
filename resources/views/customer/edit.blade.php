@@ -74,7 +74,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="" class="form-label ">Pasaport Tarihi</label>
-                    <input type="text" class="form-control datepicker" name="passport_date" autocomplete="off"
+                    <input type="text" class="form-control" id="date1" name="passport_date" autocomplete="off"
                         placeholder="Müşteri güncel pasport tarihi"
                         value="{{ $baseCustomerDetails->passport_date != '' ? $baseCustomerDetails->passport_date : old('passport_date') }}">
                 </div>
@@ -91,19 +91,8 @@
     </div>
 @endsection
 
-@section('css')
-    <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
-@endsection
-
 @section('js')
-    <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
     <script>
-        new AirDatepicker('.datepicker', {
-            isMobile: true,
-            autoClose: true,
-            buttons: ['today', 'clear'],
-
-        })
         $('#name').change(function() {
             $.ajax({
                 url: "/musteri/ajax/name-kontrol",

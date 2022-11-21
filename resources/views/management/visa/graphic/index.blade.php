@@ -64,7 +64,7 @@
                             <span class="input-group-text bg-danger text-white">Tarih Aralığı:</span>
                             <input type="text" name="dates"
                                 value="{{ request('dates') ? request('dates') : date('Y-m-01') . '--' . date('Y-m-28') }}"
-                                autocomplete="off" id="date1" class="form-control">
+                                autocomplete="off" id="dates1" class="form-control">
                             <button type="submit" class="btn btn-dark">Uygula</button>
                         </div>
                     </form>
@@ -123,7 +123,7 @@
                             <span class="input-group-text bg-danger text-white">Tarih Aralığı:</span>
                             <input type="text" name="dates"
                                 value="{{ request('dates') ? request('dates') : date('Y-m-01') . '--' . date('Y-m-28') }}"
-                                autocomplete="off" id="date2" class="form-control">
+                                autocomplete="off" id="dates2" class="form-control">
                             <button type="submit" class="btn btn-dark">Uygula</button>
                         </div>
                     </form>
@@ -155,29 +155,12 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
     <script src="{{ asset('js/chart.js/chart.min.js') }}"></script>
     <script>
-        new AirDatepicker('#date1', {
-            isMobile: true,
-            autoClose: true,
-            position: 'right center',
-            range: true,
-            buttons: ['today', 'clear'],
-            multipleDatesSeparator: '--',
-        })
-        new AirDatepicker('#dates2', {
-            isMobile: true,
-            autoClose: true,
-            range: true,
-            position: 'right center',
-            buttons: ['today', 'clear'],
-            multipleDatesSeparator: '--',
-        })
+
         var loadTime = 100;
         var plusLoadTime = 300;
         //günlük haftalık aylık ve yıllık acılan dosya sayıları
@@ -196,7 +179,8 @@
         //açılan ve tamamlanan dosya sayıları
         setTimeout(function() {
             ajax_chart("bar", "myChart", "Dosya sayısı",
-                "/yonetim/ajax/open-made-analist?status={{ request('status') }}&dates={{ request('dates') }}")
+                "/yonetim/ajax/open-made-analist?status={{ request('status') }}&dates={{ request('dates') }}"
+            )
         }, loadTime += plusLoadTime);
         //aşamalara göre dosya sayısı
         setTimeout(function() {
@@ -218,12 +202,14 @@
         //danışman analızleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart3", "Dosya sayısı",
-                "/yonetim/ajax/advisor-analist?status={{ request('status') }}&dates={{ request('dates') }}")
+                "/yonetim/ajax/advisor-analist?status={{ request('status') }}&dates={{ request('dates') }}"
+            )
         }, loadTime += plusLoadTime);
         //uzman analızleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart4", "Dosya sayısı",
-                "/yonetim/ajax/expert-analist?status={{ request('status') }}&dates={{ request('dates') }}")
+                "/yonetim/ajax/expert-analist?status={{ request('status') }}&dates={{ request('dates') }}"
+            )
         }, loadTime += plusLoadTime);
         //tercuman analizleri
         setTimeout(function() {
@@ -305,7 +291,8 @@
                                                 'Olumlu sonuc sayısı: ' + context.parsed.x,
                                                 'Olumsuz sonuc sayısı: ' + context.parsed.y,
                                                 'Başarı oranı: %' + Math.round(
-                                                    context.parsed.x / (context.parsed.x + context.parsed
+                                                    context.parsed.x / (context.parsed.x + context
+                                                        .parsed
                                                         .y) *
                                                     100
                                                 ),

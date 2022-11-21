@@ -40,14 +40,14 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Başlangıç Tarihi</label>
-                    <input type="text" class="form-control datepicker1" name="baslangic" />
+                    <input type="text" class="form-control" id="date1" name="baslangic" />
                     @error('baslangic')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Bitiş Tarihi</label>
-                    <input type="text" class="form-control datepicker2" name="bitis" />
+                    <input type="text" class="form-control" id="date2" name="bitis" />
                     @error('bitis')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -82,23 +82,8 @@
 @endsection
 
 
-@section('css')
-    <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
-@endsection
-
 @section('js')
-    <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
     <script>
-        new AirDatepicker('.datepicker1', {
-            isMobile: true,
-            autoClose: true,
-            buttons: ['today', 'clear'],
-        })
-        new AirDatepicker('.datepicker2', {
-            isMobile: true,
-            autoClose: true,
-            buttons: ['today', 'clear'],
-        })
         $(document).ready(function() {
             $("#checkedAll").change(function() {
                 if (this.checked) {

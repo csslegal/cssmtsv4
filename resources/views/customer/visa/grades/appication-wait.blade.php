@@ -81,7 +81,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Randevu Tarihi</label>
-                    <input type="text" class="datepicker form-control" name="tarih" autocomplete="off"
+                    <input type="text" class="form-control" id="date1" name="tarih" autocomplete="off"
                         placeholder="Randevu tarihi girin" value="{{ old('tarih') }}" />
                     @error('tarih')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -106,19 +106,4 @@
             </form>
         </div>
     </div>
-@endsection
-
-@section('css')
-    <link rel="stylesheet" href="{{ asset('js/air-datepicker/air-datepicker.css') }}">
-@endsection
-
-@section('js')
-    <script src="{{ asset('js/air-datepicker/air-datepicker.js') }}"></script>
-    <script>
-        new AirDatepicker('.datepicker', {
-            isMobile: true,
-            autoClose: true,
-            buttons: ['today', 'clear'],
-        });
-    </script>
 @endsection
