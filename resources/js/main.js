@@ -20,7 +20,6 @@ $('#dataTable').DataTable({
     "columnDefs": [{ "type": "num", "targets": 0 }],
     language: { url: '/dataTables.tr.json' },
 });
-
 $('#dtCustomersTable').DataTable({
     processing: true,
     serverSide: true,
@@ -40,7 +39,6 @@ $('#dtCustomersTable').DataTable({
         }
     }],
 });
-
 $('#dtVisaLogsTable').DataTable({
     processing: true,
     serverSide: true,
@@ -61,7 +59,6 @@ $('#dtVisaLogsTable').DataTable({
         }
     }],
 });
-
 $('a.confirm').confirm({
     title: 'Dikkat!',
     content: '',
