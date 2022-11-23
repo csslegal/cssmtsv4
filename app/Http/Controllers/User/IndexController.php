@@ -35,8 +35,7 @@ class IndexController extends Controller
 
             ->groupBy('visa_file_logs.visa_file_id')
 
-            ->where('visa_files.active', '=', 1)
-            ;
+            ->where('visa_files.active', '=', 1);
 
         $webResults = DB::table('web_panel_auth')->where('user_id', '=', $request->session()->get('userId'))->get();
 
@@ -54,7 +53,7 @@ class IndexController extends Controller
             ->pluck('access.id')->toArray();
 
         if ($request->session()->get('userTypeId') == 2) {
-            $visaGradesAccesses = DB::table('visa_file_grades')->where('id','<>',1)->orderBy('orderby')->get();
+            $visaGradesAccesses = DB::table('visa_file_grades')->where('id', '<>', 1)->orderBy('orderby')->get();
         } else {
             $visaGradesAccesses = DB::table('visa_file_grades_users_type')
                 ->select([

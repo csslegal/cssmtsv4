@@ -18,12 +18,15 @@ class VisaController extends Controller
     }
     public function get_danisman(Request $request)
     {
+        $visaGradesAccesses = DB::table('visa_file_grades')->where('id', '<>', 1)->orderBy('orderby')->get();
+
         $visaCustomers = DB::table('customers')
             ->select([
                 'customers.id AS id',
                 'customers.name AS name',
                 'users.name AS u_name',
                 'visa_files.id AS visa_file_id',
+                'visa_file_grades.id AS visa_file_grades_id',
                 'visa_files.status AS status',
                 'visa_file_grades.name AS visa_file_grades_name',
                 'visa_validity.name AS visa_validity_name',
@@ -34,19 +37,24 @@ class VisaController extends Controller
             ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
             ->leftJoin('visa_types', 'visa_types.id', '=', 'visa_files.visa_type_id')
             ->leftJoin('users', 'users.id', '=', 'visa_files.advisor_id')
-
-
             ->where('visa_files.active', '=', 1)
             ->get();
-        return view('management.visa.users.danisman')->with(
-            [
-                'visaCustomers' => $visaCustomers,
-            ]
-        );
+        return view('management.visa.users.danisman')->with([
+            'visaCustomers' => $visaCustomers,
+            'visaGradesAccesses' => $visaGradesAccesses,
+        ]);
     }
 
     public function get_uzman(Request $request)
     {
+        $visaGradesAccesses = DB::table('visa_file_grades_users_type')
+            ->select([
+                'visa_file_grades.id AS id',
+                'visa_file_grades.name AS name',
+            ])
+            ->join('visa_file_grades', 'visa_file_grades.id', '=', 'visa_file_grades_users_type.visa_file_grade_id')
+            ->where('visa_file_grades_users_type.user_type_id', '=', env('EXPERT_USER_TYPE_ID'))->get();
+
         $visaCustomers = DB::table('customers')
             ->select([
                 'customers.id AS id',
@@ -56,6 +64,7 @@ class VisaController extends Controller
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
                 'visa_file_grades.name AS visa_file_grades_name',
+                'visa_file_grades.id AS visa_file_grades_id',
                 'visa_validity.name AS visa_validity_name',
                 'visa_types.name AS visa_type_name',
             ])
@@ -71,15 +80,22 @@ class VisaController extends Controller
             ->where('visa_files.visa_file_grades_id', '=', env('VISA_CONTROL_WAIT_GRADES_ID'))
             ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPLICATION_WAIT_GRADES_ID'))
             ->get();
-        return view('management.visa.users.uzman')->with(
-            [
-                'visaCustomers' => $visaCustomers,
-            ]
-        );
+        return view('management.visa.users.uzman')->with([
+            'visaCustomers' => $visaCustomers,
+            'visaGradesAccesses' => $visaGradesAccesses,
+        ]);
     }
 
     public function get_tercuman(Request $request)
     {
+        $visaGradesAccesses = DB::table('visa_file_grades_users_type')
+            ->select([
+                'visa_file_grades.id AS id',
+                'visa_file_grades.name AS name',
+            ])
+            ->join('visa_file_grades', 'visa_file_grades.id', '=', 'visa_file_grades_users_type.visa_file_grade_id')
+            ->where('visa_file_grades_users_type.user_type_id', '=', env('TRANSLATION_USER_TYPE_ID'))->get();
+
         $visaCustomers = DB::table('customers')
             ->select([
                 'customers.id AS id',
@@ -89,6 +105,7 @@ class VisaController extends Controller
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
                 'visa_file_grades.name AS visa_file_grades_name',
+                'visa_file_grades.id AS visa_file_grades_id',
                 'visa_validity.name AS visa_validity_name',
                 'visa_types.name AS visa_type_name',
             ])
@@ -105,11 +122,20 @@ class VisaController extends Controller
             ->get();
         return view('management.visa.users.tercuman')->with([
             'visaCustomers' => $visaCustomers,
+            'visaGradesAccesses' => $visaGradesAccesses,
         ]);
     }
 
     public function get_muhasebe(Request $request)
     {
+        $visaGradesAccesses = DB::table('visa_file_grades_users_type')
+            ->select([
+                'visa_file_grades.id AS id',
+                'visa_file_grades.name AS name',
+            ])
+            ->join('visa_file_grades', 'visa_file_grades.id', '=', 'visa_file_grades_users_type.visa_file_grade_id')
+            ->where('visa_file_grades_users_type.user_type_id', '=', env('ACCOUNTING_USER_TYPE_ID'))->get();
+
         $visaCustomers = DB::table('customers')
             ->select([
                 'customers.id AS id',
@@ -118,6 +144,7 @@ class VisaController extends Controller
                 'visa_files.id AS visa_file_id',
                 'visa_files.status AS status',
                 'visa_file_grades.name AS visa_file_grades_name',
+                'visa_file_grades.id AS visa_file_grades_id',
                 'visa_validity.name AS visa_validity_name',
                 'visa_types.name AS visa_type_name',
             ])
@@ -130,13 +157,16 @@ class VisaController extends Controller
             ->where('visa_files.active', '=', 1)
 
             ->where('visa_files.visa_file_grades_id', '=', env('VISA_FILE_OPEN_CONFIRM_GRADES_ID'))
+            ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_APPLICATION_PAID_GRADES_ID'))
             // ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_MADE_PAYMENT_GRADES_ID'))
             // ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_INVOICE_SAVE_GRADES_ID'))
             // ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_RE_PAYMENT_CONFIRM_GRADES_ID'))
             // ->orWhere('visa_files.visa_file_grades_id', '=', env('VISA_FILE_REFUND_CONFIRM_GRADES_ID'))
             ->get();
+
         return view('management.visa.users.muhasebe')->with([
             'visaCustomers' => $visaCustomers,
+            'visaGradesAccesses' => $visaGradesAccesses,
         ]);
     }
 }
