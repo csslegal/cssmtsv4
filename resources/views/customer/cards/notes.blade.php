@@ -26,7 +26,7 @@
                     <div class="card card-danger mb-3">
                         <div class="card-header bg-danger text-white">Alınan Notlar</div>
                         <div class="card-body">
-                            <table id="dataTable" class="table table-striped table-bordered display" style="width:100%">
+                            <table id="dataTable" class="table  table-light table-striped table-bordered display" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>

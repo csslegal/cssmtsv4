@@ -15,7 +15,7 @@
             <div class="card-header bg-danger text-white ">
                 {{ mb_convert_case($visaGradesAccess->name, MB_CASE_TITLE, 'UTF-8') }}</div>
             <div class="card-body scroll">
-                <table id="dataTableVize{{ $visaGradesAccess->id }}" class="table table-striped table-bordered display"
+                <table id="dataTableVize{{ $visaGradesAccess->id }}" class="table  table-light table-striped table-bordered display"
                     style="width:100%">
                     <thead>
                         <tr>

@@ -1,6 +1,6 @@
 <div class="card card-dark  mb-3" id="visa">
     <div class="card-body scroll">
-        <table id="dtVisaLogsTable" class="table table-striped table-bordered display" style="width:100%">
+        <table id="dtVisaLogsTable" class="table  table-light table-striped table-bordered display" style="width:100%">
             <thead>
                 <tr>
                     <th>URL</th>

@@ -12,7 +12,7 @@
     <div class="card card-dark mb-3">
         <div class="card-header bg-dark text-white">URL Detayları</div>
         <div class="card-body scroll">
-            <table id="dataTable" class="table table-striped table-bordered display" style="width:100%">
+            <table id="dataTable" class="table  table-light table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>

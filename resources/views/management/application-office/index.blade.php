@@ -16,7 +16,7 @@
 
             @include('include.toast')
 
-            <table id="dataTable" class=" table table-striped table-bordered display " style="width:100%">
+            <table id="dataTable" class=" table  table-light table-striped table-bordered display " style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>

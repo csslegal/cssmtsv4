@@ -34,7 +34,7 @@
                 <div class="card card-danger">
                     <div class="card-header bg-danger text-white">Bulunan Sonuçlar</div>
                     <div class="card-body scroll">
-                        <table id="dataTable" class="table table-striped table-bordered display" style="width:100%">
+                        <table id="dataTable" class="table  table-light table-striped table-bordered display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>

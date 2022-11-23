@@ -24,7 +24,7 @@
                         <a class="dropdown nav-link link-light px-2 " data-bs-toggle="dropdown" aria-expanded="true">
                             <i class="bi bi-bell-fill"></i>
                             Bildirimler
-                            <span class="badge bg-danger text-light">{{ count($notifications) }}</span>
+                            <span class="badge bg-danger text-white">{{ count($notifications) }}</span>
                         </a>
                         <div class="dropdown-menu"
                             style="padding: 0; max-height: 300px; {{ count($notifications) > 4 ? ' overflow-y: scroll;' : '' }}">

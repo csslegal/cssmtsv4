@@ -14,7 +14,7 @@
             <a class="float-end text-white" href="/yonetim/vize/dosya-asama/create">Ekle</a>
         </div>
         <div class="card-body scroll">
-            <table id="dataTableVize" class="table table-striped table-bordered display" style="width:100%">
+            <table id="dataTableVize" class="table  table-light table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>

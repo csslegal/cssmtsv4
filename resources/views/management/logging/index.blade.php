@@ -110,7 +110,7 @@
                 <div class="card-header bg-dark text-white fw-bold">Log Detayları</div>
                 <div class="card-body">
                     @if (count($fileLogs) > 0)
-                        <table id="dataTableVize" class="table table-striped table-bordered display" style="width:100%">
+                        <table id="dataTableVize" class="table  table-light table-striped table-bordered display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>No</th>
