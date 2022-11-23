@@ -8,8 +8,8 @@
             <li class="breadcrumb-item active" aria-current="page">Randevu Takvimi</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Randevu Takvimi</div>
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Randevu Takvimi</div>
         <div class="card-body scroll">
             <div id='calendar'></div>
         </div>

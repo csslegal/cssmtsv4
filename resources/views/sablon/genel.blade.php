@@ -63,18 +63,14 @@
                     // $(ele).removeClass('navbar-dark').addClass('navbar-light');
                 });
                 $('body').removeClass('bg-light').addClass('bg-dark');
+                $('#breadcrumb').addClass('bg-dark');
 
-                $('#breadcrumb').addClass('bg-light');
+                $('#nav-top').removeClass('navbar-light').addClass('navbar-dark');
+                $('#nav-top').removeClass('bg-light').addClass('bg-dark');
 
-                $('#nav-top').removeClass('navbar-dark').addClass('navbar-light');
-                $('#nav-top').removeClass('bg-dark').addClass('bg-light');
+                $('#managament-nav').addClass('border border-light');
 
-                $('#slogan').removeClass('bg-dark').addClass('bg-light');
-                $('#slogan').removeClass('text-light').addClass('text-dark');
-
-                $('.nav-item > a').removeClass('link-light ').addClass('link-dark');
-                $('.nav-item > a').removeClass('bg-dark ').addClass('bg-light');
-                $('.nav-item > a').removeClass('text-light ').addClass('text-dark');
+                $('#slogan').addClass('bg-dark');
             @endif
         });
 

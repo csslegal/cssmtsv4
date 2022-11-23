@@ -17,9 +17,9 @@
         </ol>
     </nav>
 
-    <div class="card card-danger">
+    <div class="card">
         <div class="card-header bg-danger text-white fw-bold">Paneller</div>
-        <div class="card-body">
+        <div class="card-body  text-dark bg-light">
 
             @if (in_array(4, $userAccesses))
 

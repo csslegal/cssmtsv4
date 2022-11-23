@@ -65,22 +65,14 @@
                 });
                 $('body').removeClass('bg-light').addClass('bg-dark');
 
-                $('#breadcrumb').addClass('bg-light');
+                $('#breadcrumb').addClass('bg-dark');
 
-                $('#nav-top').removeClass('navbar-dark').addClass('navbar-light');
-                $('#nav-top').removeClass('bg-dark').addClass('bg-light');
+                $('#nav-top').removeClass('navbar-light').addClass('navbar-dark');
+                $('#nav-top').removeClass('bg-light').addClass('bg-dark');
 
-                $('#slogan').removeClass('bg-dark').addClass('bg-light');
-                $('#slogan').removeClass('text-light').addClass('text-dark');
+                $('#managament-nav').addClass('border border-light');
 
-                $('.nav-item > a').removeClass('link-light ').addClass('link-dark');
-                $('.nav-item > a').removeClass('bg-dark ').addClass('bg-light');
-                $('.nav-item > a').removeClass('text-light ').addClass('text-dark');
-
-
-                $('.nav-item > button').removeClass('link-light ').addClass('link-dark');
-                $('.nav-item > button').removeClass('bg-dark ').addClass('bg-light');
-                $('.nav-item > button').removeClass('text-light ').addClass('text-dark');
+                $('#slogan').addClass('bg-dark');
             @endif
         });
 

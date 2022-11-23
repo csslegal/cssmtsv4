@@ -8,8 +8,8 @@
         </ol>
     </nav>
 
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white fw-bold">Profilim</div>
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white fw-bold">Profilim</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
@@ -61,8 +61,8 @@
         </div>
     </div>
 
-    <div class="card card-dark">
-        <div class="card-header bg-dark text-white fw-bold">Şifre Güncelleme</div>
+    <div class="card">
+        <div class="card-header bg-danger text-white fw-bold">Şifre Güncelleme</div>
         <div class="card-body">
             <form method="POST" action="/yonetim/profil">
                 @csrf

@@ -32,7 +32,7 @@
 
                                 @foreach ($notifications as $notification)
                                     <a href="/musteri/{{ $notification['customer_id'] }}/vize"
-                                        class="list-group-item list-group-item-action">
+                                        class="list-group-item list-group-item-action ">
                                         <div class="d-flex w-100 justify-content-between">
                                             <h6 class="mb-1 text-danger fw-bold">{{ $notification['customer_name'] }}</h6>
                                             <small class="text-muted">{{ $notification['date'] }}</small>
