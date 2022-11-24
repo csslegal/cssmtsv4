@@ -1,9 +1,6 @@
-<div id="preloader">
-    <div id="yukleniyor" class="mt-5 fw-bold text-dark text-center">
-        <img class="w-100 mt-5 pt-5" src="/storage/logo.png" alt="logo">
-        <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status"></div>
-            <span class="p-1">Sayfa Yükleniyor..</span>
-        </div>
+<div id="preloader" class="light">
+    <div id="yukleniyor" class=" mt-5 my-5 mx-5 flex-center">
+        <img class="mt-5 w-100 my-auto mx-auto" src="/storage/logo.png" alt="logo">
     </div>
 </div>
+

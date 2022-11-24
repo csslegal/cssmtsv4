@@ -30,7 +30,7 @@
                             <form action="" method="POST">
                                 @csrf
                                 <input type="hidden" name="tamam" value="tamam">
-                                <button type="submit" class="w-100 mt-2 btn btn-dark float-end text-white"
+                                <button type="submit" class="w-100 mt-2 btn btn-secondary float-end text-white"
                                     onClick="this.form.submit(); this.disabled=true;">Tamamla</button>
                             </form>
                         </div>
@@ -44,7 +44,7 @@
                             <form action="" method="POST">
                                 @csrf
                                 <input type="hidden" name="ertele" value="ertele">
-                                <button type="submit" class="w-100 mt-2 btn btn-dark float-end text-white"
+                                <button type="submit" class="w-100 mt-2 btn btn-secondary float-end text-white"
                                     onClick="this.form.submit(); this.disabled=true;">Ertele</button>
                             </form>
                         </div>

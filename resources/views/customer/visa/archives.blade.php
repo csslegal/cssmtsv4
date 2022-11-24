@@ -25,11 +25,11 @@
                     {{ $visaArchive->id }} Referans Numaralı Arşiv Dosyası
                     @if (session('userTypeId') == 1 || session('userTypeId') == 2)
                         <div class="dropdown drop float-end">
-                            <button class="btn btn-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">Arşiv Dosya İşlemleri</button>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <button class="dropdown-item btn btn-dark btn-sm "
+                                    <button class="dropdown-item btn btn-secondary btn-sm "
                                         onclick="contentLoad('arsiv-log','{{ $visaArchive->id }}')" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal">Logları Göster
                                     </button>
@@ -208,7 +208,7 @@
                 $("#contentLoad1").html('İçerik alınıyor...');
                 $("#contentHead1").html('Vize Dosyası İşlem Log Detayları');
                 $("#footerLoad1").html(
-                    '<button class="btn btn-danger" data-bs-target="#exampleModal" data-bs-toggle="modal">Loglara Dön</button>'
+                    '<button class="btn btn-secondary" data-bs-target="#exampleModal" data-bs-toggle="modal">Loglara Dön</button>'
                 );
             }
             $.ajax({

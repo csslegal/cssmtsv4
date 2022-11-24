@@ -12,7 +12,7 @@
         <div class="card-header bg-dark text-white">
             Url
             <div class="dropdown float-end text-white">
-                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     İşlemler
                 </button>

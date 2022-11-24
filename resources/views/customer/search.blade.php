@@ -24,14 +24,14 @@
                     data-bs-placement="bottom" data-bs-html="true"
                     title="İsim Soyisim, E-Posta, Telefon, T.C. No, Pasaport No ve Dosya Ref. No ile müşteri sorgulaması yapılabilir.">
                 {{ csrf_field() }}
-                <button class="btn btn-danger border" type="submit">Ara</button>
+                <button class="btn btn-secondary border" type="submit">Ara</button>
             </div>
         </form>
     </div>
     @if (isset($customerDetails))
         @if ($customerDetails->count() > 0)
             <div class="col-md-12 mt-5 mb-3">
-                <div class="card card-danger">
+                <div class="card">
                     <div class="card-header bg-danger text-white">Bulunan Sonuçlar</div>
                     <div class="card-body scroll">
                         <table id="dataTable" class="table  table-light table-striped table-bordered display" style="width:100%">
@@ -96,8 +96,8 @@
             </div>
         @else
             <div class="col-md-12 mt-5 mb-3">
-                <div class="card card-dark">
-                    <div class="card-header bg-dark text-white">Bulunan Sonuçlar</div>
+                <div class="card">
+                    <div class="card-header bg-danger text-white">Bulunan Sonuçlar</div>
                     <div class="card-body scroll">
                         Sonuç bulunamadı, kayıt sayfasına gitmek için
                         <a class="fw-bold text-danger" href="/musteri/create">tıklayınız</a>

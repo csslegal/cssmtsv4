@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body" id="contentLoad"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
             <div class="modal-body" id="contentLoad1"></div>
             <div class="modal-footer">
                 <div class="" id="footerLoad1"></div>
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
             </div>
         </div>
     </div>

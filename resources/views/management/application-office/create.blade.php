@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <button class="w-100 mt-3 btn btn-dark text-white btn-lg" type="submit">Tamamla</button>
+                <button class="w-100 mt-3 btn btn-secondary text-white btn-lg" type="submit">Tamamla</button>
             </form>
         </div>
     </div>

@@ -88,7 +88,7 @@
                     }
                     $asamalar .= '</select>';
                     $asamalar .= '<input type="hidden" name="_token" value="' . csrf_token() . '" /></div>';
-                    $asamalar .= '<button type="submit" class="btn btn-danger text-white mt-2">Güncelle</button></form>';
+                    $asamalar .= '<button type="submit" class="btn btn-secondary text-white mt-2">Güncelle</button></form>';
                 @endphp
 
                 $("#contentLoad").html('{!! html_entity_decode($asamalar) !!}');
@@ -105,7 +105,7 @@
                     }
                     $durum .= '</select>';
                     $durum .= '<input type="hidden" name="_token" value="' . csrf_token() . '" /></div>';
-                    $durum .= '<button type="submit" class="btn btn-danger text-white mt-2">Güncelle</button></form>';
+                    $durum .= '<button type="submit" class="btn btn-secondary text-white mt-2">Güncelle</button></form>';
                 @endphp
 
                 $("#contentLoad").html('{!! html_entity_decode($durum) !!}');

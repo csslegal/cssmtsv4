@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Analizler</h5>
                             <p class="card-text">Analiz grafik detayları.</p>
-                            <a href="/yonetim/vize/grafik/index" class="w-100 mt-2 btn btn-dark">İşlem
+                            <a href="/yonetim/vize/grafik/index" class="w-100 mt-2 btn btn-secondary">İşlem
                                 yap</a>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Randevu Takvimi</h5>
                             <p class="card-text">Randevu grafik detayları.</p>
-                            <a href="/yonetim/vize/grafik/takvim" class="w-100 mt-2 btn btn-dark">İşlem
+                            <a href="/yonetim/vize/grafik/takvim" class="w-100 mt-2 btn btn-secondary">İşlem
                                 yap</a>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Dosya Aşamaları</h5>
                             <p class="card-text">Cari vize dosya aşama detayları.</p>
-                            <a href="/yonetim/vize/dosya-asama" class="w-100 mt-2 btn btn-dark">İşlem
+                            <a href="/yonetim/vize/dosya-asama" class="w-100 mt-2 btn btn-secondary">İşlem
                                 yap</a>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Dosya Aşama Erişimleri</h5>
                             <p class="card-text">Dosya aşama erişim detayları.</p>
-                            <a href="/yonetim/vize/dosya-asama-erisim" class="w-100 mt-2 btn btn-dark">İşlem
+                            <a href="/yonetim/vize/dosya-asama-erisim" class="w-100 mt-2 btn btn-secondary">İşlem
                                 yap</a>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Vize Tipleri</h5>
                             <p class="card-text">Vize tipleri detayları.</p>
-                            <a href="/yonetim/vize/vize-tipi" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
+                            <a href="/yonetim/vize/vize-tipi" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Vize Süreleri</h5>
                             <p class="card-text">Vize süreleri detayları.</p>
-                            <a href="/yonetim/vize/vize-suresi" class="w-100 mt-2 btn btn-dark">İşlem
+                            <a href="/yonetim/vize/vize-suresi" class="w-100 mt-2 btn btn-secondary">İşlem
                                 yap</a>
                         </div>
                     </div>
@@ -87,7 +87,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Dosyası Logları</h5>
                             <p class="card-text">Vize dosya log detayları.</p>
-                            <a href="/yonetim/vize/logs" class="w-100 mt-2 btn btn-dark">İşlem
+                            <a href="/yonetim/vize/logs" class="w-100 mt-2 btn btn-secondary">İşlem
                                 yap</a>
                         </div>
                     </div>

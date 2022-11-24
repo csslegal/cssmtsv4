@@ -14,7 +14,7 @@
                             @enderror
                         </div>
                         <button type="submit"
-                            class="w-100 mb-2 btn btn-dark text-white confirm{{ session('userTypeId') == 1 ? 1 : '' }}"
+                            class="w-100 mb-2 btn btn-secondary text-white confirm{{ session('userTypeId') == 1 ? 1 : '' }}"
                             data-title="Dikkat!" data-content="Müşteri notu kaydedilsin mi?">Kaydet</button>
                     </form>
                 </div>
@@ -47,7 +47,7 @@
                                             <td>
                                                 <div class="btn-group">
                                                     <button
-                                                        class="btn btn-dark btn-sm"onclick="contentLoad('not','{{ $customerNote->id }}')"
+                                                        class="btn btn-secondary btn-sm"onclick="contentLoad('not','{{ $customerNote->id }}')"
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal">Notu
                                                         Göster</button>
                                                     @if (session('userTypeId') == 1)
@@ -55,7 +55,7 @@
                                                             action="/musteri/{{ $baseCustomerDetails->id }}/notes/{{ $customerNote->id }}">
                                                             {{ csrf_field() }}
                                                             {{ method_field('DELETE') }}
-                                                            <button class="btn btn-danger btn-sm confirm2"
+                                                            <button class="btn btn-secondary btn-sm confirm2"
                                                                 data-title="Dikkat!"
                                                                 data-content="Müşteri notu silinsin mi? İşlem geri alınamaz...">Sil</button>
                                                         </form>

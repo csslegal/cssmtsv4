@@ -22,7 +22,7 @@
                 <br>
                 <span class=" text-danger ">404 | Not Found | Sayfa Bulunamadı</span>
                 <br>
-                <a class="mt-4 btn btn-dark" href="{{ config('app.url') }}">Ana Sayfa</a>
+                <a class="mt-4 btn btn-secondary" href="{{ config('app.url') }}">Ana Sayfa</a>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
     <div class="card card-danger mb-3" id="temel">
         <div class="card-header bg-danger text-white">Müşteri Bilgileri
             <div class="dropdown float-end">
-                <a class="btn btn-dark btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">Müşteri İşlemleri
                 </a>
                 <ul class="dropdown-menu">

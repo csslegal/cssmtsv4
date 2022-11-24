@@ -89,7 +89,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="w-100 mt-2 btn btn-dark text-white confirm" data-title="Dikkat!"
+                <button type="submit" class="w-100 mt-2 btn btn-secondary text-white confirm" data-title="Dikkat!"
                     data-content="Tercüme bilgileri kaydedilsin mı?">Aşamayı Tamamla</button>
             </form>
         </div>

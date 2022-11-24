@@ -19,8 +19,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark text-white" data-bs-dismiss="modal">Kapat</button>
-                    <button type="submit" class="btn btn-dark text-white" data-bs-dismiss="modal">Tamamla</button>
+                    <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Kapat</button>
+                    <button type="submit" class="btn btn-secondary text-white" data-bs-dismiss="modal">Tamamla</button>
                 </div>
             </form>
         </div>

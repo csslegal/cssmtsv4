@@ -64,7 +64,7 @@ $('a.confirm').confirm({
     content: '',
     buttons: {
         hayır: {
-            btnClass: 'btn-dark btn-sm text-white',
+            btnClass: 'btn-secondary btn-sm text-white',
             action: function () {
             }
         },
@@ -82,7 +82,7 @@ $('form>button.confirm').confirm({
     content: '',
     buttons: {
         hayır: {
-            btnClass: 'btn-dark btn-sm text-white',
+            btnClass: 'btn-secondary btn-sm text-white',
             action: function () {
             }
         },
@@ -100,7 +100,7 @@ $('form>button.confirm1').confirm({
     content: '',
     buttons: {
         hayır: {
-            btnClass: 'btn-dark btn-sm text-white',
+            btnClass: 'btn-secondary btn-sm text-white',
             action: function () {
             }
         },
@@ -118,7 +118,7 @@ $('form>button.confirm2').confirm({
     content: '',
     buttons: {
         hayır: {
-            btnClass: 'btn-dark btn-sm text-white',
+            btnClass: 'btn-secondary btn-sm text-white',
             action: function () {
             }
         },

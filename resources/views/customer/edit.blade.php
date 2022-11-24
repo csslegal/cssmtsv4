@@ -85,7 +85,7 @@
                         {{ $baseCustomerDetails->information_confirm == 1 ? 'checked' : '' }} />
                 </div>
                 @csrf
-                <button class="w-100 mt-3 btn btn-danger text-white " type="submit">Kaydet</button>
+                <button class="w-100 mt-3 btn btn-secondary text-white " type="submit">Kaydet</button>
             </form>
         </div>
     </div>

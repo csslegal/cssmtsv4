@@ -156,7 +156,7 @@ class AjaxController extends Controller
                             <td>" .  $visaFileLog->created_at . "</td>
                             <td>" .  $visaFileLog->user_name . "</td>
                             <td>" .  $visaFileLog->subject . "</td>
-                            <td><button class='btn btn-danger btn-sm' onclick='contentLoad(\"vize-dosya-log\",".$visaFileLog->id.")' data-bs-toggle='modal' data-bs-target='#exampleModal1'>Detay göster</button></td>
+                            <td><button class='btn btn-secondary btn-sm' onclick='contentLoad(\"vize-dosya-log\",".$visaFileLog->id.")' data-bs-toggle='modal' data-bs-target='#exampleModal1'>Detay göster</button></td>
                         </tr>";
             }
             $sonuc .= "</tbody></table></div>";

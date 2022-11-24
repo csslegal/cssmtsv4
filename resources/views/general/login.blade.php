@@ -51,7 +51,7 @@
 
                             <!-- Form Group (login box)-->
                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                <button type="submit" class="btn btn-dark">Giriş Yap</button>
+                                <button type="submit" class="btn btn-secondary">Giriş Yap</button>
                             </div>
                         </form>
                     </div>

@@ -3,7 +3,7 @@
         Cari Dosya Detayları
         @if (session('userTypeId') == 1)
             <div class="dropdown float-end">
-                <a class="btn btn-dark btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">Dosya İşlemleri</a>
                 <ul class="dropdown-menu">
                     <li>

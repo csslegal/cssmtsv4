@@ -111,7 +111,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <button type="submit" class="w-100 mt-2 btn btn-dark text-white confirm" data-title="Dikkat!"
+                <button type="submit" class="w-100 mt-2 btn btn-secondary text-white confirm" data-title="Dikkat!"
                     data-content="Müşteri dosyası açılsın mı?">Aşamayı Tamamla</button>
             </form>
         </div>

@@ -11,7 +11,7 @@
                         yapıldı.
                     </span>
                     <span>
-                        <button class="btn btn-sm btn-dark" onclick="goster('{{ $visaFileGradesLog->id }}')"
+                        <button class="btn btn-sm btn-secondary" onclick="goster('{{ $visaFileGradesLog->id }}')"
                             title="İçeriği göster" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Göster
                         </button>
@@ -19,7 +19,7 @@
                     @if ($loop->last && $visaFileGradesPermitted['permitted'])
                         <span>
                             <a href="vize/{{ $visaFileDetail->id }}/{{ $visaFileGradesPermitted['grades_url'] }}"
-                                class="btn btn-sm btn-dark confirm" data-title="Dikkat!"
+                                class="btn btn-sm btn-secondary confirm" data-title="Dikkat!"
                                 data-content="{{ $visaFileGradesPermitted['grades_name'] }} aşamasına yönlendirilsin mi?">Sonraki
                                 aşama <i class=" bi bi-caret-right"></i></a>
                         </span>

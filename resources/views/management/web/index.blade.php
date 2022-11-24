@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Gruplar</h5>
                             <p class="card-text">Grup detayları.</p>
-                            <a href="/yonetim/web/groups" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
+                            <a href="/yonetim/web/groups" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>
                         </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Paneller</h5>
                             <p class="card-text">Panel detayları.</p>
-                            <a href="/yonetim/web/panels" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
+                            <a href="/yonetim/web/panels" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>
                         </div>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Panel Yetkileri</h5>
                             <p class="card-text">Panel yetki detayları.</p>
-                            <a href="/yonetim/web/panel-auth" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
+                            <a href="/yonetim/web/panel-auth" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Panellere Geçiş</h5>
                             <p class="card-text">Sitelere geçiş detayları.</p>
-                            <a href="/yonetim/web/paneller" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
+                            <a href="/yonetim/web/paneller" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <div class="card-body">
                             <h5 class="card-title">URL Analizleri</h5>
                             <p class="card-text">URL analiz detayları. </p>
-                            <a href="/yonetim/web/url" class="w-100 mt-2 btn btn-dark">İşlem yap</a>
+                            <a href="/yonetim/web/url" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>
                         </div>
                     </div>
                 </div>

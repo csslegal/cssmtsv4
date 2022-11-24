@@ -11,9 +11,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         #preloader {
-            filter: alpha(opacity=95);
-            -moz-opacity: .95;
-            opacity: .95;
+            filter: alpha(opacity=9);
+            -moz-opacity: .9;
+            opacity: .9;
             position: absolute;
             background: #fff;
             z-index: 9999;
@@ -37,6 +37,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
+
 
                 @include('include.nav-top')
                 @include('include.toast')
@@ -64,15 +65,16 @@
                     // $(ele).removeClass('navbar-dark').addClass('navbar-light');
                 });
                 $('body').removeClass('bg-light').addClass('bg-dark');
+                $('table').removeClass('table-light').addClass('table-dark');
+
+                $('.card-body').addClass('bg-dark text-light');
+                $('.modal-content').addClass('bg-dark text-light');
 
                 $('#breadcrumb').addClass('bg-dark');
-
                 $('#nav-top').removeClass('navbar-light').addClass('navbar-dark');
                 $('#nav-top').removeClass('bg-light').addClass('bg-dark');
-
                 $('#managament-nav').addClass('border border-light');
-
-                $('#slogan').addClass('bg-dark');
+                $('#slogan').addClass('bg-body');
             @endif
         });
 

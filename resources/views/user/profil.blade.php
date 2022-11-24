@@ -19,7 +19,7 @@
                 <div class="row">
 
                     <div class="col-md-6 col-sm-12">
-                        <span class="fw-bold text-dark">Kullanıcı Detayları</span>
+                        <span class="fw-bold">Kullanıcı Detayları</span>
                         <ul>
                             <li>Adınız: {{ $userInformations->name }}</li>
                             <li>E-mail Adresiniz: {{ $userInformations->email }}</li>
@@ -27,7 +27,7 @@
                             <li>Mesai Saatleri: {{ $userInformations->giris }} - {{ $userInformations->cikis }}</li>
                         </ul>
                         <hr>
-                        <span class="fw-bold text-dark">Sistem Teması</span>
+                        <span class="fw-bold">Sistem Teması</span>
                         <select class="form-control" onchange="themeChange()">
                             <option @if (session('theme') == 'light') selected @endif>Light @if (session('theme') == 'light')
                                     teması aktif
@@ -41,7 +41,7 @@
                         <hr>
                     </div>
                     <div class="col-md-6 col-sm-12">
-                        <span class="fw-bold text-dark">Yetkiler</span>
+                        <span class="fw-bold">Yetkiler</span>
                         @if (count($userAccesses) > 0)
                             <ol>
                                 @foreach ($userAccesses as $userAccess)
@@ -52,7 +52,7 @@
                             </br> Yok
                         @endif
                         <hr>
-                        <span class="fw-bold text-dark">Çalışma Ofisleri</span>
+                        <span class="fw-bold">Çalışma Ofisleri</span>
                         @if (count($userOffices) > 0)
                             <ol>
                                 @foreach ($userOffices as $userOffice)
@@ -88,7 +88,7 @@
                             @enderror
                         </div>
                     </div>
-                    <button class="w-100 mt-3 btn btn-danger text-white btn-lg" type="submit">Güncelle</button>
+                    <button class="w-100 mt-3 btn btn-secondary text-white btn-lg" type="submit">Güncelle</button>
                 </form>
             </div>
         </div>
@@ -96,7 +96,7 @@
         <div class="row g-3">
             <div class="col-md-12">
 
-                <div class="alert alert-dark">
+                <div class="alert">
                     Hesabınız bulunamadı! Sistem yöneticisi ile iletişime geçiniz.(Otomatik çıkış yapılıyor...)
                     <meta http-equiv="refresh" content="10;url=/cikis" />
                 </div>

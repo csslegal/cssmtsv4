@@ -13,7 +13,7 @@
             <a class="float-end text-white" href="/yonetim/web/panel-auth/create">Ekle</a>
         </div>
         <div class="card-body scroll">
-            <table id="dataTable" class=" table  table-light table-striped table-bordered display" style="width:100%">
+            <table id="dataTable" class=" table  table-light text-dark table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>

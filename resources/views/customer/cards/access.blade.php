@@ -31,7 +31,7 @@
                             </span>
                         </li>
                     </ul>
-                    <a href="/musteri/{{ $baseCustomerDetails->id }}/vize" class="w-100 mt-2 btn btn-danger">İşleme Yap</a>
+                    <a href="/musteri/{{ $baseCustomerDetails->id }}/vize" class="w-100 mt-2 btn btn-secondary">İşleme Yap</a>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                             Başvuru ödeme alınması bekleniyor tamamlandı <br>{{ date('Y-m-d H:i:s') }}
                         </li>
                     </ul>
-                    <a href="/musteri/{{ $baseCustomerDetails->id }}/harici" class="w-100 mt-2 btn btn-danger">İşleme Yap</a>
+                    <a href="/musteri/{{ $baseCustomerDetails->id }}/harici" class="w-100 mt-2 btn btn-secondary">İşleme Yap</a>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
                             Başvuru ödeme alınması bekleniyor tamamlandı <br>{{ date('Y-m-d H:i:s') }}
                         </li>
                     </ul>
-                    <a href="/musteri/{{ $baseCustomerDetails->id }}/dilokulu" class="w-100 mt-2 btn btn-danger">İşleme Yap</a>
+                    <a href="/musteri/{{ $baseCustomerDetails->id }}/dilokulu" class="w-100 mt-2 btn btn-secondary">İşleme Yap</a>
                 </div>
             </div>
         </div>

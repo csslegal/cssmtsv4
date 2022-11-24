@@ -52,7 +52,7 @@
                                                         @php date_default_timezone_set('Europe/Istanbul'); @endphp type="hidden" name="s">
                                                     <input type="hidden" name="d" value="tr" />
                                                     <button type="submit"
-                                                        class="w-100 mt-2 btn btn-dark text-white float-end">Panele
+                                                        class="w-100 mt-2 btn btn-secondary text-white float-end">Panele
                                                         git</button>
                                                 </form>
                                             </div>
