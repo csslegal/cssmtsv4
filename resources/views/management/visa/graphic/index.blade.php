@@ -49,51 +49,50 @@
                 <div class="float-end">
                     <form action="" method="GET">
                         <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-danger text-white">Tarih Filtresi:</span>
+                            <select class="form-control" name="filtre" id="">
+                                <option value="dosya" @if (request()->get('filtre') == 'dosya') selected @endif>Dosya Açma</option>
+                                <option value="log" @if (request()->get('filtre') == 'log') selected @endif>Son İşlem</option>
+                            </select>
                             <span class="input-group-text bg-danger text-white">Dosya Tipi:</span>
                             <select class="form-control" name="status" id="">
-                                <option value="cari" @if (request()->get('status') == 'cari') selected @endif>
-                                    Cari
-                                </option>
-                                <option value="arsiv" @if (request()->get('status') == 'arsiv') selected @endif>
-                                    Arşiv
-                                </option>
-                                <option value="all" @if (request()->get('status') == 'all') selected @endif>
-                                    Tümü
-                                </option>
+                                <option value="cari" @if (request()->get('status') == 'cari') selected @endif>Cari</option>
+                                <option value="arsiv" @if (request()->get('status') == 'arsiv') selected @endif>Arşiv</option>
+                                <option value="all" @if (request()->get('status') == 'all') selected @endif>Tümü</option>
                             </select>
                             <span class="input-group-text bg-danger text-white">Tarih Aralığı:</span>
                             <input type="text" name="dates"
                                 value="{{ request('dates') ? request('dates') : date('Y-m-01') . '--' . date('Y-m-28') }}"
                                 autocomplete="off" id="dates1" class="form-control">
-                            <button type="submit" class="btn btn-dark">Uygula</button>
+                            <button type="submit" class="btn btn-secondary">Uygula</button>
                         </div>
                     </form>
                 </div>
             </h2>
 
         </div>
-        <div class="col-xxl-4 col-xl-6 col-lg-6">
+        <div class="col-xxl-6 col-xl-6 col-lg-6">
             <div class="card mb-1">
                 <div class="card-body">
                     <div style="width: 100%"><canvas id="myChart"></canvas></div>
                 </div>
             </div>
         </div>
-        <div class="col-xxl-4 col-xl-6 col-lg-6">
+        <div class="col-xxl-6 col-xl-6 col-lg-6">
             <div class="card mb-1">
                 <div class="card-body">
                     <div style="width: 100%"><canvas id="myChart1"></canvas></div>
                 </div>
             </div>
         </div>
-        <div class="col-xxl-4 col-xl-6 col-lg-6">
+        <div class="col-xxl-6 col-xl-6 col-lg-6">
             <div class="card mb-1">
                 <div class="card-body">
                     <div style="width: 100%"><canvas id="myChart2"></canvas></div>
                 </div>
             </div>
         </div>
-        <div class="col-xxl-4 col-xl-6 col-lg-6">
+        <div class="col-xxl-6 col-xl-6 col-lg-6">
             <div class="card mb-1">
                 <div class="card-body">
                     <div style="width: 100%"><canvas id="myChart6"></canvas></div>
@@ -108,43 +107,42 @@
                 <div class="float-end">
                     <form action="" method="GET">
                         <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-danger text-white">Tarih Filtresi:</span>
+                            <select class="form-control" name="filtre" id="">
+                                <option value="dosya" @if (request()->get('filtre') == 'dosya') selected @endif>Dosya Açma</option>
+                                <option value="log" @if (request()->get('filtre') == 'log') selected @endif>Son İşlem</option>
+                            </select>
                             <span class="input-group-text bg-danger text-white">Dosya Tipi:</span>
                             <select class="form-control" name="status" id="">
-                                <option value="cari" @if (request()->get('status') == 'cari') selected @endif>
-                                    Cari
-                                </option>
-                                <option value="arsiv" @if (request()->get('status') == 'arsiv') selected @endif>
-                                    Arşiv
-                                </option>
-                                <option value="all" @if (request()->get('status') == 'all') selected @endif>
-                                    Tümü
-                                </option>
+                                <option value="cari" @if (request()->get('status') == 'cari') selected @endif>Cari</option>
+                                <option value="arsiv" @if (request()->get('status') == 'arsiv') selected @endif>Arşiv</option>
+                                <option value="all" @if (request()->get('status') == 'all') selected @endif>Tümü</option>
                             </select>
                             <span class="input-group-text bg-danger text-white">Tarih Aralığı:</span>
                             <input type="text" name="dates"
                                 value="{{ request('dates') ? request('dates') : date('Y-m-01') . '--' . date('Y-m-28') }}"
                                 autocomplete="off" id="dates2" class="form-control">
-                            <button type="submit" class="btn btn-dark">Uygula</button>
+                            <button type="submit" class="btn btn-secondary">Uygula</button>
                         </div>
                     </form>
                 </div>
             </h2>
         </div>
-        <div class="col-xxl-4 col-xl-6 col-lg-6">
+        <div class="col-xxl-6 col-xl-6 col-lg-6">
             <div class="card mb-1">
                 <div class="card-body">
                     <div style="width: 100%"><canvas id="myChart3"></canvas></div>
                 </div>
             </div>
         </div>
-        <div class="col-xxl-4 col-xl-6 col-lg-6">
+        <div class="col-xxl-6 col-xl-6 col-lg-6">
             <div class="card mb-1">
                 <div class="card-body">
                     <div style="width: 100%"><canvas id="myChart4"></canvas></div>
                 </div>
             </div>
         </div>
-        <div class="col-xxl-4 col-xl-6 col-lg-6">
+        <div class="col-xxl-6 col-xl-6 col-lg-6">
             <div class="card mb-1">
                 <div class="card-body">
                     <div style="width: 100%"><canvas id="myChart5"></canvas></div>
@@ -160,7 +158,6 @@
 @section('js')
     <script src="{{ asset('js/chart.js/chart.min.js') }}"></script>
     <script>
-
         var loadTime = 100;
         var plusLoadTime = 300;
         //günlük haftalık aylık ve yıllık acılan dosya sayıları
@@ -179,42 +176,42 @@
         //açılan ve tamamlanan dosya sayıları
         setTimeout(function() {
             ajax_chart("bar", "myChart", "Dosya sayısı",
-                "/yonetim/ajax/open-made-analist?status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/open-made-analist?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //aşamalara göre dosya sayısı
         setTimeout(function() {
             ajax_chart("bar", "myChart1", "Dosya sayısı",
-                "/yonetim/ajax/grades-count?status={{ request('status') }}&dates={{ request('dates') }}")
+                "/yonetim/ajax/grades-count?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}")
         }, loadTime += plusLoadTime);
         //ofislere gore dosya sayısı
         setTimeout(function() {
             ajax_chart("bar", "myChart2", "Dosya sayısı",
-                "/yonetim/ajax/application-office-count?status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/application-office-count?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //vize turune göre dosya sayısı
         setTimeout(function() {
             ajax_chart("bubble", "myChart6", "Dosya sayısı",
-                "/yonetim/ajax/visa-types-analist?status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/visa-types-analist?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //danışman analızleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart3", "Dosya sayısı",
-                "/yonetim/ajax/advisor-analist?status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/advisor-analist?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //uzman analızleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart4", "Dosya sayısı",
-                "/yonetim/ajax/expert-analist?status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/expert-analist?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //tercuman analizleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart5", "Dosya sayısı",
-                "/yonetim/ajax/translator-analist?status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/translator-analist?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime)
 
@@ -235,6 +232,7 @@
                             responsive: true,
                             plugins: {
                                 legend: {
+                                    display: false,
                                     position: 'top',
                                 },
                                 title: {
@@ -265,6 +263,7 @@
                             plugins: {
                                 legend: {
                                     position: 'top',
+                                    display: false,
                                 },
                                 title: {
                                     display: true,
@@ -301,6 +300,7 @@
                                     }
                                 },
                                 legend: {
+                                    display: false,
                                     position: 'top',
                                 },
                                 title: {
@@ -340,6 +340,7 @@
                                     }
                                 },
                                 legend: {
+                                    display: false,
                                     position: 'top',
                                 },
                                 title: {
