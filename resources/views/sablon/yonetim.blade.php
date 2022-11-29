@@ -74,7 +74,7 @@
                 $('#nav-top').removeClass('navbar-light').addClass('navbar-dark');
                 $('#nav-top').removeClass('bg-light').addClass('bg-dark');
                 $('#managament-nav').addClass('border border-light');
-                $('#slogan').addClass('bg-body');
+                $('#slogan').addClass('bg-dark');
             @endif
         });
 
