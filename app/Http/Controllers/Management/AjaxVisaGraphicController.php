@@ -298,12 +298,17 @@ class AjaxVisaGraphicController extends Controller
 
         /** tarih filtresi */
         if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya")
+            if ($request->input('filtre') == "dosya") {
                 $filtre = 1;
-            else
+                $title = "Aşama Analizi (Seçilen Tarihlerde Açılanlar)";
+            } else {
                 $filtre = 0;
-        } else
+                $title = "Aşama Analizi (Son İşlem Tarihi)";
+            }
+        } else {
             $filtre = 1;
+            $title = "Aşama Analizi (Seçilen Tarihlerde Açılanlar)";
+        }
 
         shuffle($this->indexArray);
 
@@ -322,16 +327,13 @@ class AjaxVisaGraphicController extends Controller
         /**Dosya acılış tarihine göre filtreleme */
         $startDate = $explodes[0];
         $endDate = $explodes[1];
-        $title = "";
+
         if ($request->input('status') == "all") {
             if (!$filtre) {
                 $visaGrades = DB::table('visa_file_grades')->where('active', '=', 1)->get();
                 foreach ($visaGrades as $visaGrade) {
                     $visaFilesGrades = DB::table('visa_files')
-                        ->select([
-                            'visa_files.id',
-                            DB::raw("max(visa_file_logs.created_at) AS created_at"),
-                        ])
+                        ->select(['visa_files.id', DB::raw("max(visa_file_logs.created_at) AS created_at"),])
                         ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
                         ->groupBy('visa_file_logs.visa_file_id')
                         ->where('visa_files.visa_file_grades_id', '=', $visaGrade->id)
@@ -345,7 +347,6 @@ class AjaxVisaGraphicController extends Controller
                         array_push($arrayData, $visaFilesGrades);
                     }
                 }
-                $title = "Aşama Analizi (Son İşlem Tarihi)";
             } else {
                 $visaFilesGradesCount = DB::table('visa_files')
                     ->select(['visa_file_grades.name AS visa_file_grades_name', DB::raw('count(*) as total')])
@@ -360,18 +361,13 @@ class AjaxVisaGraphicController extends Controller
                     array_push($arrayLabels, $stringArrayKey[0] . ' ' . $stringArrayKey[1]);
                     array_push($arrayData, $val);
                 }
-                $title = "Aşama Analizi (Seçilen Tarihlerde Açılanlar)";
             }
         } else {
             if (!$filtre) {
                 $visaGrades = DB::table('visa_file_grades')->where('active', '=', 1)->get();
                 foreach ($visaGrades as $visaGrade) {
                     $visaFilesGrades = DB::table('visa_files')
-                        ->select([
-                            'visa_files.visa_file_grades_id',
-                            'visa_files.id',
-                            DB::raw("max(visa_file_logs.created_at) AS created_at"),
-                        ])
+                        ->select(['visa_files.visa_file_grades_id', 'visa_files.id', DB::raw("max(visa_file_logs.created_at) AS created_at"),])
                         ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
                         ->groupBy('visa_file_logs.visa_file_id')
                         ->where('visa_files.visa_file_grades_id', '=', $visaGrade->id)
@@ -379,20 +375,19 @@ class AjaxVisaGraphicController extends Controller
                         ->whereDate('visa_file_logs.created_at', '>=', $startDate)
                         ->whereDate('visa_file_logs.created_at', '<=', $endDate)
                         ->get()->count();
+
                     if ($visaFilesGrades > 0) {
                         $stringArrayKey = explode(' ', $visaGrade->name);
                         array_push($arrayLabels, $stringArrayKey[0] . ' ' . $stringArrayKey[1]);
                         array_push($arrayData, $visaFilesGrades);
                     }
                 }
-                $title = "Aşama Analizi (Son İşlem Tarihi)";
             } else {
 
                 $visaFilesGradesCount = DB::table('visa_files')
                     ->select(['visa_file_grades.name AS visa_file_grades_name', DB::raw('count(*) as total')])
                     ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
                     ->groupBy('visa_files.visa_file_grades_id')
-
                     ->where('visa_files.active', '=', $cariDurum)
                     ->whereDate('visa_files.created_at', '>=', $startDate)
                     ->whereDate('visa_files.created_at', '<=', $endDate)
@@ -403,8 +398,6 @@ class AjaxVisaGraphicController extends Controller
                     array_push($arrayLabels, $stringArrayKey[0] . ' ' . $stringArrayKey[1]);
                     array_push($arrayData, $val);
                 }
-
-                $title = "Aşama Analizi (Seçilen Tarihlerde Açılanlar)";
             }
         }
         $impLabels = '"' . implode('", "', $arrayLabels) . '"';
@@ -437,12 +430,14 @@ class AjaxVisaGraphicController extends Controller
             $cariDurum = 1;
         /** tarih filtresi */
         if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya")
+            if ($request->input('filtre') == "dosya") {
                 $filtre = 1;
-            else
+            } else {
                 $filtre = 0;
-        } else
+            }
+        } else {
             $filtre = 1;
+        }
         shuffle($this->indexArray);
         $arrayBorder = [];
         $arrayBackground = [];
@@ -567,12 +562,17 @@ class AjaxVisaGraphicController extends Controller
 
         /** tarih filtresi */
         if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya")
+            if ($request->input('filtre') == "dosya") {
                 $filtre = 1;
-            else
+                $title = "Başvuru Ofisleri Analizi (Seçilen Tarihlerde Açılanlar)";
+            } else {
                 $filtre = 0;
-        } else
+                $title = "Başvuru Ofisleri Analizi (Son İşlem Tarihi)";
+            }
+        } else {
             $filtre = 1;
+            $title = "Başvuru Ofisleri Analizi (Seçilen Tarihlerde Açılanlar)";
+        }
 
         shuffle($this->indexArray);
 
@@ -594,19 +594,12 @@ class AjaxVisaGraphicController extends Controller
         $startDate = $explodes[0];
         $endDate = $explodes[1];
 
-        $title = "";
-
         if ($request->input('status') == "all") {
 
             if (!$filtre) {
-
                 //filtre son log ise
-                $title = "Başvuru Ofisleri Analizi (Son İşlem Tarihi)";
-
                 $applicationOffices = DB::table('application_offices')->get();
-
                 foreach ($applicationOffices as $applicationOffice) {
-
                     $visaFilesApplicationOffice = DB::table('visa_files')
                         ->select(['visa_files.id', DB::raw("max(visa_file_logs.created_at) AS created_at"),])
                         ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
@@ -622,7 +615,6 @@ class AjaxVisaGraphicController extends Controller
                     }
                 }
             } else {
-
                 //filtre dosya acılıs ise
                 $visaFilesApplicationOfficeCount = DB::table('visa_files')
                     ->select(['application_offices.name AS application_office_name', DB::raw('count(*) as total')])
@@ -631,25 +623,18 @@ class AjaxVisaGraphicController extends Controller
                     ->whereDate('visa_files.created_at', '>=', $startDate)
                     ->whereDate('visa_files.created_at', '<=', $endDate)
                     ->pluck('total', 'application_office_name')->all();
-
                 foreach ($visaFilesApplicationOfficeCount as $col => $val) {
                     array_push($arrayLabels, $col);
                     array_push($arrayData, $val);
                 }
-
-                $title = "Başvuru Ofisleri Analizi (Seçilen Tarihlerde Açılanlar)";
             }
         } else {
 
             if (!$filtre) {
 
                 //filtre son log ise
-                $title = "Başvuru Ofisleri Analizi (Son İşlem Tarihi)";
-
                 $applicationOffices = DB::table('application_offices')->get();
-
                 foreach ($applicationOffices as $applicationOffice) {
-
                     $visaFilesApplicationOffice = DB::table('visa_files')
                         ->select(['visa_files.id', DB::raw("max(visa_file_logs.created_at) AS created_at"),])
                         ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
@@ -682,7 +667,6 @@ class AjaxVisaGraphicController extends Controller
                     array_push($arrayLabels, $col);
                     array_push($arrayData, $val);
                 }
-                $title = "Başvuru Ofisleri Analizi (Seçilen Tarihlerde Açılanlar)";
             }
         }
         $impLabels = '"' . implode('", "', $arrayLabels) . '"';
@@ -1091,28 +1075,46 @@ class AjaxVisaGraphicController extends Controller
 
         /** tarih filtresi */
         if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya")
+            if ($request->input('filtre') == "dosya") {
                 $filtre = 1;
-            else
+                $title = "Tercüman Analizi (Seçilen Tarihlerde Açılanlar)";
+            } else {
                 $filtre = 0;
-        } else
+                $title = "Tercüman Analizi (İşlem Tarihi)";
+            }
+        } else {
             $filtre = 1;
-
+            $title = "Tercüman Analizi (Seçilen Tarihlerde Açılanlar)";
+        }
         /**Dosya acılış tarihine göre filtreleme */
         $startDate = $explodes[0];
         $endDate = $explodes[1];
-
         $arrayVisaFilesTranslationsAnalist = [];
-
-        $allTranslations = DB::table('users')->select(['id', 'name'])->where('active', '=', 1)
+        $allTranslations = DB::table('users')->select(['id', 'name'])->where('active', '=', "1")
             ->where('user_type_id', '=',  env('TRANSLATION_USER_TYPE_ID'))->get();
 
         foreach ($allTranslations as $allTranslation) {
-
             if ($request->input('status') == "all") {
 
                 if (!$filtre) {
+                    //son log tarihi
+                    $visaFilesTranslation = DB::table('visa_files')
+                        ->select([
+                            DB::raw("COUNT(visa_files.id) as visa_files_count"),
+                            DB::raw("SUM(visa_translations.translated_page) as translated_page_count"),
+                            DB::raw("SUM(visa_translations.translated_word) as translated_word_count"),
+                            DB::raw("max(visa_file_logs.created_at) AS created_at"),
+                        ])
+                        ->join('visa_translations', 'visa_translations.visa_file_id', '=', 'visa_files.id')
+                        ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
+                        ->where('visa_files.translator_id', '=', $allTranslation->id)
 
+                        ->where('visa_file_logs.subject', '=', "Tercüme bekleyen dosyalar")
+                        ->whereDate('visa_file_logs.created_at', '>=', $startDate)
+                        ->whereDate('visa_file_logs.created_at', '<=', $endDate)
+                        ->first();
+                } else {
+                    //dosya acma tarihi
                     $visaFilesTranslation = DB::table('visa_files')
                         ->select([
                             DB::raw("COUNT(visa_files.id) as visa_files_count"),
@@ -1124,25 +1126,43 @@ class AjaxVisaGraphicController extends Controller
                         ->whereDate('visa_files.created_at', '>=', $startDate)
                         ->whereDate('visa_files.created_at', '<=', $endDate)
                         ->first();
-
-                } else {
-
                 }
             } else {
 
-                $visaFilesTranslation = DB::table('visa_files')
-                    ->select([
-                        DB::raw("COUNT(visa_files.id) as visa_files_count"),
-                        DB::raw("SUM(visa_translations.translated_page) as translated_page_count"),
-                        DB::raw("SUM(visa_translations.translated_word) as translated_word_count"),
-                    ])
-                    ->join('visa_translations', 'visa_translations.visa_file_id', '=', 'visa_files.id')
-                    ->where('visa_files.translator_id', '=', $allTranslation->id)
-                    ->where('visa_files.active', '=', $cariDurum)
-                    ->whereDate('visa_files.created_at', '>=', $startDate)
-                    ->whereDate('visa_files.created_at', '<=', $endDate)
-                    ->first();
+                if (!$filtre) {
+                    //son log tarihi
+                    $visaFilesTranslation = DB::table('visa_files')
+                        ->select([
+                            DB::raw("COUNT(visa_files.id) as visa_files_count"),
+                            DB::raw("SUM(visa_translations.translated_page) as translated_page_count"),
+                            DB::raw("SUM(visa_translations.translated_word) as translated_word_count"),
+                            DB::raw("max(visa_file_logs.created_at) AS created_at"),
+                        ])
+                        ->join('visa_translations', 'visa_translations.visa_file_id', '=', 'visa_files.id')
+                        ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
+                        ->where('visa_files.translator_id', '=', $allTranslation->id)
+                        ->where('visa_files.active', '=', $cariDurum)
+                        ->where('visa_file_logs.subject', '=', "Tercüme bekleyen dosyalar")
+                        ->whereDate('visa_file_logs.created_at', '>=', $startDate)
+                        ->whereDate('visa_file_logs.created_at', '<=', $endDate)
+                        ->first();
+                } else {
+                    //dosya acma tarihi
+                    $visaFilesTranslation = DB::table('visa_files')
+                        ->select([
+                            DB::raw("COUNT(visa_files.id) as visa_files_count"),
+                            DB::raw("SUM(visa_translations.translated_page) as translated_page_count"),
+                            DB::raw("SUM(visa_translations.translated_word) as translated_word_count"),
+                        ])
+                        ->join('visa_translations', 'visa_translations.visa_file_id', '=', 'visa_files.id')
+                        ->where('visa_files.translator_id', '=', $allTranslation->id)
+                        ->where('visa_files.active', '=', $cariDurum)
+                        ->whereDate('visa_files.created_at', '>=', $startDate)
+                        ->whereDate('visa_files.created_at', '<=', $endDate)
+                        ->first();
+                }
             }
+
             if ($visaFilesTranslation->visa_files_count == 0)
                 continue;
 
@@ -1154,18 +1174,16 @@ class AjaxVisaGraphicController extends Controller
             ));
         }
 
-        $data = '{
-            "title":"Tercüman Analizi (Seçilen Tarihlerde Açılanlar)",
-            "datasets":[';
 
+        $data = '{
+            "title":"' . $title . '",
+            "datasets":[';
         $oran = 0;
         $plusValue = 0;
-
         foreach ($arrayVisaFilesTranslationsAnalist as $value) {
             //array random index
             $randomIndex = rand(0, count($this->backgrounColorArray) - 1);
-
-            $tempOran = $value[1] / ($value[1] + $value[2]) * 100;
+            $tempOran = $value[2] / ($value[2] + $value[3]) * 100;
             if ($tempOran > $oran) {
                 $oran = $tempOran;
                 $plusValue++;
@@ -1174,8 +1192,8 @@ class AjaxVisaGraphicController extends Controller
                 "label": "' . $value[0] .  '",
                 "backgroundColor": "' . $this->backgrounColorArray[$randomIndex] . '",
                 "data": [{
-                    "x": ' . $value[1] . ',
-                    "y": ' . $value[2] . ',
+                    "x": ' . $value[2] . ',
+                    "y": ' . $value[3] . ',
                     "r": ' . (env('ANALIST_RADIUS_DEFAULT_ORAN') + $plusValue) . '
                 }]
             },';

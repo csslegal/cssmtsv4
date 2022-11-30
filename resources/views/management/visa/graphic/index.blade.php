@@ -182,36 +182,36 @@
         //aşamalara göre dosya sayısı
         setTimeout(function() {
             ajax_chart("bar", "myChart1", "Dosya sayısı",
-                "/yonetim/ajax/grades-count?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}")
+                "/yonetim/ajax/grades-count?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}")
         }, loadTime += plusLoadTime);
         //ofislere gore dosya sayısı
         setTimeout(function() {
             ajax_chart("bar", "myChart2", "Dosya sayısı",
-                "/yonetim/ajax/application-office-count?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/application-office-count?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //vize turune göre dosya sayısı
         setTimeout(function() {
             ajax_chart("bubble", "myChart6", "Dosya sayısı",
-                "/yonetim/ajax/visa-types-analist?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/visa-types-analist?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //danışman analızleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart3", "Dosya sayısı",
-                "/yonetim/ajax/advisor-analist?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/advisor-analist?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //uzman analızleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart4", "Dosya sayısı",
-                "/yonetim/ajax/expert-analist?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/expert-analist?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //tercuman analizleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart5", "Dosya sayısı",
-                "/yonetim/ajax/translator-analist?filtre={{ request('filtre') }}&sstatus={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/translator-analist?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime)
 
