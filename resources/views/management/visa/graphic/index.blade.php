@@ -45,6 +45,16 @@
 
     <div class="row mb-3 mt-3">
         <div class="col-12">
+            <div class="card mb-1">
+                <div class="card-body">
+                    <div style="width: 100%;height:300px;" ><canvas id="myChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3 mt-3">
+        <div class="col-12">
             <h2> Analiz Grafikleri
                 <div class="float-end">
                     <form action="" method="GET">
@@ -71,31 +81,24 @@
             </h2>
 
         </div>
-        <div class="col-xxl-6 col-xl-6 col-lg-6">
+        <div class="col-xxl-4 col-xl-4 col-lg-4">
             <div class="card mb-1">
                 <div class="card-body">
-                    <div style="width: 100%"><canvas id="myChart"></canvas></div>
+                    <div style="width: 100%;height:300px;"><canvas id="myChart1"></canvas></div>
                 </div>
             </div>
         </div>
-        <div class="col-xxl-6 col-xl-6 col-lg-6">
+        <div class="col-xxl-3 col-xl-3 col-lg-3">
             <div class="card mb-1">
                 <div class="card-body">
-                    <div style="width: 100%"><canvas id="myChart1"></canvas></div>
+                    <div style="width: 100%;height:300px;"><canvas id="myChart2"></canvas></div>
                 </div>
             </div>
         </div>
-        <div class="col-xxl-6 col-xl-6 col-lg-6">
+        <div class="col-xxl-5 col-xl-5 col-lg-5">
             <div class="card mb-1">
                 <div class="card-body">
-                    <div style="width: 100%"><canvas id="myChart2"></canvas></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-6 col-xl-6 col-lg-6">
-            <div class="card mb-1">
-                <div class="card-body">
-                    <div style="width: 100%"><canvas id="myChart6"></canvas></div>
+                    <div style="width: 100%;height:300px;"><canvas id="myChart6"></canvas></div>
                 </div>
             </div>
         </div>
@@ -182,7 +185,8 @@
         //aşamalara göre dosya sayısı
         setTimeout(function() {
             ajax_chart("bar", "myChart1", "Dosya sayısı",
-                "/yonetim/ajax/grades-count?filter={{ request('filter') }}&status={{ request('status') }}&dates={{ request('dates') }}")
+                "/yonetim/ajax/grades-count?filter={{ request('filter') }}&status={{ request('status') }}&dates={{ request('dates') }}"
+            )
         }, loadTime += plusLoadTime);
         //ofislere gore dosya sayısı
         setTimeout(function() {
@@ -218,6 +222,7 @@
         function ajax_chart(types, id, labell, url, data) {
             var data = data || {};
             var ctx = document.getElementById(id).getContext("2d");
+
             if (types == "bar" || types == "polarArea") {
 
                 if (id == "myChart") {
@@ -230,6 +235,7 @@
                         },
                         options: {
                             responsive: true,
+                            maintainAspectRatio: false,
                             plugins: {
                                 legend: {
                                     display: false,
@@ -260,6 +266,7 @@
                         },
                         options: {
                             responsive: true,
+                            maintainAspectRatio: false,
                             plugins: {
                                 legend: {
                                     position: 'top',

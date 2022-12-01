@@ -341,15 +341,13 @@ class AjaxVisaGraphicController extends Controller
         }
         $impLabels = '"' . implode('", "', $arrayLabels) . '"';
         $impData = implode(', ', $arrayData);
-        return '{
-                    "labels":[' . $impLabels . '],
-                    "borderColor":[' . $impBorderColor . '],
-                    "backgroundColor":[' . $impBackGrounColor . '],
-                    "title":"' . $title . '",
-                    "data": {
-                        "quantity":[' . $impData . ']
-                    }
-                }';
+        return '{"labels":[' . $impLabels . '],
+                "borderColor":[' . $impBorderColor . '],
+                "backgroundColor":[' . $impBackGrounColor . '],
+                "title":"' . $title . '",
+                "data": {
+                    "quantity":[' . $impData . ']
+                }}';
     }
 
     public function last_grades_count(Request $request)
