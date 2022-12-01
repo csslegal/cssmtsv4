@@ -50,9 +50,9 @@
                     <form action="" method="GET">
                         <div class="input-group input-group-sm">
                             <span class="input-group-text bg-danger text-white">Tarih Filtresi:</span>
-                            <select class="form-control" name="filtre" id="">
-                                <option value="dosya" @if (request()->get('filtre') == 'dosya') selected @endif>Dosya Açma</option>
-                                <option value="log" @if (request()->get('filtre') == 'log') selected @endif>Son İşlem</option>
+                            <select class="form-control" name="filter" id="">
+                                <option value="dosya" @if (request()->get('filter') == 'dosya') selected @endif>Dosya Açma</option>
+                                <option value="log" @if (request()->get('filter') == 'log') selected @endif>Son İşlem</option>
                             </select>
                             <span class="input-group-text bg-danger text-white">Dosya Tipi:</span>
                             <select class="form-control" name="status" id="">
@@ -108,9 +108,9 @@
                     <form action="" method="GET">
                         <div class="input-group input-group-sm">
                             <span class="input-group-text bg-danger text-white">Tarih Filtresi:</span>
-                            <select class="form-control" name="filtre" id="">
-                                <option value="dosya" @if (request()->get('filtre') == 'dosya') selected @endif>Dosya Açma</option>
-                                <option value="log" @if (request()->get('filtre') == 'log') selected @endif>Son İşlem</option>
+                            <select class="form-control" name="filter" id="">
+                                <option value="dosya" @if (request()->get('filter') == 'dosya') selected @endif>Dosya Açma</option>
+                                <option value="log" @if (request()->get('filter') == 'log') selected @endif>Son İşlem</option>
                             </select>
                             <span class="input-group-text bg-danger text-white">Dosya Tipi:</span>
                             <select class="form-control" name="status" id="">
@@ -176,42 +176,42 @@
         //açılan ve tamamlanan dosya sayıları
         setTimeout(function() {
             ajax_chart("bar", "myChart", "Dosya sayısı",
-                "/yonetim/ajax/open-made-analist?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/open-made-analist?filter={{ request('filter') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //aşamalara göre dosya sayısı
         setTimeout(function() {
             ajax_chart("bar", "myChart1", "Dosya sayısı",
-                "/yonetim/ajax/grades-count?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}")
+                "/yonetim/ajax/grades-count?filter={{ request('filter') }}&status={{ request('status') }}&dates={{ request('dates') }}")
         }, loadTime += plusLoadTime);
         //ofislere gore dosya sayısı
         setTimeout(function() {
             ajax_chart("bar", "myChart2", "Dosya sayısı",
-                "/yonetim/ajax/application-office-count?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/application-office-count?filter={{ request('filter') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //vize turune göre dosya sayısı
         setTimeout(function() {
             ajax_chart("bubble", "myChart6", "Dosya sayısı",
-                "/yonetim/ajax/visa-types-analist?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/visa-types-analist?filter={{ request('filter') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //danışman analızleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart3", "Dosya sayısı",
-                "/yonetim/ajax/advisor-analist?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/advisor-analist?filter={{ request('filter') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //uzman analızleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart4", "Dosya sayısı",
-                "/yonetim/ajax/expert-analist?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/expert-analist?filter={{ request('filter') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime);
         //tercuman analizleri
         setTimeout(function() {
             ajax_chart("bubble", "myChart5", "Dosya sayısı",
-                "/yonetim/ajax/translator-analist?filtre={{ request('filtre') }}&status={{ request('status') }}&dates={{ request('dates') }}"
+                "/yonetim/ajax/translator-analist?filter={{ request('filter') }}&status={{ request('status') }}&dates={{ request('dates') }}"
             )
         }, loadTime += plusLoadTime)
 
@@ -287,8 +287,8 @@
                                         label: function(context) {
                                             return [
                                                 context.dataset.label + ' Analizler',
-                                                'Olumlu sonuc sayısı: ' + context.parsed.x,
-                                                'Olumsuz sonuc sayısı: ' + context.parsed.y,
+                                                'Vize sayısı: ' + context.parsed.x,
+                                                'Red sayısı: ' + context.parsed.y,
                                                 'Başarı oranı: %' + Math.round(
                                                     context.parsed.x / (context.parsed.x + context
                                                         .parsed
@@ -332,9 +332,9 @@
                                     callbacks: {
                                         label: function(context) {
                                             return [
-                                                context.dataset.label + ' Analizler',
-                                                'Toplam T. sayfa sayısı: ' + context.raw.x,
-                                                'Toplam T. kelime sayısı: ' + context.raw.y,
+                                                context.dataset.label + ' Tercüme Bilgisi',
+                                                'Sayfa sayısı: ' + context.raw.x,
+                                                'Kelime sayısı: ' + context.raw.y,
                                             ];
                                         }
                                     }

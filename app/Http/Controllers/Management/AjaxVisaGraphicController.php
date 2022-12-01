@@ -42,38 +42,29 @@ class AjaxVisaGraphicController extends Controller
     public function quota_day(Request $request)
     {
         shuffle($this->indexArray);
-
         $arrayBorder = [];
         $arrayBackground = [];
         $arrayLabels = [];
         $arrayData = [];
-
         foreach ($this->indexArray as $index) {
             array_push($arrayBorder, $this->borderColorArray[$index]);
             array_push($arrayBackground, $this->backgrounColorArray[$index]);
         }
-
         $users = DB::table('users')->where('active', '=', '1')->where('user_type_id', '=', '2')->get();
-
         foreach ($users as $user) {
             $openCount = DB::table('visa_files')
                 ->where('visa_files.advisor_id', '=', $user->id)
                 ->whereDate('visa_files.created_at', '>=', date("Y-m-d", strtotime('this day')))
                 ->whereDate('visa_files.created_at', '<=', date("Y-m-d", strtotime('this day')))
                 ->get()->count();
-
-            if ($openCount == 0) {
-                continue;
-            }
+            if ($openCount == 0) continue;
             array_push($arrayLabels, $user->name);
             array_push($arrayData, $openCount);
         }
-
         $impBorderColor = '"' . implode('","', $arrayBorder) . '"';
         $impBackGrounColor = '"' . implode('","', $arrayBackground) . '"';
         $impLabels = '"' . implode('","', $arrayLabels) . '"';
         $impData =  implode(',', $arrayData);
-
         return '{
             "labels":[' . $impLabels . '],
             "borderColor":[' . $impBorderColor . '],
@@ -88,38 +79,29 @@ class AjaxVisaGraphicController extends Controller
     public function quota_week(Request $request)
     {
         shuffle($this->indexArray);
-
         $arrayBorder = [];
         $arrayBackground = [];
         $arrayLabels = [];
         $arrayData = [];
-
         foreach ($this->indexArray as $index) {
             array_push($arrayBorder, $this->borderColorArray[$index]);
             array_push($arrayBackground, $this->backgrounColorArray[$index]);
         }
-
         $users = DB::table('users')->where('active', '=', '1')->where('user_type_id', '=', '2')->get();
-
         foreach ($users as $user) {
             $openCount = DB::table('visa_files')
                 ->where('visa_files.advisor_id', '=', $user->id)
                 ->whereDate('visa_files.created_at', '>=', date("Y-m-d", strtotime('monday this week')))
                 ->whereDate('visa_files.created_at', '<=', date("Y-m-d", strtotime('sunday this week')))
                 ->get()->count();
-
-            if ($openCount == 0) {
-                continue;
-            }
+            if ($openCount == 0) continue;
             array_push($arrayLabels, $user->name);
             array_push($arrayData, $openCount);
         }
-
         $impBorderColor = '"' . implode('","', $arrayBorder) . '"';
         $impBackGrounColor = '"' . implode('","', $arrayBackground) . '"';
         $impLabels = '"' . implode('","', $arrayLabels) . '"';
         $impData =  implode(',', $arrayData);
-
         return '{
             "labels":[' . $impLabels . '],
             "borderColor":[' . $impBorderColor . '],
@@ -134,38 +116,29 @@ class AjaxVisaGraphicController extends Controller
     public function quota_mount(Request $request)
     {
         shuffle($this->indexArray);
-
         $arrayBorder = [];
         $arrayBackground = [];
         $arrayLabels = [];
         $arrayData = [];
-
         foreach ($this->indexArray as $index) {
             array_push($arrayBorder, $this->borderColorArray[$index]);
             array_push($arrayBackground, $this->backgrounColorArray[$index]);
         }
-
         $users = DB::table('users')->where('active', '=', '1')->where('user_type_id', '=', '2')->get();
-
         foreach ($users as $user) {
             $openCount = DB::table('visa_files')
                 ->where('visa_files.advisor_id', '=', $user->id)
                 ->whereDate('visa_files.created_at', '>=', date('Y-m-01'))
                 ->whereDate('visa_files.created_at', '<=', date('Y-m-31'))
                 ->get()->count();
-
-            if ($openCount == 0) {
-                continue;
-            }
+            if ($openCount == 0) continue;
             array_push($arrayLabels, $user->name);
             array_push($arrayData, $openCount);
         }
-
         $impBorderColor = '"' . implode('","', $arrayBorder) . '"';
         $impBackGrounColor = '"' . implode('","', $arrayBackground) . '"';
         $impLabels = '"' . implode('","', $arrayLabels) . '"';
         $impData =  implode(',', $arrayData);
-
         return '{
             "labels":[' . $impLabels . '],
             "borderColor":[' . $impBorderColor . '],
@@ -180,21 +153,16 @@ class AjaxVisaGraphicController extends Controller
     public function quota_year(Request $request)
     {
         shuffle($this->indexArray);
-
         $arrayBorder = [];
         $arrayBackground = [];
-
         foreach ($this->indexArray as $index) {
             array_push($arrayBorder, $this->borderColorArray[$index]);
             array_push($arrayBackground, $this->backgrounColorArray[$index]);
         }
-
         $impBorderColor = '"' . implode('","', $arrayBorder) . '"';
         $impBackGrounColor = '"' . implode('","', $arrayBackground) . '"';
-
         $arrayLabels = [];
         $arrayData = [];
-
         $users = DB::table('users')->where('active', '=', '1')->where('user_type_id', '=', '2')->get();
         foreach ($users as $user) {
             $openCount = DB::table('visa_files')
@@ -202,17 +170,14 @@ class AjaxVisaGraphicController extends Controller
                 ->whereDate('visa_files.created_at', '>=', date('Y-01-01'))
                 ->whereDate('visa_files.created_at', '<=', date('Y-12-31'))
                 ->get()->count();
-
             if ($openCount == 0) {
                 continue;
             }
             array_push($arrayLabels, $user->name);
             array_push($arrayData, $openCount);
         }
-
         $impLabels = '"' . implode('","', $arrayLabels) . '"';
         $impData =  implode(',', $arrayData);
-
         return '{
             "labels":[' . $impLabels . '],
             "borderColor":[' . $impBorderColor . '],
@@ -230,15 +195,11 @@ class AjaxVisaGraphicController extends Controller
             date("Y-m-d", strtotime('-1 year', strtotime(date("Y-m-d")))),
             date("Y-m-d", strtotime('+15 day', strtotime(date("Y-m-d"))))
         );
-
         $visaFileOpenArray = [];
         $visaFileMadeArray = [];
         $visaFileMountArray = [];
-
         foreach ($twoDatesBetween->mounts() as $mount) {
-
             $mountExp = explode('-', $mount);
-
             $openCount = DB::table('visa_files')
                 ->whereMonth('visa_files.created_at', $mountExp[1])
                 ->whereYear('visa_files.created_at', $mountExp[0])->get()->count();
@@ -246,7 +207,6 @@ class AjaxVisaGraphicController extends Controller
                 ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
                 ->whereMonth('visa_application_result.visa_file_close_date', $mountExp[1])
                 ->whereYear('visa_application_result.visa_file_close_date', $mountExp[0])->get()->count();
-
             if ($openCount == 0 && $madeCount == 0) {
                 continue;
             }
@@ -254,12 +214,9 @@ class AjaxVisaGraphicController extends Controller
             array_push($visaFileOpenArray, $openCount);
             array_push($visaFileMadeArray, $madeCount);
         }
-
         $impLabels = '"' . implode('", "', $visaFileMountArray) . '"';
         $impOpen = implode(', ', $visaFileOpenArray);
         $impMade = implode(', ', $visaFileMadeArray);
-
-
         return '{
             "title":"Açılan ve Yapılan Dosya Analizleri (Son 12 Ay)",
             "labels":[' . $impLabels . '],
@@ -277,49 +234,36 @@ class AjaxVisaGraphicController extends Controller
         }';
     }
 
-    /** tarih filtresi buradan başlar */
     public function grades_count(Request $request)
     {
 
-        /** tarih aralıgı */
-        if ($request->has('dates') && $request->input('dates') != '')
-            $explodes =  explode('--', $request->input('dates'));
-        else
-            $explodes = [date('Y-m-01'), date('Y-m-28')];
-
+        if ($request->has('dates') && $request->input('dates') != '') $explodes =  explode('--', $request->input('dates'));
+        else $explodes = [date('Y-m-01'), date('Y-m-28')];
         /** statu */
         if ($request->has('status') && $request->input('status') != '') {
-            if ($request->input('status') == "cari")
-                $cariDurum = 1;
-            else
-                $cariDurum = 0;
-        } else
-            $cariDurum = 1;
+            if ($request->input('status') == "cari") $cariDurum = 1;
+            else $cariDurum = 0;
+        } else $cariDurum = 1;
 
-        /** tarih filtresi */
-        if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya") {
-                $filtre = 1;
+        if ($request->has('filter') && $request->input('filter') != '') {
+            if ($request->input('filter') == "dosya") {
+                $filter = 1;
                 $title = "Aşama Analizi (Seçilen Tarihlerde Açılanlar)";
             } else {
-                $filtre = 0;
+                $filter = 0;
                 $title = "Aşama Analizi (Son İşlem Tarihi)";
             }
         } else {
-            $filtre = 1;
+            $filter = 1;
             $title = "Aşama Analizi (Seçilen Tarihlerde Açılanlar)";
         }
-
         shuffle($this->indexArray);
-
         $arrayBorder = [];
         $arrayBackground = [];
-
         foreach ($this->indexArray as $index) {
             array_push($arrayBorder, $this->borderColorArray[$index]);
             array_push($arrayBackground, $this->backgrounColorArray[$index]);
         }
-
         $impBorderColor = '"' . implode('","', $arrayBorder) . '"';
         $impBackGrounColor = '"' . implode('","', $arrayBackground) . '"';
         $arrayLabels = [];
@@ -327,9 +271,8 @@ class AjaxVisaGraphicController extends Controller
         /**Dosya acılış tarihine göre filtreleme */
         $startDate = $explodes[0];
         $endDate = $explodes[1];
-
         if ($request->input('status') == "all") {
-            if (!$filtre) {
+            if (!$filter) {
                 $visaGrades = DB::table('visa_file_grades')->where('active', '=', 1)->get();
                 foreach ($visaGrades as $visaGrade) {
                     $visaFilesGrades = DB::table('visa_files')
@@ -355,7 +298,6 @@ class AjaxVisaGraphicController extends Controller
                     ->whereDate('visa_files.created_at', '>=', $startDate)
                     ->whereDate('visa_files.created_at', '<=', $endDate)
                     ->pluck('total', 'visa_file_grades_name')->all();
-
                 foreach ($visaFilesGradesCount as $col => $val) {
                     $stringArrayKey = explode(' ', $col);
                     array_push($arrayLabels, $stringArrayKey[0] . ' ' . $stringArrayKey[1]);
@@ -363,7 +305,7 @@ class AjaxVisaGraphicController extends Controller
                 }
             }
         } else {
-            if (!$filtre) {
+            if (!$filter) {
                 $visaGrades = DB::table('visa_file_grades')->where('active', '=', 1)->get();
                 foreach ($visaGrades as $visaGrade) {
                     $visaFilesGrades = DB::table('visa_files')
@@ -375,7 +317,6 @@ class AjaxVisaGraphicController extends Controller
                         ->whereDate('visa_file_logs.created_at', '>=', $startDate)
                         ->whereDate('visa_file_logs.created_at', '<=', $endDate)
                         ->get()->count();
-
                     if ($visaFilesGrades > 0) {
                         $stringArrayKey = explode(' ', $visaGrade->name);
                         array_push($arrayLabels, $stringArrayKey[0] . ' ' . $stringArrayKey[1]);
@@ -383,7 +324,6 @@ class AjaxVisaGraphicController extends Controller
                     }
                 }
             } else {
-
                 $visaFilesGradesCount = DB::table('visa_files')
                     ->select(['visa_file_grades.name AS visa_file_grades_name', DB::raw('count(*) as total')])
                     ->leftJoin('visa_file_grades', 'visa_file_grades.id', '=', 'visa_files.visa_file_grades_id')
@@ -392,7 +332,6 @@ class AjaxVisaGraphicController extends Controller
                     ->whereDate('visa_files.created_at', '>=', $startDate)
                     ->whereDate('visa_files.created_at', '<=', $endDate)
                     ->pluck('total', 'visa_file_grades_name')->all();
-
                 foreach ($visaFilesGradesCount as $col => $val) {
                     $stringArrayKey = explode(' ', $col);
                     array_push($arrayLabels, $stringArrayKey[0] . ' ' . $stringArrayKey[1]);
@@ -416,28 +355,18 @@ class AjaxVisaGraphicController extends Controller
     public function last_grades_count(Request $request)
     {
         /** tarih aralıgı */
-        if ($request->has('dates') && $request->input('dates') != '')
-            $explodes =  explode('--', $request->input('dates'));
-        else
-            $explodes = [date('Y-m-01'), date('Y-m-28')];
+        if ($request->has('dates') && $request->input('dates') != '') $explodes =  explode('--', $request->input('dates'));
+        else $explodes = [date('Y-m-01'), date('Y-m-28')];
         /** statu */
         if ($request->has('status') && $request->input('status') != '') {
-            if ($request->input('status') == "cari")
-                $cariDurum = 1;
-            else
-                $cariDurum = 0;
-        } else
-            $cariDurum = 1;
-        /** tarih filtresi */
-        if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya") {
-                $filtre = 1;
-            } else {
-                $filtre = 0;
-            }
-        } else {
-            $filtre = 1;
-        }
+            if ($request->input('status') == "cari") $cariDurum = 1;
+            else $cariDurum = 0;
+        } else $cariDurum = 1;
+        if ($request->has('filter') && $request->input('filter') != '')
+            if ($request->input('filter') == "dosya") $filter = 1;
+            else $filter = 0;
+        else $filter = 1;
+
         shuffle($this->indexArray);
         $arrayBorder = [];
         $arrayBackground = [];
@@ -449,7 +378,6 @@ class AjaxVisaGraphicController extends Controller
         $impBackGrounColor = '"' . implode('","', $arrayBackground) . '"';
         $arrayLabels = [];
         $arrayData = [];
-        /**Dosya acılış tarihine göre filtreleme */
         $startDate = $explodes[0];
         $endDate = $explodes[1];
         if ($request->input('status') == "all") {
@@ -466,7 +394,6 @@ class AjaxVisaGraphicController extends Controller
                     ->whereDate('visa_file_logs.created_at', '>=', $startDate)
                     ->whereDate('visa_file_logs.created_at', '<=', $endDate)
                     ->get()->count();
-
                 if ($visaFilesGrades > 0) {
                     $stringArrayKey = explode(' ', $visaGrade->name);
                     array_push($arrayLabels, $stringArrayKey[0] . ' ' . $stringArrayKey[1]);
@@ -487,7 +414,6 @@ class AjaxVisaGraphicController extends Controller
 
             $visaGrades = DB::table('visa_file_grades')->where('active', '=', 1)->get();
             foreach ($visaGrades as $visaGrade) {
-
                 $visaFilesGrades = DB::table('visa_files')
                     ->select([
                         'visa_files.visa_file_grades_id',
@@ -501,7 +427,6 @@ class AjaxVisaGraphicController extends Controller
                     ->whereDate('visa_file_logs.created_at', '>=', $startDate)
                     ->whereDate('visa_file_logs.created_at', '<=', $endDate)
                     ->get()->count();
-
                 if ($visaFilesGrades > 0) {
                     $stringArrayKey = explode(' ', $visaGrade->name);
                     array_push($arrayLabels, $stringArrayKey[0] . ' ' . $stringArrayKey[1]);
@@ -527,10 +452,8 @@ class AjaxVisaGraphicController extends Controller
             array_push($arrayData, $val);
         }
          */
-
         $impLabels = '"' . implode('", "', $arrayLabels) . '"';
         $impData = implode(', ', $arrayData);
-
         return '{
             "labels":[' . $impLabels . '],
             "borderColor":[' . $impBorderColor . '],
@@ -544,59 +467,42 @@ class AjaxVisaGraphicController extends Controller
 
     public function application_office_count(Request $request)
     {
-
         /** tarih aralıgı */
-        if ($request->has('dates') && $request->input('dates') != '')
-            $explodes =  explode('--', $request->input('dates'));
-        else
-            $explodes = [date('Y-m-01'), date('Y-m-28')];
-
+        if ($request->has('dates') && $request->input('dates') != '') $explodes =  explode('--', $request->input('dates'));
+        else $explodes = [date('Y-m-01'), date('Y-m-28')];
         /** statu */
         if ($request->has('status') && $request->input('status') != '') {
-            if ($request->input('status') == "cari")
-                $cariDurum = 1;
-            else
-                $cariDurum = 0;
-        } else
-            $cariDurum = 1;
+            if ($request->input('status') == "cari") $cariDurum = 1;
+            else $cariDurum = 0;
+        } else $cariDurum = 1;
 
-        /** tarih filtresi */
-        if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya") {
-                $filtre = 1;
+        if ($request->has('filter') && $request->input('filter') != '') {
+            if ($request->input('filter') == "dosya") {
+                $filter = 1;
                 $title = "Başvuru Ofisleri Analizi (Seçilen Tarihlerde Açılanlar)";
             } else {
-                $filtre = 0;
+                $filter = 0;
                 $title = "Başvuru Ofisleri Analizi (Son İşlem Tarihi)";
             }
         } else {
-            $filtre = 1;
+            $filter = 1;
             $title = "Başvuru Ofisleri Analizi (Seçilen Tarihlerde Açılanlar)";
         }
-
         shuffle($this->indexArray);
-
         $arrayBorder = [];
         $arrayBackground = [];
-
         foreach ($this->indexArray as $index) {
             array_push($arrayBorder, $this->borderColorArray[$index]);
             array_push($arrayBackground, $this->backgrounColorArray[$index]);
         }
-
         $impBorderColor = '"' . implode('","', $arrayBorder) . '"';
         $impBackGrounColor = '"' . implode('","', $arrayBackground) . '"';
-
         $arrayLabels = [];
         $arrayData = [];
-
-        /**Dosya acılış tarihine göre filtreleme */
         $startDate = $explodes[0];
         $endDate = $explodes[1];
-
         if ($request->input('status') == "all") {
-
-            if (!$filtre) {
+            if (!$filter) {
                 //filtre son log ise
                 $applicationOffices = DB::table('application_offices')->get();
                 foreach ($applicationOffices as $applicationOffice) {
@@ -629,9 +535,7 @@ class AjaxVisaGraphicController extends Controller
                 }
             }
         } else {
-
-            if (!$filtre) {
-
+            if (!$filter) {
                 //filtre son log ise
                 $applicationOffices = DB::table('application_offices')->get();
                 foreach ($applicationOffices as $applicationOffice) {
@@ -651,18 +555,15 @@ class AjaxVisaGraphicController extends Controller
                     }
                 }
             } else {
-
                 //filtre dosya acılıs ise
                 $visaFilesApplicationOfficeCount = DB::table('visa_files')
                     ->select(['application_offices.name AS application_office_name', DB::raw('count(*) as total')])
                     ->leftJoin('application_offices', 'application_offices.id', '=', 'visa_files.application_office_id')
                     ->groupBy('visa_files.application_office_id')
-
                     ->where('visa_files.active', '=', $cariDurum)
                     ->whereDate('visa_files.created_at', '>=', $startDate)
                     ->whereDate('visa_files.created_at', '<=', $endDate)
                     ->pluck('total', 'application_office_name')->all();
-
                 foreach ($visaFilesApplicationOfficeCount as $col => $val) {
                     array_push($arrayLabels, $col);
                     array_push($arrayData, $val);
@@ -685,95 +586,133 @@ class AjaxVisaGraphicController extends Controller
     public function visa_types_analist(Request $request)
     {
         /** tarih aralıgı */
-        if ($request->has('dates') && $request->input('dates') != '')
-            $explodes =  explode('--', $request->input('dates'));
-        else
-            $explodes = [date('Y-m-01'), date('Y-m-28')];
-
+        if ($request->has('dates') && $request->input('dates') != '') $explodes =  explode('--', $request->input('dates'));
+        else $explodes = [date('Y-m-01'), date('Y-m-28')];
         /** statu */
         if ($request->has('status') && $request->input('status') != '') {
-            if ($request->input('status') == "cari")
-                $cariDurum = 1;
-            else
-                $cariDurum = 0;
-        } else
-            $cariDurum = 1;
-
-        /** tarih filtresi */
-        if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya")
-                $filtre = 1;
-            else
-                $filtre = 0;
-        } else
-            $filtre = 1;
-
-        /**Dosya acılış tarihine göre filtreleme */
+            if ($request->input('status') == "cari") $cariDurum = 1;
+            else $cariDurum = 0;
+        } else $cariDurum = 1;
+        if ($request->has('filter') && $request->input('filter') != '') {
+            if ($request->input('filter') == "dosya") {
+                $filter = 1;
+                $title = "Vize Tipi Analizi (Seçilen Tarihlerde Açılanlar)";
+            } else {
+                $filter = 0;
+                $title = "Vize Tipi Analizi (Son İşlem Tarihi)";
+            }
+        } else {
+            $filter = 1;
+            $title = "Vize Tipi Analizi (Seçilen Tarihlerde Açılanlar)";
+        }
         $startDate = $explodes[0];
         $endDate = $explodes[1];
-
         $arrayVisaFilesAdvisorsAnalist = [];
-
         $allVisaTypes = DB::table('visa_types')->select(['id', 'name'])->get();
-
         foreach ($allVisaTypes as $allVisaType) {
-
             if ($request->input('status') == "all") {
-
-                $positiveCount =   DB::table('visa_files')
-                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                    ->where('visa_files.visa_type_id', '=', $allVisaType->id)
-                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
-                    ->whereDate('visa_files.created_at', '>=', $startDate)
-                    ->whereDate('visa_files.created_at', '<=', $endDate)
-                    ->get()->count();
-                $negativeCount =  DB::table('visa_files')
-                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                    ->where('visa_files.visa_type_id', '=', $allVisaType->id)
-                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
-                    ->whereDate('visa_files.created_at', '>=', $startDate)
-                    ->whereDate('visa_files.created_at', '<=', $endDate)
-                    ->get()->count();
+                if (!$filter) {
+                    //son log tarihi
+                    $positiveCount =   DB::table('visa_files')
+                        ->select([DB::raw("max(visa_file_logs.created_at) AS created_at"),])
+                        ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                        ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
+                        ->groupBy('visa_files.id')
+                        ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                        ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                        ->whereDate('visa_file_logs.created_at', '>=', $startDate)
+                        ->whereDate('visa_file_logs.created_at', '<=', $endDate)
+                        ->get()->count();
+                    $negativeCount =  DB::table('visa_files')
+                        ->select([DB::raw("max(visa_file_logs.created_at) AS created_at"),])
+                        ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                        ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
+                        ->groupBy('visa_files.id')
+                        ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                        ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                        ->whereDate('visa_file_logs.created_at', '>=', $startDate)
+                        ->whereDate('visa_file_logs.created_at', '<=', $endDate)
+                        ->get()->count();
+                } else {
+                    $positiveCount =   DB::table('visa_files')
+                        ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                        ->groupBy('visa_files.id')
+                        ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                        ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                        ->whereDate('visa_files.created_at', '>=', $startDate)
+                        ->whereDate('visa_files.created_at', '<=', $endDate)
+                        ->get()->count();
+                    $negativeCount =  DB::table('visa_files')
+                        ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                        ->groupBy('visa_files.id')
+                        ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                        ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                        ->whereDate('visa_files.created_at', '>=', $startDate)
+                        ->whereDate('visa_files.created_at', '<=', $endDate)
+                        ->get()->count();
+                }
             } else {
-                $positiveCount =   DB::table('visa_files')
-                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                    ->where('visa_files.visa_type_id', '=', $allVisaType->id)
-                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
-                    ->where('visa_files.active', '=', $cariDurum)
-                    ->whereDate('visa_files.created_at', '>=', $startDate)
-                    ->whereDate('visa_files.created_at', '<=', $endDate)
-                    ->get()->count();
-                $negativeCount =  DB::table('visa_files')
-                    ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
-                    ->where('visa_files.visa_type_id', '=', $allVisaType->id)
-                    ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
-                    ->where('visa_files.active', '=', $cariDurum)
-                    ->whereDate('visa_files.created_at', '>=', $startDate)
-                    ->whereDate('visa_files.created_at', '<=', $endDate)
-                    ->get()->count();
+                if (!$filter) {
+                    //son log tarihi
+                    $positiveCount =   DB::table('visa_files')
+                        ->select([DB::raw("max(visa_file_logs.created_at) AS created_at"),])
+                        ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                        ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
+                        ->groupBy('visa_files.id')
+                        ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                        ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                        ->where('visa_files.active', '=', $cariDurum)
+                        ->whereDate('visa_file_logs.created_at', '>=', $startDate)
+                        ->whereDate('visa_file_logs.created_at', '<=', $endDate)
+                        ->get()->count();
+                    $negativeCount =  DB::table('visa_files')
+                        ->select([DB::raw("max(visa_file_logs.created_at) AS created_at"),])
+                        ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                        ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
+                        ->groupBy('visa_files.id')
+                        ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                        ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                        ->where('visa_files.active', '=', $cariDurum)
+                        ->whereDate('visa_file_logs.created_at', '>=', $startDate)
+                        ->whereDate('visa_file_logs.created_at', '<=', $endDate)
+                        ->get()->count();
+                } else {
+                    $positiveCount =   DB::table('visa_files')
+                        ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                        ->groupBy('visa_files.id')
+                        ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                        ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_POSITIVE_ID'))
+                        ->where('visa_files.active', '=', $cariDurum)
+                        ->whereDate('visa_files.created_at', '>=', $startDate)
+                        ->whereDate('visa_files.created_at', '<=', $endDate)
+                        ->get()->count();
+                    $negativeCount =  DB::table('visa_files')
+                        ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
+                        ->groupBy('visa_files.id')
+                        ->where('visa_files.visa_type_id', '=', $allVisaType->id)
+                        ->where('visa_application_result.visa_result', '=', env('VISA_APPLICATION_RESULT_NEGATIVE_ID'))
+                        ->where('visa_files.active', '=', $cariDurum)
+                        ->whereDate('visa_files.created_at', '>=', $startDate)
+                        ->whereDate('visa_files.created_at', '<=', $endDate)
+                        ->get()->count();
+                }
             }
-            if ($negativeCount == 0 && $positiveCount == 0)
-                continue;
+            if ($positiveCount == 0 &&  $negativeCount == 0) continue;
             array_push($arrayVisaFilesAdvisorsAnalist, array(
                 $allVisaType->name,
                 $positiveCount == null ? 0 : $positiveCount,
                 $negativeCount == null ? 0 : $negativeCount,
             ));
         }
-
         $data = '{
-            "title":"Vize Tipleri Analizi(Seçilen Tarihlerde Açılanlar)",
+            "title":"' . $title . '",
             "datasets":[';
-
         $oran = 0;
         $plusValue = 0;
-
         foreach ($arrayVisaFilesAdvisorsAnalist as $value) {
             //array random index
             $randomIndex = rand(0, count($this->backgrounColorArray) - 1);
-
             $tempOran = $value[1] / ($value[1] + $value[2]) * 100;
-
             if ($tempOran > $oran) {
                 $oran = $tempOran;
                 $plusValue++;
@@ -790,7 +729,6 @@ class AjaxVisaGraphicController extends Controller
         }
         $data = rtrim($data, ",");
         $data .= ']}';
-
         return $data;
     }
 
@@ -798,44 +736,26 @@ class AjaxVisaGraphicController extends Controller
     {
 
         /** tarih aralıgı */
-        if ($request->has('dates') && $request->input('dates') != '')
-            $explodes =  explode('--', $request->input('dates'));
-        else
-            $explodes = [date('Y-m-01'), date('Y-m-28')];
-
+        if ($request->has('dates') && $request->input('dates') != '') $explodes =  explode('--', $request->input('dates'));
+        else $explodes = [date('Y-m-01'), date('Y-m-28')];
         /** statu */
         if ($request->has('status') && $request->input('status') != '') {
-            if ($request->input('status') == "cari")
-                $cariDurum = 1;
-            else
-                $cariDurum = 0;
-        } else
-            $cariDurum = 1;
-
-        /** tarih filtresi */
-        if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya")
-                $filtre = 1;
-            else
-                $filtre = 0;
-        } else
-            $filtre = 1;
-
-        /**Dosya acılış tarihine göre filtreleme */
+            if ($request->input('status') == "cari") $cariDurum = 1;
+            else $cariDurum = 0;
+        } else $cariDurum = 1;
+        if ($request->has('filter') && $request->input('filter') != '') {
+            if ($request->input('filter') == "dosya") $filter = 1;
+            else $filter = 0;
+        } else $filter = 1;
         $startDate = $explodes[0];
         $endDate = $explodes[1];
-
         $arrayVisaFilesAdvisorsAnalist = [];
-
         $allAdvisors = DB::table('users')
             ->select(['id', 'name'])->where('active', '=', 1)
             ->where('user_type_id', '=',  env('ADVISOR_USER_TYPE_ID'))
             ->get();
-
         foreach ($allAdvisors as $allAdvisor) {
-
             if ($request->input('status') == "all") {
-
                 $positiveCount =   DB::table('visa_files')
                     ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
                     ->where('visa_files.advisor_id', '=', $allAdvisor->id)
@@ -883,8 +803,7 @@ class AjaxVisaGraphicController extends Controller
                     ->whereDate('visa_files.created_at', '<=', $endDate)
                     ->get()->count();
             }
-            if ($iadeCount == 0 && $negativeCount == 0 && $positiveCount == 0)
-                continue;
+            if ($iadeCount == 0 && $negativeCount == 0 && $positiveCount == 0) continue;
             array_push($arrayVisaFilesAdvisorsAnalist, array(
                 $allAdvisor->name,
                 $positiveCount == null ? 0 : $positiveCount,
@@ -892,20 +811,15 @@ class AjaxVisaGraphicController extends Controller
                 $iadeCount == null ? 0 : $iadeCount
             ));
         }
-
         $data = '{
             "title":"Danışman Analizi (Seçilen Tarihlerde Açılanlar)",
             "datasets":[';
-
         $oran = 0;
         $plusValue = 0;
-
         foreach ($arrayVisaFilesAdvisorsAnalist as $value) {
             //array random index
             $randomIndex = rand(0, count($this->backgrounColorArray) - 1);
-
             $tempOran = $value[1] / ($value[1] + $value[2]) * 100;
-
             if ($tempOran > $oran) {
                 $oran = $tempOran;
                 $plusValue++;
@@ -922,49 +836,33 @@ class AjaxVisaGraphicController extends Controller
         }
         $data = rtrim($data, ",");
         $data .= ']}';
-
         return $data;
     }
 
     public function expert_analist(Request $request)
     {
         /** tarih aralıgı */
-        if ($request->has('dates') && $request->input('dates') != '')
-            $explodes =  explode('--', $request->input('dates'));
-        else
-            $explodes = [date('Y-m-01'), date('Y-m-28')];
-
+        if ($request->has('dates') && $request->input('dates') != '') $explodes =  explode('--', $request->input('dates'));
+        else $explodes = [date('Y-m-01'), date('Y-m-28')];
         /** statu */
         if ($request->has('status') && $request->input('status') != '') {
-            if ($request->input('status') == "cari")
-                $cariDurum = 1;
-            else
-                $cariDurum = 0;
-        } else
-            $cariDurum = 1;
-
-        /** tarih filtresi */
-        if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya")
-                $filtre = 1;
-            else
-                $filtre = 0;
-        } else
-            $filtre = 1;
-
-        /**Dosya acılış tarihine göre filtreleme */
+            if ($request->input('status') == "cari") $cariDurum = 1;
+            else $cariDurum = 0;
+        } else $cariDurum = 1;
+        if ($request->has('filter') && $request->input('filter') != '') {
+            if ($request->input('filter') == "dosya") $filter = 1;
+            else $filter = 0;
+        } else $filter = 1;
         $startDate = $explodes[0];
         $endDate = $explodes[1];
-
         $arrayVisaFilesExpertsAnalist = [];
-
-        $allExperts = DB::table('users')->select(['id', 'name'])->where('active', '=', 1)
-            ->where('user_type_id', '=',  env('EXPERT_USER_TYPE_ID'))->get();
-
+        $allExperts = DB::table('users')
+            ->select(['id', 'name'])
+            ->where('active', '=', 1)
+            ->where('user_type_id', '=',  env('EXPERT_USER_TYPE_ID'))
+            ->get();
         foreach ($allExperts as $allExpert) {
-
             if ($request->input('status') == "all") {
-
                 $positiveCount =   DB::table('visa_files')
                     ->join('visa_application_result', 'visa_application_result.visa_file_id', '=', 'visa_files.id')
                     ->where('visa_files.expert_id', '=', $allExpert->id)
@@ -1012,9 +910,7 @@ class AjaxVisaGraphicController extends Controller
                     ->whereDate('visa_files.created_at', '<=', $endDate)
                     ->get()->count();
             }
-            if ($iadeCount == 0 && $negativeCount == 0 && $positiveCount == 0)
-                continue;
-
+            if ($iadeCount == 0 && $negativeCount == 0 && $positiveCount == 0) continue;
             array_push($arrayVisaFilesExpertsAnalist, array(
                 $allExpert->name,
                 $positiveCount == null ? 0 : $positiveCount,
@@ -1022,20 +918,15 @@ class AjaxVisaGraphicController extends Controller
                 $iadeCount == null ? 0 : $iadeCount
             ));
         }
-
         $data = '{
             "title":"Uzman Analizi (Seçilen Tarihlerde Açılanlar)",
             "datasets":[';
-
         $oran = 0;
         $plusValue = 0;
-
         foreach ($arrayVisaFilesExpertsAnalist as $value) {
             //array random index
             $randomIndex = rand(0, count($this->backgrounColorArray) - 1);
-
             $tempOran = $value[1] / ($value[1] + $value[2]) * 100;
-
             if ($tempOran > $oran) {
                 $oran = $tempOran;
                 $plusValue++;
@@ -1052,7 +943,6 @@ class AjaxVisaGraphicController extends Controller
         }
         $data = rtrim($data, ",");
         $data .= ']}';
-
         return $data;
     }
 
@@ -1066,37 +956,34 @@ class AjaxVisaGraphicController extends Controller
 
         /** statu */
         if ($request->has('status') && $request->input('status') != '') {
-            if ($request->input('status') == "cari")
-                $cariDurum = 1;
-            else
-                $cariDurum = 0;
-        } else
-            $cariDurum = 1;
+            if ($request->input('status') == "cari") $cariDurum = 1;
+            else $cariDurum = 0;
+        } else $cariDurum = 1;
 
-        /** tarih filtresi */
-        if ($request->has('filtre') && $request->input('filtre') != '') {
-            if ($request->input('filtre') == "dosya") {
-                $filtre = 1;
+        if ($request->has('filter') && $request->input('filter') != '') {
+            if ($request->input('filter') == "dosya") {
+                $filter = 1;
                 $title = "Tercüman Analizi (Seçilen Tarihlerde Açılanlar)";
             } else {
-                $filtre = 0;
-                $title = "Tercüman Analizi (İşlem Tarihi)";
+                $filter = 0;
+                $title = "Tercüman Analizi (Son İşlem Tarihi)";
             }
         } else {
-            $filtre = 1;
+            $filter = 1;
             $title = "Tercüman Analizi (Seçilen Tarihlerde Açılanlar)";
         }
-        /**Dosya acılış tarihine göre filtreleme */
         $startDate = $explodes[0];
         $endDate = $explodes[1];
         $arrayVisaFilesTranslationsAnalist = [];
-        $allTranslations = DB::table('users')->select(['id', 'name'])->where('active', '=', "1")
+        $allTranslations = DB::table('users')
+            ->select(['id', 'name'])
+            ->where('active', '=', "1")
             ->where('user_type_id', '=',  env('TRANSLATION_USER_TYPE_ID'))->get();
 
         foreach ($allTranslations as $allTranslation) {
             if ($request->input('status') == "all") {
 
-                if (!$filtre) {
+                if (!$filter) {
                     //son log tarihi
                     $visaFilesTranslation = DB::table('visa_files')
                         ->select([
@@ -1108,7 +995,6 @@ class AjaxVisaGraphicController extends Controller
                         ->join('visa_translations', 'visa_translations.visa_file_id', '=', 'visa_files.id')
                         ->leftJoin('visa_file_logs', 'visa_file_logs.visa_file_id', '=', 'visa_files.id')
                         ->where('visa_files.translator_id', '=', $allTranslation->id)
-
                         ->where('visa_file_logs.subject', '=', "Tercüme bekleyen dosyalar")
                         ->whereDate('visa_file_logs.created_at', '>=', $startDate)
                         ->whereDate('visa_file_logs.created_at', '<=', $endDate)
@@ -1128,8 +1014,7 @@ class AjaxVisaGraphicController extends Controller
                         ->first();
                 }
             } else {
-
-                if (!$filtre) {
+                if (!$filter) {
                     //son log tarihi
                     $visaFilesTranslation = DB::table('visa_files')
                         ->select([
@@ -1162,10 +1047,7 @@ class AjaxVisaGraphicController extends Controller
                         ->first();
                 }
             }
-
-            if ($visaFilesTranslation->visa_files_count == 0)
-                continue;
-
+            if ($visaFilesTranslation->visa_files_count == 0) continue;
             array_push($arrayVisaFilesTranslationsAnalist, array(
                 $allTranslation->name,
                 $visaFilesTranslation->visa_files_count == null ? 0 : $visaFilesTranslation->visa_files_count,
@@ -1173,8 +1055,6 @@ class AjaxVisaGraphicController extends Controller
                 $visaFilesTranslation->translated_word_count == null ? 0 : $visaFilesTranslation->translated_word_count,
             ));
         }
-
-
         $data = '{
             "title":"' . $title . '",
             "datasets":[';
@@ -1200,7 +1080,6 @@ class AjaxVisaGraphicController extends Controller
         }
         $data = rtrim($data, ",");
         $data .= ']}';
-
         return $data;
     }
 }
