@@ -8,9 +8,8 @@
             <li class="breadcrumb-item active" aria-current="page">Vize Tipleri</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">
-            Vize Tipleri
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Vize Tipleri
             <a class="float-end text-white" href="/yonetim/vize/vize-tipi/create">Ekle</a>
         </div>
         <div class="card-body scroll">

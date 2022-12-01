@@ -17,12 +17,10 @@
         </ol>
     </nav>
 
-    <div class="card">
-        <div class="card-header bg-danger text-white fw-bold">Paneller</div>
-        <div class="card-body  text-dark bg-light">
-
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Paneller</div>
+        <div class="card-body">
             @if (in_array(4, $userAccesses))
-
                 @if ($panelsTimeAccess == 1)
                     @foreach ($webGroups as $webGroup)
                         <div class="row">
@@ -49,11 +47,12 @@
                                                         name="i">
                                                     <input value="{{ base64_encode($webPanel->access) }}" type="hidden"
                                                         name="t_e">
-                                                    <input value="{{ base64_encode(session('userTypeId')) }}"
-                                                        type="hidden" name="t">
+                                                    <input value="{{ base64_encode(session('userTypeId')) }}" type="hidden"
+                                                        name="t">
                                                     <input @php date_default_timezone_set('Europe/London'); @endphp
                                                         value="{{ 'R_' . md5(env('WEB_PANEL_S_CODE_ONE')) . '::' . md5(date(env('WEB_PANEL_S_CODE_TWO'))) . '_A' }}"
-                                                        @php date_default_timezone_set('Europe/Istanbul'); @endphp type="hidden" name="s">
+                                                        @php date_default_timezone_set('Europe/Istanbul'); @endphp
+                                                        type="hidden" name="s">
                                                     <input type="hidden" name="d" value="tr" />
                                                     <button type="submit"
                                                         class="btn btn-secondary text-white float-end">Panele git</button>

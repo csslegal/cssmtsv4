@@ -7,9 +7,8 @@
             <li class="breadcrumb-item active" aria-current="page">Kullanıcı Tipleri</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">
-            Kullanıcı Tipleri
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Kullanıcı Tipleri
             <a class="float-end text-white" href="/yonetim/users-type/create">Ekle</a>
         </div>
         <div class="card-body scroll">
@@ -34,9 +33,9 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <!--<button onclick="goster({{ $kayit->id }})" class="text-success"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                                <i class="bi bi-image"></i>
-                                            </button>-->
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                                    <i class="bi bi-image"></i>
+                                                </button>-->
                                     <a href="/yonetim/users-type/{{ $kayit->id }}/edit">
                                         <button data-bs-toggle="tooltip" data-bs-placement="top" title="Düzenle">
                                             <i class="bi bi-pencil-square "></i>

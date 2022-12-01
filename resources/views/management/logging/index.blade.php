@@ -10,8 +10,8 @@
 
     <div class="row">
         <div class="col-md-3 mb-3">
-            <div class="card card-dark">
-                <div class="card-header bg-dark text-white fw-bold">Dizindeki Loglar</div>
+            <div class="card mb-3">
+                <div class="card-header bg-danger text-white">Dizindeki Loglar</div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         @foreach ($logFiles as $logFile)

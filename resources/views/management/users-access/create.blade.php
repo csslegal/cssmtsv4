@@ -9,8 +9,8 @@
         </ol>
     </nav>
 
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Ekle</div>
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Ekle</div>
         <div class="card-body">
             <form method="POST" action="/yonetim/users-access">
                 @csrf
@@ -27,5 +27,4 @@
             </form>
         </div>
     </div>
-
 @endsection

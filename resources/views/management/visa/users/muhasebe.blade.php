@@ -11,7 +11,6 @@
 
     @include('include.management.visa.nav')
 
-
     @foreach ($visaGradesAccesses as $visaGradesAccess)
         <div class="card mb-3">
             <div class="card-header bg-danger text-white">

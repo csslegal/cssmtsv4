@@ -12,6 +12,7 @@
     @include('include.management.visa.nav')
 
     @foreach ($visaGradesAccesses as $visaGradesAccess)
+
         <div class="card mb-3">
             <div class="card-header bg-danger text-white">
                 {{ mb_convert_case($visaGradesAccess->name, MB_CASE_TITLE, 'UTF-8') }}

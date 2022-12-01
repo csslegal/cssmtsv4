@@ -10,8 +10,9 @@
             <li class="breadcrumb-item active" aria-current="page">Ekle</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Ekle</div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Ekle</div>
         <div class="card-body">
             <form method="POST" action="/yonetim/vize/dosya-asama-erisim">
                 @csrf

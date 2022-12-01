@@ -7,9 +7,8 @@
             <li class="breadcrumb-item active" aria-current="page">Başvuru Ofisleri</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">
-            Başvuru Ofisleri
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Başvuru Ofisleri
             <a class="float-end text-white" href="/yonetim/application-office/create">Ekle</a>
         </div>
         <div class="card-body scroll">

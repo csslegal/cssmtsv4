@@ -7,8 +7,9 @@
             <li class="breadcrumb-item active" aria-current="page">Müşteri Notları</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Müşteri Notları</div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Müşteri Notları</div>
         <div class="card-body scroll">
             <table id="dataTable" class=" table  table-light table-striped table-bordered display" style="width:100%">
                 <thead>
@@ -26,7 +27,6 @@
                             <td><a href="/musteri/{{ $customerNote->customer_id }}">{{ $customerNote->id }}</a></td>
                             <td><a href="/musteri/{{ $customerNote->customer_id }}">{{ $customerNote->name }}</a></td>
                             <td>{{ $customerNote->user_name }}</td>
-
                             <td>{{ $customerNote->created_at }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -52,7 +52,6 @@
         </div>
     </div>
     @include('include.management.content-load')
-
     @include('include.management.note-add-modal')
 @endsection
 @section('js')

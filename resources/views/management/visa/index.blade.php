@@ -12,7 +12,7 @@
 
     <div class="card mb-3">
         <div class="card-header text-white bg-danger">Grafikler</div>
-        <div class="card-body  text-dark bg-light">
+        <div class="card-body text-dark bg-light">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-6 ">
                     <div class="card mb-3">

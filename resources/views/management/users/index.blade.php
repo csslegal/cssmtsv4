@@ -7,14 +7,13 @@
             <li class="breadcrumb-item active" aria-current="page">Kullanıcı</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">
-            Kullanıcı
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Kullanıcılar
             <a class="float-end text-white" href="/yonetim/users/create">Ekle</a>
         </div>
         <div class="card-body scroll">
-
-            <table id="dataTable" class=" table  table-light table-striped table-bordered display" style="width:100%">
+            <table id="dataTable" class="table table-light table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -51,13 +50,9 @@
 
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <!--<button onclick="goster({{ $kayit->id }})" class="text-success"
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                                        <i class="bi bi-image"></i>
-                                                    </button>-->
                                     <a href="/yonetim/users/{{ $kayit->id }}/edit">
                                         <button data-bs-toggle="tooltip" data-bs-placement="top" title="Düzenle">
-                                            <i class="bi bi-pencil-square "></i>
+                                            <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </a>
                                     <form action="/yonetim/users/{{ $kayit->id }}" method="post">
@@ -74,22 +69,6 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">İçerik</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="icerikYükle">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                </div>
-            </div>
         </div>
     </div>
 @endsection

@@ -42,13 +42,12 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="password">Şifre</label>
-                                <input name="password" value="{{ old('password') }}" class="form-control"
-                                    id="password" type="password" placeholder="Şifreniz">
+                                <input name="password" value="{{ old('password') }}" class="form-control" id="password"
+                                    type="password" placeholder="Şifreniz">
                                 @error('password')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Form Group (login box)-->
                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                 <button type="submit" class="btn btn-secondary">Giriş Yap</button>

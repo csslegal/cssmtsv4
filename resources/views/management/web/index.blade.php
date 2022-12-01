@@ -11,9 +11,10 @@
 
     @include('include.management.web.nav')
 
-    <div class="card">
-        <div class="card-header text-white bg-danger">Web İşlemleri</div>
-        <div class="card-body  text-dark bg-light">
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Web İşlemleri</div>
+        <div class="card-body>
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
                     <div class="card mb-3">

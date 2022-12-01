@@ -11,15 +11,14 @@
 
     @include('include.management.visa.nav')
 
-
     @foreach ($visaGradesAccesses as $visaGradesAccess)
         <div class="card mb-3">
             <div class="card-header bg-danger text-white">
                 {{ mb_convert_case($visaGradesAccess->name, MB_CASE_TITLE, 'UTF-8') }}
             </div>
             <div class="card-body scroll">
-                <table id="dataTableVize{{ $visaGradesAccess->id }}" class="table  table-light table-striped table-bordered display"
-                    style="width:100%">
+                <table id="dataTableVize{{ $visaGradesAccess->id }}"
+                    class="table  table-light table-striped table-bordered display" style="width:100%">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -36,16 +35,10 @@
                         @foreach ($visaCustomers as $visaCustomer)
                             @if ($visaCustomer->visa_file_grades_id == $visaGradesAccess->id)
                                 <tr class="{{ $visaCustomer->status ? 'text-success' : '' }}">
-                                    <td>
-                                        <a href="/musteri/{{ $visaCustomer->id }}/vize">
-                                            {{ $visaCustomer->visa_file_id }}
-                                        </a>
+                                    <td><a
+                                            href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->visa_file_id }}</a>
                                     </td>
-                                    <td>
-                                        <a href="/musteri/{{ $visaCustomer->id }}/vize">
-                                            {{ $visaCustomer->name }}
-                                        </a>
-                                    </td>
+                                    <td><a href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->name }}</a></td>
                                     <td>{{ $visaCustomer->advisor_name }}</td>
                                     <td>{{ $visaCustomer->expert_name }}</td>
                                     <td>

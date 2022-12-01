@@ -7,9 +7,9 @@
             <li class="breadcrumb-item active" aria-current="page">Randevu Ofisleri</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">
-            Randevu Ofisleri
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Randevu Ofisleri
             <a class="float-end text-white" href="/yonetim/appointment-office/create">Ekle</a>
         </div>
         <div class="card-body scroll">
@@ -29,7 +29,6 @@
                         <tr>
                             <td>{{ $kayit->id }}</td>
                             <td>{{ $kayit->name }}</td>
-
                             <td>{{ $kayit->created_at }}</td>
                             <td>{{ $kayit->updated_at }}</td>
                             <td>

@@ -8,8 +8,9 @@
             <li class="breadcrumb-item active" aria-current="page">Gruplar</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Gruplar
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Gruplar
             <a class="float-end text-white" href="/yonetim/web/groups/create">Ekle</a>
         </div>
         <div class="card-body scroll">

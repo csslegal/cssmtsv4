@@ -10,10 +10,9 @@
             <li class="breadcrumb-item active" aria-current="page">{{ $webSiteAnasayfa->name }}</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">
-            Altsayfa Urller
-        </div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Altsayfa Urller</div>
         <div class="card-body scroll">
             <table id="dataTable" class="table  table-light table-striped table-bordered display" style="width:100%">
                 <thead>

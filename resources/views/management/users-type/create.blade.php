@@ -9,12 +9,11 @@
         </ol>
     </nav>
 
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Ekle</div>
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Ekle</div>
         <div class="card-body">
             <form method="POST" action="/yonetim/users-type">
                 @csrf
-
                 <div class="row g-3">
                     <div class="col-12">
                         <label class="form-label">Adı</label>
@@ -24,10 +23,8 @@
                         @enderror
                     </div>
                 </div>
-
                 <button class="w-100 mt-3 btn btn-secondary text-white btn-lg" type="submit">Tamamla</button>
             </form>
         </div>
     </div>
-
 @endsection

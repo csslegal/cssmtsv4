@@ -8,8 +8,9 @@
             <li class="breadcrumb-item active" aria-current="page">Dosya Yükle</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Müşteri Bilgilerini Sisteme Yükle</div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Müşteri Bilgilerini Sisteme Yükle</div>
         <div class="card-body">
             <form method="POST" action="/yonetim/customers" enctype="multipart/form-data">
                 @csrf

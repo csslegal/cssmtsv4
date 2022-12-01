@@ -9,8 +9,9 @@
             <li class="breadcrumb-item active" aria-current="page">Düzenle</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Düzenle</div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Düzenle</div>
         <div class="card-body">
             <form method="POST" action="/yonetim/web/panels/{{ $result->id }}">
                 @method('PUT')
@@ -30,22 +31,22 @@
                 </div>
                 <div class="col-12">
                     <label class="form-label">Site Adı</label>
-                    <input type="text" value="@isset($result){!! $result->name !!}@endisset" name="site"
-                            class="form-control" />
-                        @error('site')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-12">
-                        <label class="form-label">Site URL</label>
-                        <input type="text" value="@isset($result){!! $result->url !!}@endisset" name="url"
-                                class="form-control" />
-                            @error('url')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <button class="w-100 mt-3 btn btn-secondary text-white btn-lg" type="submit">Tamamla</button>
-                    </form>
+                    <input type="text" value="@isset($result){!! $result->name !!}@endisset"
+                        name="site" class="form-control" />
+                    @error('site')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
-            </div>
-        @endsection
+                <div class="col-12">
+                    <label class="form-label">Site URL</label>
+                    <input type="text" value="@isset($result){!! $result->url !!}@endisset"
+                        name="url" class="form-control" />
+                    @error('url')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <button class="w-100 mt-3 btn btn-secondary text-white btn-lg" type="submit">Tamamla</button>
+            </form>
+        </div>
+    </div>
+@endsection

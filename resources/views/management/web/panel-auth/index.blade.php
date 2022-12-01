@@ -8,8 +8,9 @@
             <li class="breadcrumb-item active" aria-current="page">Panel Yetkileri</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Panel Yetkileri
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Panel Yetkileri
             <a class="float-end text-white" href="/yonetim/web/panel-auth/create">Ekle</a>
         </div>
         <div class="card-body scroll">

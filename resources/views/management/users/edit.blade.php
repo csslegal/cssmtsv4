@@ -8,8 +8,9 @@
             <li class="breadcrumb-item active" aria-current="page">Düzenle</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Düzenle</div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Düzenle</div>
         <div class="card-body">
             <form method="POST" action="/yonetim/users/{{ $kayit->id }}">
                 @method('PUT')

@@ -11,7 +11,6 @@
 
     @include('include.management.visa.nav')
 
-
     @foreach ($visaGradesAccesses as $visaGradesAccess)
         <div class="card mb-3">
             <div class="card-header bg-danger text-white">
@@ -36,16 +35,8 @@
                         @foreach ($visaCustomers as $visaCustomer)
                             @if ($visaCustomer->visa_file_grades_id == $visaGradesAccess->id)
                                 <tr class="{{ $visaCustomer->status ? 'text-success' : '' }}">
-                                    <td>
-                                        <a href="/musteri/{{ $visaCustomer->id }}/vize">
-                                            {{ $visaCustomer->visa_file_id }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="/musteri/{{ $visaCustomer->id }}/vize">
-                                            {{ $visaCustomer->name }}
-                                        </a>
-                                    </td>
+                                    <td><a href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->visa_file_id }}</a></td>
+                                    <td><a href="/musteri/{{ $visaCustomer->id }}/vize">{{ $visaCustomer->name }}</a></td>
                                     <td>{{ $visaCustomer->advisor_name }}</td>
                                     <td>{{ $visaCustomer->translator_name }}</td>
                                     <td>

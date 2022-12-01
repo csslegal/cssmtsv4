@@ -2,15 +2,14 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb">
+        <ol id="breadcrumb" class="breadcrumb">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item"><a href="/yonetim/vize">Vize İşlemleri</a></li>
             <li class="breadcrumb-item active" aria-current="page">Dosya Aşamaları</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">
-            Dosya Aşamaları
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Dosya Aşamaları
             <a class="float-end text-white" href="/yonetim/vize/dosya-asama/create">Ekle</a>
         </div>
         <div class="card-body scroll">
@@ -56,7 +55,8 @@
                                     <form action="/yonetim/vize/dosya-asama/{{ $kayit->id }}" method="post">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="Sil">
+                                        <button type="submit" data-bs-toggle="tooltip" data-bs-placement="top"
+                                            title="Sil">
                                             <i class="bi bi-x-lg"></i>
                                         </button>
                                     </form>

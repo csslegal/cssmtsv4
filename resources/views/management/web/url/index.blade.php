@@ -8,9 +8,9 @@
             <li class="breadcrumb-item active" aria-current="page">Url Analizleri</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">
-            Url
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Url
             <div class="dropdown float-end text-white">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,7 +32,6 @@
                         <th>G. Tarih</th>
                         <th>Özet</th>
                         <th>Detay</th>
-                        <!-- <th>Linkler</th><th>Linkler</th>-->
                         <th>Sil</th>
                     </tr>
                 </thead>
@@ -57,12 +56,12 @@
                                     <i class="bi bi-image"></i>
                                 </button>
                             </td>
-                            <!--<td><a href="/yonetim/web/url/{{ $kayit->id }}">Git</a></td><td><a href="/yonetim/web/url/{{ $kayit->id }}/home">Getir</a></td>-->
                             <td>
                                 <form action="/yonetim/web/url/{{ $kayit->id }}" method="post">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Sil">
+                                    <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right"
+                                        title="Sil">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
                                 </form>

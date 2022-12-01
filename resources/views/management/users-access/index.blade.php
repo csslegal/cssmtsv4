@@ -2,19 +2,18 @@
 
 @section('content')
     <nav aria-label="breadcrumb">
-        <ol  id="breadcrumb" class="breadcrumb">
+        <ol id="breadcrumb" class="breadcrumb p-2">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
             <li class="breadcrumb-item active" aria-current="page">Kullanıcı Erişimleri</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">
-            Kullanıcı Erişimleri
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Kullanıcı Erişimleri
             <a class="float-end text-white" href="/yonetim/users-access/create">Ekle</a>
         </div>
         <div class="card-body scroll">
-            <table id="dataTable" class=" table  table-light table-striped table-bordered display "
-                style="width:100%">
+            <table id="dataTable" class="table table-light table-striped table-bordered display" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -35,9 +34,9 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <!--<button onclick="goster({{ $kayit->id }})" class="text-success"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
-                                        <i class="bi bi-image"></i>
-                                    </button>-->
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal" title="Göster">
+                                            <i class="bi bi-image"></i>
+                                        </button>-->
                                     <a href="/yonetim/users-access/{{ $kayit->id }}/edit">
                                         <button data-bs-toggle="tooltip" data-bs-placement="top" title="Düzenle">
                                             <i class="bi bi-pencil-square "></i>

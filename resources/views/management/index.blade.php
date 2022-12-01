@@ -6,6 +6,7 @@
             <li class="breadcrumb-item active" aria-current="page">Yönetim İşlemleri</li>
         </ol>
     </nav>
+    
     <div class="row">
         @if (in_array(1, $userAccesses))
             <div class="col-lg-3 col-md-6 col-sm-6">

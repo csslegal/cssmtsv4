@@ -8,8 +8,9 @@
             <li class="breadcrumb-item active" aria-current="page">Paneller</li>
         </ol>
     </nav>
-    <div class="card card-dark mb-3">
-        <div class="card-header bg-dark text-white">Paneller
+
+    <div class="card mb-3">
+        <div class="card-header bg-danger text-white">Paneller
             <a class="float-end text-white" href="/yonetim/web/panels/create">Ekle</a>
         </div>
         <div class="card-body scroll">
@@ -30,7 +31,6 @@
                             <td>{{ $result->id }}</td>
                             <td>{{ $result->g_name }}</td>
                             <td>{{ $result->p_name }}</td>
-
                             <td>{{ $result->created_at }}</td>
                             <td>{{ $result->updated_at }}</td>
                             <td>
