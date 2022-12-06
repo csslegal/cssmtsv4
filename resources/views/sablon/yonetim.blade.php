@@ -14,7 +14,7 @@
             filter: alpha(opacity=9);
             -moz-opacity: .9;
             opacity: .9;
-            position: absolute;
+            position: fixed;
             background: #fff;
             z-index: 9999;
             width: 100%;
