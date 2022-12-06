@@ -55,25 +55,41 @@
                 window.location.reload(1);
             }, {{ config('app.yenilenmeSuresi') * 1000 }});
 
-            @if (session('theme') == 'dark')
-
-                $([".light [class*='-light']", ".dark [class*='-dark']"]).each((i, ele) => {
-                    $(ele).removeClass('bg-light').addClass('bg-dark');
-                    $(ele).removeClass('text-dark').addClass('text-light');
-                    // $(ele).removeClass('navbar-dark').addClass('navbar-light');
-                });
-                $('body').removeClass('bg-light').addClass('bg-dark');
-                $('table').removeClass('table-light').addClass('table-dark');
-
-                $('.card-body').addClass('bg-dark text-light');
-                $('.modal-content').addClass('bg-dark text-light');
-
-                $('#breadcrumb').addClass('bg-dark');
-                $('#nav-top').removeClass('navbar-light').addClass('navbar-dark');
-                $('#nav-top').removeClass('bg-light').addClass('bg-dark');
-                $('#managament-nav').addClass('border border-light');
-                $('#slogan').addClass('bg-dark');
-                $('#preloader').addClass('bg-body');
+            @if (session('theme') != 'system')
+                @if (session('theme') == 'dark')
+                    $([".light [class*='-light']", ".dark [class*='-dark']"]).each((i, ele) => {
+                        $(ele).removeClass('bg-light').addClass('bg-dark');
+                        $(ele).removeClass('text-dark').addClass('text-light');
+                    });
+                    $('body').removeClass('bg-light').addClass('bg-dark');
+                    $('table').removeClass('table-light').addClass('table-dark');
+                    $('.card-body').addClass('bg-dark text-light');
+                    $('.modal-content').addClass('bg-dark text-light');
+                    $('#breadcrumb').addClass('bg-dark');
+                    $('#nav-top').removeClass('navbar-light').addClass('navbar-dark');
+                    $('#nav-top').removeClass('bg-light').addClass('bg-dark');
+                    $('#managament-nav').addClass('border border-light');
+                    $('#slogan').addClass('bg-dark');
+                    $('#preloader').addClass('bg-body');
+                @endif
+            @else
+                const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+                if (darkThemeMq.matches) {
+                    $([".light [class*='-light']", ".dark [class*='-dark']"]).each((i, ele) => {
+                        $(ele).removeClass('bg-light').addClass('bg-dark');
+                        $(ele).removeClass('text-dark').addClass('text-light');
+                    });
+                    $('body').removeClass('bg-light').addClass('bg-dark');
+                    $('table').removeClass('table-light').addClass('table-dark');
+                    $('.card-body').addClass('bg-dark text-light');
+                    $('.modal-content').addClass('bg-dark text-light');
+                    $('#breadcrumb').addClass('bg-dark');
+                    $('#nav-top').removeClass('navbar-light').addClass('navbar-dark');
+                    $('#nav-top').removeClass('bg-light').addClass('bg-dark');
+                    $('#managament-nav').addClass('border border-light');
+                    $('#slogan').addClass('bg-dark');
+                    $('#preloader').addClass('bg-body');
+                }
             @endif
         });
 

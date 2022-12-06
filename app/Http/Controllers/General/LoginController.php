@@ -45,7 +45,7 @@ class LoginController extends Controller
                         $request->session()->put('userId', $users->id);
                         $request->session()->put('userTypeId', $users->user_type_id);
                         $request->session()->put('userName', $users->name);
-                        $request->session()->put('theme', 'light');
+                        $request->session()->put('theme', 'system');
                         if ($users->user_type_id == 1) {
                             return redirect('/yonetim');
                         } else {
@@ -107,9 +107,11 @@ class LoginController extends Controller
     {
         if ($request->session()->has('theme')) {
 
-            if ($request->session()->get('theme') == 'dark') {
-
+            if ($request->input('theme') == 'light') {
                 $request->session()->put('theme', 'light');
+                return 1;
+            } else if ($request->input('theme') == 'system') {
+                $request->session()->put('theme', 'system');
                 return 1;
             } else {
                 $request->session()->put('theme', 'dark');

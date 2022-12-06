@@ -29,12 +29,22 @@
                         </ul>
                         <hr>
                         <span class="fw-bold">Sistem Teması</span>
-                        <select class="form-control" onchange="themeChange()">
-                            <option @if (session('theme') == 'light') selected @endif>Light @if (session('theme') == 'light')
+                        <select class="form-control" onchange="themeChange(this.value)">
+                            <option @if (session('theme') == 'system') selected @endif value="system">
+                                System
+                                @if (session('theme') == 'system')
                                     teması aktif
                                 @endif
                             </option>
-                            <option @if (session('theme') == 'dark') selected @endif>Dark @if (session('theme') == 'dark')
+                            <option @if (session('theme') == 'light') selected @endif value="light">
+                                Light
+                                @if (session('theme') == 'light')
+                                    teması aktif
+                                @endif
+                            </option>
+                            <option @if (session('theme') == 'dark') selected @endif value="dark">
+                                Dark
+                                @if (session('theme') == 'dark')
                                     teması aktif
                                 @endif
                             </option>
@@ -107,11 +117,12 @@
 
 @section('js')
     <script>
-        function themeChange() {
+        function themeChange(theme) {
             $.ajax({
                 url: "/theme",
                 type: 'post',
                 data: {
+                    "theme": theme,
                     "_token": "{{ csrf_token() }}"
                 },
                 success: function(sonuc) {
