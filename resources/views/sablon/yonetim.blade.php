@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, noimageindex, nofollow, nosnippet">
     <title>@yield('title') Yönetim</title>
-    <!-- Styles -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('storage/logo.png') }}" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
@@ -15,43 +14,33 @@
             -moz-opacity: .9;
             opacity: .9;
             position: fixed;
-            background: #fff;
             z-index: 9999;
             width: 100%;
             height: 100%;
         }
 
-        #yukleniyor {
-            width: 20em;
-            margin: 0 auto !important;
+        .yukleniyor {
+            width: 25em;
         }
     </style>
     @yield('css')
 </head>
 
-<body class="light bg-light" onload="is_loaded();">
-
+<body class="light @if (session('theme') == 'light')bg-light @elseif (session('theme') == 'dark')bg-dark @endif" onload="is_loaded();">
     @include('include.preload')
-
     <div class="container">
         <div class="row">
             <div class="col">
-
-
                 @include('include.nav-top')
                 @include('include.toast')
-
                 @yield('content')
-
             </div>
         </div>
     </div>
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('.toast').toast('show');
-
             setTimeout(function() {
                 window.location.reload(1);
             }, {{ config('app.yenilenmeSuresi') * 1000 }});

@@ -23,20 +23,12 @@
                     <hr>
                     <span class="fw-bold">Sistem Teması</span>
                     <select class="form-control" onchange="themeChange(this.value)">
-                        <option @if (session('theme') == 'system') selected @endif value="system">
-                            System
-                            @if (session('theme') == 'system')
-                                teması aktif
-                            @endif
-                        </option>
-                        <option @if (session('theme') == 'light') selected @endif value="light">
-                            Light
+                        <option @if (session('theme') == 'light') selected @endif value="light">Light
                             @if (session('theme') == 'light')
                                 teması aktif
                             @endif
                         </option>
-                        <option @if (session('theme') == 'dark') selected @endif value="dark">
-                            Dark
+                        <option @if (session('theme') == 'dark') selected @endif value="dark">Dark
                             @if (session('theme') == 'dark')
                                 teması aktif
                             @endif

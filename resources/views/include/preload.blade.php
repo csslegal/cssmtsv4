@@ -1,6 +1,19 @@
-<div id="preloader" class="light">
-    <div id="yukleniyor" class=" mt-5 my-5 mx-5 flex-center">
-        <img class="mt-5 w-100 my-auto mx-auto" src="/storage/logo.png" alt="logo">
+<div id="preloader"
+    class="@if (session('theme') == 'light') bg-light @elseif (session('theme') == 'dark') bg-dark @endif">
+    <div class="d-flex h-100">
+        <div class="row align-self-center w-100">
+            <div class="yukleniyor mx-auto">
+                <img class="align-self-center w-100 mx-auto" src="/storage/logo.png" alt="logo">
+                <div
+                    style="position: relative;
+                    top: -49px;
+                    left: 170px;
+                    background: #eee;
+                    height: 21px;
+                    width: 150px;
+                    z-index: -10;">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
