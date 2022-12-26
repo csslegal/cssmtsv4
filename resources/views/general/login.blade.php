@@ -19,10 +19,10 @@
         <div class="row justify-content-center">
             <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10">
                 <div class="text-center p-3">
-                    <img class="rounded-1 border border-0 rounded-lg shadow-sm w-75 p-3"
+                    <img class="w-75 p-3"
                         src="{{ asset('storage/logo.png') }}" alt="logo">
                 </div>
-                <div class="card border border-1 shadow-lg rounded-lg mt-3">
+                <div class="card mt-3">
                     <div class="card-header justify-content-center bg-danger text-white">
                         <h3 class="fw-light my-2">Kullanıcı Girişi</h3>
                     </div>
