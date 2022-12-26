@@ -36,32 +36,47 @@
 
         <div class="card-body scroll">
             <div class="row">
-                <div class="col-md-6">
-                    <ul>
-                        <li><span class="fw-bold">Müşteri Adı: </span> {{ $baseCustomerDetails->name }}</li>
-                        <li><span class="fw-bold">Telefon: </span> {{ $baseCustomerDetails->phone }}</li>
-                        <li><span class="fw-bold">E-posta: </span> {{ $baseCustomerDetails->email }}</li>
-                        <li><span class="fw-bold">E-posta Onayı: </span>
-                            {{ $baseCustomerDetails->information_confirm == 1 ? 'Gönderme Onaylı' : 'Gönderme Onaysız' }}
-                        </li>
-
-                    </ul>
+                <div class="col-sm-6 border-bottom">
+                    <p class="fw-bold">Adı</p>
+                    <h6 class="text-muted">{{ $baseCustomerDetails->name }}</h6>
                 </div>
-                <div class="col-md-6">
-                    <ul>
-                        <li><span class="fw-bold">Müşteri Adresi: </span>
-                            {{ $baseCustomerDetails->address != null ? $baseCustomerDetails->address : 'Kayıt bilgisi yok' }}
-                        </li>
-                        <li><span class="fw-bold">T.C. Kimlik No: </span>
-                            {{ $baseCustomerDetails->tc_number != null ? $baseCustomerDetails->tc_number : 'Kayıt bilgisi yok' }}
-                        </li>
-                        <li><span class="fw-bold">Pasaport Numarası: </span>
-                            {{ $baseCustomerDetails->passport != null ? $baseCustomerDetails->passport : 'Kayıt bilgisi yok' }}
-                        </li>
-                        <li><span class="fw-bold">Pasaport Tarihi: </span>
-                            {{ $baseCustomerDetails->passport_date != null ? $baseCustomerDetails->passport_date : 'Kayıt bilgisi yok' }}
-                        </li>
-                    </ul>
+                <div class="col-sm-6 pt-2 pb-1 border-bottom">
+                    <p class="fw-bold">Telefonu</p>
+                    <h6 class="text-muted">{{ $baseCustomerDetails->phone }}</h6>
+                </div>
+                <div class="col-sm-6 pt-2 border-bottom">
+                    <p class="fw-bold">E-postası</p>
+                    <h6 class="text-muted">{{ $baseCustomerDetails->email }}</h6>
+                </div>
+                <div class="col-sm-6 pt-2 border-bottom">
+                    <p class="fw-bold">Adresi</p>
+                    <h6 class="text-muted">
+                        {{ $baseCustomerDetails->address != null ? $baseCustomerDetails->address : 'Kayıt bilgisi yok' }}
+                    </h6>
+                </div>
+                <div class="col-sm-6 pt-2 border-bottom">
+                    <p class="fw-bold">T.C. Kimlik No</p>
+                    <h6 class="text-muted">
+                        {{ $baseCustomerDetails->tc_number != null ? $baseCustomerDetails->tc_number : 'Kayıt bilgisi yok' }}
+                    </h6>
+                </div>
+                <div class="col-sm-6 pt-2 border-bottom">
+                    <p class="fw-bold">Pasaport Numarası</p>
+                    <h6 class="text-muted">
+                        {{ $baseCustomerDetails->passport != null ? $baseCustomerDetails->passport : 'Kayıt bilgisi yok' }}
+                    </h6>
+                </div>
+                <div class="col-sm-6 pt-2">
+                    <p class="fw-bold">Pasaport Tarihi</p>
+                    <h6 class="text-muted">
+                        {{ $baseCustomerDetails->passport_date != null ? $baseCustomerDetails->passport_date : 'Kayıt bilgisi yok' }}
+                    </h6>
+                </div>
+                <div class="col-sm-6 pt-2">
+                    <p class="fw-bold">E-posta Onayı</p>
+                    <h6 class="text-muted">
+                        {{ $baseCustomerDetails->information_confirm == 1 ? 'Onaylı' : 'Onaysız' }}
+                    </h6>
                 </div>
             </div>
         </div>
