@@ -36,47 +36,47 @@
 
         <div class="card-body scroll">
             <div class="row">
-                <div class="col-sm-6 border-bottom">
+                <div class="col-sm-6 border-bottom border-end">
                     <p class="fw-bold">Adı</p>
-                    <h6 class="text-muted">{{ $baseCustomerDetails->name }}</h6>
+                    <p class="text-muted">{{ $baseCustomerDetails->name }}</p>
                 </div>
-                <div class="col-sm-6 pt-2 pb-1 border-bottom">
+                <div class="col-sm-6 mt-4 mt-sm-0 border-bottom">
                     <p class="fw-bold">Telefonu</p>
-                    <h6 class="text-muted">{{ $baseCustomerDetails->phone }}</h6>
+                    <p class="text-muted">{{ $baseCustomerDetails->phone }}</p>
                 </div>
-                <div class="col-sm-6 pt-2 border-bottom">
+                <div class="col-sm-6 pt-2 border-bottom border-end">
                     <p class="fw-bold">E-postası</p>
-                    <h6 class="text-muted">{{ $baseCustomerDetails->email }}</h6>
+                    <p class="text-muted">{{ $baseCustomerDetails->email }}</p>
                 </div>
                 <div class="col-sm-6 pt-2 border-bottom">
                     <p class="fw-bold">Adresi</p>
-                    <h6 class="text-muted">
+                    <p class="text-muted">
                         {{ $baseCustomerDetails->address != null ? $baseCustomerDetails->address : 'Kayıt bilgisi yok' }}
-                    </h6>
+                    </p>
                 </div>
-                <div class="col-sm-6 pt-2 border-bottom">
+                <div class="col-sm-6 pt-2 border-bottom border-end">
                     <p class="fw-bold">T.C. Kimlik No</p>
-                    <h6 class="text-muted">
+                    <p class="text-muted">
                         {{ $baseCustomerDetails->tc_number != null ? $baseCustomerDetails->tc_number : 'Kayıt bilgisi yok' }}
-                    </h6>
+                    </p>
                 </div>
                 <div class="col-sm-6 pt-2 border-bottom">
                     <p class="fw-bold">Pasaport Numarası</p>
-                    <h6 class="text-muted">
+                    <p class="text-muted">
                         {{ $baseCustomerDetails->passport != null ? $baseCustomerDetails->passport : 'Kayıt bilgisi yok' }}
-                    </h6>
+                    </p>
                 </div>
-                <div class="col-sm-6 pt-2">
+                <div class="col-sm-6 pt-2 border-end">
                     <p class="fw-bold">Pasaport Tarihi</p>
-                    <h6 class="text-muted">
+                    <p class="text-muted">
                         {{ $baseCustomerDetails->passport_date != null ? $baseCustomerDetails->passport_date : 'Kayıt bilgisi yok' }}
-                    </h6>
+                    </p>
                 </div>
                 <div class="col-sm-6 pt-2">
                     <p class="fw-bold">E-posta Onayı</p>
-                    <h6 class="text-muted">
+                    <p class="text-muted">
                         {{ $baseCustomerDetails->information_confirm == 1 ? 'Onaylı' : 'Onaysız' }}
-                    </h6>
+                    </p>
                 </div>
             </div>
         </div>
