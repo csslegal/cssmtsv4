@@ -19,12 +19,12 @@
                     <tr>
                         <th>ID</th>
                         <th>Kullanıcı Adı</th>
-                        <th>Yetkili Paneller</th>
+                        <th>Yetkiler</th>
                         <th>Başlangıç Tarihi</th>
                         <th>Bitiş Tarihi</th>
                         <th>Yetki Seviyesi</th>
-                        <th>Eklenme Tarihi</th>
-                        <th>Güncelleme Tarihi</th>
+                        <th>E. Tarih</th>
+                        <th>G. Tarih</th>
                         <th>İşlem</th>
                     </tr>
                 </thead>
@@ -42,12 +42,12 @@
                             <td>{{ $result->start_time }}</td>
                             <td>{{ $result->and_time }}</td>
                             @if ($result->access)
-                                <td>Full Erişim</td>
+                                <td>Full</td>
                             @else
-                                <td>Temel Erişim </td>
+                                <td>Temel</td>
                             @endif
-                            <td>{{ $result->created_at }}</td>
-                            <td>{{ $result->updated_at }}</td>
+                            <td>{{ date('Y-m-d', strtotime($result->created_at)) }}</td>
+                            <td>{{ date('Y-m-d', strtotime($result->updated_at)) }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="/yonetim/web/panel-auth/{{ $result->id }}/edit">

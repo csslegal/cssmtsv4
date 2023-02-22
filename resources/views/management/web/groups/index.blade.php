@@ -29,8 +29,8 @@
                         <tr>
                             <td>{{ $result->id }}</td>
                             <td>{{ $result->name }}</td>
-                            <td>{{ $result->created_at }}</td>
-                            <td>{{ $result->updated_at }}</td>
+                            <td>{{ date('Y-m-d', strtotime($result->created_at)) }}</td>
+                            <td>{{ date('Y-m-d', strtotime($result->updated_at)) }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="/yonetim/web/groups/{{ $result->id }}/edit">
