@@ -76,6 +76,10 @@
             selector: '#editor200',
             height: 200,
             menubar: false,
+            entity_encoding: 'raw',
+            relative_urls: false,
+            remove_script_host: false,
+            convert_urls: true,
             plugins: [
                 'advlist autolink lists link image charmap print preview anchor visualblocks fullscreen insertdatetime media table paste wordcount'
             ],
