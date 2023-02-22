@@ -1,7 +1,6 @@
 @extends('sablon.yonetim')
 
 @section('content')
-
     <nav aria-label="breadcrumb">
         <ol id="breadcrumb" class="breadcrumb p-2">
             <li class="breadcrumb-item"><a href="/yonetim">Yönetim İşlemleri</a></li>
@@ -11,10 +10,9 @@
 
     @include('include.management.web.nav')
 
-
     <div class="card mb-3">
         <div class="card-header bg-danger text-white">Web İşlemleri</div>
-        <div class="card-body>
+        <div class="card-body">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
                     <div class="card mb-3">
@@ -46,15 +44,22 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title">Panellere Geçiş</h5>
+                            <h5 class="card-title">Site Panelleri</h5>
                             <p class="card-text">Sitelere geçiş detayları.</p>
-                            <a href="/yonetim/web/paneller" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>
+                            <a href="/yonetim/web/site-panels" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                 <div class="col-lg-3 col-md-6 col-sm-6 ">
+                <div class="col-lg-3 col-md-6 col-sm-6 ">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">API Paneller</h5>
+                            <p class="card-text">API ile içerik detayları.</p>
+                            <a href="/yonetim/web/api-panels" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 ">
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">URL Analizleri</h5>

@@ -19,6 +19,11 @@ use App\Http\Controllers\Management\WebController as ManagementWebController;
 use App\Http\Controllers\Management\WebGroupsController as ManagementWebGroupsController;
 use App\Http\Controllers\Management\WebPanelsController as ManagementWebPanelsController;
 use App\Http\Controllers\Management\WebPanelAuthController as ManagementWebPanelAuthController;
+use App\Http\Controllers\Management\WebArticlesController as ManagementWebArticlesController;
+use App\Http\Controllers\Management\WebOthersController as ManagementWebOthersController;
+use App\Http\Controllers\Management\WebQuestionsController as ManagementWebQuestionsController;
+use App\Http\Controllers\Management\WebContactFormController as ManagementWebContactFormController;
+use App\Http\Controllers\Management\WebGalleryController as ManagementWebGalleryController;
 use App\Http\Controllers\Management\VisaController as ManagementVisaController;
 use App\Http\Controllers\Management\VisaTypesController as ManagementVisaTypesController;
 use App\Http\Controllers\Management\VisaFileGradesController as ManagementVisaFileGradesController;
@@ -224,7 +229,8 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('editor', [ManagementWebController::class, 'get_editor']);
             Route::get('writer', [ManagementWebController::class, 'get_writer']);
             Route::get('graphic', [ManagementWebController::class, 'get_graphic']);
-            Route::get('paneller', [ManagementWebController::class, 'get_paneller']);
+            Route::get('site-panels', [ManagementWebController::class, 'get_site_panels']);
+
 
             /**Url tespit İşlemleri */
             Route::post('/url/ajax-ozet', [UrlController::class, 'get_ajax_ozet']);
@@ -238,6 +244,18 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::resource('panels', ManagementWebPanelsController::class);
             Route::resource('panel-auth', ManagementWebPanelAuthController::class);
             Route::resource('url', UrlController::class);
+
+            Route::group(['prefix' => 'api-panels'], function () {
+                /**ERİŞİM OLAN API PANELLERİ */
+                Route::get('/', [ManagementWebController::class, 'get_api_panels']);
+
+                Route::group(['prefix' => '{id}'], function () {
+                    /**BELİRLİ OLAN SİTE PANELİ */
+                    Route::get('/', [ManagementWebController::class, 'get_api_panels_index']);
+
+                    Route::resource('gallery', ManagementWebGalleryController::class);
+                });
+            });
         });
     });
 });
