@@ -17,6 +17,7 @@ class CreateWebPanelsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('group_id');
             $table->string('name');
+            $table->string('token');
             $table->string('url');
             $table->integer('orderby')->default(0);
 

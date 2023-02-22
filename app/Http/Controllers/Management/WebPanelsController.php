@@ -16,9 +16,9 @@ class WebPanelsController extends Controller
                 'web_panels.id AS id',
                 'web_panels.url AS url',
                 'web_panels.name AS p_name',
+                'web_panels.token AS p_token',
                 'web_panels.created_at AS created_at',
                 'web_panels.updated_at AS updated_at',
-                'web_panels.name AS p_name',
                 'web_groups.name AS g_name',
             ])
             ->join('web_groups', 'web_groups.id', '=', 'web_panels.group_id')->get();
@@ -45,6 +45,7 @@ class WebPanelsController extends Controller
             'url' => $request->input('url'),
             'group_id' => $request->input('grup'),
             'name' => $request->input('site'),
+            'token' => substr(bin2hex(random_bytes(10)), 0, 10),
             "created_at" =>  date('Y-m-d H:i:s'),
             "updated_at" => date('Y-m-d H:i:s'),
         ])) {
@@ -81,6 +82,7 @@ class WebPanelsController extends Controller
                     'url' => $request->input('url'),
                     'group_id' => $request->input('grup'),
                     'name' => $request->input('site'),
+                    'token' => substr(bin2hex(random_bytes(10)), 0, 10),
                     "updated_at" => date('Y-m-d H:i:s')
                 ])
             ) {
