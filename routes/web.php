@@ -253,6 +253,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                     /**BELİRLİ OLAN SİTE PANELİ */
                     Route::get('/', [ManagementWebController::class, 'get_api_panels_index']);
 
+                    Route::resource('articles', ManagementWebArticlesController::class);
                     Route::resource('gallery', ManagementWebGalleryController::class);
                 });
             });
