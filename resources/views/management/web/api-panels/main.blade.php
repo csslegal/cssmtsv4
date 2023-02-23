@@ -26,18 +26,6 @@
                 <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="card-title fw-bold">Anasayfa</h6>
-                            <p>Site anasayfa detayı</p>
-                            <a href="{{ $webPanel->id }}/home"
-                                class="w-50 mt-2 btn btn-secondary text-white float-end">
-                                Git
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
-                    <div class="card">
-                        <div class="card-body">
                             <h6 class="card-title fw-bold">Ana Yazılar</h6>
                             <p>Ana içerik detayları.</p>
                             <a href="{{ $webPanel->id }}/articles"

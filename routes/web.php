@@ -254,6 +254,7 @@ Route::middleware(['sessionCheck'])->group(function () {
                     Route::get('/', [ManagementWebController::class, 'get_api_panels_index']);
 
                     Route::resource('others', ManagementWebOthersController::class);
+                    Route::resource('questions', ManagementWebQuestionsController::class);
                     Route::resource('articles', ManagementWebArticlesController::class);
                     Route::resource('gallery', ManagementWebGalleryController::class);
                 });
