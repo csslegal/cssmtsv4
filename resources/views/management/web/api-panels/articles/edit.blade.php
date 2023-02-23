@@ -47,9 +47,9 @@
                                 class="form-control">
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Resim Görünüm</label><br />
+                            <label class="form-label">Resim</label><br />
                             <img src="@isset($article){!! $article->image !!}@endisset"
-                                class="img-responsive" height="50px" alt="Resim Görünüm">
+                                class="img-responsive" height="50px" alt="Resim">
                         </div>
                     </div>
                     @error('image')

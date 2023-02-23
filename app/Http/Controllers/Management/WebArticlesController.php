@@ -9,11 +9,7 @@ use Illuminate\Support\Str;
 
 class WebArticlesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index($panel_id)
     {
         $webPanel = DB::table('web_panels')->where('id', '=', $panel_id)->first();
@@ -24,11 +20,6 @@ class WebArticlesController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create($panel_id)
     {
         $webPanel = DB::table('web_panels')->where('id', '=', $panel_id)->first();
@@ -37,22 +28,15 @@ class WebArticlesController extends Controller
         ]);;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store($panel_id, Request $request)
     {
         $request->validate([
             'title' => 'required|max:200min:3',
             'description' => 'required',
             'content' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif,webp',
+            'image' => 'required',
         ]);
 
-        //dd($request->input('content'));
         if (DB::table('web_articles')->insert([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
@@ -71,29 +55,15 @@ class WebArticlesController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $panel_id
-     * @return \Illuminate\Http\Response
-     */
     public function show($panel_id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($panel_id, $article_id)
     {
-        $webPanel = DB::table('web_panels')
-            ->where('id', '=', $panel_id)->first();
-        $article = DB::table('web_articles')
-            ->where('id', '=', $article_id)->first();
+        $webPanel = DB::table('web_panels')->where('id', '=', $panel_id)->first();
+        $article = DB::table('web_articles')->where('id', '=', $article_id)->first();
 
         return view('management.web.api-panels.articles.edit')->with([
             'article' => $article,
@@ -101,23 +71,15 @@ class WebArticlesController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update($panel_id, $article_id, Request $request)
     {
         $request->validate([
             'title' => 'required|max:200min:3',
             'description' => 'required',
             'content' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif,webp',
+            'image' => 'required',
         ]);
 
-        //dd($request->input('content'));
         if (DB::table('web_articles')->where('id', '=', $article_id)->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
@@ -133,12 +95,6 @@ class WebArticlesController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($panel_id, $article_id, Request $request)
     {
         if (is_numeric($article_id)) {
