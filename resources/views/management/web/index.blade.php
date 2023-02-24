@@ -62,6 +62,15 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 ">
                     <div class="card mb-3">
                         <div class="card-body">
+                            <h5 class="card-title">API İletişim Formları</h5>
+                            <p class="card-text">API ile gönderilen bütün form detayları.</p>
+                            <a href="/yonetim/web/api-contact-forms" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 ">
+                    <div class="card mb-3">
+                        <div class="card-body">
                             <h5 class="card-title">URL Analizleri</h5>
                             <p class="card-text">URL analiz detayları. </p>
                             <a href="/yonetim/web/url" class="w-100 mt-2 btn btn-secondary">İşlem yap</a>

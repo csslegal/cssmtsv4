@@ -104,6 +104,16 @@ class AjaxController extends Controller
             echo 'Hatalı istek yapıldı';
         }
     }
+    public function post_contact_form(Request $request)
+    {
+        if (is_numeric($request->input('id'))) {
+
+            $result = DB::table('web_contact_form')->where('id', '=', $request->input('id'))->first();
+            return  $result->content;
+        } else {
+            echo 'Hatalı istek yapıldı';
+        }
+    }
 
     public function get_customers_list(Request $request)
     {

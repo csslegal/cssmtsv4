@@ -88,11 +88,29 @@ class WebController extends Controller
                 'userAccesses' => $userAccesses,
             ]);
     }
+    public function get_api_contact_forms()
+    {
+        $contactForms = DB::table('web_contact_form')
+            ->select([
+                'web_panels.name AS p_name',
+                'web_contact_form.id',
+                'web_contact_form.name',
+                'web_contact_form.email',
+                'web_contact_form.phone',
+                'web_contact_form.subject',
+                'web_contact_form.created_at',
+            ])
+            ->join('web_panels', 'web_panels.id', '=', 'web_contact_form.panel_id')->get();
+
+        return view('management.web.api-contact-form')->with([
+            'contactForms' => $contactForms,
+        ]);
+    }
 
     public function get_api_panels_index($id)
     {
         $webPanel = DB::table('web_panels')->where('id', '=', $id)->first();
-        
+
         return view('management.web.api-panels.main')->with([
             'webPanel' => $webPanel
         ]);

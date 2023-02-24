@@ -181,6 +181,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::post('sirala', [ManagementAjaxController::class, 'post_sorting']);
             Route::post('dosya-asama-erisim', [ManagementAjaxController::class, 'post_visa_file_grades_users_type']);
             Route::post('panel-list', [ManagementAjaxController::class, 'post_panel_list']);
+            Route::post('contact-form', [ManagementAjaxController::class, 'post_contact_form']);
 
             Route::get('customers', [ManagementAjaxController::class, 'get_customers_list']);
             Route::get('visa-logs', [ManagementAjaxController::class, 'get_visa_logs_list']);
@@ -230,6 +231,7 @@ Route::middleware(['sessionCheck'])->group(function () {
             Route::get('writer', [ManagementWebController::class, 'get_writer']);
             Route::get('graphic', [ManagementWebController::class, 'get_graphic']);
             Route::get('site-panels', [ManagementWebController::class, 'get_site_panels']);
+            Route::get('api-contact-forms', [ManagementWebController::class, 'get_api_contact_forms']);
 
 
             /**Url tespit İşlemleri */
@@ -255,6 +257,7 @@ Route::middleware(['sessionCheck'])->group(function () {
 
                     Route::resource('others', ManagementWebOthersController::class);
                     Route::resource('questions', ManagementWebQuestionsController::class);
+                    Route::resource('contact-form', ManagementWebContactFormController::class);
                     Route::resource('articles', ManagementWebArticlesController::class);
                     Route::resource('gallery', ManagementWebGalleryController::class);
                 });
