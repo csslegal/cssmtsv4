@@ -13,7 +13,7 @@ class WebOthersController extends Controller
     public function index($panel_id)
     {
         $webPanel = DB::table('web_panels')->where('id', '=', $panel_id)->first();
-        $others  = DB::table('web_others')->get();
+        $others  = DB::table('web_others')->where('panel_id', '=', $panel_id)->get();
         return view('management.web.api-panels.others.index')->with([
             'others' => $others,
             'webPanel' => $webPanel

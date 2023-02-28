@@ -29,11 +29,11 @@ class WebGalleryController extends Controller
             $path = 'uploads/' . $panel_id;
 
             if (!file_exists($path)) {
-                mkdir($path, 666, true);
+                mkdir($path, 0755, true);
             }
 
             $image = Image::make($request->file('image'));
-            $imageName = Str::slug($request->input('alt')). '_' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $imageName = Str::slug($request->input('alt')) . '_' . time() . '.' . $request->file('image')->getClientOriginalExtension();
 
             $image->save(public_path('uploads/' . $panel_id . '/') . $imageName);
 
@@ -59,6 +59,11 @@ class WebGalleryController extends Controller
             if (File::exists($image_path)) {
                 //File::delete($image_path);
                 unlink($image_path);
+                DB::table('web_gallery')->where('id', '=', $id)->delete();
+
+                $request->session()->flash('mesajSuccess', 'Başarıyla silindi');
+                return redirect('yonetim/web/api-panels/' . $panel_id . '/gallery');
+            } else {
                 DB::table('web_gallery')->where('id', '=', $id)->delete();
 
                 $request->session()->flash('mesajSuccess', 'Başarıyla silindi');

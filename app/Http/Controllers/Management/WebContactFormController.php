@@ -11,7 +11,7 @@ class WebContactFormController extends Controller
     public function index($panel_id)
     {
         $webPanel = DB::table('web_panels')->where('id', '=', $panel_id)->first();
-        $contactForm  = DB::table('web_contact_form')->get();
+        $contactForm  = DB::table('web_contact_form')->where('panel_id', '=', $panel_id)->get();
         return view('management.web.api-panels.contact-form.index')->with([
             'contactForm' => $contactForm,
             'webPanel' => $webPanel

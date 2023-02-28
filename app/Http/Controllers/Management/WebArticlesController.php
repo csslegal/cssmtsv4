@@ -13,7 +13,7 @@ class WebArticlesController extends Controller
     public function index($panel_id)
     {
         $webPanel = DB::table('web_panels')->where('id', '=', $panel_id)->first();
-        $articles  = DB::table('web_articles')->get();
+        $articles  = DB::table('web_articles')->where('panel_id', '=', $panel_id)->get();
         return view('management.web.api-panels.articles.index')->with([
             'articles' => $articles,
             'webPanel' => $webPanel

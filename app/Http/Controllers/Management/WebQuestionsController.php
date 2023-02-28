@@ -12,7 +12,7 @@ class WebQuestionsController extends Controller
     public function index($panel_id)
     {
         $webPanel = DB::table('web_panels')->where('id', '=', $panel_id)->first();
-        $questions  = DB::table('web_questions')->get();
+        $questions  = DB::table('web_questions')->where('panel_id', '=', $panel_id)->get();
         return view('management.web.api-panels.questions.index')->with([
             'questions' => $questions,
             'webPanel' => $webPanel

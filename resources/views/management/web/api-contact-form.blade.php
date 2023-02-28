@@ -36,18 +36,10 @@
                             <td>{{ $result->subject }}</td>
                             <td>{{ date('Y-m-d', strtotime($result->created_at)) }}</td>
                             <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button class="text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                        onclick="goster({{ $result->id }})">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
-                                    <form action="contact-form/{{ $result->id }}" method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right"
-                                            title="Sil"><i class="bi bi-x-lg"></i></button>
-                                    </form>
-                                </div>
+                                <button class="text-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    onclick="goster({{ $result->id }})">
+                                    <i class="bi bi-eye"></i>
+                                </button>
                             </td>
                         </tr>
                     @endforeach
