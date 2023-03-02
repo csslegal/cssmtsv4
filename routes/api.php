@@ -44,7 +44,7 @@ Route::group(['prefix' => 'v1'], function () {
             DB::table("web_panels")->where('token', '=', $request->token)->count() > 0
         ) {
             if (Articles::where('panel_id', $panel_id)->count() > 0)
-                return new ArticleCollection(Articles::select('id','title', 'url', 'created_at', 'image')->where('panel_id',  $panel_id)->orderBy('id', 'DESC')->get());
+                return new ArticleCollection(Articles::where('panel_id',  $panel_id)->orderBy('id', 'DESC')->get());
             else return response()->json(["data" => []]);
         } else return response()->json(["data" => []]);
     });
@@ -61,7 +61,7 @@ Route::group(['prefix' => 'v1'], function () {
             DB::table("web_panels")->where('token', '=', $request->token)->count() > 0
         ) {
             if (Questions::where('panel_id', $panel_id)->count() > 0)
-                return new QuestionCollection(Questions::select('id','title', 'url', 'created_at', 'image')->where('panel_id',  $panel_id)->orderBy('id', 'DESC')->get());
+                return new QuestionCollection(Questions::where('panel_id',  $panel_id)->orderBy('id', 'DESC')->get());
             else return response()->json(["data" => []]);
         } else return response()->json(["data" => []]);
     });
@@ -78,7 +78,7 @@ Route::group(['prefix' => 'v1'], function () {
             DB::table("web_panels")->where('token', '=', $request->token)->count() > 0
         ) {
             if (Others::where('panel_id', $panel_id)->count() > 0)
-                return new OtherCollection(Others::select('id','title', 'url', 'created_at', 'image')->where('panel_id',  $panel_id)->orderBy('id', 'DESC')->get());
+                return new OtherCollection(Others::where('panel_id',  $panel_id)->orderBy('id', 'DESC')->get());
             else return response()->json(["data" => []]);
         } else return response()->json(["data" => []]);
     });
