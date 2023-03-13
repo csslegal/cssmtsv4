@@ -21,6 +21,7 @@ class CreateWebQuestionsTable extends Migration
             $table->text('content');
             $table->string('image');
             $table->integer('hit')->default(0);
+            $table->integer('bot_index')->default(1);
             $table->integer('panel_id');
 
             $table->timestamps();
