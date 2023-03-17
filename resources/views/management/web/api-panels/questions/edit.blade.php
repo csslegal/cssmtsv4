@@ -78,6 +78,7 @@
     <script>
         tinymce.init({
             selector: 'textarea#myeditorinstance',
+            height : "640",
             entity_encoding: 'raw',
             relative_urls: false,
             remove_script_host: false,
