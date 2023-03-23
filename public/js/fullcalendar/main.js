@@ -1,5 +1,5 @@
 /*!
-FullCalendar v5.11.3
+FullCalendar v5.11.4
 Docs & License: https://fullcalendar.io/
 (c) 2022 Adam Shaw
 */
@@ -4211,7 +4211,7 @@ var FullCalendar = (function (exports) {
         moreLinkText: 'more',
         noEventsText: 'No events to display',
     };
-    var RAW_EN_LOCALE = __assign(__assign({}, MINIMAL_RAW_EN_LOCALE), {
+    var RAW_EN_LOCALE = __assign(__assign({}, MINIMAL_RAW_EN_LOCALE), { 
         // Includes things we don't want other locales to inherit,
         // things that derive from other translatable strings.
         buttonHints: {
@@ -6796,7 +6796,7 @@ var FullCalendar = (function (exports) {
         var endMarker = framingRange.end;
         var instanceStarts = [];
         while (dayMarker < endMarker) {
-            var instanceStart
+            var instanceStart 
             // if everyday, or this particular day-of-week
             = void 0;
             // if everyday, or this particular day-of-week
@@ -9812,7 +9812,7 @@ var FullCalendar = (function (exports) {
 
     // exports
     // --------------------------------------------------------------------------------------------------
-    var version = '5.11.3'; // important to type it, so .d.ts has generic string
+    var version = '5.11.4'; // important to type it, so .d.ts has generic string
 
     var Calendar = /** @class */ (function (_super) {
         __extends(Calendar, _super);
@@ -13834,7 +13834,7 @@ var FullCalendar = (function (exports) {
             if (!slatCoords) {
                 return null;
             }
-            return segs.map(function (seg, i) { return (createElement(NowIndicatorRoot, { isAxis: false, date: date,
+            return segs.map(function (seg, i) { return (createElement(NowIndicatorRoot, { isAxis: false, date: date, 
                 // key doesn't matter. will only ever be one
                 key: i }, function (rootElRef, classNames, innerElRef, innerContent) { return (createElement("div", { ref: rootElRef, className: ['fc-timegrid-now-indicator-line'].concat(classNames).join(' '), style: { top: slatCoords.computeDateTop(seg.start, date) } }, innerContent)); })); });
         };
@@ -14551,7 +14551,7 @@ var FullCalendar = (function (exports) {
         table: 'table-bordered',
         tableCellShaded: 'table-active',
         buttonGroup: 'btn-group',
-        button: 'btn btn-secondary',
+        button: 'btn btn-primary',
         buttonActive: 'active',
         popover: 'popover',
         popoverHeader: 'popover-header',
@@ -14591,7 +14591,7 @@ var FullCalendar = (function (exports) {
         root: 'fc-theme-bootstrap5',
         tableCellShaded: 'fc-theme-bootstrap5-shaded',
         buttonGroup: 'btn-group',
-        button: 'btn btn-secondary',
+        button: 'btn btn-primary',
         buttonActive: 'active',
         popover: 'popover',
         popoverHeader: 'popover-header',
