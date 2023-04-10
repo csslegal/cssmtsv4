@@ -61,7 +61,7 @@ Route::group(['prefix' => 'v1'], function () {
             DB::table("web_panels")->where('token', '=', $request->token)->count() > 0
         ) {
             if (Questions::where('panel_id', $panel_id)->count() > 0)
-                return new QuestionCollection(Questions::where('panel_id',  $panel_id)->orderBy('id', 'ASC')->get());
+                return new QuestionCollection(Questions::where('panel_id',  $panel_id)->orderBy('updated_at', 'DESC')->get());
             else return response()->json(["data" => []]);
         } else return response()->json(["data" => []]);
     });
