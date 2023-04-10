@@ -15,6 +15,7 @@ class CreateWebPanelsTable extends Migration
     {
         Schema::create('web_panels', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('panel_status')->default(1);
             $table->integer('group_id');
             $table->string('name');
             $table->string('token');

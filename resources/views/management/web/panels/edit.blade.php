@@ -30,6 +30,16 @@
                     @enderror
                 </div>
                 <div class="col-12">
+                    <label class="form-label">Panel Statusu</label>
+                    <select name="panel_status" id="" class="form-control">
+                        <option {{ 1 == $result->panel_status ? 'selected' : '' }} value="1">Site Paneli</option>
+                        <option {{ 0 == $result->panel_status ? 'selected' : '' }} value="0">Web API Paneli</option>
+                    </select>
+                    @error('panel_status')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-12">
                     <label class="form-label">Site Adı</label>
                     <input type="text" value="@isset($result){!! $result->name !!}@endisset"
                         name="site" class="form-control" />

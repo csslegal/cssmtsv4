@@ -28,6 +28,16 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="col-12">
+                        <label  class="form-label">Panel Statusu</label>
+                        <select name="panel_status" id="" class="form-control">
+                            <option value="1">Site Paneli</option>
+                            <option value="0">Web API paneli</option>
+                        </select>
+                        @error('panel_status')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="col-12 g-3">
                         <label  class="form-label">Site Adı</label>
                         <input type="text" value="{{ old('site') }}" placeholder="csslegal.com" name="site"

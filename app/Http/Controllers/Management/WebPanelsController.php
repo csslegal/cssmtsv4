@@ -19,6 +19,7 @@ class WebPanelsController extends Controller
                 'web_panels.token AS p_token',
                 'web_panels.created_at AS created_at',
                 'web_panels.updated_at AS updated_at',
+                'web_panels.panel_status AS panel_status',
                 'web_groups.name AS g_name',
             ])
             ->join('web_groups', 'web_groups.id', '=', 'web_panels.group_id')->get();
@@ -37,14 +38,16 @@ class WebPanelsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'panel_status' => 'required|numeric',
             'url' => 'required|url',
             'grup' => 'required|numeric',
-            'site' => 'required|max:100min:3',
+            'site' => 'required|max:100|min:3',
         ]);
         if ($kayitId = DB::table('web_panels')->insertGetId([
             'url' => $request->input('url'),
             'group_id' => $request->input('grup'),
             'name' => $request->input('site'),
+            'panel_status' => $request->input('panel_status'),
             'token' => substr(bin2hex(random_bytes(10)), 0, 10),
             "created_at" =>  date('Y-m-d H:i:s'),
             "updated_at" => date('Y-m-d H:i:s'),
@@ -72,14 +75,16 @@ class WebPanelsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'panel_status' => 'required|numeric',
             'url' => 'required|url',
             'grup' => 'required|numeric',
-            'site' => 'required|max:100min:3',
+            'site' => 'required|max:100|min:3',
         ]);
         if (is_numeric($id)) {
             if (
                 DB::table('web_panels')->where('id', '=', $id)->update([
                     'url' => $request->input('url'),
+                    'panel_status' => $request->input('panel_status'),
                     'group_id' => $request->input('grup'),
                     'name' => $request->input('site'),
                     'token' => substr(bin2hex(random_bytes(10)), 0, 10),

@@ -18,6 +18,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Panel Statusu</th>
                         <th>Grup Adı</th>
                         <th>Panel Adı</th>
                         <th>Token</th>
@@ -30,6 +31,13 @@
                     @foreach ($results as $result)
                         <tr>
                             <td>{{ $result->id }}</td>
+
+                            @if ($result->panel_status == 1)
+                                <td>Site Paneli</td>
+                            @else
+                                <td>Web API Paneli</td>
+                            @endif
+
                             <td>{{ $result->g_name }}</td>
                             <td>{{ $result->p_name }}</td>
                             <td>{{ $result->p_token }}</td>

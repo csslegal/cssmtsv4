@@ -34,6 +34,7 @@ class WebController extends Controller
             ->join('web_panel_user', 'web_panel_auth.id', '=', 'web_panel_user.panel_auth_id')
             ->join('web_panels', 'web_panels.id', '=', 'web_panel_user.panel_id')
             ->where('web_panel_auth.user_id', '=', $request->session()->get('userId'))
+            ->where('web_panels.panel_status', '=', 1)
             ->get();
         $webResults = DB::table('web_panel_auth')->where('user_id', '=', $request->session()->get('userId'))->get();
         if ($webResults->count() > 0) {
@@ -69,7 +70,9 @@ class WebController extends Controller
             ->join('web_panel_user', 'web_panel_auth.id', '=', 'web_panel_user.panel_auth_id')
             ->join('web_panels', 'web_panels.id', '=', 'web_panel_user.panel_id')
             ->where('web_panel_auth.user_id', '=', $request->session()->get('userId'))
+            ->where('web_panels.panel_status', '=', 0)
             ->get();
+
         $webResults = DB::table('web_panel_auth')
             ->where('user_id', '=', $request->session()->get('userId'))->get();
         if ($webResults->count() > 0) {
@@ -109,7 +112,9 @@ class WebController extends Controller
 
     public function get_api_panels_index($id)
     {
-        $webPanel = DB::table('web_panels')->where('id', '=', $id)->first();
+        $webPanel = DB::table('web_panels')
+            ->where('id', '=', $id)
+            ->first();
 
         return view('management.web.api-panels.main')->with([
             'webPanel' => $webPanel
