@@ -31,27 +31,38 @@ class WebOthersController extends Controller
     public function store($panel_id, Request $request)
     {
         $request->validate([
-            'title' => 'required|max:200min:3',
+            'title' => 'required|max:200|min:3',
             'description' => 'required',
             'content' => 'required',
             'image' => 'required',
         ]);
 
-        if (DB::table('web_others')->insertGetId([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'content' => $request->input('content'),
-            'image' => $request->input('image'),
-            'url' => Str::of($request->input('title'))->slug('-'),
-            'panel_id' => $panel_id,
-            "created_at" =>  date('Y-m-d H:i:s'),
-            "updated_at" => date('Y-m-d H:i:s'),
-        ])) {
-            $request->session()->flash('mesajSuccess', 'Başarıyla kaydedildi');
+        $slug = Str::of($request->input('title'))->slug('-');
+
+        if (DB::table('web_others')->where('url', '=', $slug)->count() > 0) {
+
+            $request->session()->flash('mesajDanger', 'Aynı url ait kayıt mevcut');
             return redirect('yonetim/web/api-panels/' . $panel_id . '/others');
         } else {
-            $request->session()->flash('mesajDanger', 'Kayıt sıralasında sorun oluştu');
-            return redirect('yonetim/web/api-panels/' . $panel_id . '/others');
+
+            if (DB::table('web_others')->insertGetId([
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+                'content' => $request->input('content'),
+                'image' => $request->input('image'),
+                'url' => $slug,
+                'panel_id' => $panel_id,
+                "created_at" =>  date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            ])) {
+
+                $request->session()->flash('mesajSuccess', 'Başarıyla kaydedildi');
+                return redirect('yonetim/web/api-panels/' . $panel_id . '/others');
+            } else {
+
+                $request->session()->flash('mesajDanger', 'Kayıt sıralasında sorun oluştu');
+                return redirect('yonetim/web/api-panels/' . $panel_id . '/others');
+            }
         }
     }
 
@@ -71,10 +82,10 @@ class WebOthersController extends Controller
         ]);
     }
 
-    public function update($panel_id, $other_id,Request $request)
+    public function update($panel_id, $other_id, Request $request)
     {
         $request->validate([
-            'title' => 'required|max:200min:3',
+            'title' => 'required|max:200|min:3',
             'description' => 'required',
             'content' => 'required',
             'image' => 'required',
